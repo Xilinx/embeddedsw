@@ -1,0 +1,373 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsu__low__level__example_8c" kind="file">
+    <compoundname>xsysmonpsu_low_level_example.c</compoundname>
+    <includes refid="xsysmonpsu_8h" local="yes">xsysmonpsu.h</includes>
+    <includes refid="xsysmonpsu__hw_8h" local="yes">xsysmonpsu_hw.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="90">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="91">
+        <label>xil_io.h</label>
+      </node>
+      <node id="89">
+        <label>xstatus.h</label>
+      </node>
+      <node id="92">
+        <label>xsysmonpsu_hw.h</label>
+        <link refid="xsysmonpsu__hw_8h"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xil_types.h</label>
+      </node>
+      <node id="87">
+        <label>xsysmonpsu_low_level_example.c</label>
+        <link refid="xsysmonpsu_low_level_example.c"/>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xsysmonpsu.h</label>
+        <link refid="xsysmonpsu_8h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsysmonpsu__low__level__example_8c_1a60341eebd0727da107b0740a7f17d46b" prot="public" static="no">
+        <name>SYSMON_BASEADDR</name>
+        <initializer>0xffa50000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SysMonPsuLowLevelExample</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>SysMonPsuLowLevelExample</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a test on the System Monitor device using the basic driver functions. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function does the following tasks:<itemizedlist>
+<listitem><para>Reset the device</para></listitem><listitem><para>Setup alarm thresholds for on-chip temperature and VCCAUX.</para></listitem><listitem><para>Setup sequence registers to continuously monitor on-chip temperature and VCCAUX.</para></listitem><listitem><para>Setup configuration registers to start the sequence.</para></listitem><listitem><para>Read latest on-chip temperature and VCCAUX, as well as their maximum and minimum values. Also check if alarm(s) are set.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPAR_&lt;SYSMON_instance&gt;_BASEADDRESS value from xparameters.h.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" bodystart="124" bodyend="273"/>
+        <references refid="xsysmonpsu_8h_1a7cd77d90e7456614726390476f3636c8" compoundref="xsysmonpsu_8h" startline="275">XSM_AVG_16_SAMPLES</references>
+        <references refid="xsysmonpsu_8h_1a090e870886f3ed8d58efc57c763772f2" compoundref="xsysmonpsu_8h" startline="287">XSM_SEQ_MODE_CONTINPASS</references>
+        <references refid="xsysmonpsu_8h_1a223c74befcd8a6710ea7a7acbaf41636" compoundref="xsysmonpsu_8h" startline="285">XSM_SEQ_MODE_SAFE</references>
+        <references refid="xsysmonpsu__hw_8h_1a64b865cb3178ee60bb6fb94c822e317d" compoundref="xsysmonpsu__hw_8h" startline="1911">XSYSMONPSU_ALRM_SUP3_LWR_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a3c488cd443d9720dc14a1a5381bcca8d" compoundref="xsysmonpsu__hw_8h" startline="1871">XSYSMONPSU_ALRM_SUP3_UPR_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a531009f056913bfecb5b591d9f91385c" compoundref="xsysmonpsu__hw_8h" startline="1781">XSYSMONPSU_ALRM_TEMP_UPR_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1acc78e04e37a1d847fc610a978356adc1" compoundref="xsysmonpsu__hw_8h" startline="1463">XSYSMONPSU_CFG_REG0_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" compoundref="xsysmonpsu__hw_8h" startline="1496">XSYSMONPSU_CFG_REG1_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a83ea9d678f45ad885e86555b51d308cd" compoundref="xsysmonpsu__hw_8h" startline="73">XSYSMONPSU_ISR_0_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a4f60260a330cb9d25d5ff40a293442c5" compoundref="xsysmonpsu__hw_8h" startline="208">XSYSMONPSU_ISR_1_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a91a2b5503e6ef8e15a007c38cf6fc7a3" compoundref="xsysmonpsu__hw_8h" startline="1311">XSYSMONPSU_MAX_SUP3_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1ac75f621913d7a951c4ae4bf7568b7583" compoundref="xsysmonpsu__hw_8h" startline="1281">XSYSMONPSU_MAX_TEMP_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1ac01bf0b36322c8a07bb391cbc95fd449" compoundref="xsysmonpsu__hw_8h" startline="1351">XSYSMONPSU_MIN_SUP3_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1affd36d6f86790aa558c960f033615c3b" compoundref="xsysmonpsu__hw_8h" startline="1321">XSYSMONPSU_MIN_TEMP_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a26a83b449c5188602bafa2bfaa24e18c" compoundref="xsysmonpsu__hw_8h" startline="1721">XSYSMONPSU_SEQ_AVERAGE0_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1abf302f7a79ec4d2aee5b9756441ce71d" compoundref="xsysmonpsu__hw_8h" startline="1587">XSYSMONPSU_SEQ_CH0_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1ae6db7e651e88b7e5057cda2ba7883aa5" compoundref="xsysmonpsu__hw_8h" startline="1421">XSYSMONPSU_STS_FLAG_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1aa357cac772b514b4a1e28e12fa97d12f" compoundref="xsysmonpsu__hw_8h" startline="1051">XSYSMONPSU_SUP3_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a19b227d2495b41d0f2260aa8a2efe9b3" compoundref="xsysmonpsu__hw_8h" startline="991">XSYSMONPSU_TEMP_OFFSET</references>
+        <references refid="xsysmonpsu__hw_8h_1a69b79177a69bce2ea1055e2b969a9f57" compoundref="xsysmonpsu__hw_8h" startline="1021">XSYSMONPSU_VP_VN_OFFSET</references>
+        <referencedby refid="xsysmonpsu__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsysmonpsu__low__level__example_8c" startline="84" endline="100">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsysmonpsu__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that invokes the example given in this file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c" bodystart="84" bodyend="100"/>
+        <references refid="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" compoundref="xsysmonpsu__low__level__example_8c" startline="124" endline="273">SysMonPsuLowLevelExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the basic driver functions of the System Monitor driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example here shows using the driver/device in polled mode to check the on-chip temperature and voltages.</para><para><simplesect kind="note"><para></para></simplesect>
+The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release
+      mn     03/08/18 Update code to run at higher frequency</preformatted></para><para><preformatted>2.6   aad    11/21/19 Removed reading of AUX channels
+2.9   cog    07/20/23 Added support for SDT flow
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsu__hw_8h" kindref="compound">xsysmonpsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XSYSMONPSU_0_BASEADDR</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xffa50000</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" kindref="member">SysMonPsuLowLevelExample</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="xsysmonpsu__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__ams__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>SysMonitor<sp/>Low<sp/>level<sp/>example,<sp/>specify<sp/>the<sp/>Base<sp/>Address<sp/>that</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>generated<sp/>in<sp/>xparameters.h.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" kindref="member">SysMonPsuLowLevelExample</ref>(SYSMON_BASEADDR);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SysMonPsu<sp/>low<sp/>level<sp/>Test<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>SysMonPsu<sp/>low<sp/>level<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__low__level__example_8c_1a9e7072b7a66ba79e4b21e515b11fa04f" kindref="member">SysMonPsuLowLevelExample</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TempData;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>VccauxData;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusRegister;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>PS<sp/>SysMon<sp/>device.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1a69b79177a69bce2ea1055e2b969a9f57" kindref="member">XSYSMONPSU_VP_VN_OFFSET</ref>,<sp/>XSYSMONPSU_VP_VN_MASK);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>before<sp/>configuring<sp/>the<sp/>Sequence</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers.</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~<sp/>XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>,<sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xsysmonpsu_8h_1a223c74befcd8a6710ea7a7acbaf41636" kindref="member">XSM_SEQ_MODE_SAFE</ref><sp/>&lt;&lt;<sp/>XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT));</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Averaging<sp/>to<sp/>be<sp/>done<sp/>for<sp/>the<sp/>channels<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configuration<sp/>0<sp/>register<sp/>as<sp/>16<sp/>samples:</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acc78e04e37a1d847fc610a978356adc1" kindref="member">XSYSMONPSU_CFG_REG0_OFFSET</ref>)<sp/>&amp;<sp/>(~XSYSMONPSU_CFG_REG0_AVRGNG_MASK);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acc78e04e37a1d847fc610a978356adc1" kindref="member">XSYSMONPSU_CFG_REG0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|<sp/>(<ref refid="xsysmonpsu_8h_1a7cd77d90e7456614726390476f3636c8" kindref="member">XSM_AVG_16_SAMPLES</ref><sp/>&lt;&lt;<sp/>XSYSMONPSU_CFG_REG0_AVRGNG_SHIFT));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>averaging<sp/>on<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers:</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>VCCAUX<sp/>supply<sp/>sensor</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a26a83b449c5188602bafa2bfaa24e18c" kindref="member">XSYSMONPSU_SEQ_AVERAGE0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSYSMONPSU_SEQ_CH0_TEMP_MASK<sp/>|<sp/>XSYSMONPSU_SEQ_CH0_SUP3_MASK));</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer<sp/>registers:</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>VCCAUX<sp/>supply<sp/>sensor</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1abf302f7a79ec4d2aee5b9756441ce71d" kindref="member">XSYSMONPSU_SEQ_CH0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSYSMONPSU_SEQ_CH0_TEMP_MASK<sp/>|<sp/>XSYSMONPSU_SEQ_CH0_SUP3_MASK));</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>any<sp/>bits<sp/>set<sp/>in<sp/>the<sp/>Interrupt<sp/>Status<sp/>Register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusRegister<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a83ea9d678f45ad885e86555b51d308cd" kindref="member">XSYSMONPSU_ISR_0_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a83ea9d678f45ad885e86555b51d308cd" kindref="member">XSYSMONPSU_ISR_0_OFFSET</ref>,<sp/>IntrStatusRegister);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusRegister<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a4f60260a330cb9d25d5ff40a293442c5" kindref="member">XSYSMONPSU_ISR_1_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a4f60260a330cb9d25d5ff40a293442c5" kindref="member">XSYSMONPSU_ISR_1_OFFSET</ref>,<sp/>IntrStatusRegister);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>in<sp/>continuous<sp/>sequencer<sp/>cycling<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>)<sp/>&amp;<sp/>(~<sp/>XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>,<sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a090e870886f3ed8d58efc57c763772f2" kindref="member">XSM_SEQ_MODE_CONTINPASS</ref><sp/>&lt;&lt;<sp/>XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>till<sp/>the<sp/>End<sp/>of<sp/>Sequence<sp/>occurs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusRegister<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a4f60260a330cb9d25d5ff40a293442c5" kindref="member">XSYSMONPSU_ISR_1_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((IntrStatusRegister<sp/>&amp;<sp/>XSYSMONPSU_ISR_1_EOS_MASK)<sp/>!=<sp/>XSYSMONPSU_ISR_1_EOS_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusRegister<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a4f60260a330cb9d25d5ff40a293442c5" kindref="member">XSYSMONPSU_ISR_1_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>the<sp/>on-chip<sp/>temperature.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a19b227d2495b41d0f2260aa8a2efe9b3" kindref="member">XSYSMONPSU_TEMP_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>the<sp/>on-chip<sp/>VCCAUX<sp/>voltage.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1aa357cac772b514b4a1e28e12fa97d12f" kindref="member">XSYSMONPSU_SUP3_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>all<sp/>the<sp/>alarms<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>Alarm<sp/>threshold<sp/>registers<sp/>for</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>On-chip<sp/>Temperature<sp/>High<sp/>limit</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>High<sp/>limit</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>Low<sp/>limit</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a531009f056913bfecb5b591d9f91385c" kindref="member">XSYSMONPSU_ALRM_TEMP_UPR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>-<sp/>0x6F);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a3c488cd443d9720dc14a1a5381bcca8d" kindref="member">XSYSMONPSU_ALRM_SUP3_UPR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>-<sp/>0x6F);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a64b865cb3178ee60bb6fb94c822e317d" kindref="member">XSYSMONPSU_ALRM_SUP3_LWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>+<sp/>0x6F);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>Alarm<sp/>0<sp/>for<sp/>on-chip<sp/>temperature<sp/>and<sp/>Alarm<sp/>2<sp/>for<sp/>on-chip</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>1.</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>)<sp/>&amp;<sp/>(~XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>((~(XSYSMONPSU_CFR_REG1_ALRM_SUP3_MASK<sp/>|<sp/>XSYSMONPSU_CFR_REG1_ALRM_TEMP_MASK))<sp/>&amp;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysmonPsu_WriteReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1acd26481ffd9f4c26a41779246aa2cf8a" kindref="member">XSYSMONPSU_CFG_REG1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>on-chip<sp/>temperature.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a19b227d2495b41d0f2260aa8a2efe9b3" kindref="member">XSYSMONPSU_TEMP_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Maximum<sp/>value<sp/>of<sp/>on-chip<sp/>temperature.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1ac75f621913d7a951c4ae4bf7568b7583" kindref="member">XSYSMONPSU_MAX_TEMP_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Minimum<sp/>value<sp/>of<sp/>on-chip<sp/>temperature.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1affd36d6f86790aa558c960f033615c3b" kindref="member">XSYSMONPSU_MIN_TEMP_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>alarm<sp/>for<sp/>on-chip<sp/>temperature<sp/>is<sp/>set.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1ae6db7e651e88b7e5057cda2ba7883aa5" kindref="member">XSYSMONPSU_STS_FLAG_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/>&lt;&lt;<sp/>XSYSMONPSU_STS_FLAG_ALM_2_0_SHIFT;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegValue)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Alarm<sp/>for<sp/>on-chip<sp/>temperature<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>required<sp/>processing<sp/>should<sp/>be<sp/>put<sp/>here.</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1aa357cac772b514b4a1e28e12fa97d12f" kindref="member">XSYSMONPSU_SUP3_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Maximum<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1a91a2b5503e6ef8e15a007c38cf6fc7a3" kindref="member">XSYSMONPSU_MAX_SUP3_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Minimum<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1ac01bf0b36322c8a07bb391cbc95fd449" kindref="member">XSYSMONPSU_MIN_SUP3_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>alarm<sp/>for<sp/>on-chip<sp/>VCCAUX<sp/>is<sp/>set.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XSysmonPsu_ReadReg(BaseAddress<sp/>+<sp/>XPS_BA_OFFSET<sp/>+<sp/><ref refid="xsysmonpsu__hw_8h_1ae6db7e651e88b7e5057cda2ba7883aa5" kindref="member">XSYSMONPSU_STS_FLAG_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/>&lt;&lt;<sp/>XSYSMONPSU_STS_FLAG_ALM_6_3_WIDTH;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegValue)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Alarm<sp/>for<sp/>on-chip<sp/>VCCAUX<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>required<sp/>processing<sp/>should<sp/>be<sp/>put<sp/>here.</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_low_level_example.c"/>
+  </compounddef>
+</doxygen>

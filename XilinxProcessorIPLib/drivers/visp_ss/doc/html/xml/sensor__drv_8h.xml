@@ -1,0 +1,783 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="sensor__drv_8h" kind="file">
+    <compoundname>sensor_drv.h</compoundname>
+    <includes refid="isi__iss_8h" local="yes">isi_iss.h</includes>
+    <includedby refid="isi__control_8c" local="yes">isi_control.c</includedby>
+    <includedby refid="sensor__drv_8c" local="yes">sensor_drv.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="7664">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="7665" relation="include">
+        </childnode>
+        <childnode refid="7671" relation="include">
+        </childnode>
+        <childnode refid="7672" relation="include">
+        </childnode>
+      </node>
+      <node id="7671">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="7668">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7670">
+        <label>stddef.h</label>
+      </node>
+      <node id="7669">
+        <label>limits.h</label>
+      </node>
+      <node id="7673">
+        <label>buf_defs.h</label>
+        <childnode refid="7665" relation="include">
+        </childnode>
+      </node>
+      <node id="7674">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi__vvsensor_8h"/>
+        <childnode refid="7675" relation="include">
+        </childnode>
+      </node>
+      <node id="7672">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="7665" relation="include">
+        </childnode>
+        <childnode refid="7671" relation="include">
+        </childnode>
+        <childnode refid="7673" relation="include">
+        </childnode>
+        <childnode refid="7674" relation="include">
+        </childnode>
+        <childnode refid="7676" relation="include">
+        </childnode>
+        <childnode refid="7677" relation="include">
+        </childnode>
+      </node>
+      <node id="7677">
+        <label>isi_metadata.h</label>
+        <childnode refid="7665" relation="include">
+        </childnode>
+        <childnode refid="7674" relation="include">
+        </childnode>
+      </node>
+      <node id="7676">
+        <label>isi_otp.h</label>
+        <childnode refid="7665" relation="include">
+        </childnode>
+        <childnode refid="7675" relation="include">
+        </childnode>
+      </node>
+      <node id="7675">
+        <label>isi_common.h</label>
+        <link refid="isi__common_8h"/>
+      </node>
+      <node id="7663">
+        <label>sensor_drv.h</label>
+        <link refid="sensor_drv.h"/>
+        <childnode refid="7664" relation="include">
+        </childnode>
+      </node>
+      <node id="7665">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7666" relation="include">
+        </childnode>
+        <childnode refid="7669" relation="include">
+        </childnode>
+        <childnode refid="7670" relation="include">
+        </childnode>
+      </node>
+      <node id="7667">
+        <label>stdio.h</label>
+      </node>
+      <node id="7666">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7667" relation="include">
+        </childnode>
+        <childnode refid="7668" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7681">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="7680">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="7679">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="7678">
+        <label>sensor_drv.h</label>
+        <link refid="sensor_drv.h"/>
+        <childnode refid="7679" relation="include">
+        </childnode>
+        <childnode refid="7680" relation="include">
+        </childnode>
+        <childnode refid="7681" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_sensor_drv_config__s" prot="public">SensorDrvConfig_s</innerclass>
+    <innerclass refid="struct_sensor_drv_list__s" prot="public">SensorDrvList_s</innerclass>
+    <innerclass refid="structsensor_port_info__s" prot="public">sensorPortInfo_s</innerclass>
+    <innerclass refid="struct_sensor_drv_config_list__s" prot="public">SensorDrvConfigList_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_module_map_cfg__s" prot="public">CamDeviceSensorModuleMapCfg_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_drv_mode_info__s" prot="public">CamDeviceSensorDrvModeInfo_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_list_info__s" prot="public">CamDeviceSensorListInfo_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_connect_port_info__s" prot="public">CamDeviceSensorConnectPortInfo_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="sensor__drv_8h_1a8d77647bd9c2490c5505c759dcbc7624" prot="public" static="no">
+        <name>SENSOR_DRV_NUM</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Sensor query number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensor__drv_8h_1a002b0844653e6dc1d01b3a56ff4da2d0" prot="public" static="no">
+        <name>SENSOR_MODULE_NAME</name>
+        <initializer>50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97" prot="public" static="no">
+        <name>SensorDrvId_e</name>
+        <enumvalue id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97aff8db909b7f13de80fa97b257ab4a3e5" prot="public">
+          <name>SENSOR_DRV_ID_0</name>
+          <briefdescription>
+<para>Video input sensor index 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97a6adae4fbc197e6c1ba549dd4cffebbcc" prot="public">
+          <name>SENSOR_DRV_ID_1</name>
+          <briefdescription>
+<para>Video input sensor index 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97ac0faceabf5337748eb592ac571c4f000" prot="public">
+          <name>SENSOR_DRV_ID_2</name>
+          <briefdescription>
+<para>Video input sensor index 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97a8e493d8b3e3d7acc050fbbb3925ef77c" prot="public">
+          <name>SENSOR_DRV_ID_3</name>
+          <briefdescription>
+<para>Video input sensor index 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__drv_8h_1a37ea6542b5a70fd2629f0b79935e1b97a7297c9d0d05c9e0a5754d2161eb96913" prot="public">
+          <name>SENSOR_DRV_ID_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="71" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="sensor__drv_8h_1a2f830a5e504fcd4dc1a2d1a6bae84ffe" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* CamDeviceSensorDrvHandle_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorDrvHandle_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a1b482a8ec88c6a3c19783bce594c3905" prot="public" static="no">
+        <type>struct SensorDrvConfig_s</type>
+        <definition>typedef struct SensorDrvConfig_s  SensorDrvConfig_t</definition>
+        <argsstring></argsstring>
+        <name>SensorDrvConfig_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a0b19e2246d308886f9cb5cc1d54b8bac" prot="public" static="no">
+        <type>struct SensorDrvList_s</type>
+        <definition>typedef struct SensorDrvList_s  SensorDrvList_t</definition>
+        <argsstring></argsstring>
+        <name>SensorDrvList_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a42524de8cce011196a1c302114bc11ac" prot="public" static="no">
+        <type>struct sensorPortInfo_s</type>
+        <definition>typedef struct sensorPortInfo_s  sensorPortInfo_t</definition>
+        <argsstring></argsstring>
+        <name>sensorPortInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a82c91b2512f0dd21d0f68879d68bfb89" prot="public" static="no">
+        <type>struct SensorDrvConfigList_s</type>
+        <definition>typedef struct SensorDrvConfigList_s  SensorDrvConfigList_t</definition>
+        <argsstring></argsstring>
+        <name>SensorDrvConfigList_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a1057e24b7be52afe7c9bfb6e5eb85af4" prot="public" static="no">
+        <type>enum SensorDrvId_e</type>
+        <definition>typedef enum SensorDrvId_e SensorDrvId_t</definition>
+        <argsstring></argsstring>
+        <name>SensorDrvId_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a9ece78c9faecadb7d3c3708c6afec467" prot="public" static="no">
+        <type>struct CamDeviceSensorModuleMapCfg_s</type>
+        <definition>typedef struct CamDeviceSensorModuleMapCfg_s CamDeviceSensorModuleMapCfg_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorModuleMapCfg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a9c1ecc60ae5912f31742fcbe52c548a0" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorDrvModeInfo_s CamDeviceSensorDrvModeInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorDrvModeInfo_t</name>
+        <briefdescription>
+<para>CamDevice sensor driver mode information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1a79fe842f503b298b6082a5474b3bddd0" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorListInfo_s CamDeviceSensorListInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorListInfo_t</name>
+        <briefdescription>
+<para>CamDevice sensor mode list information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="sensor__drv_8h_1ac1287c01764a4bb7a715ddd3e389451d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorConnectPortInfo_s CamDeviceSensorConnectPortInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorConnectPortInfo_t</name>
+        <briefdescription>
+<para>CamDevice sensor connection port information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="124" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sensor__drv_8h_1ada5562fd40d1799f0f2a54d314630c14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT SensorDrvConfigMapping</definition>
+        <argsstring>(const CamDeviceSensorModuleMapCfg_t *pModuleInfo, IsiCamDrvConfig_t **pSensorConfig)</argsstring>
+        <name>SensorDrvConfigMapping</name>
+        <param>
+          <type>const CamDeviceSensorModuleMapCfg_t *</type>
+          <declname>pModuleInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref> **</type>
+          <declname>pSensorConfig</declname>
+        </param>
+        <briefdescription>
+<para>SensorDrvConfigMapping. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor config mapping.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSensorName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the isi sensor driver config</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_OUTOFMEM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8h_1af1024b1f477eb572990fb0fd2d6432ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetNumber</definition>
+        <argsstring>(uint16_t *pNumber)</argsstring>
+        <name>VsiCamDeviceSensorGetNumber</name>
+        <param>
+          <type>uint16_t *</type>
+          <declname>pNumber</declname>
+        </param>
+        <briefdescription>
+<para>Gets the number of sensors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="43" bodyend="77"/>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8h_1a458cbae82977ab34a30d911e23cab829" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetListInfo</definition>
+        <argsstring>(CamDeviceSensorListInfo_t *pSensorListInfo, const uint16_t sensorNum)</argsstring>
+        <name>VsiCamDeviceSensorGetListInfo</name>
+        <param>
+          <type><ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref> *</type>
+          <declname>pSensorListInfo</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>sensorNum</declname>
+        </param>
+        <briefdescription>
+<para>Gets all sensor mode information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSensorListInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor mode list </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sensorNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of sensors</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="80" bodyend="117"/>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8h_1ace57887c24f6bf4d5db0ccb97014e2cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetConnectPortInfo</definition>
+        <argsstring>(SensorDrvId_t sensorDrvId, CamDeviceSensorConnectPortInfo_t *pPortInfo)</argsstring>
+        <name>VsiCamDeviceSensorGetConnectPortInfo</name>
+        <param>
+          <type>SensorDrvId_t</type>
+          <declname>sensorDrvId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref> *</type>
+          <declname>pPortInfo</declname>
+        </param>
+        <briefdescription>
+<para>Gets the name of sensor which is connected to FPGA i2c-8/9/10/11. </para>        </briefdescription>
+        <detaileddescription>
+<para>Currently, only i2c-8/9 query is supported.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>portId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>FPGA port index </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pPortInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the port information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="189" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8h_1ab4e700ca39795736266f00e055261fc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorMapping</definition>
+        <argsstring>(const CamDeviceSensorModuleMapCfg_t *pModuleInfo, CamDeviceSensorDrvHandle_t *pSensorDrvhandle)</argsstring>
+        <name>VsiCamDeviceSensorMapping</name>
+        <param>
+          <type>const CamDeviceSensorModuleMapCfg_t *</type>
+          <declname>pModuleInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga2f830a5e504fcd4dc1a2d1a6bae84ffe" kindref="member">CamDeviceSensorDrvHandle_t</ref> *</type>
+          <declname>pSensorDrvhandle</declname>
+        </param>
+        <briefdescription>
+<para>Mapping the sensor driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSensorName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sensor driver name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorDrvhandle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor driver handle pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation failed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Null pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine in wrong state </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature not supported </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_INVALID_PARM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid parameter </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="158" bodyend="217"/>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+        <references refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" compoundref="return__codes_8h" startline="47">RET_OUTOFMEM</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__SENSOR_DRV_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__SENSOR_DRV_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="isi__iss_8h" kindref="compound">isi_iss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SENSOR_DRV_NUM<sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#define<sp/>SENSOR_MODULE_NAME<sp/><sp/>50</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/><ref refid="group____cam__device__sensor_1ga2f830a5e504fcd4dc1a2d1a6bae84ffe" kindref="member">CamDeviceSensorDrvHandle_t</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">SensorDrvConfig_s</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pSensorName;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>*pSensorConfig;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}<sp/>SensorDrvConfig_t;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">SensorDrvList_s</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>name[20];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorMode_t<sp/>*pSensorMode;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}<sp/>SensorDrvList_t;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">sensorPortInfo_s</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>chipId;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>name[20];</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}<sp/>sensorPortInfo_t;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">SensorDrvConfigList_s</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pSensorName;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>slaveAddr;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>regWidth;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>dataWidth;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>regAddr[3];</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>sensorId;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/>SensorDrvConfigList_t;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>SensorDrvId_e<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>SENSOR_DRV_ID_0,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>SENSOR_DRV_ID_1,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>SENSOR_DRV_ID_2,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>SENSOR_DRV_ID_3,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>SENSOR_DRV_ID_MAX,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}SensorDrvId_t;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CamDeviceSensorModuleMapCfg_s<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>moduleName[SENSOR_MODULE_NAME];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>sensorDevId;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}CamDeviceSensorModuleMapCfg_t;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="89" refid="struct_cam_device_sensor_drv_mode_info__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="90" refid="struct_cam_device_sensor_drv_mode_info__s_1a3928ce7f31efe27165349b88eb04ea0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a3928ce7f31efe27165349b88eb04ea0e" kindref="member">index</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_cam_device_sensor_drv_mode_info__s_1a6e2a8bfa370856d25d9296b821f38a66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a6e2a8bfa370856d25d9296b821f38a66" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_cam_device_sensor_drv_mode_info__s_1a06e6d83c9c1cb6c0ccf76a8d8cbe4ab1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a06e6d83c9c1cb6c0ccf76a8d8cbe4ab1" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_cam_device_sensor_drv_mode_info__s_1a1de8fa39dd054d6b7aed81775f35b51e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorHdrMode_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a1de8fa39dd054d6b7aed81775f35b51e" kindref="member">sensorType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_cam_device_sensor_drv_mode_info__s_1ac27a7304aee79b46cf6478796a6534b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorStitchingMode_t<sp/><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1ac27a7304aee79b46cf6478796a6534b8" kindref="member">stitchingMode</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_cam_device_sensor_drv_mode_info__s_1a7678d8d843a3945cf65fec5a9b30995f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorNativeMode_t<sp/><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a7678d8d843a3945cf65fec5a9b30995f" kindref="member">nativeMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_cam_device_sensor_drv_mode_info__s_1abc42debab2cdbd89d347ce99b5cc06f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1abc42debab2cdbd89d347ce99b5cc06f1" kindref="member">bitWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_cam_device_sensor_drv_mode_info__s_1a2ce24bd23a4340e80dcbce18bc928895" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__isi__iss_1ga42f89b8dfb3e7dcd9b143b5c4fd2bd99" kindref="member">IsiBayerPattern_t</ref><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a2ce24bd23a4340e80dcbce18bc928895" kindref="member">bayerPattern</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_cam_device_sensor_drv_mode_info__s_1a883ebc8d1a7aebea486a8f071c530895" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a883ebc8d1a7aebea486a8f071c530895" kindref="member">maxFps</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_cam_device_sensor_drv_mode_info__s_1a0f0ab1dc8ed797f1e0c60bf751ae7c08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorAfMode_t<sp/><sp/><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a0f0ab1dc8ed797f1e0c60bf751ae7c08" kindref="member">afMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_cam_device_sensor_drv_mode_info__s_1a89e868aca33ae54db9c8d86ff2951b22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a89e868aca33ae54db9c8d86ff2951b22" kindref="member">dataType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_cam_device_sensor_drv_mode_info__s_1a01cc9cd87d08fcce7e6e69f9085622fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a01cc9cd87d08fcce7e6e69f9085622fd" kindref="member">itfType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_cam_device_sensor_drv_mode_info__s_1a9521c73175c18141bd663a45c6a4c501" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiSensorAeInfo_t<sp/><sp/><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s_1a9521c73175c18141bd663a45c6a4c501" kindref="member">aeInfo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_t</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="struct_cam_device_sensor_list_info__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="111" refid="struct_cam_device_sensor_list_info__s_1a47e1b90d5f34fd980886f42a3d9f635b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_list_info__s_1a47e1b90d5f34fd980886f42a3d9f635b" kindref="member">number</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_cam_device_sensor_list_info__s_1a661fd769ed39a78c2bfd63897336d063" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_sensor_list_info__s_1a661fd769ed39a78c2bfd63897336d063" kindref="member">name</ref>[20];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_cam_device_sensor_list_info__s_1a250bd6124d69bf3e9a28bb04b964c1c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_t</ref><sp/><ref refid="struct_cam_device_sensor_list_info__s_1a250bd6124d69bf3e9a28bb04b964c1c4" kindref="member">sensorModeInfo</ref>[SENSOR_DRV_NUM];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_sensor_connect_port_info__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_sensor_connect_port_info__s_1a55f2794d67517ac027ac17b2895ba53f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_sensor_connect_port_info__s_1a55f2794d67517ac027ac17b2895ba53f" kindref="member">chipId</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_cam_device_sensor_connect_port_info__s_1a31141e9e42f8307b057e19f1403f94cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_sensor_connect_port_info__s_1a31141e9e42f8307b057e19f1403f94cf" kindref="member">name</ref>[20];<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}<ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">RESULT<sp/>SensorDrvConfigMapping</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CamDeviceSensorModuleMapCfg_t<sp/><sp/>*pModuleInfo,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>**pSensorConfig</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" kindref="member">VsiCamDeviceSensorGetNumber</ref></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pNumber</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" kindref="member">VsiCamDeviceSensorGetListInfo</ref></highlight></codeline>
+<codeline lineno="173"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref><sp/>*pSensorListInfo,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint16_t<sp/>sensorNum</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">RESULT<sp/>VsiCamDeviceSensorGetConnectPortInfo</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>SensorDrvId_t<sp/><sp/>sensorDrvId,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref><sp/>*pPortInfo</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" kindref="member">VsiCamDeviceSensorMapping</ref></highlight></codeline>
+<codeline lineno="212"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CamDeviceSensorModuleMapCfg_t<sp/><sp/>*pModuleInfo,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceSensorDrvHandle_t<sp/>*pSensorDrvhandle</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/>//<sp/>__SENSOR_DRV_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,571 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnandps__bbm_8h" kind="file">
+    <compoundname>xnandps_bbm.h</compoundname>
+    <includes refid="xnandps_8h" local="yes">xnandps.h</includes>
+    <includedby refid="xnandps_8c" local="yes">xnandps.c</includedby>
+    <includedby refid="xnandps__bbm_8c" local="yes">xnandps_bbm.c</includedby>
+    <includedby refid="xnandps__cache__example_8c" local="no">xnandps_cache_example.c</includedby>
+    <includedby refid="xnandps__example_8c" local="no">xnandps_example.c</includedby>
+    <includedby refid="xnandps__skip__example_8c" local="no">xnandps_skip_example.c</includedby>
+    <incdepgraph>
+      <node id="49">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="50">
+        <label>xil_io.h</label>
+      </node>
+      <node id="46">
+        <label>xnandps.h</label>
+        <link refid="xnandps_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xnandps_hw.h</label>
+        <link refid="xnandps__hw_8h"/>
+      </node>
+      <node id="47">
+        <label>string.h</label>
+      </node>
+      <node id="51">
+        <label>xstatus.h</label>
+      </node>
+      <node id="45">
+        <label>xnandps_bbm.h</label>
+        <link refid="xnandps_bbm.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="56">
+        <label>xnandps_cache_example.c</label>
+        <link refid="xnandps__cache__example_8c"/>
+      </node>
+      <node id="54">
+        <label>xnandps.c</label>
+        <link refid="xnandps_8c"/>
+      </node>
+      <node id="55">
+        <label>xnandps_bbm.c</label>
+        <link refid="xnandps__bbm_8c"/>
+      </node>
+      <node id="53">
+        <label>xnandps_bbm.h</label>
+        <link refid="xnandps_bbm.h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xnandps_skip_example.c</label>
+        <link refid="xnandps__skip__example_8c"/>
+      </node>
+      <node id="57">
+        <label>xnandps_example.c</label>
+        <link refid="xnandps__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__nandps_1ga6ed742001748dc3dce1411716660b1e3" prot="public" static="no">
+        <name>BBM_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga8ffc4c5be52b4ca7d07c2b5a159bec99" prot="public" static="no">
+        <name>XNANDPS_BLOCK_GOOD</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Block is good. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga52a13ba6c5dc5ae22cad93b73ec66503" prot="public" static="no">
+        <name>XNANDPS_BLOCK_BAD</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Block is bad. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gaa6ac6d803ac18454c61045a7aef97920" prot="public" static="no">
+        <name>XNANDPS_BLOCK_RESERVED</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Reserved block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gad4781005bbcccdccba1bd02497925ec4" prot="public" static="no">
+        <name>XNANDPS_BLOCK_FACTORY_BAD</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Factory marked bad block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gacd3b0fdad08c44639c327ad0afdc1b7e" prot="public" static="no">
+        <name>XNANDPS_FLASH_BLOCK_GOOD</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Block is good. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga27509962745af9175e06726f033d0796" prot="public" static="no">
+        <name>XNANDPS_FLASH_BLOCK_BAD</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Block is bad. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gaab0ab3b8f4cc986ba9c7e2ddea945190" prot="public" static="no">
+        <name>XNANDPS_FLASH_BLOCK_RESERVED</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Reserved block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga54d601640a21f22188696844fc7b312c" prot="public" static="no">
+        <name>XNANDPS_FLASH_BLOCK_FACTORY_BAD</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Factory marked bad block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga5457296025d8fd9a120bb91e9d758127" prot="public" static="no">
+        <name>XNANDPS_BBT_SCAN_2ND_PAGE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Scan the second page for bad block information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga4b345667d0e5773945afba7f32e71197" prot="public" static="no">
+        <name>XNANDPS_BBT_DESC_PAGE_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Page offset of Bad Block Table Desc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga574ae11e1b61cbe8c252809811b7e9a4" prot="public" static="no">
+        <name>XNANDPS_BBT_DESC_SIG_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Bad Block Table signature offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gaab896c9f1fca0c7c89748f5e8fef9f28" prot="public" static="no">
+        <name>XNANDPS_BBT_DESC_VER_OFFSET</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Bad block Table version offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga13ccee0248f97c8797d2d8cc91c9c235" prot="public" static="no">
+        <name>XNANDPS_BBT_DESC_SIG_LEN</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bad block Table signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga7ea379639132add0b9fa16f9f5faddc9" prot="public" static="no">
+        <name>XNANDPS_BBT_DESC_MAX_BLOCKS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bad block Table max blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga6b09191846a32df39daaa50cb7e7ab0a" prot="public" static="no">
+        <name>XNANDPS_BBT_BLOCK_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Block shift value for a block in BBT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga7bdde5a8f13f65b23cc2d3382c8ab884" prot="public" static="no">
+        <name>XNANDPS_BBT_ENTRY_NUM_BLOCKS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Num of blocks in one BBT entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga923e66dcd7aa633f9d7834f37366a7ef" prot="public" static="no">
+        <name>XNANDPS_BB_PATTERN_OFFSET_SMALL_PAGE</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Bad block pattern offset in a page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gafed66cfe949f16e69c3a99b0183183d9" prot="public" static="no">
+        <name>XNANDPS_BB_PATTERN_LENGTH_SMALL_PAGE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bad block pattern length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gabc8529210c261e24ffbeae2ec2774702" prot="public" static="no">
+        <name>XNANDPS_BB_PATTERN_OFFSET_LARGE_PAGE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bad block pattern offset in a large page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga89b88c9d4f553dcac407ca987afaa775" prot="public" static="no">
+        <name>XNANDPS_BB_PATTERN_LENGTH_LARGE_PAGE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Bad block pattern length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga7f1a2e914cdaa10ad2c730958cbffc98" prot="public" static="no">
+        <name>XNANDPS_BB_PATTERN</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Bad block pattern to search in a page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gac547ca7c91b79d5437cf58f29c0fda1e" prot="public" static="no">
+        <name>XNANDPS_BLOCK_TYPE_MASK</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Block type mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1gaf7c432bad01dd727f91f1f0435f92cac" prot="public" static="no">
+        <name>XNANDPS_BLOCK_SHIFT_MASK</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Block shift mask for a Bad Block Table entry byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandps_1ga820a56f0443165ef4e45daafb8bfb604" prot="public" static="no">
+        <name>XNandPs_BbtBlockShift</name>
+        <param><defname>Block</defname></param>
+        <initializer>((Block * 2) &amp; <ref refid="group__nandps_1gaf7c432bad01dd727f91f1f0435f92cac" kindref="member">XNANDPS_BLOCK_SHIFT_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro returns the Block shift value corresponding to a Block. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Block shift value</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNandPs_IsBlockBad</definition>
+        <argsstring>(XNandPs *InstancePtr, u32 Block)</argsstring>
+        <name>XNandPs_IsBlockBad</name>
+        <param>
+          <type><ref refid="group__nandps_1gaf0def4ad29325b821b3fd4127740dfbe" kindref="member">XNandPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Block</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether a block is bad or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XNandPs instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.c" line="775" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.c" bodystart="775" bodyend="796"/>
+        <references refid="struct_x_nand_ps_tag_1a29ecaa7b4ab49c591e0a52fa425d1ff3" compoundref="xnandps_8h" startline="403">XNandPsTag::Bbt</references>
+        <references refid="struct_x_nand_ps_tag_1aad4084a7b6b1ea6b1ec350dd22203e50" compoundref="xnandps_8h" startline="390">XNandPsTag::IsReady</references>
+        <references refid="group__nandps_1ga6b09191846a32df39daaa50cb7e7ab0a" compoundref="xnandps__bbm_8h" startline="122">XNANDPS_BBT_BLOCK_SHIFT</references>
+        <references refid="group__nandps_1ga820a56f0443165ef4e45daafb8bfb604" compoundref="xnandps__bbm_8h" startline="170">XNandPs_BbtBlockShift</references>
+        <references refid="group__nandps_1ga8ffc4c5be52b4ca7d07c2b5a159bec99" compoundref="xnandps__bbm_8h" startline="81">XNANDPS_BLOCK_GOOD</references>
+        <references refid="group__nandps_1gac547ca7c91b79d5437cf58f29c0fda1e" compoundref="xnandps__bbm_8h" startline="147">XNANDPS_BLOCK_TYPE_MASK</references>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a007e1cf863dd10df6ba60491d5a65d91" compoundref="xnandps__skip__example_8c" startline="246" endline="275">XNandPs_CalculateLength</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a306e1266e543ed16dd48ace99decf338" compoundref="xnandps__skip__example_8c" startline="455" endline="514">XNandPs_SkipErase</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1aec7794d74a6cc5fc91517214704f0e1d" compoundref="xnandps__skip__example_8c" startline="295" endline="354">XNandPs_SkipRead</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a8fc271bb953ab1f471ed1c9c577c45cf" compoundref="xnandps__skip__example_8c" startline="374" endline="436">XNandPs_SkipWrite</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNandPs_MarkBlockBad</definition>
+        <argsstring>(XNandPs *InstancePtr, u32 Block)</argsstring>
+        <name>XNandPs_MarkBlockBad</name>
+        <param>
+          <type><ref refid="group__nandps_1gaf0def4ad29325b821b3fd4127740dfbe" kindref="member">XNandPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Block</declname>
+        </param>
+        <briefdescription>
+<para>This function marks a block as bad in the RAM based Bad Block Table(BBT). </para>        </briefdescription>
+        <detaileddescription>
+<para>It also updates the Bad Block Table(BBT) in the flash.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XNandPs instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.c" line="811" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.c" bodystart="811" bodyend="847"/>
+        <references refid="struct_x_nand_ps_tag_1a29ecaa7b4ab49c591e0a52fa425d1ff3" compoundref="xnandps_8h" startline="403">XNandPsTag::Bbt</references>
+        <references refid="struct_x_nand_ps_tag_1aad4084a7b6b1ea6b1ec350dd22203e50" compoundref="xnandps_8h" startline="390">XNandPsTag::IsReady</references>
+        <references refid="group__nandps_1ga6b09191846a32df39daaa50cb7e7ab0a" compoundref="xnandps__bbm_8h" startline="122">XNANDPS_BBT_BLOCK_SHIFT</references>
+        <references refid="group__nandps_1ga820a56f0443165ef4e45daafb8bfb604" compoundref="xnandps__bbm_8h" startline="170">XNandPs_BbtBlockShift</references>
+        <references refid="group__nandps_1ga52a13ba6c5dc5ae22cad93b73ec66503" compoundref="xnandps__bbm_8h" startline="82">XNANDPS_BLOCK_BAD</references>
+        <references refid="group__nandps_1gac547ca7c91b79d5437cf58f29c0fda1e" compoundref="xnandps__bbm_8h" startline="147">XNANDPS_BLOCK_TYPE_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2009<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#ifndef<sp/>BBM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BBM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnandps_8h" kindref="compound">xnandps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>Block<sp/>definitions<sp/>for<sp/>RAM<sp/>based<sp/>Bad<sp/>Block<sp/>Table<sp/>(BBT)</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="group__nandps_1ga8ffc4c5be52b4ca7d07c2b5a159bec99" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_GOOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__nandps_1ga52a13ba6c5dc5ae22cad93b73ec66503" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group__nandps_1gaa6ac6d803ac18454c61045a7aef97920" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__nandps_1gad4781005bbcccdccba1bd02497925ec4" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_FACTORY_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>Block<sp/>definitions<sp/>for<sp/>FLASH<sp/>based<sp/>Bad<sp/>Block<sp/>Table<sp/>(BBT)</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPS_FLASH_BLOCK_GOOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__nandps_1gacd3b0fdad08c44639c327ad0afdc1b7e" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_FLASH_BLOCK_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__nandps_1ga27509962745af9175e06726f033d0796" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_FLASH_BLOCK_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__nandps_1gaab0ab3b8f4cc986ba9c7e2ddea945190" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_FLASH_BLOCK_FACTORY_BAD<sp/>0x0<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_SCAN_2ND_PAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_DESC_PAGE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_DESC_SIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_DESC_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__nandps_1ga4b345667d0e5773945afba7f32e71197" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_DESC_SIG_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_DESC_MAX_BLOCKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_BLOCK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XNANDPS_BBT_ENTRY_NUM_BLOCKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__nandps_1ga13ccee0248f97c8797d2d8cc91c9c235" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BB_PATTERN_OFFSET_SMALL_PAGE<sp/><sp/><sp/><sp/>5<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XNANDPS_BB_PATTERN_LENGTH_SMALL_PAGE<sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XNANDPS_BB_PATTERN_OFFSET_LARGE_PAGE<sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="group__nandps_1ga6b09191846a32df39daaa50cb7e7ab0a" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BB_PATTERN_LENGTH_LARGE_PAGE<sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XNANDPS_BB_PATTERN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="group__nandps_1ga923e66dcd7aa633f9d7834f37366a7ef" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPS_BLOCK_SHIFT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="group__nandps_1gabc8529210c261e24ffbeae2ec2774702" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="group__nandps_1gaf7c432bad01dd727f91f1f0435f92cac" refkind="member"><highlight class="preprocessor">#define<sp/>XNandPs_BbtBlockShift(Block)<sp/>\</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Block<sp/>*<sp/>2)<sp/>&amp;<sp/>XNANDPS_BLOCK_SHIFT_MASK)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" kindref="member">XNandPs_IsBlockBad</ref>(<ref refid="struct_x_nand_ps_tag" kindref="compound">XNandPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Block);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" kindref="member">XNandPs_MarkBlockBad</ref>(<ref refid="struct_x_nand_ps_tag" kindref="compound">XNandPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Block);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps_bbm.h"/>
+  </compounddef>
+</doxygen>

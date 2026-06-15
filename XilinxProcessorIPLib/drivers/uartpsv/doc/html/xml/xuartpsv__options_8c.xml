@@ -1,0 +1,1111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartpsv__options_8c" kind="file">
+    <compoundname>xuartpsv_options.c</compoundname>
+    <includes refid="xuartpsv_8h" local="yes">xuartpsv.h</includes>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="110">
+        <label>xil_io.h</label>
+      </node>
+      <node id="104">
+        <label>xuartpsv_options.c</label>
+        <link refid="xuartpsv_options.c"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xuartpsv.h</label>
+        <link refid="xuartpsv_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="112">
+        <label>xil_util.h</label>
+      </node>
+      <node id="109">
+        <label>xuartpsv_hw.h</label>
+        <link refid="xuartpsv__hw_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xstatus.h</label>
+      </node>
+      <node id="106">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_mapping" prot="public">Mapping</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" prot="public" static="no">
+        <name>XUARTPSV_NUM_OPTIONS</name>
+        <initializer>(sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))</initializer>
+        <briefdescription>
+<para>No. </para>        </briefdescription>
+        <detaileddescription>
+<para>of options </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1ga30dc7c90e0cc1a859ae286f1bb4fb3cf" compoundref="xuartpsv__options_8c" startline="99" endline="129">XUartPsv_GetOptions</referencedby>
+        <referencedby refid="group__uartpsv_1gada7b7128f09873d46fc19d0d9cf91751" compoundref="xuartpsv__options_8c" startline="152" endline="181">XUartPsv_SetOptions</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__uartpsv_1ga573a42d6379efb48b36edbf5411aa8b3" prot="public" static="yes" mutable="no">
+        <type>Mapping</type>
+        <definition>Mapping XUartPsv_OptionsTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XUartPsv_OptionsTable</name>
+        <initializer>= {
+	{<ref refid="group__uartpsv_1gae157cd3f31c13e33436f6654eca55689" kindref="member">XUARTPSV_OPTION_SET_BREAK</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga7a415054abfc09f2e9fc92c592feb074" kindref="member">XUARTPSV_UARTLCR_BRK</ref>},
+	{<ref refid="group__uartpsv_1ga35ba2a04fa86e12f35aeb76e49ac3032" kindref="member">XUARTPSV_OPTION_STOP_BREAK</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga7a415054abfc09f2e9fc92c592feb074" kindref="member">XUARTPSV_UARTLCR_BRK</ref>},
+	{<ref refid="group__uartpsv_1ga224860d3a833ec537e6b6869b0d06929" kindref="member">XUARTPSV_OPTION_RESET_TMOUT</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga370276d7952d37b3975e122f130e2966" kindref="member">XUARTPSV_UARTCR_RTSEN</ref>},
+	{<ref refid="group__uartpsv_1gacf3ca4d3dccf5d1a3eb2093a5e26fa8f" kindref="member">XUARTPSV_OPTION_RESET_TX</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1gac52469fbe1e3bb8ce53bf2c61833389d" kindref="member">XUARTPSV_UARTFR_TXFE</ref>},
+	{<ref refid="group__uartpsv_1ga403369b39d6f41068d2161ead7e800bb" kindref="member">XUARTPSV_OPTION_RESET_RX</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga52d6f333914d8bde4a32dff6022edcf7" kindref="member">XUARTPSV_UARTFR_RXFE</ref>},
+	{<ref refid="group__uartpsv_1ga8bbd31c1820014b82f275ed9e9d32994" kindref="member">XUARTPSV_OPTION_ASSERT_RTS</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga9454c4327718d5ad2d7f2e21f7a23d5d" kindref="member">XUARTPSV_MODEMCR_RTS</ref>},
+	{<ref refid="group__uartpsv_1gac9f5621a398a83523bdb393f6ca78314" kindref="member">XUARTPSV_OPTION_ASSERT_DTR</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+				<ref refid="group__uartpsv_1ga6213c92e85547c4cac6483b95c428cc9" kindref="member">XUARTPSV_MODEMCR_DTR</ref>},
+	{<ref refid="group__uartpsv_1ga6d460f7bdf1dc6237ccf0c86e4c08658" kindref="member">XUARTPSV_OPTION_SET_FCM</ref>, <ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,
+					<ref refid="group__uartpsv_1gac0788c413637618883eb2da800a4af28" kindref="member">XUARTPSV_MODEMCR_FCM</ref>}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartpsv_1ga30dc7c90e0cc1a859ae286f1bb4fb3cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XUartPsv_GetOptions</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the options for the specified driver instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options are implemented as bit masks such that multiple options may be enabled or disabled simultaneously.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current options for the UART. The options are bit masks that are contained in the file <ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref> and named XUARTPSV_OPTION_*.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="99" bodyend="129"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" compoundref="xuartpsv__options_8c" startline="79">XUARTPSV_NUM_OPTIONS</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gada7b7128f09873d46fc19d0d9cf91751" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetOptions</definition>
+        <argsstring>(XUartPsv *InstancePtr, u16 Options)</argsstring>
+        <name>XUartPsv_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>Sets the options for the specified driver instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options are implemented as bit masks such that multiple options may be enabled or disabled simultaneously.</para><para>The GetOptions function may be called to retrieve the currently enabled options. The result is ORed in the desired new settings to be enabled and ANDed with the inverse to clear the settings to be disabled. The resulting value is then used as the options for the SetOption function call.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the options to be set which are bit masks contained in the file <ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref> and named XUARTPSV_OPTION_*.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="152" bodyend="181"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" compoundref="xuartpsv__options_8c" startline="79">XUARTPSV_NUM_OPTIONS</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gaaf3802ebc7d644ab9f80bb20060394e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUartPsv_GetFifoThreshold</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_GetFifoThreshold</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the Tx and Rx FIFO trigger level. </para>        </briefdescription>
+        <detaileddescription>
+<para>The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current receive FIFO trigger level. This is a value from 0-63.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="197" bodyend="218"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" compoundref="xuartpsv__hw_8h" startline="56">XUARTPSV_UARTIFLS_OFFSET</references>
+        <references refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" compoundref="xuartpsv__hw_8h" startline="164">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</references>
+        <references refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" compoundref="xuartpsv__hw_8h" startline="168">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gab2c5afc9fe98688f68d1eb52e5014401" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetFifoThreshold</definition>
+        <argsstring>(XUartPsv *InstancePtr, u8 TriggerLevel)</argsstring>
+        <name>XUartPsv_SetFifoThreshold</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TriggerLevel</declname>
+        </param>
+        <briefdescription>
+<para>This functions sets the Tx and Rx FIFO trigger level to the &apos;TriggerLevel&apos; argument. </para>        </briefdescription>
+        <detaileddescription>
+<para>The same value is set for Tx and Rx FIFOs. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TriggerLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the trigger level to set. This is a value from 0-7</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="238" bodyend="265"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" compoundref="xuartpsv__hw_8h" startline="56">XUARTPSV_UARTIFLS_OFFSET</references>
+        <references refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" compoundref="xuartpsv__hw_8h" startline="164">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</references>
+        <references refid="group__uartpsv_1ga62086b945a7d3da80892a619abe3671b" compoundref="xuartpsv__hw_8h" startline="166">XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT</references>
+        <references refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" compoundref="xuartpsv__hw_8h" startline="168">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</references>
+        <references refid="group__uartpsv_1ga30b5d2120c2571ea1102e12ff4d322b1" compoundref="xuartpsv__hw_8h" startline="170">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga43c4fde1105e2505e10c684622be1d13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetTxFifoThreshold</definition>
+        <argsstring>(XUartPsv *InstancePtr, u8 TriggerLevel)</argsstring>
+        <name>XUartPsv_SetTxFifoThreshold</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TriggerLevel</declname>
+        </param>
+        <briefdescription>
+<para>This functions sets the Tx FIFO trigger level to the &apos;TriggerLevel&apos; argument. </para>        </briefdescription>
+        <detaileddescription>
+<para>This value is set for Tx FIFO. Rx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TriggerLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the trigger level to set. This is a value from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 - XUARTPSV_UARTIFLS_TXIFLSEL_7_8)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="286" bodyend="311"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" compoundref="xuartpsv__hw_8h" startline="56">XUARTPSV_UARTIFLS_OFFSET</references>
+        <references refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" compoundref="xuartpsv__hw_8h" startline="168">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</references>
+        <references refid="group__uartpsv_1ga30b5d2120c2571ea1102e12ff4d322b1" compoundref="xuartpsv__hw_8h" startline="170">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga8bc7523050515544bb2823a9254ac8f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetRxFifoThreshold</definition>
+        <argsstring>(XUartPsv *InstancePtr, u8 TriggerLevel)</argsstring>
+        <name>XUartPsv_SetRxFifoThreshold</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TriggerLevel</declname>
+        </param>
+        <briefdescription>
+<para>This functions sets the Rx FIFO trigger level to the &apos;TriggerLevel&apos; argument. </para>        </briefdescription>
+        <detaileddescription>
+<para>This value is set for Rx FIFO. Tx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TriggerLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the trigger level to set. This is a value from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 - XUARTPSV_UARTIFLS_RXIFLSEL_7_8)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="332" bodyend="356"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" compoundref="xuartpsv__hw_8h" startline="56">XUARTPSV_UARTIFLS_OFFSET</references>
+        <references refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" compoundref="xuartpsv__hw_8h" startline="164">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga9563569d26dcdc486b2fc9d2d18ec918" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XUartPsv_GetModemStatus</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_GetModemStatus</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the modem status from the specified UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The modem status indicates any changes of the modem signals. This function allows the modem status to be read in a polled mode. The modem status is updated whenever it is read such that reading it twice may not yield the same results.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The modem status which are bit masks that are contained in the file <ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref> and named XUARTPSV_UARTRIS_*.</para></simplesect>
+<simplesect kind="note"><para>The bit masks used for the modem status are the exact bits of the modem status register with no abstraction. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="377" bodyend="390"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gae409fde818bb1e9093340a7713c416ee" compoundref="xuartpsv__hw_8h" startline="58">XUARTPSV_UARTRIS_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gaa335aef95c763728b0d179ddc3e8b209" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUartPsv_IsSending</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_IsSending</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function determines if the specified UART is sending data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the UART is sending data</para></listitem><listitem><para>FALSE if UART is not sending data</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="406" bodyend="434"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga9ad13f5d5d544fb2ba1df04f5b02d2b5" compoundref="xuartpsv__hw_8h" startline="87">XUARTPSV_UARTFR_BUSY</references>
+        <references refid="group__uartpsv_1ga3f04dd68cd110b79baf2076b0564eadd" compoundref="xuartpsv__hw_8h" startline="50">XUARTPSV_UARTFR_OFFSET</references>
+        <references refid="group__uartpsv_1gac52469fbe1e3bb8ce53bf2c61833389d" compoundref="xuartpsv__hw_8h" startline="83">XUARTPSV_UARTFR_TXFE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga2d87a5b4f9a733d6471c29080fddc7aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUartPsv_GetOperMode</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_GetOperMode</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the operational mode of the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The UART can operate in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic echo.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The operational mode is specified by constants defined in <ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref>. The constants are named XUARTPSV_OPER_MODE_*</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="451" bodyend="484"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga1697d029413b91344628690b465814e9" compoundref="xuartpsv_8h" startline="185">XUARTPSV_OPER_MODE_LOCAL_LOOP</references>
+        <references refid="group__uartpsv_1ga85a2c3e9c12a5e5df66a3be084243937" compoundref="xuartpsv_8h" startline="184">XUARTPSV_OPER_MODE_NORMAL</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gae2e178647eee834f64b7f478fdd23cfa" compoundref="xuartpsv__hw_8h" startline="146">XUARTPSV_UARTCR_LBE</references>
+        <references refid="group__uartpsv_1ga1a0baa260d70d4282cdb57ed1b678e33" compoundref="xuartpsv__hw_8h" startline="150">XUARTPSV_UARTCR_MODE_MASK</references>
+        <references refid="group__uartpsv_1ga1fcf5d1f1e8b57514f6538f89ce7bfd5" compoundref="xuartpsv__hw_8h" startline="152">XUARTPSV_UARTCR_MODE_NORMAL</references>
+        <references refid="group__uartpsv_1ga3cb7344a223ea2c7dc3d4bc6be3d387d" compoundref="xuartpsv__hw_8h" startline="151">XUARTPSV_UARTCR_MODE_SHIFT</references>
+        <references refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" compoundref="xuartpsv__hw_8h" startline="55">XUARTPSV_UARTCR_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga0ea310ea61d052f2c4f5cce2dfadfc46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetOperMode</definition>
+        <argsstring>(XUartPsv *InstancePtr, u8 OperationMode)</argsstring>
+        <name>XUartPsv_SetOperMode</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>OperationMode</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the operational mode of the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The UART can operate in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic echo.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OperationMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mode of the UART.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="501" bodyend="531"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga1697d029413b91344628690b465814e9" compoundref="xuartpsv_8h" startline="185">XUARTPSV_OPER_MODE_LOCAL_LOOP</references>
+        <references refid="group__uartpsv_1ga85a2c3e9c12a5e5df66a3be084243937" compoundref="xuartpsv_8h" startline="184">XUARTPSV_OPER_MODE_NORMAL</references>
+        <references refid="group__uartpsv_1gaa19ed118438249d9c56cd3afcfa8898c" compoundref="xuartpsv_8c" startline="708" endline="759">XUartPsv_ProgramCtrlReg</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1gae2e178647eee834f64b7f478fdd23cfa" compoundref="xuartpsv__hw_8h" startline="146">XUARTPSV_UARTCR_LBE</references>
+        <references refid="group__uartpsv_1ga1a0baa260d70d4282cdb57ed1b678e33" compoundref="xuartpsv__hw_8h" startline="150">XUARTPSV_UARTCR_MODE_MASK</references>
+        <references refid="group__uartpsv_1ga1fcf5d1f1e8b57514f6538f89ce7bfd5" compoundref="xuartpsv__hw_8h" startline="152">XUARTPSV_UARTCR_MODE_NORMAL</references>
+        <references refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" compoundref="xuartpsv__hw_8h" startline="55">XUARTPSV_UARTCR_OFFSET</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+        <referencedby refid="xuartpsv__polled__example_8c_1a1eb8c4c9967695faad8a5928908b6a04" compoundref="xuartpsv__polled__example_8c" startline="142" endline="221">UartPsvPolledExample</referencedby>
+        <referencedby refid="group__uartpsv_1ga5dba5d9d345ab578b8410113968ffaa6" compoundref="xuartpsv__selftest_8c" startline="70" endline="127">XUartPsv_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUartPsv_SetDataFormat</definition>
+        <argsstring>(XUartPsv *InstancePtr, XUartPsvFormat *FormatPtr)</argsstring>
+        <name>XUartPsv_SetDataFormat</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_psv_format" kindref="compound">XUartPsvFormat</ref> *</type>
+          <declname>FormatPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the data format for the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The data format includes the baud rate, number of data bits, number of stop bits, and parity. It is the caller&apos;s responsibility to ensure that the UART is not sending or receiving data when this function is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FormatPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a format structure containing the data format to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the data format was successfully set.</para></listitem><listitem><para>XST_UART_BAUD_ERROR indicates the baud rate could not be set because of the amount of error with the baud rate and the input clock frequency.</para></listitem><listitem><para>XST_INVALID_PARAM if one of the parameters was not valid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The data types in the format type, data bits and parity, are 32 bit fields to prevent a compiler warning. The asserts in this function will cause a warning if these fields are bytes. <linebreak/>
+<linebreak/>
+ </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="560" bodyend="640"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_format_1a710c7759c468d53d77fc8bd3fa5b8b37" compoundref="xuartpsv_8h" startline="276">XUartPsvFormat::BaudRate</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" compoundref="xuartpsv_8h" startline="277">XUartPsvFormat::DataBits</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" compoundref="xuartpsv_8h" startline="278">XUartPsvFormat::Parity</references>
+        <references refid="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" compoundref="xuartpsv_8h" startline="279">XUartPsvFormat::StopBits</references>
+        <references refid="group__uartpsv_1ga9f4d3103614eafa391277358a0c8e79a" compoundref="xuartpsv_8h" startline="214">XUARTPSV_FORMAT_2_STOP_BIT</references>
+        <references refid="group__uartpsv_1gadf9508344cd38eb2838409766c91bfdd" compoundref="xuartpsv_8h" startline="197">XUARTPSV_FORMAT_8_BITS</references>
+        <references refid="group__uartpsv_1gad30f8b66642d5a231b61caa06b452b16" compoundref="xuartpsv_8h" startline="203">XUARTPSV_FORMAT_EN_PARITY</references>
+        <references refid="group__uartpsv_1gaeb6137ce9ddd79dee334adf871e4126e" compoundref="xuartpsv_8h" startline="206">XUARTPSV_FORMAT_EN_STICK_PARITY</references>
+        <references refid="group__uartpsv_1gaeb640b1f0c538dfd5f4552a350c38c80" compoundref="xuartpsv_8h" startline="212">XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT</references>
+        <references refid="group__uartpsv_1ga578cf1f1d1f6be302a0cf20879fa1288" compoundref="xuartpsv_8h" startline="204">XUARTPSV_FORMAT_EVEN_PARITY</references>
+        <references refid="group__uartpsv_1gad6520eaa2220309fccb1197978db4d3c" compoundref="xuartpsv_8h" startline="211">XUARTPSV_FORMAT_EVEN_PARITY_SHIFT</references>
+        <references refid="group__uartpsv_1gadc59badd95ef3062eab24b8b1bbed46e" compoundref="xuartpsv_8h" startline="209">XUARTPSV_FORMAT_PARITY_MASK</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga8c73264d5304f3187edb896bab76dcb0" compoundref="xuartpsv_8c" startline="562" endline="685">XUartPsv_SetBaudRate</references>
+        <references refid="group__uartpsv_1ga08c3dd57fdf59ae1e0cf866476e81c38" compoundref="xuartpsv__hw_8h" startline="54">XUARTPSV_UARTLCR_OFFSET</references>
+        <references refid="group__uartpsv_1ga0b94a4115ed1352d692b6c7edb1c328a" compoundref="xuartpsv__hw_8h" startline="119">XUARTPSV_UARTLCR_PARITY_MASK</references>
+        <references refid="group__uartpsv_1gacc334d01b7ef2ffd237cd0ebc0e24877" compoundref="xuartpsv__hw_8h" startline="120">XUARTPSV_UARTLCR_PARITY_SHIFT</references>
+        <references refid="group__uartpsv_1ga2a5c571c8766fc2ab6843a2c6e8bbca1" compoundref="xuartpsv__hw_8h" startline="116">XUARTPSV_UARTLCR_STP_MASK</references>
+        <references refid="group__uartpsv_1gac5ae863cb8547fdc9d63183cd44ae1ff" compoundref="xuartpsv__hw_8h" startline="117">XUARTPSV_UARTLCR_STP_SHIFT</references>
+        <references refid="group__uartpsv_1ga1023547ed388849703da403fe34b2bcb" compoundref="xuartpsv__hw_8h" startline="108">XUARTPSV_UARTLCR_WLEN_MASK</references>
+        <references refid="group__uartpsv_1gafef090600c5845be229c5767c8fbfec2" compoundref="xuartpsv__hw_8h" startline="109">XUARTPSV_UARTLCR_WLEN_SHIFT</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_GetDataFormat</definition>
+        <argsstring>(XUartPsv *InstancePtr, XUartPsvFormat *FormatPtr)</argsstring>
+        <name>XUartPsv_GetDataFormat</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_psv_format" kindref="compound">XUartPsvFormat</ref> *</type>
+          <declname>FormatPtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the data format for the specified UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The data format includes the baud rate, number of data bits, number of stop bits, and parity.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FormatPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a format structure that will contain the data format after this call completes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c" bodystart="658" bodyend="693"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_format_1a710c7759c468d53d77fc8bd3fa5b8b37" compoundref="xuartpsv_8h" startline="276">XUartPsvFormat::BaudRate</references>
+        <references refid="struct_x_uart_psv_1a4ac2e57dee932612cdc9eed25f025955" compoundref="xuartpsv_8h" startline="309">XUartPsv::BaudRate</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" compoundref="xuartpsv_8h" startline="277">XUartPsvFormat::DataBits</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" compoundref="xuartpsv_8h" startline="278">XUartPsvFormat::Parity</references>
+        <references refid="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" compoundref="xuartpsv_8h" startline="279">XUartPsvFormat::StopBits</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga08c3dd57fdf59ae1e0cf866476e81c38" compoundref="xuartpsv__hw_8h" startline="54">XUARTPSV_UARTLCR_OFFSET</references>
+        <references refid="group__uartpsv_1ga0b94a4115ed1352d692b6c7edb1c328a" compoundref="xuartpsv__hw_8h" startline="119">XUARTPSV_UARTLCR_PARITY_MASK</references>
+        <references refid="group__uartpsv_1gacc334d01b7ef2ffd237cd0ebc0e24877" compoundref="xuartpsv__hw_8h" startline="120">XUARTPSV_UARTLCR_PARITY_SHIFT</references>
+        <references refid="group__uartpsv_1ga2a5c571c8766fc2ab6843a2c6e8bbca1" compoundref="xuartpsv__hw_8h" startline="116">XUARTPSV_UARTLCR_STP_MASK</references>
+        <references refid="group__uartpsv_1gac5ae863cb8547fdc9d63183cd44ae1ff" compoundref="xuartpsv__hw_8h" startline="117">XUARTPSV_UARTLCR_STP_SHIFT</references>
+        <references refid="group__uartpsv_1ga1023547ed388849703da403fe34b2bcb" compoundref="xuartpsv__hw_8h" startline="108">XUARTPSV_UARTLCR_WLEN_MASK</references>
+        <references refid="group__uartpsv_1gafef090600c5845be229c5767c8fbfec2" compoundref="xuartpsv__hw_8h" startline="109">XUARTPSV_UARTLCR_WLEN_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="46"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Option;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RegisterOffset;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}<sp/>Mapping;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>Create<sp/>the<sp/>table<sp/>which<sp/>contains<sp/>options<sp/>which<sp/>are<sp/>to<sp/>be<sp/>processed<sp/>to</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>get/set<sp/>the<sp/>options.<sp/>These<sp/>options<sp/>are<sp/>table<sp/>driven<sp/>to<sp/>allow<sp/>easy</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>maintenance<sp/>and<sp/>expansion<sp/>of<sp/>the<sp/>options.</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Mapping<sp/>XUartPsv_OptionsTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1gae157cd3f31c13e33436f6654eca55689" kindref="member">XUARTPSV_OPTION_SET_BREAK</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga7a415054abfc09f2e9fc92c592feb074" kindref="member">XUARTPSV_UARTLCR_BRK</ref>},</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1ga35ba2a04fa86e12f35aeb76e49ac3032" kindref="member">XUARTPSV_OPTION_STOP_BREAK</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga7a415054abfc09f2e9fc92c592feb074" kindref="member">XUARTPSV_UARTLCR_BRK</ref>},</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1ga224860d3a833ec537e6b6869b0d06929" kindref="member">XUARTPSV_OPTION_RESET_TMOUT</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga370276d7952d37b3975e122f130e2966" kindref="member">XUARTPSV_UARTCR_RTSEN</ref>},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1gacf3ca4d3dccf5d1a3eb2093a5e26fa8f" kindref="member">XUARTPSV_OPTION_RESET_TX</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gac52469fbe1e3bb8ce53bf2c61833389d" kindref="member">XUARTPSV_UARTFR_TXFE</ref>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1ga403369b39d6f41068d2161ead7e800bb" kindref="member">XUARTPSV_OPTION_RESET_RX</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga52d6f333914d8bde4a32dff6022edcf7" kindref="member">XUARTPSV_UARTFR_RXFE</ref>},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1ga8bbd31c1820014b82f275ed9e9d32994" kindref="member">XUARTPSV_OPTION_ASSERT_RTS</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga9454c4327718d5ad2d7f2e21f7a23d5d" kindref="member">XUARTPSV_MODEMCR_RTS</ref>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1gac9f5621a398a83523bdb393f6ca78314" kindref="member">XUARTPSV_OPTION_ASSERT_DTR</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga6213c92e85547c4cac6483b95c428cc9" kindref="member">XUARTPSV_MODEMCR_DTR</ref>},</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__uartpsv_1ga6d460f7bdf1dc6237ccf0c86e4c08658" kindref="member">XUARTPSV_OPTION_SET_FCM</ref>,<sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gac0788c413637618883eb2da800a4af28" kindref="member">XUARTPSV_MODEMCR_FCM</ref>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>constant<sp/>for<sp/>the<sp/>number<sp/>of<sp/>entries<sp/>in<sp/>the<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUARTPSV_NUM_OPTIONS<sp/><sp/><sp/><sp/><sp/><sp/>(sizeof(XUartPsv_OptionsTable)<sp/>/<sp/>sizeof(Mapping))<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="group__uartpsv_1ga30dc7c90e0cc1a859ae286f1bb4fb3cf" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__uartpsv_1ga30dc7c90e0cc1a859ae286f1bb4fb3cf" kindref="member">XUartPsv_GetOptions</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Options<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table<sp/>to<sp/>map<sp/>the<sp/>physical<sp/>options<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers<sp/>of<sp/>the<sp/>UART<sp/>to<sp/>the<sp/>logical<sp/>options<sp/>to<sp/>be<sp/>returned</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" kindref="member">XUARTPSV_NUM_OPTIONS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_OptionsTable[Index].RegisterOffset);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>bit<sp/>in<sp/>the<sp/>register<sp/>which<sp/>correlates<sp/>to<sp/>the<sp/>option</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>set,<sp/>then<sp/>set<sp/>the<sp/>corresponding<sp/>bit<sp/>in<sp/>the<sp/>options,</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ignoring<sp/>any<sp/>bits<sp/>which<sp/>are<sp/>zero<sp/>since<sp/>the<sp/>options</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>variable<sp/>is<sp/>initialized<sp/>to<sp/>zero</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Register<sp/>&amp;<sp/>XUartPsv_OptionsTable[Index].Mask)<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options<sp/>|=<sp/>XUartPsv_OptionsTable[Index].Option;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Options;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="152" refid="group__uartpsv_1gada7b7128f09873d46fc19d0d9cf91751" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1gada7b7128f09873d46fc19d0d9cf91751" kindref="member">XUartPsv_SetOptions</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u16<sp/>Options)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>Options;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table<sp/>to<sp/>map<sp/>the<sp/>logical<sp/>options<sp/>to<sp/>the</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>physical<sp/>options<sp/>in<sp/>the<sp/>registers<sp/>of<sp/>the<sp/>UART.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__uartpsv_1ga085455aa637fa6865bfdf3f6765336fc" kindref="member">XUARTPSV_NUM_OPTIONS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>register<sp/>which<sp/>contains<sp/>option<sp/>so<sp/>that<sp/>the</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register<sp/>can<sp/>be<sp/>changed<sp/>without<sp/>destoying<sp/>any<sp/>other<sp/>bits</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>of<sp/>the<sp/>register.</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_OptionsTable[Index].RegisterOffset);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>new<sp/>value<sp/>to<sp/>the<sp/>register<sp/>to<sp/>set<sp/>the<sp/>option<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_OptionsTable[Index].RegisterOffset,<sp/>Register);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="group__uartpsv_1gaaf3802ebc7d644ab9f80bb20060394e0" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__uartpsv_1gaaf3802ebc7d644ab9f80bb20060394e0" kindref="member">XUartPsv_GetFifoThreshold</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RtrigRegister;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>the<sp/>FIFO<sp/>control<sp/>register<sp/>so<sp/>that<sp/>the<sp/>threshold</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>can<sp/>be<sp/>retrieved,<sp/>this<sp/>read<sp/>takes<sp/>special<sp/>register<sp/>processing</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RtrigRegister<sp/>=<sp/>(u8)<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>only<sp/>the<sp/>trigger<sp/>level<sp/>from<sp/>the<sp/>register<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RtrigRegister<sp/>&amp;=<sp/>((u8)<ref refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" kindref="member">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<ref refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" kindref="member">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</ref>);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RtrigRegister;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="238" refid="group__uartpsv_1gab2c5afc9fe98688f68d1eb52e5014401" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1gab2c5afc9fe98688f68d1eb52e5014401" kindref="member">XUartPsv_SetFifoThreshold</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>TriggerLevel)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FifoTrigRegister;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TriggerLevel<sp/>&lt;=<sp/>(u8)<ref refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" kindref="member">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</ref>);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerLevel<sp/>=<sp/>TriggerLevel<sp/>&amp;<sp/>(u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>&amp;=<sp/>~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK<sp/>|</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" kindref="member">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>|=<sp/>(u32)TriggerLevel<sp/>&lt;&lt;<sp/><ref refid="group__uartpsv_1ga30b5d2120c2571ea1102e12ff4d322b1" kindref="member">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>|=<sp/>(u32)TriggerLevel<sp/>&lt;&lt;<sp/><ref refid="group__uartpsv_1ga62086b945a7d3da80892a619abe3671b" kindref="member">XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>new<sp/>value<sp/>for<sp/>the<sp/>FIFO<sp/>control<sp/>register<sp/>to<sp/>it<sp/>such<sp/>that</highlight></codeline>
+<codeline lineno="260"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>threshold<sp/>is<sp/>changed</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>,<sp/>FifoTrigRegister);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="286" refid="group__uartpsv_1ga43c4fde1105e2505e10c684622be1d13" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga43c4fde1105e2505e10c684622be1d13" kindref="member">XUartPsv_SetTxFifoThreshold</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>TriggerLevel)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FifoTrigRegister;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TriggerLevel<sp/>&lt;=<sp/>(u8)<ref refid="group__uartpsv_1ga1fc7d66bafa6dd862f0bbb2648721aa9" kindref="member">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</ref>);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerLevel<sp/>=<sp/>TriggerLevel<sp/>&amp;<sp/>(u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>&amp;=<sp/>~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>|=<sp/>(u32)TriggerLevel<sp/>&lt;&lt;<sp/><ref refid="group__uartpsv_1ga30b5d2120c2571ea1102e12ff4d322b1" kindref="member">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="305"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>new<sp/>value<sp/>for<sp/>the<sp/>FIFO<sp/>control<sp/>register<sp/>to<sp/>it<sp/>such<sp/>that</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>threshold<sp/>is<sp/>changed</highlight></codeline>
+<codeline lineno="307"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>,<sp/>FifoTrigRegister);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="332" refid="group__uartpsv_1ga8bc7523050515544bb2823a9254ac8f5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga8bc7523050515544bb2823a9254ac8f5" kindref="member">XUartPsv_SetRxFifoThreshold</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>TriggerLevel)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FifoTrigRegister;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TriggerLevel<sp/>&lt;=<sp/>(u8)<ref refid="group__uartpsv_1ga3149c045f35eae100cb9f39765796327" kindref="member">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</ref>);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerLevel<sp/>=<sp/>TriggerLevel<sp/>&amp;<sp/>(u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>&amp;=<sp/>~XUARTPSV_UARTIFLS_RXIFLSEL_MASK;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FifoTrigRegister<sp/>|=<sp/>TriggerLevel;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>new<sp/>value<sp/>for<sp/>the<sp/>FIFO<sp/>control<sp/>register<sp/>to<sp/>it<sp/>such<sp/>that</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>threshold<sp/>is<sp/>changed</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacd10d435731ec271f5316110cde0c6e9" kindref="member">XUARTPSV_UARTIFLS_OFFSET</ref>,<sp/>FifoTrigRegister);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="377" refid="group__uartpsv_1ga9563569d26dcdc486b2fc9d2d18ec918" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__uartpsv_1ga9563569d26dcdc486b2fc9d2d18ec918" kindref="member">XUartPsv_GetModemStatus</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModemStatusRegister;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TmpRegister;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>modem<sp/>status<sp/>register<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModemStatusRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gae409fde818bb1e9093340a7713c416ee" kindref="member">XUARTPSV_UARTRIS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpRegister<sp/>=<sp/>(u16)ModemStatusRegister;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>TmpRegister;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="406" refid="group__uartpsv_1gaa335aef95c763728b0d179ddc3e8b209" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__uartpsv_1gaa335aef95c763728b0d179ddc3e8b209" kindref="member">XUartPsv_IsSending</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FlagRegister;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SendStatus;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveResult;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EmptyResult;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="418"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>flags<sp/>register<sp/>to<sp/>determine<sp/>if<sp/>the<sp/>transmitter<sp/>is</highlight></codeline>
+<codeline lineno="419"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>active</highlight></codeline>
+<codeline lineno="420"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FlagRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga3f04dd68cd110b79baf2076b0564eadd" kindref="member">XUARTPSV_UARTFR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="425"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>transmitter<sp/>is<sp/>active,<sp/>or<sp/>the<sp/>TX<sp/>FIFO<sp/>is<sp/>not<sp/>empty,</highlight></codeline>
+<codeline lineno="426"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>then<sp/>indicate<sp/>that<sp/>the<sp/>UART<sp/>is<sp/>still<sp/>sending<sp/>some<sp/>data</highlight></codeline>
+<codeline lineno="427"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveResult<sp/>=<sp/>FlagRegister<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1ga9ad13f5d5d544fb2ba1df04f5b02d2b5" kindref="member">XUARTPSV_UARTFR_BUSY</ref>);</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EmptyResult<sp/>=<sp/>FlagRegister<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1gac52469fbe1e3bb8ce53bf2c61833389d" kindref="member">XUARTPSV_UARTFR_TXFE</ref>);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SendStatus<sp/>=<sp/>(u32)((<ref refid="group__uartpsv_1ga9ad13f5d5d544fb2ba1df04f5b02d2b5" kindref="member">XUARTPSV_UARTFR_BUSY</ref><sp/>==<sp/>ActiveResult)<sp/>||</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__uartpsv_1gac52469fbe1e3bb8ce53bf2c61833389d" kindref="member">XUARTPSV_UARTFR_TXFE</ref><sp/>!=<sp/>EmptyResult));</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SendStatus;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="451" refid="group__uartpsv_1ga2d87a5b4f9a733d6471c29080fddc7aa" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__uartpsv_1ga2d87a5b4f9a733d6471c29080fddc7aa" kindref="member">XUartPsv_GetOperMode</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlRegister;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>OperMode;</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Mode<sp/>register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>=</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>&amp;=<sp/>(u32)<ref refid="group__uartpsv_1ga1a0baa260d70d4282cdb57ed1b678e33" kindref="member">XUARTPSV_UARTCR_MODE_MASK</ref>;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>the<sp/>constant<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(CtrlRegister)<sp/>{</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga1fcf5d1f1e8b57514f6538f89ce7bfd5" kindref="member">XUARTPSV_UARTCR_MODE_NORMAL</ref>:</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OperMode<sp/>=<sp/><ref refid="group__uartpsv_1ga85a2c3e9c12a5e5df66a3be084243937" kindref="member">XUARTPSV_OPER_MODE_NORMAL</ref>;</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1gae2e178647eee834f64b7f478fdd23cfa" kindref="member">XUARTPSV_UARTCR_LBE</ref>:</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OperMode<sp/>=<sp/><ref refid="group__uartpsv_1ga1697d029413b91344628690b465814e9" kindref="member">XUARTPSV_OPER_MODE_LOCAL_LOOP</ref>;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OperMode<sp/>=<sp/>(u8)((CtrlRegister<sp/>&amp;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1ga1a0baa260d70d4282cdb57ed1b678e33" kindref="member">XUARTPSV_UARTCR_MODE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga3cb7344a223ea2c7dc3d4bc6be3d387d" kindref="member">XUARTPSV_UARTCR_MODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OperMode;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="501" refid="group__uartpsv_1ga0ea310ea61d052f2c4f5cce2dfadfc46" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga0ea310ea61d052f2c4f5cce2dfadfc46" kindref="member">XUartPsv_SetOperMode</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>OperationMode)</highlight></codeline>
+<codeline lineno="502"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlRegister;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Mode<sp/>register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>=</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga107036ece577d1e34edf6c01eb83305e" kindref="member">XUARTPSV_UARTCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>correct<sp/>value<sp/>by<sp/>masking<sp/>the<sp/>bits,<sp/>then<sp/>ORing<sp/>the<sp/>const.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>&amp;=<sp/>~(u32)<ref refid="group__uartpsv_1ga1a0baa260d70d4282cdb57ed1b678e33" kindref="member">XUARTPSV_UARTCR_MODE_MASK</ref>;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(OperationMode)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga85a2c3e9c12a5e5df66a3be084243937" kindref="member">XUARTPSV_OPER_MODE_NORMAL</ref>:</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>|=<sp/>(u32)<ref refid="group__uartpsv_1ga1fcf5d1f1e8b57514f6538f89ce7bfd5" kindref="member">XUARTPSV_UARTCR_MODE_NORMAL</ref>;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga1697d029413b91344628690b465814e9" kindref="member">XUARTPSV_OPER_MODE_LOCAL_LOOP</ref>:</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlRegister<sp/>|=<sp/>(u32)<ref refid="group__uartpsv_1gae2e178647eee834f64b7f478fdd23cfa" kindref="member">XUARTPSV_UARTCR_LBE</ref>;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Default<sp/>case<sp/>made<sp/>for<sp/>MISRA-C<sp/>Compliance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>Control<sp/>Register<sp/>with<sp/>the<sp/>passed<sp/>argument.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gaa19ed118438249d9c56cd3afcfa8898c" kindref="member">XUartPsv_ProgramCtrlReg</ref>(InstancePtr,<sp/>CtrlRegister);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="560" refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" kindref="member">XUartPsv_SetDataFormat</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_psv_format" kindref="compound">XUartPsvFormat</ref><sp/>*<sp/>FormatPtr)</highlight></codeline>
+<codeline lineno="562"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineCtrlRegister;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FormatPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>the<sp/>inputs<sp/>specified<sp/>are<sp/>valid<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" kindref="member">DataBits</ref><sp/>&gt;<sp/>((u32)<ref refid="group__uartpsv_1gadf9508344cd38eb2838409766c91bfdd" kindref="member">XUARTPSV_FORMAT_8_BITS</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" kindref="member">StopBits</ref><sp/>&gt;<sp/>((u8)<ref refid="group__uartpsv_1ga9f4d3103614eafa391277358a0c8e79a" kindref="member">XUARTPSV_FORMAT_2_STOP_BIT</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" kindref="member">Parity</ref><sp/>&gt;<sp/>((u32)<ref refid="group__uartpsv_1gadc59badd95ef3062eab24b8b1bbed46e" kindref="member">XUARTPSV_FORMAT_PARITY_MASK</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="578"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Try<sp/>to<sp/>set<sp/>the<sp/>baud<sp/>rate<sp/>and<sp/>if<sp/>it&apos;s<sp/>not<sp/>successful<sp/>then</highlight></codeline>
+<codeline lineno="579"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>don&apos;t<sp/>continue<sp/>altering<sp/>the<sp/>data<sp/>format,<sp/>this<sp/>is<sp/>done</highlight></codeline>
+<codeline lineno="580"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>first<sp/>to<sp/>avoid<sp/>the<sp/>format<sp/>from<sp/>being<sp/>altered<sp/>when<sp/>an</highlight></codeline>
+<codeline lineno="581"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>occurs</highlight></codeline>
+<codeline lineno="582"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__uartpsv_1ga8c73264d5304f3187edb896bab76dcb0" kindref="member">XUartPsv_SetBaudRate</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a710c7759c468d53d77fc8bd3fa5b8b37" kindref="member">BaudRate</ref>);</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"></highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config.BaseAddress,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga08c3dd57fdf59ae1e0cf866476e81c38" kindref="member">XUARTPSV_UARTLCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"></highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="594"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>length<sp/>of<sp/>data<sp/>(8,7,6)<sp/>by<sp/>first<sp/>clearing</highlight></codeline>
+<codeline lineno="595"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>out<sp/>the<sp/>bits<sp/>that<sp/>control<sp/>it<sp/>in<sp/>the<sp/>register,</highlight></codeline>
+<codeline lineno="596"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>then<sp/>set<sp/>the<sp/>length<sp/>in<sp/>the<sp/>register</highlight></codeline>
+<codeline lineno="597"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>&amp;=<sp/>~(u32)<ref refid="group__uartpsv_1ga1023547ed388849703da403fe34b2bcb" kindref="member">XUARTPSV_UARTLCR_WLEN_MASK</ref>;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>|=<sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" kindref="member">DataBits</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gafef090600c5845be229c5767c8fbfec2" kindref="member">XUARTPSV_UARTLCR_WLEN_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="603"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>in<sp/>the<sp/>mode<sp/>register<sp/>by</highlight></codeline>
+<codeline lineno="604"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits<sp/>that<sp/>control<sp/>it<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="605"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="606"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register.</highlight></codeline>
+<codeline lineno="607"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>&amp;=<sp/>~(u32)<ref refid="group__uartpsv_1ga2a5c571c8766fc2ab6843a2c6e8bbca1" kindref="member">XUARTPSV_UARTLCR_STP_MASK</ref>;</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>|=<sp/>(((u32)FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" kindref="member">StopBits</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gac5ae863cb8547fdc9d63183cd44ae1ff" kindref="member">XUARTPSV_UARTLCR_STP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>parity<sp/>by<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits<sp/>that</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>control<sp/>it<sp/>in<sp/>the<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>bits<sp/>in</highlight></codeline>
+<codeline lineno="615"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>register,<sp/>the<sp/>default<sp/>is<sp/>no<sp/>parity<sp/>after</highlight></codeline>
+<codeline lineno="616"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clearing<sp/>the<sp/>register<sp/>bits</highlight></codeline>
+<codeline lineno="617"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>&amp;=<sp/>~(u32)<ref refid="group__uartpsv_1ga0b94a4115ed1352d692b6c7edb1c328a" kindref="member">XUARTPSV_UARTLCR_PARITY_MASK</ref>;</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>|=<sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" kindref="member">Parity</ref><sp/>&amp;</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gad30f8b66642d5a231b61caa06b452b16" kindref="member">XUARTPSV_FORMAT_EN_PARITY</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gacc334d01b7ef2ffd237cd0ebc0e24877" kindref="member">XUARTPSV_UARTLCR_PARITY_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Even/Odd<sp/>parity<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>|=<sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" kindref="member">Parity</ref><sp/>&amp;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga578cf1f1d1f6be302a0cf20879fa1288" kindref="member">XUARTPSV_FORMAT_EVEN_PARITY</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gad6520eaa2220309fccb1197978db4d3c" kindref="member">XUARTPSV_FORMAT_EVEN_PARITY_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stick<sp/>parity<sp/>enable/disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>|=<sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" kindref="member">Parity</ref><sp/>&amp;</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gaeb6137ce9ddd79dee334adf871e4126e" kindref="member">XUARTPSV_FORMAT_EN_STICK_PARITY</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gaeb640b1f0c538dfd5f4552a350c38c80" kindref="member">XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>Line<sp/>control<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga08c3dd57fdf59ae1e0cf866476e81c38" kindref="member">XUARTPSV_UARTLCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister);</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="640"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="658" refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" kindref="member">XUartPsv_GetDataFormat</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_psv_format" kindref="compound">XUartPsvFormat</ref><sp/>*<sp/>FormatPtr)</highlight></codeline>
+<codeline lineno="660"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineCtrlRegister;</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FormatPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="670"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>baud<sp/>rate<sp/>from<sp/>the<sp/>instance,<sp/>this<sp/>is<sp/>not<sp/>retrieved<sp/>from</highlight></codeline>
+<codeline lineno="671"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>hardware<sp/>because<sp/>it<sp/>is<sp/>only<sp/>kept<sp/>as<sp/>a<sp/>divisor<sp/>such<sp/>that<sp/>it</highlight></codeline>
+<codeline lineno="672"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>more<sp/>difficult<sp/>to<sp/>get<sp/>back<sp/>to<sp/>the<sp/>baud<sp/>rate</highlight></codeline>
+<codeline lineno="673"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a710c7759c468d53d77fc8bd3fa5b8b37" kindref="member">BaudRate</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4ac2e57dee932612cdc9eed25f025955" kindref="member">BaudRate</ref>;</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineCtrlRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga08c3dd57fdf59ae1e0cf866476e81c38" kindref="member">XUARTPSV_UARTLCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"></highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>length<sp/>of<sp/>data<sp/>(8,7,6,5)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" kindref="member">DataBits</ref><sp/>=</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((LineCtrlRegister<sp/>&amp;<sp/>(u32)<ref refid="group__uartpsv_1ga1023547ed388849703da403fe34b2bcb" kindref="member">XUARTPSV_UARTLCR_WLEN_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gafef090600c5845be229c5767c8fbfec2" kindref="member">XUARTPSV_UARTLCR_WLEN_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"></highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" kindref="member">StopBits</ref><sp/>=</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((LineCtrlRegister<sp/>&amp;<sp/>(u32)<ref refid="group__uartpsv_1ga2a5c571c8766fc2ab6843a2c6e8bbca1" kindref="member">XUARTPSV_UARTLCR_STP_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gac5ae863cb8547fdc9d63183cd44ae1ff" kindref="member">XUARTPSV_UARTLCR_STP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>what<sp/>parity<sp/>is<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" kindref="member">Parity</ref><sp/>=</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)((LineCtrlRegister<sp/>&amp;<sp/>(u32)<ref refid="group__uartpsv_1ga0b94a4115ed1352d692b6c7edb1c328a" kindref="member">XUARTPSV_UARTLCR_PARITY_MASK</ref>)</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/><ref refid="group__uartpsv_1gacc334d01b7ef2ffd237cd0ebc0e24877" kindref="member">XUARTPSV_UARTLCR_PARITY_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="693"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_options.c"/>
+  </compounddef>
+</doxygen>

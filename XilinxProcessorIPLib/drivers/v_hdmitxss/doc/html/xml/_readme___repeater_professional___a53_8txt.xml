@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_readme___repeater_professional___a53_8txt" kind="file">
+    <compoundname>Readme_RepeaterProfessional_A53.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a55ed531cffb44ecc227e3a2d6cb37af0" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For details</definition>
+        <argsstring></argsstring>
+        <name>details</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a398e4695a0d164b4e5c0922b80ba8aa3" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Professional</definition>
+        <argsstring></argsstring>
+        <name>Professional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa28bc3bafbeb688bf4152fc9e76f8db0" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this implementation</definition>
+        <argsstring></argsstring>
+        <name>implementation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1ae63cf767549ac6fe76baf372b9f09f63" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by default</definition>
+        <argsstring></argsstring>
+        <name>default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a150007ee2c25e17e06320ee567ec3e1a" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG235</definition>
+        <argsstring></argsstring>
+        <name>PG235</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a64baeeeae40deefe1d29c5f3640e045e" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in please open the following file in a text editor&lt; path_to_drivers &gt; v_hdmitxss data dependencies props Next append the following line to the end of the file xhdmi_example dummy RepeaterPro_A53 xhdmi_example RepeaterProfessional xhdmi_example xhdmi_example PassThrough xhdmi_edid xhdmi_example PassThrough xhdmi_edid xhdmi_example xhdmi_hdcp_keys_table xhdmi_example idt_8t49n24x xhdmi_example idt_8t49n24x xhdmi_example xvidframe_crc xhdmi_example xvidframe_crc xhdmi_example PassThrough xhdmi_menu xhdmi_example PassThrough xhdmi_menu xhdmi_example RepeaterProfessional xhdcp xhdmi_example RepeaterProfessional xhdcp xhdmi_example aes256 xhdmi_example aes256 xhdmi_example audiogen_drv xhdmi_example audiogen_drv xhdmi_example dp159 xhdmi_example dp159 xhdmi_example sha256 xhdmi_example sha256 xhdmi_example si5324drv xhdmi_example si5324drv xhdmi_example xhdmi_hdcp_keys xhdmi_example xhdmi_hdcp_keys platforms platform platforms platform platforms platform_config h</definition>
+        <argsstring></argsstring>
+        <name>h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a0348695bff1b95fdd4f2ad99703d7ffb" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure XHdcp1x</definition>
+        <argsstring></argsstring>
+        <name>XHdcp1x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a5021fad86aebd236752bbffc057a9811" prot="public" static="no" mutable="no">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure add the following variable and it s description u8</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure add the following variable and it s description u8 IsProRepeater</definition>
+        <argsstring></argsstring>
+        <name>IsProRepeater</name>
+        <briefdescription>
+<para><verbatim>                        The IsProRepeater flag determines if
+</verbatim> | * HDCP is part of a Professional Repeater | * system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a772f2f435d839db1cdf5cc7860e3665a" prot="public" static="no" mutable="no">
+        <type>In file xhdcp1x_port_hdmi_rx</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in please open the following file in a text editor&lt; path_to_drivers &gt; v_hdmitxss data dependencies props Next append the following line to the end of the file xhdmi_example dummy RepeaterPro_A53 xhdmi_example RepeaterProfessional xhdmi_example xhdmi_example PassThrough xhdmi_edid xhdmi_example PassThrough xhdmi_edid xhdmi_example xhdmi_hdcp_keys_table xhdmi_example idt_8t49n24x xhdmi_example idt_8t49n24x xhdmi_example xvidframe_crc xhdmi_example xvidframe_crc xhdmi_example PassThrough xhdmi_menu xhdmi_example PassThrough xhdmi_menu xhdmi_example RepeaterProfessional xhdcp xhdmi_example RepeaterProfessional xhdcp xhdmi_example aes256 xhdmi_example aes256 xhdmi_example audiogen_drv xhdmi_example audiogen_drv xhdmi_example dp159 xhdmi_example dp159 xhdmi_example sha256 xhdmi_example sha256 xhdmi_example si5324drv xhdmi_example si5324drv xhdmi_example xhdmi_hdcp_keys xhdmi_example xhdmi_hdcp_keys platforms platform c</definition>
+        <argsstring></argsstring>
+        <name>c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a4e13321d8977aa99e7b7f2046745e525" prot="public" static="no" mutable="no">
+        <type>In file xhdcp1x_port_hdmi_rx In the definition of the</type>
+        <definition>Add the definition of the following function</definition>
+        <argsstring></argsstring>
+        <name>function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a4d92ad8d0b0d5ac7bbe8451e3b46beba" prot="public" static="no" mutable="no">
+        <type>In file xhdcp1x_port_hdmi_rx In the definition of the static int</type>
+        <definition>Buf[0]</definition>
+        <argsstring>[0]</argsstring>
+        <name>Buf</name>
+        <initializer>= XHDCP1X_PORT_BIT_BCAPS_HDMI</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a0544c3fe466e421738dae463968b70ba" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>else</definition>
+        <argsstring></argsstring>
+        <name>else</name>
+        <initializer>{
+	     |   	Z = (u32)(Value &amp; 0x000000FFul)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1af1e3ef26d2c0aaa6561cc6c9ed5fd131" prot="public" static="no" mutable="no">
+        <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new file</definition>
+        <argsstring></argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1ab94fbec1ab08639cacaf6d92ee570677" prot="public" static="no" mutable="no">
+        <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following</type>
+        <definition>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following variable</definition>
+        <argsstring></argsstring>
+        <name>variable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a9aa8c7975a4c8d4a4275095eee63cf14" prot="public" static="no" mutable="no">
+        <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following u8</type>
+        <definition>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following u8 IsHdcpProRepeater</definition>
+        <argsstring></argsstring>
+        <name>IsHdcpProRepeater</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa2a92d6716f1d75940de21b48cf14dde" prot="public" static="no" mutable="no">
+        <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in SDK</definition>
+        <argsstring></argsstring>
+        <name>SDK</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa5683199664f28769265b3eca1b35925" prot="public" static="no" mutable="no">
+        <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt;path_to_drivers&gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it Next</definition>
+        <argsstring></argsstring>
+        <name>Next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a19c6982530c4b0ed2f825934176a9e8f" prot="public" static="no" mutable="no">
+        <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in please open the following file in a text editor&lt; path_to_drivers &gt; v_hdmitxss data dependencies props Next append the following line to the end of the file xhdmi_example dummy RepeaterPro_A53</type>
+        <definition>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt;path_to_drivers&gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in please open the following file in a text editor&lt;path_to_drivers&gt; v_hdmitxss data dependencies props Next append the following line to the end of the file xhdmi_example dummy RepeaterPro_A53 txt</definition>
+        <argsstring></argsstring>
+        <name>txt</name>
+        <initializer>=xhdmi_example/RepeaterProfessional/xhdmi_example.c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a8419c2b0d657b6e21e5f1b4e2d6b0b7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is selected</definition>
+        <argsstring>(via UART menu)</argsstring>
+        <name>selected</name>
+        <param>
+          <type>via UART</type>
+          <declname>menu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1abf159411bebfb5b6183ae4986426dd3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user selection</definition>
+        <argsstring>(via UART)</argsstring>
+        <name>selection</name>
+        <param>
+          <type>via</type>
+          <declname>UART</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a212322a4c4adce56018450af1fb2eb0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the</type>
+        <definition>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE* Introduction* Features* System illustration* Required updates* Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES* This application implements the HDCP Revision specification* The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the HDCP</definition>
+        <argsstring>(1.4, 2.2 or both) is enabled by the hardware</argsstring>
+        <name>HDCP</name>
+        <param>
+          <type>1.</type>
+          <declname>4</declname>
+        </param>
+        <param>
+          <type>2.2 or</type>
+          <declname>both</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a15c517a3de0d59671b209e495a4e37a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Add the declaration of the following function int</type>
+        <definition>In the file xhdcp1x Add the definition the following new int XHdcp1x_SetProRepeater</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u8 State)|</argsstring>
+        <name>XHdcp1x_SetProRepeater</name>
+        <param>
+          <type>XHdcp1x *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+<para>| * This function sets the Professional Repeater functionality for an | * HDCP interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>| * | * <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interface to disable. | * </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is either TRUE or FALSE | * | * </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>| * - XST_SUCCESS if successful. | * - XST_FAILURE otherwise. | * | * </para></simplesect>
+<simplesect kind="note"><para>None. | * | </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="115" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1aa55fca0a531bf762e8aea4b61b8d161c" prot="public" static="yes" const="no" explicit="no" inline="no" new="yes" virt="non-virtual">
+        <type>In file xhdcp1x_port_hdmi_rx In the definition of the static int</type>
+        <definition>In file xhdcp1x_port_hdmi_rx In the definition of the static int XHdcp1x_PortHdmiRxEnable</definition>
+        <argsstring>(XHdcp1x *InstancePtr) update the following lines with a new check for the value of the IsProRepeater flag.(Update marked as &gt;&gt;&gt;&gt;&gt;)||memset(Buf</argsstring>
+        <name>XHdcp1x_PortHdmiRxEnable</name>
+        <param>
+          <type>XHdcp1x *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="75" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a586c10deec35af4df77723aa81f29752" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>(InstancePtr-&gt;IsRepeater &amp;&amp; &gt;&gt;&gt;&gt;&gt;|!InstancePtr-&gt;IsProRepeater)</argsstring>
+        <name>if</name>
+        <param>
+          <type>InstancePtr-&gt;IsRepeater &amp;&amp; &gt;&gt;&gt;&gt;</type>
+        </param>
+        <param>
+          <type>|!InstancePtr-&gt;</type>
+          <declname>IsProRepeater</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1ac456384c578e0461d3e377da56d0866b" prot="public" static="yes" const="no" explicit="no" inline="no" new="yes" virt="non-virtual">
+        <type>In the file xhdcp1x_rx In the definition of the static void</type>
+        <definition>In the file xhdcp1x_rx In the definition of the static void XHdcp1x_RxStartComputations</definition>
+        <argsstring>(XHdcp1x *InstancePtr,|XHdcp1x_StateType *NextStatePtr) update the following lines with a new check for the value of the IsProRepeater flag.(Update marked as &gt;&gt;&gt;&gt;&gt;)|if(InstancePtr-&gt; IsRepeater &amp;&amp; &gt;&gt;&gt;&gt;&gt;|!InstancePtr-&gt;IsProRepeater)</argsstring>
+        <name>XHdcp1x_RxStartComputations</name>
+        <param>
+          <type>XHdcp1x *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>|XHdcp1x_StateType *</type>
+          <declname>NextStatePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="88" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1adee8f27af94e7ff03ce0cec613957de8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Add the declaration of the function int</type>
+        <definition>Add the definition of the following int XV_HdmiRxSs_HdcpSetProRepeater</definition>
+        <argsstring>(XV_HdmiRxSs *InstancePtr, u8 Set)|</argsstring>
+        <name>XV_HdmiRxSs_HdcpSetProRepeater</name>
+        <param>
+          <type>XV_HdmiRxSs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Set</declname>
+        </param>
+        <briefdescription>
+<para>| * | * This function enables the Professional Repeater functionality for | * the HDCP protocol. </para>        </briefdescription>
+        <detaileddescription>
+<para>| * | * <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XV_HdmiRxSs instance. | * </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is TRUE to enable and FALSE to disable repeater. | * | * </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>| * - XST_SUCCESS if action was successful | * - XST_FAILURE if action was not successful | * | * </para></simplesect>
+<simplesect kind="note"><para>None. | * | </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="183" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a4822f20bf9508e86f3f00a7af1a0f0d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Add the declaration of the function int</type>
+        <definition>In the xv_hdmirxss_hdcp Add the definition the following int XV_HdmiRxSs_HdcpIsProRepeater</definition>
+        <argsstring>(XV_HdmiRxSs *InstancePtr)|</argsstring>
+        <name>XV_HdmiRxSs_HdcpIsProRepeater</name>
+        <param>
+          <type>XV_HdmiRxSs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>| * | * This function checks if the HDMI receiver is an HDCP professional repeater | * upstream interface for the active protocol. </para>        </briefdescription>
+        <detaileddescription>
+<para>| * | * <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XV_HdmiRxSs instance. | * | * </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&apos;IsHdcpProRepeater&apos; flag. | * | * </para></simplesect>
+<simplesect kind="note"><para>None. | * | </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="157" bodyend="163"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">HDCP<sp/>REPEATER<sp/>PROFESSIONAL<sp/>EXAMPLE<sp/>DESIGN<sp/>README</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">------------------------------------------------</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">CONTENTS<sp/>OF<sp/>THIS<sp/>FILE</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/>*<sp/>Introduction</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/>*<sp/>Features</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/>*<sp/>System<sp/>illustration</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/>*<sp/>Required<sp/>updates</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/>*<sp/>Building<sp/>the<sp/>example<sp/>design</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">1.<sp/>INTRODUCTION</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">------------</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">This<sp/>example<sp/>application<sp/>is<sp/>built<sp/>to<sp/>demonstrate<sp/>the<sp/>functionality<sp/>of<sp/>Xilinx</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">HDMI<sp/>HDCP<sp/>2.2<sp/>Professinal<sp/>Repeater<sp/>running<sp/>on<sp/>the<sp/>same<sp/>hardware<sp/>with<sp/>HDCP</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">configured<sp/>as<sp/>a<sp/>Repeater.</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">For<sp/>details,<sp/>see<sp/>xhdmi_example.c<sp/>and<sp/>xhdcp.c.</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">2.<sp/>FEATURES</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">------------</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">*<sp/>This<sp/>application<sp/>implements<sp/>the<sp/>HDCP<sp/>Professional,<sp/>Revision<sp/>2.2</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>specification.</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">*<sp/>The<sp/>application<sp/>implements<sp/>the<sp/>HDCP<sp/>Professional<sp/>Repeater<sp/>built<sp/>on<sp/>a</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>HDCP<sp/>Repeater.<sp/>In<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>implementation,<sp/>by<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">,<sp/>HDMI<sp/>TX<sp/>is<sp/>to<sp/>transmit</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>HDMI<sp/>stream<sp/>received<sp/>from<sp/>the<sp/>SOURCE<sp/>by<sp/>the<sp/>RX<sp/>to<sp/>the<sp/>SINK.</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">*<sp/>If<sp/>Color<sp/>Bar<sp/>module<sp/>is<sp/>selected<sp/>(via<sp/>UART<sp/>menu),<sp/>a<sp/>test<sp/>pattern<sp/>generator<sp/>IP</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>will<sp/>generate<sp/>video<sp/>stream<sp/>according<sp/>to<sp/>user<sp/>selection<sp/>(via<sp/>UART),<sp/>then<sp/>HDMI</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>TX<sp/>will<sp/>transmit<sp/>HDMI<sp/>stream<sp/>to<sp/>the<sp/>downstream<sp/>SINK.</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">*<sp/>There<sp/>is<sp/>an<sp/>additional<sp/>option<sp/>to<sp/>not<sp/>start<sp/>the<sp/>colorbar<sp/>mode<sp/>when<sp/>HDCP</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>Repeater<sp/>is<sp/>enabled.<sp/>This<sp/>will<sp/>make<sp/>the<sp/>HDCP<sp/>authentication<sp/>process<sp/>over<sp/>the</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>Repeater<sp/>more<sp/>robust.</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">*<sp/>If<sp/>the<sp/>HDCP<sp/>(1.4,<sp/>2.2<sp/>or<sp/>both)<sp/>is<sp/>enabled<sp/>by<sp/>the<sp/>hardware,<sp/>the<sp/>application</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>will<sp/>supports<sp/>HDCP<sp/>handling<sp/>in<sp/>both<sp/>HDMI<sp/>TX<sp/>and<sp/>RX.<sp/>This<sp/>will<sp/>be<sp/>implemented</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>as<sp/>a<sp/>Repeater.<sp/>The<sp/>HDCP<sp/>TX<sp/>will<sp/>be<sp/>driven<sp/>by<sp/>the<sp/>HDCP<sp/>RX.</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">For<sp/>details,<sp/>please<sp/>refer<sp/>to<sp/>PG235,<sp/>PG236<sp/>and<sp/>PG230.</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">3.<sp/>SYSTEM<sp/>ILLUSTRATION</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">A<sp/>system<sp/>illustration<sp/>is<sp/>shown<sp/>as<sp/>below.</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------<sp/><sp/><sp/><sp/><sp/>-------------------------<sp/><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>SOURCE<sp/>|----&gt;|<sp/><sp/><sp/><sp/><sp/><sp/>RX<sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>TX<sp/><sp/><sp/><sp/>|----&gt;|<sp/>SINK<sp/>|</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/>PROFESSIONAL<sp/>REPEATER<sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------<sp/><sp/><sp/><sp/><sp/>-------------------------<sp/><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">4.<sp/>REQUIRED<sp/>UPDATES</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">----------------------</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">In<sp/>order<sp/>to<sp/>build<sp/>the<sp/>system<sp/>the<sp/>user<sp/>is<sp/>required<sp/>to<sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>a<sp/>few<sp/>extra<sp/>updates<sp/>to</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">the<sp/>drivers<sp/>in<sp/>order<sp/>to<sp/>support<sp/>the<sp/>HDCP<sp/>Professional<sp/>requirements<sp/>in<sp/>the<sp/>low</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">level<sp/>drivers<sp/>and<sp/>to<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>the<sp/>example<sp/>design<sp/>in<sp/>SDK.</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal">Updated<sp/>Required<sp/>to<sp/>hdcp1x<sp/>drivers</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">----------------------</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">Please<sp/>make<sp/>the<sp/>following<sp/>updates<sp/>in<sp/>the<sp/>hdcp1x<sp/>driver.</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">1.<sp/>In<sp/>file<sp/>xhdcp1x.h,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.1.<sp/>In<sp/>the<sp/>structure<sp/>XHdcp1x,<sp/>add<sp/>the<sp/>following<sp/>variable<sp/>and</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>it</highlight><highlight class="stringliteral">&apos;s<sp/>description.</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>u8<sp/><sp/>IsProRepeater;<sp/><sp/>/**&lt;<sp/>The<sp/>IsProRepeater<sp/>flag<sp/>determines<sp/>if</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>HDCP<sp/>is<sp/>part<sp/>of<sp/>a<sp/>Professional<sp/>Repeater</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>system.<sp/>*/</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.2.<sp/>Add<sp/>the<sp/>declaration<sp/>of<sp/>the<sp/>following<sp/>function.</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>int<sp/>XHdcp1x_SetProRepeater(XHdcp1x<sp/>*InstancePtr,<sp/>u8<sp/>State);</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral">2.<sp/>In<sp/>file<sp/>xhdcp1x_port_hdmi_rx.c,</highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.1.<sp/>In<sp/>the<sp/>definition<sp/>of<sp/>the<sp/>function,</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>static<sp/>int<sp/>XHdcp1x_PortHdmiRxEnable(XHdcp1x<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>update<sp/>the<sp/>following<sp/>lines<sp/>with<sp/>a<sp/>new<sp/>check<sp/>for<sp/>the<sp/>value<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsProRepeater<sp/>flag.<sp/>(Update<sp/>marked<sp/>as<sp/>&gt;&gt;&gt;&gt;&gt;)</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/>/*<sp/>Initialize<sp/>the<sp/>Bcaps<sp/>register<sp/>*/</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>memset(Buf,<sp/>0,<sp/>4);</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>Buf[0]<sp/>|=<sp/>XHDCP1X_PORT_BIT_BCAPS_HDMI;</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>Buf[0]<sp/>|=<sp/>XHDCP1X_PORT_BIT_BCAPS_FAST_REAUTH;</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>if(InstancePtr-&gt;IsRepeater<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;&gt;&gt;|<sp/><sp/><sp/><sp/><sp/><sp/>!InstancePtr-&gt;IsProRepeater)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[0]<sp/>|=<sp/>XHDCP1X_PORT_BIT_BCAPS_REPEATER;</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral">3.<sp/>In<sp/>the<sp/>file<sp/>xhdcp1x_rx.c,</highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.1.<sp/>In<sp/>the<sp/>definition<sp/>of<sp/>the<sp/>function,</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>static<sp/>void<sp/>XHdcp1x_RxStartComputations(XHdcp1x<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp1x_StateType<sp/>*NextStatePtr)</highlight></codeline>
+<codeline lineno="90"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>update<sp/>the<sp/>following<sp/>lines<sp/>with<sp/>a<sp/>new<sp/>check<sp/>for<sp/>the<sp/>value<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="91"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsProRepeater<sp/>flag.<sp/>(Update<sp/>marked<sp/>as<sp/>&gt;&gt;&gt;&gt;&gt;)</highlight></codeline>
+<codeline lineno="92"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>if<sp/>(InstancePtr-&gt;IsRepeater<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="93"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;&gt;&gt;|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>!InstancePtr-&gt;IsProRepeater)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Z<sp/>=<sp/>(u32)((Value<sp/>|<sp/>0x00000100)<sp/>&amp;<sp/>0x000001FFul);</highlight></codeline>
+<codeline lineno="95"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}<sp/>else<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Z<sp/>=<sp/>(u32)(Value<sp/>&amp;<sp/>0x000000FFul);</highlight></codeline>
+<codeline lineno="97"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="stringliteral">4.<sp/>In<sp/>the<sp/>file<sp/>xhdcp1x.c,</highlight></codeline>
+<codeline lineno="99"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4.1.<sp/>Add<sp/>the<sp/>definition<sp/>the<sp/>following<sp/>new<sp/>function,</highlight></codeline>
+<codeline lineno="100"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/*****************************************************************************/</highlight></codeline>
+<codeline lineno="101"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/**</highlight></codeline>
+<codeline lineno="102"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>function<sp/>sets<sp/>the<sp/>Professional<sp/>Repeater<sp/>functionality<sp/>for<sp/>an</highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>HDCP<sp/>interface.</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>the<sp/>interface<sp/>to<sp/>disable.</highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/>State<sp/>is<sp/>either<sp/>TRUE<sp/>or<sp/>FALSE</highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@return</highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>XST_SUCCESS<sp/>if<sp/>successful.</highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>XST_FAILURE<sp/>otherwise.</highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="112"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="113"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="114"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>******************************************************************************/</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>int<sp/>XHdcp1x_SetProRepeater(XHdcp1x<sp/>*InstancePtr,<sp/>u8<sp/>State)</highlight></codeline>
+<codeline lineno="116"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="118"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="119"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>Verify<sp/>argument.<sp/>*/</highlight></codeline>
+<codeline lineno="120"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="121"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="122"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsProRepeater<sp/>=<sp/>State;</highlight></codeline>
+<codeline lineno="123"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="124"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>Update<sp/>the<sp/>Repeater<sp/>bit<sp/>in<sp/>BCaps.<sp/>*/</highlight></codeline>
+<codeline lineno="125"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp1x_RxSetRepeaterBcaps(InstancePtr,<sp/>!State);</highlight></codeline>
+<codeline lineno="126"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="127"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>(Status);</highlight></codeline>
+<codeline lineno="128"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="130"><highlight class="stringliteral">Updated<sp/>Required<sp/>to<sp/>v_hdmirxss<sp/>drivers</highlight></codeline>
+<codeline lineno="131"><highlight class="stringliteral">----------------------</highlight></codeline>
+<codeline lineno="132"><highlight class="stringliteral">1.<sp/>In<sp/>the<sp/>xv_hdmirxss.h<sp/>file,</highlight></codeline>
+<codeline lineno="133"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.1.<sp/>In<sp/>the<sp/>structure<sp/>XV_HdmiRxSs<sp/>add<sp/>the<sp/>following<sp/>variable,</highlight></codeline>
+<codeline lineno="134"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#if<sp/>defined(XPAR_XHDCP_NUM_INSTANCES)<sp/>||<sp/>defined(XPAR_XHDCP22_RX_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="135"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>u8<sp/>IsHdcpProRepeater;</highlight></codeline>
+<codeline lineno="136"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.2.<sp/>Add<sp/>the<sp/>declaration<sp/>of<sp/>the<sp/>function.</highlight></codeline>
+<codeline lineno="138"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/>int<sp/>XV_HdmiRxSs_HdcpSetProRepeater(XV_HdmiRxSs<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="139"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3.<sp/>Add<sp/>the<sp/>declaration<sp/>of<sp/>the<sp/>function.</highlight></codeline>
+<codeline lineno="140"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>int<sp/>XV_HdmiRxSs_HdcpIsProRepeater(XV_HdmiRxSs<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="141"><highlight class="stringliteral">2.<sp/>In<sp/>the<sp/>xv_hdmirxss_hdcp.c,</highlight></codeline>
+<codeline lineno="142"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.1.<sp/>Add<sp/>the<sp/>definition<sp/>the<sp/>following<sp/>function,</highlight></codeline>
+<codeline lineno="143"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#ifdef<sp/>USE_HDCP_RX</highlight></codeline>
+<codeline lineno="144"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/*****************************************************************************/</highlight></codeline>
+<codeline lineno="145"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/**</highlight></codeline>
+<codeline lineno="146"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="147"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>function<sp/>checks<sp/>if<sp/>the<sp/>HDMI<sp/>receiver<sp/>is<sp/>an<sp/>HDCP<sp/>professional<sp/>repeater</highlight></codeline>
+<codeline lineno="148"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>upstream<sp/>interface<sp/>for<sp/>the<sp/>active<sp/>protocol.</highlight></codeline>
+<codeline lineno="149"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="150"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XV_HdmiRxSs<sp/>instance.</highlight></codeline>
+<codeline lineno="151"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="152"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@return<sp/>&apos;</highlight><highlight class="normal">IsHdcpProRepeater</highlight><highlight class="stringliteral">&apos;<sp/>flag.</highlight></codeline>
+<codeline lineno="153"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="154"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="155"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="156"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>******************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>int<sp/>XV_HdmiRxSs_HdcpIsProRepeater(XV_HdmiRxSs<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="158"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>/*<sp/>Verify<sp/>argument.<sp/>*/</highlight></codeline>
+<codeline lineno="160"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="161"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="162"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>return<sp/>InstancePtr-&gt;IsHdcpProRepeater;</highlight></codeline>
+<codeline lineno="163"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.2.<sp/>Add<sp/>the<sp/>definition<sp/>of<sp/>the<sp/>following<sp/>function,</highlight></codeline>
+<codeline lineno="166"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#ifdef<sp/>USE_HDCP_RX</highlight></codeline>
+<codeline lineno="167"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/*****************************************************************************/</highlight></codeline>
+<codeline lineno="168"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>/**</highlight></codeline>
+<codeline lineno="169"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="170"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>function<sp/>enables<sp/>the<sp/>Professional<sp/>Repeater<sp/>functionality<sp/>for</highlight></codeline>
+<codeline lineno="171"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>HDCP<sp/>protocol.</highlight></codeline>
+<codeline lineno="172"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="173"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XV_HdmiRxSs<sp/>instance.</highlight></codeline>
+<codeline lineno="174"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>Set<sp/>is<sp/>TRUE<sp/>to<sp/>enable<sp/>and<sp/>FALSE<sp/>to<sp/>disable<sp/>repeater.</highlight></codeline>
+<codeline lineno="175"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="176"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@return</highlight></codeline>
+<codeline lineno="177"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>-<sp/>XST_SUCCESS<sp/>if<sp/>action<sp/>was<sp/>successful</highlight></codeline>
+<codeline lineno="178"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>-<sp/>XST_FAILURE<sp/>if<sp/>action<sp/>was<sp/>not<sp/>successful</highlight></codeline>
+<codeline lineno="179"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="180"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="181"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="182"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>******************************************************************************/</highlight></codeline>
+<codeline lineno="183"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>int<sp/>XV_HdmiRxSs_HdcpSetProRepeater(XV_HdmiRxSs<sp/>*InstancePtr,<sp/>u8<sp/>Set)</highlight></codeline>
+<codeline lineno="184"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>/*<sp/>Verify<sp/>argument.<sp/>*/</highlight></codeline>
+<codeline lineno="186"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="187"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="188"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#ifdef<sp/>XPAR_XHDCP_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="189"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>//<sp/>HDCP<sp/>1.4</highlight></codeline>
+<codeline lineno="190"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>if<sp/>(InstancePtr-&gt;Hdcp14Ptr)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp1x_SetProRepeater(InstancePtr-&gt;Hdcp14Ptr,<sp/>Set);</highlight></codeline>
+<codeline lineno="192"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="194"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="195"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#ifdef<sp/>XPAR_XHDCP22_RX_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="196"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>//<sp/>HDCP<sp/>2.2</highlight></codeline>
+<codeline lineno="197"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>if<sp/>(InstancePtr-&gt;Hdcp22Ptr)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>Nothing<sp/>to<sp/>do.<sp/>*/</highlight></codeline>
+<codeline lineno="199"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="201"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="202"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsHdcpProRepeater<sp/>=<sp/>Set;</highlight></codeline>
+<codeline lineno="203"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="204"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>return<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="205"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="208"><highlight class="stringliteral">5.<sp/>BUILDING<sp/>THE<sp/>EXAMPLE<sp/>DESIGN</highlight></codeline>
+<codeline lineno="209"><highlight class="stringliteral">----------------------</highlight></codeline>
+<codeline lineno="210"><highlight class="stringliteral">Before<sp/>you<sp/>can<sp/>import<sp/>this<sp/>application<sp/>as<sp/>an<sp/>example<sp/>design<sp/>in<sp/>SDK,<sp/>you<sp/>need<sp/>to</highlight></codeline>
+<codeline lineno="211"><highlight class="stringliteral">create<sp/>a<sp/>placeholder/pointer<sp/>text<sp/>file<sp/>for<sp/>it.<sp/>To<sp/>do<sp/>this<sp/>go<sp/>to<sp/>the<sp/>following</highlight></codeline>
+<codeline lineno="212"><highlight class="stringliteral">directory.</highlight></codeline>
+<codeline lineno="213"><highlight class="stringliteral">&lt;path_to_drivers&gt;/v_hdmitxss/examples/xhdmi_example/dummy/</highlight></codeline>
+<codeline lineno="214"><highlight class="stringliteral">Here<sp/>create<sp/>a<sp/>new<sp/>file,<sp/>&quot;RepeaterPro_A53.txt&quot;<sp/>and<sp/>copy<sp/>the<sp/>contents<sp/>of<sp/>this</highlight></codeline>
+<codeline lineno="215"><highlight class="stringliteral">file<sp/>into<sp/>it.</highlight></codeline>
+<codeline lineno="216"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="217"><highlight class="stringliteral">Next,<sp/>in<sp/>order<sp/>to<sp/>import<sp/>the<sp/>example<sp/>design<sp/>in<sp/>SDK,<sp/>please<sp/>open<sp/>the<sp/>following</highlight></codeline>
+<codeline lineno="218"><highlight class="stringliteral">file<sp/>in<sp/>a<sp/>text<sp/>editor.</highlight></codeline>
+<codeline lineno="219"><highlight class="stringliteral">&lt;path_to_drivers&gt;/v_hdmitxss/data/dependencies.props</highlight></codeline>
+<codeline lineno="220"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="221"><highlight class="stringliteral">Next<sp/>append<sp/>the<sp/>following<sp/>line<sp/>to<sp/>the<sp/>end<sp/>of<sp/>the<sp/>file.</highlight></codeline>
+<codeline lineno="222"><highlight class="stringliteral">xhdmi_example/dummy/RepeaterPro_A53.txt=xhdmi_example/RepeaterProfessional/xhdmi_example.c,xhdmi_example/RepeaterProfessional/xhdmi_example.h,xhdmi_example/PassThrough/xhdmi_edid.h,xhdmi_example/PassThrough/xhdmi_edid.c,xhdmi_example/xhdmi_hdcp_keys_table.h,xhdmi_example/idt_8t49n24x.c,xhdmi_example/idt_8t49n24x.h,xhdmi_example/xvidframe_crc.c,xhdmi_example/xvidframe_crc.h,xhdmi_example/PassThrough/xhdmi_menu.c,xhdmi_example/PassThrough/xhdmi_menu.h,xhdmi_example/RepeaterProfessional/xhdcp.c,xhdmi_example/RepeaterProfessional/xhdcp.h,xhdmi_example/aes256.c,xhdmi_example/aes256.h,xhdmi_example/audiogen_drv.c,xhdmi_example/audiogen_drv.h,xhdmi_example/dp159.c,xhdmi_example/dp159.h,xhdmi_example/sha256.c,xhdmi_example/sha256.h,xhdmi_example/si5324drv.c,xhdmi_example/si5324drv.h,xhdmi_example/xhdmi_hdcp_keys.c,xhdmi_example/xhdmi_hdcp_keys.h,platforms/platform.c,platforms/platform.h,platforms/platform_config.h,platforms/zynq_us_a53_64/lscript.ld</highlight></codeline>
+<codeline lineno="223"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="224"><highlight class="stringliteral">Include<sp/>the<sp/>drivers<sp/>in<sp/>the<sp/>Xilinx-&gt;Repositories<sp/>in<sp/>SDK<sp/>GUI.</highlight></codeline>
+<codeline lineno="225"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="226"><highlight class="stringliteral">Build<sp/>the<sp/>board<sp/>support<sp/>package.</highlight></codeline>
+<codeline lineno="227"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="228"><highlight class="stringliteral">You<sp/>should<sp/>now<sp/>see<sp/>the<sp/>option<sp/>to<sp/>build<sp/>the<sp/>RepeaterPro_A53<sp/>example<sp/>design<sp/>in</highlight></codeline>
+<codeline lineno="229"><highlight class="stringliteral">the<sp/>selection<sp/>box<sp/>that<sp/>appears.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt"/>
+  </compounddef>
+</doxygen>

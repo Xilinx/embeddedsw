@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___cipher" kind="struct" prot="public">
+    <compoundname>XHdcp1x_Cipher</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a0e54dbb3c7e4e8557b0b827380490292" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Cipher::LinkFailCallback</definition>
+        <argsstring></argsstring>
+        <name>LinkFailCallback</name>
+        <briefdescription>
+<para>Link fail callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="924" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="924" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a1263eceef9d391e95ae832e31897a745" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Cipher::LinkFailRef</definition>
+        <argsstring></argsstring>
+        <name>LinkFailRef</name>
+        <briefdescription>
+<para>Link fail reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="925" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="925" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a2a65b2975cc1fd0db6dca06da579da5a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Cipher::IsLinkFailCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsLinkFailCallbackSet</name>
+        <briefdescription>
+<para>Link fail config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="926" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="926" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a72c9b8c8298e1c4fdb76b0c0bcb10d9b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Cipher::RiUpdateCallback</definition>
+        <argsstring></argsstring>
+        <name>RiUpdateCallback</name>
+        <briefdescription>
+<para>Ri update callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="927" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="927" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a47c45835fd9b9d730755099a72eb6214" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Cipher::RiUpdateRef</definition>
+        <argsstring></argsstring>
+        <name>RiUpdateRef</name>
+        <briefdescription>
+<para>Ri update reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="928" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="928" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a6d88e9f47ede5f03ddf972e034e547d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Cipher::IsRiUpdateCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRiUpdateCallbackSet</name>
+        <briefdescription>
+<para>Ri update config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="929" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="929" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gafc9a91374b2e78ea1aade28082e354a7" compoundref="xhdcp1x__cipher__intr_8c" startline="70" endline="103">XHdcp1x_CipherSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_1a5f777760902410ea791790862f150e91" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp1x___cipher_stats" kindref="compound">XHdcp1x_CipherStats</ref></type>
+        <definition>XHdcp1x_CipherStats XHdcp1x_Cipher::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Cipher statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="930" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="930" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains an instance of the HDCP cipher core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XHdcp1x_Cipher</label>
+        <link refid="struct_x_hdcp1x___cipher"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XHdcp1x_CipherStats</label>
+        <link refid="struct_x_hdcp1x___cipher_stats"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="923" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="923" bodyend="931"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___cipher_1a2a65b2975cc1fd0db6dca06da579da5a" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>IsLinkFailCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a6d88e9f47ede5f03ddf972e034e547d7" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>IsRiUpdateCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a0e54dbb3c7e4e8557b0b827380490292" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>LinkFailCallback</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a1263eceef9d391e95ae832e31897a745" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>LinkFailRef</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a72c9b8c8298e1c4fdb76b0c0bcb10d9b" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>RiUpdateCallback</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a47c45835fd9b9d730755099a72eb6214" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>RiUpdateRef</name></member>
+      <member refid="struct_x_hdcp1x___cipher_1a5f777760902410ea791790862f150e91" prot="public" virt="non-virtual"><scope>XHdcp1x_Cipher</scope><name>Stats</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

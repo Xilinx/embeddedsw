@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['xmbox_5fcfginitialize',['XMbox_CfgInitialize',['../group__mbox.html#ga34fbeaf8de9092cb4d5b00dfbf054426',1,'xmbox.c']]],
+  ['xmbox_5fclearinterrupt',['XMbox_ClearInterrupt',['../group__mbox.html#gab93a50b0032e4b6202c23c4201e0591e',1,'xmbox.c']]],
+  ['xmbox_5fflush',['XMbox_Flush',['../group__mbox.html#ga10691489238a2a1b8515468b416d773e',1,'xmbox.c']]],
+  ['xmbox_5fgetinterruptenable',['XMbox_GetInterruptEnable',['../group__mbox.html#gacb96b1964aa476b4d60df4fd2440022c',1,'xmbox.c']]],
+  ['xmbox_5fgetinterruptstatus',['XMbox_GetInterruptStatus',['../group__mbox.html#gaf73757d06d4cc60466e563ab185a6c07',1,'xmbox.c']]],
+  ['xmbox_5fgetstatus',['XMbox_GetStatus',['../group__mbox.html#ga8620711a04da0032b216e3f57a80570d',1,'xmbox.c']]],
+  ['xmbox_5fisempty',['XMbox_IsEmpty',['../group__mbox.html#gabb01fe466ffcd0da315ffee115f4cd60',1,'xmbox.c']]],
+  ['xmbox_5fisfull',['XMbox_IsFull',['../group__mbox.html#gaa9db05bc2935bcc2230ff023b5c9cbcc',1,'xmbox.c']]],
+  ['xmbox_5flookupconfig',['XMbox_LookupConfig',['../group__mbox.html#gafe477f8e46421e3752c5c1b92a8fec61',1,'xmbox_sinit.c']]],
+  ['xmbox_5fread',['XMbox_Read',['../group__mbox.html#gaa1f68405027d147c68aa53bcb49fbd5a',1,'xmbox.c']]],
+  ['xmbox_5freadblocking',['XMbox_ReadBlocking',['../group__mbox.html#gab14511b623c1d3c191cdc441b8909006',1,'xmbox.c']]],
+  ['xmbox_5fresetfifos',['XMbox_ResetFifos',['../group__mbox.html#gacf8d6e720149452270eac0493537a233',1,'xmbox.c']]],
+  ['xmbox_5fsetinterruptenable',['XMbox_SetInterruptEnable',['../group__mbox.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61',1,'xmbox.c']]],
+  ['xmbox_5fsetreceivethreshold',['XMbox_SetReceiveThreshold',['../group__mbox.html#ga8c05b007d0f92ca32702db58573302a9',1,'xmbox.c']]],
+  ['xmbox_5fsetsendthreshold',['XMbox_SetSendThreshold',['../group__mbox.html#ga4fb918498d8adc676f4ea554585609d2',1,'xmbox.c']]],
+  ['xmbox_5fwrite',['XMbox_Write',['../group__mbox.html#ga254c4e5a042e34520c3669fbf9651bc2',1,'xmbox.c']]],
+  ['xmbox_5fwriteblocking',['XMbox_WriteBlocking',['../group__mbox.html#ga23ee00f97807790770f2dab9b2ea3b0e',1,'xmbox.c']]]
+];

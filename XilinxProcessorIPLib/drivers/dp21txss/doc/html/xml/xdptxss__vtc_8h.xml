@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__vtc_8h" kind="file">
+    <compoundname>xdptxss_vtc.h</compoundname>
+    <includes local="yes">xvtc.h</includes>
+    <includes local="yes">xdp.h</includes>
+    <includedby refid="xdptxss__vtc_8c" local="yes">xdptxss_vtc.c</includedby>
+    <includedby refid="xdptxss_8h" local="yes">xdptxss.h</includedby>
+    <incdepgraph>
+      <node id="449">
+        <label>xdp.h</label>
+      </node>
+      <node id="447">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss_vtc.h"/>
+        <childnode refid="448" relation="include">
+        </childnode>
+        <childnode refid="449" relation="include">
+        </childnode>
+      </node>
+      <node id="448">
+        <label>xvtc.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="453">
+        <label>xdptxss.c</label>
+        <link refid="xdptxss_8c"/>
+      </node>
+      <node id="452">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="453" relation="include">
+        </childnode>
+        <childnode refid="454" relation="include">
+        </childnode>
+        <childnode refid="455" relation="include">
+        </childnode>
+        <childnode refid="456" relation="include">
+        </childnode>
+        <childnode refid="457" relation="include">
+        </childnode>
+        <childnode refid="458" relation="include">
+        </childnode>
+        <childnode refid="459" relation="include">
+        </childnode>
+        <childnode refid="460" relation="include">
+        </childnode>
+        <childnode refid="461" relation="include">
+        </childnode>
+        <childnode refid="465" relation="include">
+        </childnode>
+        <childnode refid="466" relation="include">
+        </childnode>
+      </node>
+      <node id="457">
+        <label>xdptxss_g.c</label>
+      </node>
+      <node id="460">
+        <label>xdptxss_sinit.c</label>
+        <link refid="xdptxss__sinit_8c"/>
+      </node>
+      <node id="462">
+        <label>menus.c</label>
+      </node>
+      <node id="451">
+        <label>xdptxss_vtc.c</label>
+        <link refid="xdptxss__vtc_8c"/>
+      </node>
+      <node id="450">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss_vtc.h"/>
+        <childnode refid="451" relation="include">
+        </childnode>
+        <childnode refid="452" relation="include">
+        </childnode>
+      </node>
+      <node id="458">
+        <label>xdptxss_intr.c</label>
+        <link refid="xdptxss__intr_8c"/>
+      </node>
+      <node id="464">
+        <label>xdptxss_dp21_tx.c</label>
+        <link refid="xdptxss__dp21__tx_8c"/>
+      </node>
+      <node id="461">
+        <label>xdptxss_dp21_tx.h</label>
+        <link refid="xdptxss__dp21__tx_8h"/>
+        <childnode refid="462" relation="include">
+        </childnode>
+        <childnode refid="463" relation="include">
+        </childnode>
+        <childnode refid="464" relation="include">
+        </childnode>
+        <childnode refid="465" relation="include">
+        </childnode>
+      </node>
+      <node id="459">
+        <label>xdptxss_selftest.c</label>
+        <link refid="xdptxss__selftest_8c"/>
+      </node>
+      <node id="463">
+        <label>si570.c</label>
+        <link refid="si570_8c"/>
+      </node>
+      <node id="465">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="455">
+        <label>xdptxss_edid_parser.c</label>
+        <link refid="xdptxss__edid__parser_8c"/>
+      </node>
+      <node id="456">
+        <label>xdptxss_edid_parser.h</label>
+        <link refid="xdptxss__edid__parser_8h"/>
+        <childnode refid="455" relation="include">
+        </childnode>
+      </node>
+      <node id="454">
+        <label>xdptxss_dbg.c</label>
+        <link refid="xdptxss__dbg_8c"/>
+      </node>
+      <node id="466">
+        <label>xvid_pat_gen.c</label>
+        <link refid="xvid__pat__gen_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdptxss__vtc_8h_1aa209c5ff5e9116cda9dc9590c9984174" prot="public" static="no">
+        <name>XDPTXSS_VTC_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdptxss__vtc_8h_1ab2e0f13f1f5cbd8904c67cc63f2df32d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpTxSs_VtcSetup</definition>
+        <argsstring>(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig, u8 VtcAdjustBs)</argsstring>
+        <name>XDpTxSs_VtcSetup</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDp_TxMainStreamAttributes *</type>
+          <declname>MsaConfig</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VtcAdjustBs</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Video Timing Controller with video timing parameters from MSA config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsaConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to main stream attributes structure that will be used to extract timing values. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtcAdjustBs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to adjust blanking symbols for reduced blanking timing.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if video timing parameters set successfully.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.c" bodystart="75" bodyend="237"/>
+        <referencedby refid="xdptxss__dp21__tx_8h_1af3117a55422e550a0ce3fa03ef562393" compoundref="xdptxss__dp21__tx_8c" startline="1351" endline="1500">DpTxSs_StartTx</referencedby>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="144" endline="438">XDpTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__vtc_8h_1adaad2030e7ce9acdf2052623a1288e57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpTxSs_VtcAdaptiveSyncSetup</definition>
+        <argsstring>(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode, u32 StretchLimit)</argsstring>
+        <name>XDpTxSs_VtcAdaptiveSyncSetup</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVtc_AdaptiveSyncMode</type>
+          <declname>Mode</declname>
+          <defname>mode</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StretchLimit</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Video Timing Controller with Adaptive-Sync mode to be work on and sets vertical front porch stretch limit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a Adaptive-Sync mechanism to be work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StretchLimit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a max limit of vertical front porch stretching</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.c" bodystart="254" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__vtc_8h_1a4d4a9803bf0a143987eb905e0dd02cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpTxSs_VtcDisableAdaptiveSync</definition>
+        <argsstring>(XVtc *InstancePtr)</argsstring>
+        <name>XDpTxSs_VtcDisableAdaptiveSync</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables Adaptive-Sync feature in Video Timing Controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.c" bodystart="275" bodyend="281"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file for Xilinx DisplayPort Transmitter Subsystem sub-core, is Video Timing Controller. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 01/29/15 Initial release.
+1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+                  name with prefix XDpTxSs_*
+5.0  tu  08/10/17 Modified XDpTxSs_VtcSetup for adjusting BS symbol for
+            equal timing
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XDPTXSS_VTC_H_</highlight></codeline>
+<codeline lineno="29" refid="xdptxss__vtc_8h_1aa209c5ff5e9116cda9dc9590c9984174" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_VTC_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvtc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">u32<sp/><ref refid="xdptxss__vtc_8c_1ab2e0f13f1f5cbd8904c67cc63f2df32d" kindref="member">XDpTxSs_VtcSetup</ref>(XVtc<sp/>*InstancePtr,<sp/>XDp_TxMainStreamAttributes<sp/>*MsaConfig,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VtcAdjustBs);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__vtc_8c_1a4d161ae13fce1ba336d10b2a3f734381" kindref="member">XDpTxSs_VtcAdaptiveSyncSetup</ref>(XVtc<sp/>*InstancePtr,<sp/>XVtc_AdaptiveSyncMode<sp/>Mode,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StretchLimit);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__vtc_8c_1a4d4a9803bf0a143987eb905e0dd02cd3" kindref="member">XDpTxSs_VtcDisableAdaptiveSync</ref>(XVtc<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/xdptxss_vtc.h"/>
+  </compounddef>
+</doxygen>

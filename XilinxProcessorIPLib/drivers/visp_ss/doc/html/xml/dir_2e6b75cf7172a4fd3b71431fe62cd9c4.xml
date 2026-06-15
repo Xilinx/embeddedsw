@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2e6b75cf7172a4fd3b71431fe62cd9c4" kind="dir">
+    <compoundname>source</compoundname>
+    <innerdir refid="dir_c749b38ae8445b9f30e2086956335db4">control</innerdir>
+    <innerdir refid="dir_5a53ac3e9b6b917194ff052f3f10577d">module</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/"/>
+  </compounddef>
+</doxygen>

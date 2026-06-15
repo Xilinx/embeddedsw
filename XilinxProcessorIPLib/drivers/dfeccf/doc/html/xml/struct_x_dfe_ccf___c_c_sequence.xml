@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___c_c_sequence" kind="struct" prot="public">
+    <compoundname>XDfeCcf_CCSequence</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_CCSequence::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>[1-16] Sequence length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga699c8f140720fcbf22543c7758ace5d5" compoundref="xdfeccf_8c" startline="1258" endline="1272">XDfeCcf_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_sequence_1af6b2c36ead2d397dede8ea6e1d54e982" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfeCcf_CCSequence::CCID[XDFECCF_SEQ_LENGTH_MAX]</definition>
+        <argsstring>[XDFECCF_SEQ_LENGTH_MAX]</argsstring>
+        <name>CCID</name>
+        <briefdescription>
+<para><verbatim>   [0-15].Array of CCID&apos;s
+</verbatim> arranged in the order the CCIDs are required to be processed in the channel filter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga699c8f140720fcbf22543c7758ace5d5" compoundref="xdfeccf_8c" startline="1258" endline="1272">XDfeCcf_GetEmptyCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfeCcf_CCSequence::NotUsedCCID</definition>
+        <argsstring></argsstring>
+        <name>NotUsedCCID</name>
+        <briefdescription>
+<para>Lowest CCID number not allocated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" compoundref="xdfeccf_8c" startline="1218" endline="1245">XDfeCcf_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines a CCID sequence. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="264" bodyend="270"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___c_c_sequence_1af6b2c36ead2d397dede8ea6e1d54e982" prot="public" virt="non-virtual"><scope>XDfeCcf_CCSequence</scope><name>CCID</name></member>
+      <member refid="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" prot="public" virt="non-virtual"><scope>XDfeCcf_CCSequence</scope><name>Length</name></member>
+      <member refid="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" prot="public" virt="non-virtual"><scope>XDfeCcf_CCSequence</scope><name>NotUsedCCID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

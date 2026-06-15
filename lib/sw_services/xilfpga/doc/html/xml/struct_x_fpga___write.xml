@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_fpga___write" kind="struct" prot="public">
+    <compoundname>XFpga_Write</compoundname>
+    <includes local="no">xilfpga_pcap_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XFpga_Write::BitstreamAddr</definition>
+        <argsstring></argsstring>
+        <name>BitstreamAddr</name>
+        <briefdescription>
+<para>Bitstream image base address for Normal PDI LOAD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XFpga_Write::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>Unused. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFpga_Write::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Unused. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFpga_Write::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Specifies the type of bitstream file: BIT(0) - Bitstream type; 0 - Normal PDI Load , 1 - Deferred PDI Load. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the PL Write Image details. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para></para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BitstreamAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitstream image base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aes key address which is used for Decryption </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of Bitstream Image. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of Bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full Bitstream</para></listitem><listitem><para>1 - Partial Bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h" bodystart="77" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" prot="public" virt="non-virtual"><scope>XFpga_Write</scope><name>BitstreamAddr</name></member>
+      <member refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" prot="public" virt="non-virtual"><scope>XFpga_Write</scope><name>Flags</name></member>
+      <member refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" prot="public" virt="non-virtual"><scope>XFpga_Write</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" prot="public" virt="non-virtual"><scope>XFpga_Write</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

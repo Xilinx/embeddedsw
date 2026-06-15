@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_t_m_r___inject" kind="struct"><name>XTMR_Inject</name>
+    <member refid="struct_x_t_m_r___inject_1aa093f3a2db59022b5086838569a7629e" kind="variable"><name>RegBaseAddress</name></member>
+    <member refid="struct_x_t_m_r___inject_1ac449a879d5427634f4b3981634e703f6" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_t_m_r___inject_1a82839ec096fef02e029775a31ea9595d" kind="variable"><name>MagicByte</name></member>
+    <member refid="struct_x_t_m_r___inject_1ac480a708bc6795061809b64df28786a0" kind="variable"><name>Address</name></member>
+    <member refid="struct_x_t_m_r___inject_1ae93bf505a45cc2d41a5233e907804571" kind="variable"><name>Instruction</name></member>
+    <member refid="struct_x_t_m_r___inject_1a4ac160caf2b04cb7f6de36e4ec99d10a" kind="variable"><name>Magic</name></member>
+    <member refid="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" kind="variable"><name>CpuId</name></member>
+    <member refid="struct_x_t_m_r___inject_1a5cd63a57c9e0fc660198ca908a80d59b" kind="variable"><name>Inject</name></member>
+  </compound>
+  <compound refid="struct_x_t_m_r___inject___config" kind="struct"><name>XTMR_Inject_Config</name>
+    <member refid="struct_x_t_m_r___inject___config_1a3c314581250f99860e81b37a117a2dc4" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_t_m_r___inject___config_1aed18981142dedd48d7dc99d5926dcbba" kind="variable"><name>RegBaseAddr</name></member>
+    <member refid="struct_x_t_m_r___inject___config_1a7a515f723b124f04117e1193b2d965f3" kind="variable"><name>MagicByte</name></member>
+    <member refid="struct_x_t_m_r___inject___config_1a20d5762809104a18a0c2ca9eedfd0452" kind="variable"><name>CpuId</name></member>
+    <member refid="struct_x_t_m_r___inject___config_1abcc4860b38bfd58a997575597aa04e41" kind="variable"><name>LMBAddrWidth</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xtmr__inject_8c" kind="file"><name>xtmr_inject.c</name>
+    <member refid="group___overview_1ga4f6e672819e304a484435c1a8b9af5c3" kind="define"><name>xor</name></member>
+    <member refid="group___overview_1ga5c0a88c4c506220beeb310a143079fec" kind="variable"><name>xtmr_inject_instr</name></member>
+    <member refid="group___overview_1ga72d8aaf17d11276021633281d01dc459" kind="variable"><name>xtmr_inject_addr</name></member>
+    <member refid="group___overview_1ga80b6a61a1a87d516a0e228cb4cb5ca1a" kind="function"><name>injectmask</name></member>
+    <member refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" kind="function"><name>XTMR_Inject_CfgInitialize</name></member>
+    <member refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" kind="function"><name>XTMR_Inject_Enable</name></member>
+    <member refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" kind="function"><name>XTMR_Inject_Disable</name></member>
+    <member refid="group___overview_1gaa8c496ccf948ca1b3ed359f6f6be485c" kind="function"><name>XTMR_Inject_InjectBit</name></member>
+    <member refid="group___overview_1ga0459573a53d4807b01ee65ed3709b547" kind="function"><name>XTMR_Inject_InjectMask</name></member>
+  </compound>
+  <compound refid="xtmr__inject_8h" kind="file"><name>xtmr_inject.h</name>
+    <member refid="group___overview_1ga2246fac454dbe7db381337c1b7a8ffd5" kind="define"><name>XTMR_INJECT_H</name></member>
+    <member refid="group___overview_1ga3bfaf6042a32c5ee78cd0f34fc9df133" kind="define"><name>XTI_STANDARD_LMB_WIDTH</name></member>
+    <member refid="group___overview_1gad6c9a7909d80ab972efd955cdfc9b30c" kind="function"><name>XTMR_Inject_Initialize</name></member>
+    <member refid="group___overview_1ga4f7e4a45f3942aa7527a1a86c3cad0ca" kind="function"><name>XTMR_Inject_LookupConfig</name></member>
+    <member refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" kind="function"><name>XTMR_Inject_CfgInitialize</name></member>
+    <member refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" kind="function"><name>XTMR_Inject_Enable</name></member>
+    <member refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" kind="function"><name>XTMR_Inject_Disable</name></member>
+    <member refid="group___overview_1gaa8c496ccf948ca1b3ed359f6f6be485c" kind="function"><name>XTMR_Inject_InjectBit</name></member>
+    <member refid="group___overview_1ga0459573a53d4807b01ee65ed3709b547" kind="function"><name>XTMR_Inject_InjectMask</name></member>
+    <member refid="group___overview_1gae03f2de24906f2660c4ab03a869e50cb" kind="function"><name>XTMR_Inject_SelfTest</name></member>
+  </compound>
+  <compound refid="xtmr__inject__g_8c" kind="file"><name>xtmr_inject_g.c</name>
+    <member refid="group___overview_1ga4808f00f81c65e406651a8c6a1768333" kind="variable"><name>XTMR_Inject_ConfigTable</name></member>
+  </compound>
+  <compound refid="xtmr__inject__i_8h" kind="file"><name>xtmr_inject_i.h</name>
+    <member refid="group___overview_1ga73a08d23f17a53d6b930f90c50b39746" kind="define"><name>XTMR_INJECT_I_H</name></member>
+    <member refid="group___overview_1ga52343722e17f9e94767d114f4e4e1904" kind="variable"><name>XTMR_Inject_ConfigTable</name></member>
+  </compound>
+  <compound refid="xtmr__inject__l_8h" kind="file"><name>xtmr_inject_l.h</name>
+    <member refid="group___overview_1gab1f098e2a15532cec9a9690ea2ecf90a" kind="define"><name>XTMR_INJECT_L_H</name></member>
+    <member refid="group___overview_1ga36f23c7a7edb9b90e3fb197fd59da57d" kind="define"><name>XTI_CR_OFFSET</name></member>
+    <member refid="group___overview_1ga0df0aa8627dc3fdfa5124f47667795e6" kind="define"><name>XTI_AIR_OFFSET</name></member>
+    <member refid="group___overview_1ga2412fb2a50a5bdb7953322c05e970156" kind="define"><name>XTI_IIR_OFFSET</name></member>
+    <member refid="group___overview_1gad44138b54e7a9ed50809fca5eb2f61e2" kind="define"><name>XTI_EAIR_OFFSET</name></member>
+    <member refid="group___overview_1ga10e859b00942355347a6a5704cb58b40" kind="define"><name>XTI_CR_MAGIC</name></member>
+    <member refid="group___overview_1ga9fd3d0619f42a9a4a442362a90ec39f2" kind="define"><name>XTI_CR_CPU</name></member>
+    <member refid="group___overview_1ga9e25e2a148ed55e5fdb907e82122e9e2" kind="define"><name>XTI_CR_INJ</name></member>
+    <member refid="group___overview_1gae608ecc8ba39206858dcc21c992ad9b1" kind="define"><name>XTI_CR_MAGIC_MASK</name></member>
+    <member refid="group___overview_1gacf00e0f513ca3344f3b7e0225ee46edb" kind="define"><name>XTI_CR_CPU_MASK</name></member>
+    <member refid="group___overview_1gacdb0fa19cb9b757355bd0e7d426c1718" kind="define"><name>XTI_IIR_MASK</name></member>
+    <member refid="group___overview_1ga4e16ec799cb1cc0eaa48c3ed13c900d8" kind="define"><name>XTMR_Inject_Out32</name></member>
+    <member refid="group___overview_1gae29f886309b947dfa2e7b075395f00f6" kind="define"><name>XTMR_Inject_Out64</name></member>
+    <member refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" kind="define"><name>XTMR_Inject_WriteReg</name></member>
+    <member refid="group___overview_1gaf7845ee5d1cb3710177457db62168fe0" kind="define"><name>XTMR_Inject_WriteReg64</name></member>
+    <member refid="group___overview_1ga01af287ad77f7c44c914e70dd8028b85" kind="define"><name>XTMR_Inject_SetControlReg</name></member>
+  </compound>
+  <compound refid="xtmr__inject__low__level__example_8c" kind="file"><name>xtmr_inject_low_level_example.c</name>
+    <member refid="xtmr__inject__low__level__example_8c_1a8328bc7fdd2f73acde2175be1fee2f0a" kind="define"><name>TMRINJECT_BASEADDR</name></member>
+    <member refid="xtmr__inject__low__level__example_8c_1aba9f3d2d85513fe6eee2d836bd97e045" kind="function"><name>TMRInjectLowLevelExample</name></member>
+    <member refid="xtmr__inject__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmr__inject__selftest_8c" kind="file"><name>xtmr_inject_selftest.c</name>
+    <member refid="group___overview_1gae03f2de24906f2660c4ab03a869e50cb" kind="function"><name>XTMR_Inject_SelfTest</name></member>
+  </compound>
+  <compound refid="xtmr__inject__selftest__example_8c" kind="file"><name>xtmr_inject_selftest_example.c</name>
+    <member refid="xtmr__inject__selftest__example_8c_1a83931a5aef36235752852340b5ba623c" kind="define"><name>TMR_INJECT_DEVICE_ID</name></member>
+    <member refid="xtmr__inject__selftest__example_8c_1a9afbea15f655b44992234c13042759da" kind="variable"><name>TMR_Inject</name></member>
+    <member refid="xtmr__inject__selftest__example_8c_1ac8dde83b81e536ee959b50d2f3f432e4" kind="function"><name>TMR_InjectSelfTestExample</name></member>
+    <member refid="xtmr__inject__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmr__inject__sinit_8c" kind="file"><name>xtmr_inject_sinit.c</name>
+    <member refid="group___overview_1ga4f7e4a45f3942aa7527a1a86c3cad0ca" kind="function"><name>XTMR_Inject_LookupConfig</name></member>
+    <member refid="group___overview_1gad6c9a7909d80ab972efd955cdfc9b30c" kind="function"><name>XTMR_Inject_Initialize</name></member>
+  </compound>
+  <compound refid="group___overview" kind="group"><name>Overview</name>
+    <member refid="group___overview_1ga5c0a88c4c506220beeb310a143079fec" kind="variable"><name>xtmr_inject_instr</name></member>
+    <member refid="group___overview_1ga72d8aaf17d11276021633281d01dc459" kind="variable"><name>xtmr_inject_addr</name></member>
+    <member refid="group___overview_1ga4808f00f81c65e406651a8c6a1768333" kind="variable"><name>XTMR_Inject_ConfigTable</name></member>
+    <member refid="group___overview_1ga52343722e17f9e94767d114f4e4e1904" kind="variable"><name>XTMR_Inject_ConfigTable</name></member>
+    <member refid="group___overview_1ga80b6a61a1a87d516a0e228cb4cb5ca1a" kind="function"><name>injectmask</name></member>
+    <member refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" kind="function"><name>XTMR_Inject_CfgInitialize</name></member>
+    <member refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" kind="function"><name>XTMR_Inject_Enable</name></member>
+    <member refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" kind="function"><name>XTMR_Inject_Disable</name></member>
+    <member refid="group___overview_1gaa8c496ccf948ca1b3ed359f6f6be485c" kind="function"><name>XTMR_Inject_InjectBit</name></member>
+    <member refid="group___overview_1ga0459573a53d4807b01ee65ed3709b547" kind="function"><name>XTMR_Inject_InjectMask</name></member>
+    <member refid="group___overview_1gad6c9a7909d80ab972efd955cdfc9b30c" kind="function"><name>XTMR_Inject_Initialize</name></member>
+    <member refid="group___overview_1ga4f7e4a45f3942aa7527a1a86c3cad0ca" kind="function"><name>XTMR_Inject_LookupConfig</name></member>
+    <member refid="group___overview_1gae03f2de24906f2660c4ab03a869e50cb" kind="function"><name>XTMR_Inject_SelfTest</name></member>
+    <member refid="group___overview_1ga4f6e672819e304a484435c1a8b9af5c3" kind="define"><name>xor</name></member>
+    <member refid="group___overview_1ga2246fac454dbe7db381337c1b7a8ffd5" kind="define"><name>XTMR_INJECT_H</name></member>
+    <member refid="group___overview_1ga3bfaf6042a32c5ee78cd0f34fc9df133" kind="define"><name>XTI_STANDARD_LMB_WIDTH</name></member>
+    <member refid="group___overview_1ga73a08d23f17a53d6b930f90c50b39746" kind="define"><name>XTMR_INJECT_I_H</name></member>
+    <member refid="group___overview_1gab1f098e2a15532cec9a9690ea2ecf90a" kind="define"><name>XTMR_INJECT_L_H</name></member>
+    <member refid="group___overview_1ga36f23c7a7edb9b90e3fb197fd59da57d" kind="define"><name>XTI_CR_OFFSET</name></member>
+    <member refid="group___overview_1ga0df0aa8627dc3fdfa5124f47667795e6" kind="define"><name>XTI_AIR_OFFSET</name></member>
+    <member refid="group___overview_1ga2412fb2a50a5bdb7953322c05e970156" kind="define"><name>XTI_IIR_OFFSET</name></member>
+    <member refid="group___overview_1gad44138b54e7a9ed50809fca5eb2f61e2" kind="define"><name>XTI_EAIR_OFFSET</name></member>
+    <member refid="group___overview_1ga10e859b00942355347a6a5704cb58b40" kind="define"><name>XTI_CR_MAGIC</name></member>
+    <member refid="group___overview_1ga9fd3d0619f42a9a4a442362a90ec39f2" kind="define"><name>XTI_CR_CPU</name></member>
+    <member refid="group___overview_1ga9e25e2a148ed55e5fdb907e82122e9e2" kind="define"><name>XTI_CR_INJ</name></member>
+    <member refid="group___overview_1gae608ecc8ba39206858dcc21c992ad9b1" kind="define"><name>XTI_CR_MAGIC_MASK</name></member>
+    <member refid="group___overview_1gacf00e0f513ca3344f3b7e0225ee46edb" kind="define"><name>XTI_CR_CPU_MASK</name></member>
+    <member refid="group___overview_1gacdb0fa19cb9b757355bd0e7d426c1718" kind="define"><name>XTI_IIR_MASK</name></member>
+    <member refid="group___overview_1ga4e16ec799cb1cc0eaa48c3ed13c900d8" kind="define"><name>XTMR_Inject_Out32</name></member>
+    <member refid="group___overview_1gae29f886309b947dfa2e7b075395f00f6" kind="define"><name>XTMR_Inject_Out64</name></member>
+    <member refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" kind="define"><name>XTMR_Inject_WriteReg</name></member>
+    <member refid="group___overview_1gaf7845ee5d1cb3710177457db62168fe0" kind="define"><name>XTMR_Inject_WriteReg64</name></member>
+    <member refid="group___overview_1ga01af287ad77f7c44c914e70dd8028b85" kind="define"><name>XTMR_Inject_SetControlReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_a83dcdcb316208d0a0cbfb7b50b4494b" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_ea7e5a372afcefc6c7bd3b3e8055b98a" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_859c7bcc58ab6bf9bfea3917fdfa40ca" kind="dir"><name>tmr_inject</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___trigger_cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_TriggerCfg</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___trigger_cfg_1af2e1ccd34f5bfe01b41cb0f1bb652220" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___trigger" kindref="compound">XDfePrach_Trigger</ref></type>
+        <definition>XDfePrach_Trigger XDfePrach_TriggerCfg::Activate</definition>
+        <argsstring></argsstring>
+        <name>Activate</name>
+        <briefdescription>
+<para><verbatim>                     Toggle between &quot;Initialized&quot;,
+</verbatim> ultra-low power state, and &quot;Operational&quot; state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___trigger_cfg_1af2373e9c3e721259d22c85e11bfa951a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___trigger" kindref="compound">XDfePrach_Trigger</ref></type>
+        <definition>XDfePrach_Trigger XDfePrach_TriggerCfg::LowPower</definition>
+        <argsstring></argsstring>
+        <name>LowPower</name>
+        <briefdescription>
+<para><verbatim>                     Toggle between &quot;Low-power&quot;
+</verbatim> and &quot;Operational&quot; state </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___trigger_cfg_1ad050fbb7c1ae3ed87adca4601488a293" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___trigger" kindref="compound">XDfePrach_Trigger</ref></type>
+        <definition>XDfePrach_Trigger XDfePrach_TriggerCfg::RachUpdate</definition>
+        <argsstring></argsstring>
+        <name>RachUpdate</name>
+        <briefdescription>
+<para><verbatim>                       Transition to next Rach/CC
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___trigger_cfg_1a2ab37309fe0e2f452ca3c80cadc7e9cd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___trigger" kindref="compound">XDfePrach_Trigger</ref></type>
+        <definition>XDfePrach_Trigger XDfePrach_TriggerCfg::FrameInit[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>FrameInit</name>
+        <briefdescription>
+<para><verbatim>                      Indicate
+</verbatim> the boundary of a frame for each band. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DFE PRACH IP Triggers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="60">
+        <label>XDfePrach_Trigger</label>
+        <link refid="struct_x_dfe_prach___trigger"/>
+      </node>
+      <node id="59">
+        <label>XDfePrach_TriggerCfg</label>
+        <link refid="struct_x_dfe_prach___trigger_cfg"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>RachUpdate</edgelabel>
+          <edgelabel>LowPower</edgelabel>
+          <edgelabel>FrameInit</edgelabel>
+          <edgelabel>Activate</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="246" bodyend="255"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___trigger_cfg_1af2e1ccd34f5bfe01b41cb0f1bb652220" prot="public" virt="non-virtual"><scope>XDfePrach_TriggerCfg</scope><name>Activate</name></member>
+      <member refid="struct_x_dfe_prach___trigger_cfg_1a2ab37309fe0e2f452ca3c80cadc7e9cd" prot="public" virt="non-virtual"><scope>XDfePrach_TriggerCfg</scope><name>FrameInit</name></member>
+      <member refid="struct_x_dfe_prach___trigger_cfg_1af2373e9c3e721259d22c85e11bfa951a" prot="public" virt="non-virtual"><scope>XDfePrach_TriggerCfg</scope><name>LowPower</name></member>
+      <member refid="struct_x_dfe_prach___trigger_cfg_1ad050fbb7c1ae3ed87adca4601488a293" prot="public" virt="non-virtual"><scope>XDfePrach_TriggerCfg</scope><name>RachUpdate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

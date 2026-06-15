@@ -1,0 +1,854 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__efuseps__zynqmp__input_8h" kind="file">
+    <compoundname>xilskey_efuseps_zynqmp_input.h</compoundname>
+    <includes refid="xilskey__eps__zynqmp_8h" local="yes">xilskey_eps_zynqmp.h</includes>
+    <includedby refid="xilskey__efuseps__zynqmp__example_8c" local="yes">xilskey_efuseps_zynqmp_example.c</includedby>
+    <incdepgraph>
+      <node id="82">
+        <label>xilskey_efuseps_zynqmp_input.h</label>
+        <link refid="xilskey_efuseps_zynqmp_input.h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xilskey_eps_zynqmp.h</label>
+        <link refid="xilskey__eps__zynqmp_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="85">
+        <label>xilskey_efuseps_zynqmp_example.c</label>
+        <link refid="xilskey__efuseps__zynqmp__example_8c"/>
+      </node>
+      <node id="84">
+        <label>xilskey_efuseps_zynqmp_input.h</label>
+        <link refid="xilskey_efuseps_zynqmp_input.h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a8f3dc709c8b92b545502e2a37163bf47" prot="public" static="no">
+        <name>XSK_EFUSEPS_AES_RD_LOCK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program Secure control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a35e875679715454e14c433c5311b4d1b" prot="public" static="no">
+        <name>XSK_EFUSEPS_AES_WR_LOCK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="372" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a1852b71b9bae22acd813204a68a3e23e" prot="public" static="no">
+        <name>XSK_EFUSEPS_ENC_ONLY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1afeb25875f2766a259642628b972fa3b2" prot="public" static="no">
+        <name>XSK_EFUSEPS_BBRAM_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="374" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aa8c2cfc2be31b1f74de4272028780f3b" prot="public" static="no">
+        <name>XSK_EFUSEPS_ERR_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a1da87eeb03acf2155ca882a5761349e2" prot="public" static="no">
+        <name>XSK_EFUSEPS_JTAG_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="376" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aff7af93264ca0f8edd9991a4562303fc" prot="public" static="no">
+        <name>XSK_EFUSEPS_DFT_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="377" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a0d87cdc2aa4ade27884745930203d53d" prot="public" static="no">
+        <name>XSK_EFUSEPS_PROG_GATE_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="378" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aba20294b24c78b176152e20e5bedb21b" prot="public" static="no">
+        <name>XSK_EFUSEPS_SECURE_LOCK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="379" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ae2b47cc174d2e74765a687c9e3ce2844" prot="public" static="no">
+        <name>XSK_EFUSEPS_RSA_ENABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="380" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ab38e9a082ea9d5ef02872820265c5abc" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK0_WR_LOCK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="381" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a2a90ab583b9dc2261e9b0f9321ac29ae" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK0_INVLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="382" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ac6dfb8519c42adee67bceb88a52d1642" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK1_WR_LOCK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1af97ef80697d587ecb8cd28978c29c0cf" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK1_INVLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ac7b3c2ab60d72186299fde3243ca9e68" prot="public" static="no">
+        <name>XSK_EFUSEPS_LBIST_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a3f56cf370be409fd0f4ad975d178e470" prot="public" static="no">
+        <name>XSK_EFUSEPS_LPD_SC_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a448aecc766011348913b7d7817ab6fe1" prot="public" static="no">
+        <name>XSK_EFUSEPS_FPD_SC_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aba71df7727d9e17d504e607fe19eaa89" prot="public" static="no">
+        <name>XSK_EFUSEPS_PBR_BOOT_ERR</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aa8d8d1af964356688e0a1072bd6f42d8" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program user control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="394" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a048a5095ffeab84222ffaf8fda5f4cc5" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="395" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a8fe47e84dba06d8010fdeaeb4bb3f73c" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="396" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a067a03df56f2081db8a9d15feeee1eef" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="397" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a9b440b7b2e06763821e2f4ea2723c118" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_4</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="398" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aee1a0cb90e2d218e48b9e47159ed2657" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_5</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="399" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a19a3987e5c89d7370bfce41a57331d0a" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_6</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a110127a96ff0efef561f0124d66eb394" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER_WRLK_7</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="401" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aa26f182a60ddbbb3f845556f3634c2ad" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_AES_KEY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select AES key, User Fuses, PPK0 Sha3 hash, PPK1 Sha3 hash and SPKID for Zynq MP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aa7535222b7ef2c19669fa63a0165eaa9" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_PPK0_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="409" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a8698aac4007486bc462b6694978dc61d" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_PPK1_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="410" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1af2d66d7147db54f1293c0ed69d9ec511" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_SPKID</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="411" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a1daee2ce94d943ddfa57959ab7aafe13" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER0_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="413" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ab0aaf05ab1790251e4321547422a0898" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER1_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="414" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a3c06d2d4cb26a468de7b3ce97960f263" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER2_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="415" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a0bce7cc8a0996b2445567ab797982453" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER3_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="416" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a630c766cbe3c1f46e33af5a438f43cb4" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER4_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="417" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ac99a5beb54f4d590d94b67248386c21a" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER5_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="418" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a20566beb39880654c664c6653dc7927c" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER6_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="419" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a5596080779c868450d449d82872712fa" prot="public" static="no">
+        <name>XSK_EFUSEPS_WRITE_USER7_FUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="420" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a3b25b2a09ade470ec622b5a0b3873776" prot="public" static="no">
+        <name>XSK_EFUSEPS_AES_KEY</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+<para>Following defines should be given in the form of hex string. </para>        </briefdescription>
+        <detaileddescription>
+<para>The length of AES_KEY string must be 64, PPK hash should be 96 for SHA3 selection and and for USER_FUSES, SPK ID must be 32. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="446" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a40a14a1217fd78f66c01974d960bc26d" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK0_HASH</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="448" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ab62a4b4c6ded9e07ddb9b9a165accf94" prot="public" static="no">
+        <name>XSK_EFUSEPS_PPK1_HASH</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="450" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a829588918726e83323cca1245b351327" prot="public" static="no">
+        <name>XSK_EFUSEPS_SPK_ID</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="451" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a7b4cc0d19e020a34941d174214a2c547" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER0_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="453" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a9c63e147d0fabf4ad545075a1a7df955" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER1_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="454" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a9f650763eafd2078c7567893c622c6c8" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER2_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="455" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1af52b5e566e4b6c18667a4feb5aab4f3d" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER3_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="456" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1ae036b3534bb52e5c5296d72596d7b61d" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER4_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="457" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a6a89aca5205dbb55fdce120ffdeb717b" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER5_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="458" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a8ed57fcd5887d6c1df03e7dc6390779a" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER6_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="459" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1aab6904a48fe0e4af707440abf84f6e8d" prot="public" static="no">
+        <name>XSK_EFUSEPS_USER7_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__efuseps__zynqmp__input_8h_1a7e6ca2186af9c2943ffd188b269a35ea" prot="public" static="no">
+        <name>XSK_EFUSEPS_CHECK_AES_KEY_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" line="463" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This file contains macros which needs to configured by user based on the options selected by user operations will be performed.</para><para><simplesect kind="note"><para><verbatim>          User configurable parameters for ZynqMP PS eFUSE
+</verbatim> <hruler/>
+ <verbatim>    #define XSK_EFUSEPS_AES_RD_LOCK                 FALSE
+    TRUE permanently disables the CRC check of FUSE_AES.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_AES_WR_LOCK                 FALSE
+    TRUE permanently disables the writing to FUSE_AES block.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_ENC_ONLY            FALSE
+    TRUE permanently enables encrypted booting only using the Fuse
+    key. It forces to use AES key from eFUSE.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_BBRAM_DISABLE               FALSE
+    TRUE permanently disables the BBRAM key.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_ERR_DISABLE FALSE
+    TRUE permanently disables the error messages in the
+    JTAG status register.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_JTAG_DISABLE                FALSE
+    TRUE permanently disables the JTAG controller.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_DFT_DISABLE                 FALSE
+    TRUE permanently disables DFT boot mode.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_PROG_GATE_DISABLE           FALSE
+    TRUE permanently disables the PROG_GATE feature in PPD.
+    If you set this then the PROG_GATE can never be activated
+    and the PL will always be reset when the PS goes down.
+    Also prevents reboot into JTAG mode after a secure lock down.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_SECURE_LOCK                 FALSE
+    TRUE permanently disables reboot into JTAG mode when performing
+    a secure lockdown.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_RSA_ENABLE                  FALSE
+    TRUE permanently enables RSA authentication during boot.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_PPK0_WR_LOCK                FALSE
+    TRUE permanently disables writing to PPK0 eFUSEs.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_PPK0_INVLD                  FALSE
+    TRUE permanently revokes PPK0.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_PPK1_WR_LOCK                FALSE
+    TRUE permanently disables writing to PPK1 eFUSEs.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_PPK1_INVLD                  FALSE
+    TRUE permanently revokes PPK1.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_LBIST_EN                    FALSE
+    TRUE permanently enables logic BIST to be run during boot.
+    FALSE will not modify this control bit of eFUSE.
+
+    #define XSK_EFUSEPS_LPD_SC_EN                   FALSE
+    TRUE permanently enables zeroization of registers in Low Power
+    Domain(LPD) during boot.
+    FALSE will not modify this control bit of eFUSE.
+
+    #define XSK_EFUSEPS_FPD_SC_EN                   FALSE
+    TRUE permanently enables zeroization of registers in the Full Power
+    Domain(FPD) during boot.
+    FALSE will not modify this control bit of eFUSE.
+
+    #define XSK_EFUSEPS_PBR_BOOT_ERR                FALSE
+    TRUE forces the boot to halt when there is any error detected in the PMU.
+    FALSE will not modify this control bit of eFUSE.
+
+    #define XSK_EFUSEPS_USER_WRLK_0                 FALSE
+    TRUE permanently disables writing to USER_0 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_1                 FALSE
+    TRUE permanently disables writing to USER_1 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_2                 FALSE
+    TRUE permanently disables writing to USER_2 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_3                 FALSE
+    TRUE permanently disables writing to USER_3 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_4                 FALSE
+    TRUE permanently disables writing to USER_4 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_5                 FALSE
+    TRUE permanently disables writing to USER_5 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_6                 FALSE
+    TRUE permanently disables writing to USER_6 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+    #define XSK_EFUSEPS_USER_WRLK_7                 FALSE
+    TRUE permanently disables writing to USER_7 efuses.
+    FALSE will not modify this control bit of eFuse.
+
+      Following has to be set for programming required keys
+</verbatim> <hruler/>
+ #define XSK_EFUSEPS_WRITE_AES_KEY FALSE TRUE will burn the AES key provided in XSK_EFUSEPS_AES_KEY. FALSE will ignore the key provided in XSK_EFUSEPS_AES_KEY.</para></simplesect>
+#define XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH FALSE TRUE will burn PPK0 with it&apos;s SHA3 hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH. FALSE will ignore the hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.</para><para>#define XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH FALSE TRUE will burn PPK1 with it&apos;s SHA3 hash provided in XSK_EFUSEPS_PPK1_SHA3_HASH. FALSE will ignore the hash provided in XSK_EFUSEPS_PPK1_SHA3_HASH.</para><para>#define XSK_EFUSEPS_WRITE_SPKID FALSE TRUE will burn SPKID provided in XSK_EFUSEPS_SPK_ID. FALSE will ignore the hash provided in XSK_EFUSEPS_SPK_ID.</para><para>#define XSK_EFUSEPS_WRITE_USER0_FUSE FALSE TRUE will burn User0 Fuse provided in XSK_EFUSEPS_USER0_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER0_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER1_FUSE FALSE TRUE will burn User1 Fuse provided in XSK_EFUSEPS_USER1_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER1_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER2_FUSE FALSE TRUE will burn User2 Fuse provided in XSK_EFUSEPS_USER2_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER2_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER3_FUSE FALSE TRUE will burn User3 Fuse provided in XSK_EFUSEPS_USER3_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER3_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER4_FUSE FALSE TRUE will burn User4 Fuse provided in XSK_EFUSEPS_USER4_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER4_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER5_FUSE FALSE TRUE will burn User5 Fuse provided in XSK_EFUSEPS_USER5_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER5_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER6_FUSE FALSE TRUE will burn User6 Fuse provided in XSK_EFUSEPS_USER6_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER6_FUSES</para><para>#define XSK_EFUSEPS_WRITE_USER7_FUSE FALSE TRUE will burn User7 Fuse provided in XSK_EFUSEPS_USER7_FUSES. FALSE will ignore the value provided in XSK_EFUSEPS_USER7_FUSES</para><para>#define XSK_EFUSEPS_AES_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value mentioned in this will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn any Fuses. Note that,for writing the AES Key, XSK_EFUSEPS_WRITE_AES_KEY should be set to TRUE. NOTE: This AES key is only red key or gray key. To program black key to eFuse, please use xilskey_puf_registeration application and refer</para><para>#define XSK_EFUSEPS_PPK0_HASH &quot;00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the ZynqMP Ps eFUSE array. This value should be given in string format. It should be 96 or 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK0 hash. Note that,for writing the PPK0 hash, XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH should be set to TRUE. While writing SHA3 hash, length should be 96 characters long.</para><para>#define XSK_EFUSEPS_PPK1_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the ZynqMP Ps eFUSE array. This value should be given in string format. It should be 96 or 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK0 hash. Note that,for writing the PPK1 hash, XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH should be set to TRUE. While writing SHA3 hash, length should be 96 characters long.</para><para>#define XSK_EFUSEPS_SPK_ID &quot;00000000&quot; The value will be converted to a hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn SPK ID. Note that,for writing the SPK ID, XSK_EFUSEPS_WRITE_SPKID should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER0_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User0 Fuse, XSK_EFUSEPS_WRITE_USER0_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER1_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User1 Fuse, XSK_EFUSEPS_WRITE_USER1_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER2_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User2 Fuse, XSK_EFUSEPS_WRITE_USER2_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER3_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User3 Fuse, XSK_EFUSEPS_WRITE_USER3_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER4_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User4 Fuse, XSK_EFUSEPS_WRITE_USER4_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER5_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User5 Fuse, XSK_EFUSEPS_WRITE_USER5_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER6_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User6 Fuse, XSK_EFUSEPS_WRITE_USER6_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_USER7_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the ZynqMP Ps eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn User Fuse. Note that,for writing the User7 Fuse, XSK_EFUSEPS_WRITE_USER7_FUSE should be set to TRUE.</para><para>#define XSK_EFUSEPS_CHECK_AES_KEY_CRC FALSE Default value is FALSE TRUE will check the CRC provided in XSK_EFUSEPS_AES_KEY. CRC verification is done after programming AES key to verify the key is programmed properly or not, if not library error outs the same. So While programming AES key it is not necessary to verify the AES key again. NOTE: Please make sure if intention is to check only CRC of the provided key and not programming AES key then do not modify XSK_EFUSEPS_WRITE_AES_KEY (TRUE will Program key).</para><para>NOTE: The PPK hash should be the unmodified hash generated by bootgen. Single bit programming is allowed for User FUSEs (0 through 7), however if the user specifies a value that tries to set a bit that was previously programmed to 1 back to 0, throws an error. Even if the bits are already programmed user must pass these already programmed bits along with the new bits that need to be programmed.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who     Date     Changes
+<hruler/>
+
+ 4.0   vns     10/01/15 First release
+ 6.0   vns     07/18/16 Removed JTAG user code programming and reading
+                        feature. Modified User FUSE programming, such that
+                        library accepts separate requests for programming
+                        and reading USER FUSES(0 to 7). Provided single bit
+                        programming feature for USER FUSEs.
+ 6.2   vns     03/10/17 Modified XSK_EFUSEPs_FORCE_USE_AES_ONLY-&gt;
+                        XSK_EFUSEPS_ENC_ONLY,
+                        XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE -&gt;
+                        XSK_EFUSEPS_ERR_DISABLE,
+                        XSK_EFUSEPS_PPK0_REVOKE-&gt;XSK_EFUSEPS_PPK0_INVLD
+                        XSK_EFUSEPS_PPK1_REVOKE-&gt;XSK_EFUSEPS_PPK1_INVLD
+                        Added support for programming LBIST, LPD and FPD
+                        SC enable bits by providing corresponding macros
+                        Removed 3 macros for PROG GATE disable, now it can
+                        programmed by setting only one macro.
+ 6.7    psl     03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
+                                                 AES key CRC if TRUE.
+        psl     03/28/19 Updated Description for XSK_EFUSEPS_CHECK_AES_KEY_CRC
+ 6.8   psl     06/07/19 Added doxygen tags.
+       vns     08/30/19 Corrected string for PPK1 hash to 384 bit
+ 6.9   har     06/17/20 Removed macros XSK_EFUSEPS_PPK0_IS_SHA3 and
+                        XSK_EFUSEPS_PPK1_IS_SHA3
+ 7.1   kpt     05/11/21 Added BareMetal support for programming PUF Fuses as
+                        general purpose Fuses
+ </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_EFUSEPS_ZYNQMP_INPUT_H_</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_EFUSEPS_ZYNQMP_INPUT_H_</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__eps__zynqmp_8h" kindref="compound">xilskey_eps_zynqmp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Following<sp/>defines<sp/>should<sp/>be<sp/>defined<sp/>either<sp/>TRUE<sp/>or<sp/>FALSE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371" refid="xilskey__efuseps__zynqmp__input_8h_1a8f3dc709c8b92b545502e2a37163bf47" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_AES_RD_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_AES_WR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ENC_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="374"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_BBRAM_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ERR_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_JTAG_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_DFT_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PROG_GATE_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="379"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_SECURE_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="380"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_RSA_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK0_WR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK0_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK1_WR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK1_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_LBIST_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_LPD_SC_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_FPD_SC_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PBR_BOOT_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="389"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="394" refid="xilskey__efuseps__zynqmp__input_8h_1aa8d8d1af964356688e0a1072bd6f42d8" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="395"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="396"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="401"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER_WRLK_7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="407"><highlight class="comment">/*<sp/>For<sp/>writing<sp/>into<sp/>eFuse<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="408" refid="xilskey__efuseps__zynqmp__input_8h_1aa26f182a60ddbbb3f845556f3634c2ad" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_PPK0_HASH<sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_PPK1_HASH<sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="411"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_SPKID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="412"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER0_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER1_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER2_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER3_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="417"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER4_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER5_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER6_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_USER7_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XSK_ACCESS_PUF_USER_EFUSE)</highlight></codeline>
+<codeline lineno="423"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_WRITE_PUF_FUSE<sp/>FALSE</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_READ_PUF_FUSE<sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="425"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PUF_START_ROW<sp/><sp/>1U</highlight></codeline>
+<codeline lineno="427"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PUF_NUM_OF_ROWS<sp/>1U</highlight></codeline>
+<codeline lineno="428"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="434"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PUF_FUSE_DATA<sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PUF_READ_START_ROW<sp/>XSK_EFUSEPS_PUF_START_ROW</highlight></codeline>
+<codeline lineno="437"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PUF_READ_NUM_OF_ROWS<sp/><sp/>XSK_EFUSEPS_PUF_NUM_OF_ROWS</highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="440"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="446" refid="xilskey__efuseps__zynqmp__input_8h_1a3b25b2a09ade470ec622b5a0b3873776" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="447"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK0_HASH<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="449"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_PPK1_HASH<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_SPK_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER0_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="454"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER1_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="455"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER2_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER3_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="457"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER4_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="458"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER5_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="459"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER6_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="460"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_USER7_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Checks<sp/>CRC<sp/>of<sp/>provided<sp/>AES<sp/>key<sp/>if<sp/>TRUE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_CHECK_AES_KEY_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="464"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="466"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="468"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSKEY_EFUSEPS_ZYNQMP_INPUT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_efuseps_zynqmp_input.h"/>
+  </compounddef>
+</doxygen>

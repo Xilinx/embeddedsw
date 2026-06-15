@@ -1,0 +1,398 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__rsa__hw_8h" kind="file">
+    <compoundname>xsecure_rsa_hw.h</compoundname>
+    <includedby refid="zynqmp_2xsecure__rsa__core_8c" local="yes">xsecure_rsa_core.c</includedby>
+    <invincdepgraph>
+      <node id="3558">
+        <label>xsecure_rsa_hw.h</label>
+        <link refid="xsecure_rsa_hw.h"/>
+        <childnode refid="3559" relation="include">
+        </childnode>
+      </node>
+      <node id="3559">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="zynqmp_2xsecure__rsa__core_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the RSA module. </para></description>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a033850f0e3f807983c318723e2cc3e2c" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WRITE_DATA_OFFSET</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>RAM write data offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ad5664dae085cd2b58d1b6bdf45bdab5f" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WRITE_ADDR_OFFSET</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>RAM write address offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1aafc1ee94ab91f1253bca46337759d101" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_READ_DATA_OFFSET</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>RAM data read offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1add1bdc96c3bd68543f08d8f8f2316cd8" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_READ_ADDR_OFFSET</name>
+        <initializer>(0x0CU)</initializer>
+        <briefdescription>
+<para>RAM read offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1af09c455c76e334c24b6eae3a6f755356" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_CONTROL_OFFSET</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>RSA Control Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__zynqmp__apis_1gad8a4ee12fff481e5d2c7fa5cc8256652" compoundref="zynqmp_2xsecure__rsa__core_8c" startline="127" endline="261">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1abb1368341bbee94633fbca90b0411f47" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_STATUS_OFFSET</name>
+        <initializer>(0x14U)</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__zynqmp__apis_1gad8a4ee12fff481e5d2c7fa5cc8256652" compoundref="zynqmp_2xsecure__rsa__core_8c" startline="127" endline="261">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a0e1b1a554411d5214763d7548ee18d63" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_MINV0_OFFSET</name>
+        <initializer>(0x18U)</initializer>
+        <briefdescription>
+<para>RSA MINV(Mod 32 Inverse) 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ab8ab4f6216805758e538eec8288e2eea" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_MINV1_OFFSET</name>
+        <initializer>(0x1CU)</initializer>
+        <briefdescription>
+<para>RSA MINV 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a278687404c54fb1d07574d932dcae01b" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_MINV2_OFFSET</name>
+        <initializer>(0x20U)</initializer>
+        <briefdescription>
+<para>RSA MINV 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a437626ea51474a1f267d4696b5faa6fa" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_MINV3_OFFSET</name>
+        <initializer>(0x24U)</initializer>
+        <briefdescription>
+<para>RSA MINV 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ad30a927006f8c743ceb5651abee7750a" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_ZERO_OFFSET</name>
+        <initializer>(0x28U)</initializer>
+        <briefdescription>
+<para>RSA Zero offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ab0b92ced354943a66cff9fae65b83aab" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_0_OFFSET</name>
+        <initializer>(0x2cU)</initializer>
+        <briefdescription>
+<para>Write Data 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1aa4c13477df17858ab225acddc7ec165b" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_1_OFFSET</name>
+        <initializer>(0x30U)</initializer>
+        <briefdescription>
+<para>Write Data 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a8690656a9f80d6450ef643126d1c62bd" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_2_OFFSET</name>
+        <initializer>(0x34U)</initializer>
+        <briefdescription>
+<para>Write Data 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a8f1de7ad33f2403911559ca2d0954da9" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_3_OFFSET</name>
+        <initializer>(0x38U)</initializer>
+        <briefdescription>
+<para>Write Data 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a0da2ecf16be0d44621913b00844b9e95" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_4_OFFSET</name>
+        <initializer>(0x3cU)</initializer>
+        <briefdescription>
+<para>Write Data 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ace94ead79a16d93c3c5a3d24e33c601b" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_DATA_5_OFFSET</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+<para>Write Data 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a8e46a5c8c2ce4ff13c5872a0f9b610b5" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_WR_ADDR_OFFSET</name>
+        <initializer>(0x44U)</initializer>
+        <briefdescription>
+<para>Write address in RSA RAM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a239e24db15cbfcc0c20a42277a67a4c8" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_0_OFFSET</name>
+        <initializer>(0x48U)</initializer>
+        <briefdescription>
+<para>Read Data 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a811dc7e05fbbe6187a7c5940738b3aee" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_1_OFFSET</name>
+        <initializer>(0x4cU)</initializer>
+        <briefdescription>
+<para>Read Data 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a0d76d1c4e2a6e4d6ffd2aeb7364bde69" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_2_OFFSET</name>
+        <initializer>(0x50U)</initializer>
+        <briefdescription>
+<para>Read Data 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a417d35c03f931d964cbc3454e16cede2" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_3_OFFSET</name>
+        <initializer>(0x54U)</initializer>
+        <briefdescription>
+<para>Read Data 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a783a3920a0d820f86a0e9de9f2c5b4bf" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_4_OFFSET</name>
+        <initializer>(0x58U)</initializer>
+        <briefdescription>
+<para>Read Data 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1abac3199a45469fcfba0bf3fac67741c6" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_DATA_5_OFFSET</name>
+        <initializer>(0x5cU)</initializer>
+        <briefdescription>
+<para>Read Data 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1a17e6a236aa160a76bb9eae80db88a2a2" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_RD_ADDR_OFFSET</name>
+        <initializer>(0x60U)</initializer>
+        <briefdescription>
+<para>Read address in RSA RAM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1ab2b9503f6910180430639d2aa1013d6d" prot="public" static="no">
+        <name>XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>RSA BUF Clr value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsecure__rsa__hw_8h_1aaf16593748c11e24a0ae6506dbf44d11" prot="public" static="no">
+        <name>XSECURE_CSU_RSA_BASE</name>
+        <initializer>(0xFFCE0000U)</initializer>
+        <briefdescription>
+<para>Base address of RSA core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h" bodystart="34" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__zynqmp__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" compoundref="zynqmp_2xsecure__rsa__core_8c" startline="96" endline="109">XSecure_RsaCfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains ZynqMP RSA hardware core register offsets. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+4.0   vns  03/09/19 Initial release
+4.1   kpt  01/07/20 Added Macro XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSA_HW_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_HW_H</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="xsecure__rsa__hw_8h_1aaf16593748c11e24a0ae6506dbf44d11" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFCE0000U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42" refid="xsecure__rsa__hw_8h_1a033850f0e3f807983c318723e2cc3e2c" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WRITE_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44" refid="xsecure__rsa__hw_8h_1ad5664dae085cd2b58d1b6bdf45bdab5f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WRITE_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="xsecure__rsa__hw_8h_1aafc1ee94ab91f1253bca46337759d101" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_READ_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="xsecure__rsa__hw_8h_1add1bdc96c3bd68543f08d8f8f2316cd8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_READ_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0CU)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="xsecure__rsa__hw_8h_1af09c455c76e334c24b6eae3a6f755356" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="xsecure__rsa__hw_8h_1abb1368341bbee94633fbca90b0411f47" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="xsecure__rsa__hw_8h_1a0e1b1a554411d5214763d7548ee18d63" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_MINV0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58" refid="xsecure__rsa__hw_8h_1ab8ab4f6216805758e538eec8288e2eea" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_MINV1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1CU)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xsecure__rsa__hw_8h_1a278687404c54fb1d07574d932dcae01b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_MINV2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="xsecure__rsa__hw_8h_1a437626ea51474a1f267d4696b5faa6fa" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_MINV3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x24U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="xsecure__rsa__hw_8h_1ad30a927006f8c743ceb5651abee7750a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_ZERO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x28U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="xsecure__rsa__hw_8h_1ab0b92ced354943a66cff9fae65b83aab" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2cU)<sp/></highlight></codeline>
+<codeline lineno="64" refid="xsecure__rsa__hw_8h_1aa4c13477df17858ab225acddc7ec165b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x30U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="xsecure__rsa__hw_8h_1a8690656a9f80d6450ef643126d1c62bd" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x34U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="xsecure__rsa__hw_8h_1a8f1de7ad33f2403911559ca2d0954da9" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x38U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="xsecure__rsa__hw_8h_1a0da2ecf16be0d44621913b00844b9e95" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3cU)<sp/></highlight></codeline>
+<codeline lineno="68" refid="xsecure__rsa__hw_8h_1ace94ead79a16d93c3c5a3d24e33c601b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_DATA_5_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="xsecure__rsa__hw_8h_1a8e46a5c8c2ce4ff13c5872a0f9b610b5" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_WR_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x44U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="xsecure__rsa__hw_8h_1a239e24db15cbfcc0c20a42277a67a4c8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x48U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="xsecure__rsa__hw_8h_1a811dc7e05fbbe6187a7c5940738b3aee" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4cU)<sp/></highlight></codeline>
+<codeline lineno="74" refid="xsecure__rsa__hw_8h_1a0d76d1c4e2a6e4d6ffd2aeb7364bde69" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x50U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="xsecure__rsa__hw_8h_1a417d35c03f931d964cbc3454e16cede2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x54U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="xsecure__rsa__hw_8h_1a783a3920a0d820f86a0e9de9f2c5b4bf" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x58U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="xsecure__rsa__hw_8h_1abac3199a45469fcfba0bf3fac67741c6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_DATA_5_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5cU)<sp/></highlight></codeline>
+<codeline lineno="78" refid="xsecure__rsa__hw_8h_1a17e6a236aa160a76bb9eae80db88a2a2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_RSA_RD_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x60U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xsecure__rsa__hw_8h_1ab2b9503f6910180430639d2aa1013d6d" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSA_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_hw.h"/>
+  </compounddef>
+</doxygen>

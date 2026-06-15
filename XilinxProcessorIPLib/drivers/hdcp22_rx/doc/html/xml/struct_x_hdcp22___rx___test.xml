@@ -1,0 +1,337 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___test" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_Test</compoundname>
+    <includes local="no">xhdcp22_rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1aad1041d0d68c5d168aac05740ef00c3a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Rx_Test::TestFlag</definition>
+        <argsstring></argsstring>
+        <name>TestFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a65dbe5cac118586c2fc93e7b7252c32f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Rx_Test::TestMode</definition>
+        <argsstring></argsstring>
+        <name>TestMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1adf30ed5af1c43bb1dbd160a8b6757527" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Rx_Test::TestReceiver</definition>
+        <argsstring></argsstring>
+        <name>TestReceiver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a5ff4af5511977cd61c67e3c30669c82a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Rx_Test::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1aa48ed851ef9939d8c08d0a9d2c2be199" prot="public" static="no" mutable="no">
+        <type>int *</type>
+        <definition>int* XHdcp22_Rx_Test::NextStateVector</definition>
+        <argsstring></argsstring>
+        <name>NextStateVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1aadbb13798e118c43db883bd4c4e1a7eb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Rx_Test::TestReturnCode</definition>
+        <argsstring></argsstring>
+        <name>TestReturnCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a15f6a7bdf9e3f369e9bbda9a2129cd51" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::NextStateOffset</definition>
+        <argsstring></argsstring>
+        <name>NextStateOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a9cf788973b8e10f686a60fff39a55be6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::NextStateSize</definition>
+        <argsstring></argsstring>
+        <name>NextStateSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1ac5031fef4c8a4268219ca6722b914227" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::NextStateStatus</definition>
+        <argsstring></argsstring>
+        <name>NextStateStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a7f42064867e8def2192e04eebfb138ee" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___rx___test_ddc_reg" kindref="compound">XHdcp22_Rx_TestDdcReg</ref></type>
+        <definition>XHdcp22_Rx_TestDdcReg XHdcp22_Rx_Test::DdcRegisterMap[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>DdcRegisterMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a1b50cf4f23605648070dd736eab68f6b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::DdcRegisterMapAddress</definition>
+        <argsstring></argsstring>
+        <name>DdcRegisterMapAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a7c0db519e393cbacd3ea227a99ee329b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::DdcRegisterAddress</definition>
+        <argsstring></argsstring>
+        <name>DdcRegisterAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a6fb7316a91d63d31a22f8be226f50d4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Test::WriteMessageBuffer[XHDCP22_RX_MAX_MESSAGE_SIZE]</definition>
+        <argsstring>[XHDCP22_RX_MAX_MESSAGE_SIZE]</argsstring>
+        <name>WriteMessageBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a7deb4fb1821f24b41f32cce2035bab81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::WriteMessageSize</definition>
+        <argsstring></argsstring>
+        <name>WriteMessageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a0463ecf0350c300dc68b225393c046ec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::WriteMessageOffset</definition>
+        <argsstring></argsstring>
+        <name>WriteMessageOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a4c6849da2f94e8dbd32a1d84069cd191" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Test::ReadMessageBuffer[XHDCP22_RX_MAX_MESSAGE_SIZE]</definition>
+        <argsstring>[XHDCP22_RX_MAX_MESSAGE_SIZE]</argsstring>
+        <name>ReadMessageBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a35f0baa00530f439aa13990f5abff618" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::ReadMessageSize</definition>
+        <argsstring></argsstring>
+        <name>ReadMessageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a6f5fc8902d138701f51e8e56fa79c982" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::ReadMessageOffset</definition>
+        <argsstring></argsstring>
+        <name>ReadMessageOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a644036aca559b0196de0592711791eef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Test::WaitCounter</definition>
+        <argsstring></argsstring>
+        <name>WaitCounter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a3f3f3fb6cdeb7f1cdc2521fbac32cab5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Test::Rrx[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Rrx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a0eaf5db147aa61db8781ece5b6e55691" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Test::RxCaps[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>RxCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___test_1a58449129c9c899dd487e34a6162149bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Test::Verbose</definition>
+        <argsstring></argsstring>
+        <name>Verbose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the test structure used for standalone driver testing. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="71">
+        <label>XHdcp22_Rx_TestDdcReg</label>
+        <link refid="struct_x_hdcp22___rx___test_ddc_reg"/>
+      </node>
+      <node id="70">
+        <label>XHdcp22_Rx_Test</label>
+        <link refid="struct_x_hdcp22___rx___test"/>
+        <childnode refid="71" relation="usage">
+          <edgelabel>DdcRegisterMap</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="240" bodyend="264"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___test_1a7c0db519e393cbacd3ea227a99ee329b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>DdcRegisterAddress</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a7f42064867e8def2192e04eebfb138ee" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>DdcRegisterMap</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a1b50cf4f23605648070dd736eab68f6b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>DdcRegisterMapAddress</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a15f6a7bdf9e3f369e9bbda9a2129cd51" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>NextStateOffset</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a9cf788973b8e10f686a60fff39a55be6" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>NextStateSize</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1ac5031fef4c8a4268219ca6722b914227" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>NextStateStatus</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1aa48ed851ef9939d8c08d0a9d2c2be199" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>NextStateVector</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a4c6849da2f94e8dbd32a1d84069cd191" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>ReadMessageBuffer</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a6f5fc8902d138701f51e8e56fa79c982" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>ReadMessageOffset</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a35f0baa00530f439aa13990f5abff618" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>ReadMessageSize</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a3f3f3fb6cdeb7f1cdc2521fbac32cab5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>Rrx</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a0eaf5db147aa61db8781ece5b6e55691" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>RxCaps</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a5ff4af5511977cd61c67e3c30669c82a" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>State</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1aad1041d0d68c5d168aac05740ef00c3a" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>TestFlag</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a65dbe5cac118586c2fc93e7b7252c32f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>TestMode</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1adf30ed5af1c43bb1dbd160a8b6757527" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>TestReceiver</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1aadbb13798e118c43db883bd4c4e1a7eb" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>TestReturnCode</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a58449129c9c899dd487e34a6162149bd" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>Verbose</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a644036aca559b0196de0592711791eef" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>WaitCounter</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a6fb7316a91d63d31a22f8be226f50d4b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>WriteMessageBuffer</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a0463ecf0350c300dc68b225393c046ec" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>WriteMessageOffset</name></member>
+      <member refid="struct_x_hdcp22___rx___test_1a7deb4fb1821f24b41f32cce2035bab81" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Test</scope><name>WriteMessageSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

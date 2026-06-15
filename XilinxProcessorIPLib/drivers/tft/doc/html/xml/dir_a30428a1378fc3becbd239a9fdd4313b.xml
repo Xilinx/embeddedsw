@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a30428a1378fc3becbd239a9fdd4313b" kind="dir">
+    <compoundname>tft</compoundname>
+    <innerdir refid="dir_f2a1908e3f90f8e373fa7e63b9c6cf25">examples</innerdir>
+    <innerdir refid="dir_79a468f7ed53780c569cde463470fea9">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/"/>
+  </compounddef>
+</doxygen>

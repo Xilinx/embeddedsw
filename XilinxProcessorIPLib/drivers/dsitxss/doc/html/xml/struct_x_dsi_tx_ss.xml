@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi_tx_ss" kind="struct" prot="public">
+    <compoundname>XDsiTxSs</compoundname>
+    <includes local="no">xdsitxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref></type>
+        <definition>XDsiTxSs_Config XDsiTxSs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" compoundref="xdsitxss_8c" startline="212" endline="236">XDsiTxSs_Activate</referencedby>
+        <referencedby refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" compoundref="xdsitxss_8c" startline="119" endline="164">XDsiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" compoundref="xdsitxss_8c" startline="272" endline="310">XDsiTxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" compoundref="xdsitxss_8c" startline="248" endline="260">XDsiTxSs_Reset</referencedby>
+        <referencedby refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" compoundref="xdsitxss__selftest_8c" startline="64" endline="98">XDsiTxSs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsiTxSs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" compoundref="xdsitxss_8c" startline="119" endline="164">XDsiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" compoundref="xdsitxss__intr_8c" startline="160" endline="174">XDsiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" prot="public" static="no" mutable="no">
+        <type>XDsi *</type>
+        <definition>XDsi* XDsiTxSs::DsiPtr</definition>
+        <argsstring></argsstring>
+        <name>DsiPtr</name>
+        <briefdescription>
+<para>handle to sub-core driver instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" compoundref="xdsitxss_8c" startline="212" endline="236">XDsiTxSs_Activate</referencedby>
+        <referencedby refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" compoundref="xdsitxss_8c" startline="119" endline="164">XDsiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" compoundref="xdsitxss_8c" startline="181" endline="194">XDsiTxSs_DefaultConfigure</referencedby>
+        <referencedby refid="group__dsitxss_1ga55a4510207c1994cf296b4cf3ccb05c4" compoundref="xdsitxss_8c" startline="447" endline="453">XDsiTxSs_GetCmdQVacancy</referencedby>
+        <referencedby refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" compoundref="xdsitxss_8c" startline="381" endline="387">XDsiTxSs_GetConfigParams</referencedby>
+        <referencedby refid="group__dsitxss_1ga6d071b004409f448e6fb61a523063084" compoundref="xdsitxss_8c" startline="425" endline="431">XDsiTxSs_GetPixelFormat</referencedby>
+        <referencedby refid="group__dsitxss_1gab2aaa6f7509b1c98adf63e374cb2bdeb" compoundref="xdsitxss__intr_8c" startline="116" endline="125">XDsiTxSs_InterruptEnable</referencedby>
+        <referencedby refid="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" compoundref="xdsitxss__intr_8c" startline="73" endline="82">XDsiTxSs_IntrHandler</referencedby>
+        <referencedby refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" compoundref="xdsitxss_8c" startline="400" endline="406">XDsiTxSs_IsControllerReady</referencedby>
+        <referencedby refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" compoundref="xdsitxss_8c" startline="272" endline="310">XDsiTxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" compoundref="xdsitxss_8c" startline="248" endline="260">XDsiTxSs_Reset</referencedby>
+        <referencedby refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" compoundref="xdsitxss__selftest_8c" startline="64" endline="98">XDsiTxSs_SelfTest</referencedby>
+        <referencedby refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" compoundref="xdsitxss_8c" startline="345" endline="350">XDsiTxSs_SendCmdModePacket</referencedby>
+        <referencedby refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" compoundref="xdsitxss_8c" startline="364" endline="370">XDsiTxSs_SendShortPacket</referencedby>
+        <referencedby refid="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" compoundref="xdsitxss__intr_8c" startline="160" endline="174">XDsiTxSs_SetCallback</referencedby>
+        <referencedby refid="group__dsitxss_1ga1b9246c8e349c6dac5aa6c7f40a69bf8" compoundref="xdsitxss_8c" startline="509" endline="525">XDsiTxSs_SetCustomVideoInterfaceTiming</referencedby>
+        <referencedby refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" compoundref="xdsitxss_8c" startline="324" endline="329">XDsiTxSs_SetDSIMode</referencedby>
+        <referencedby refid="group__dsitxss_1gafb6ca1158027263a71f21d2d79b0bfea" compoundref="xdsitxss__intr_8c" startline="95" endline="104">XDsiTxSs_SetGlobalInterrupt</referencedby>
+        <referencedby refid="group__dsitxss_1gab4c4ef25cc3f604f21ce98446cdfe482" compoundref="xdsitxss_8c" startline="474" endline="491">XDsiTxSs_SetVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" prot="public" static="no" mutable="no">
+        <type>XDsi_ShortPacket</type>
+        <definition>XDsi_ShortPacket XDsiTxSs::SpktData</definition>
+        <argsstring></argsstring>
+        <name>SpktData</name>
+        <briefdescription>
+<para>Short packet strucute to send short packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" compoundref="xdsitxss_8c" startline="364" endline="370">XDsiTxSs_SendShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" prot="public" static="no" mutable="no">
+        <type>XDsiTx_CmdModePkt</type>
+        <definition>XDsiTx_CmdModePkt XDsiTxSs::CmdPkt</definition>
+        <argsstring></argsstring>
+        <name>CmdPkt</name>
+        <briefdescription>
+<para>DSI Command mode packet structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" compoundref="xdsitxss_8c" startline="345" endline="350">XDsiTxSs_SendCmdModePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" prot="public" static="no" mutable="no">
+        <type>XDsi_ConfigParameters</type>
+        <definition>XDsi_ConfigParameters XDsiTxSs::ConfigInfo</definition>
+        <argsstring></argsstring>
+        <name>ConfigInfo</name>
+        <briefdescription>
+<para>Configuration information contains GUI parameters, Timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" compoundref="xdsitxss_8c" startline="381" endline="387">XDsiTxSs_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kindref="member">XDsiTxSs_Callback</ref></type>
+        <definition>XDsiTxSs_Callback XDsiTxSs::ErrorCallback</definition>
+        <argsstring></argsstring>
+        <name>ErrorCallback</name>
+        <briefdescription>
+<para><verbatim> Callback function for
+</verbatim> rest all errors </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsiTxSs::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para><verbatim> To be passed to the
+</verbatim> Error Call back </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XDsiTxSs_Config</label>
+        <link refid="struct_x_dsi_tx_ss___config"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>DsiInfo</edgelabel>
+          <edgelabel>DphyInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XDsiTxSs</label>
+        <link refid="struct_x_dsi_tx_ss"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DsiTxSsSubCore</label>
+        <link refid="struct_dsi_tx_ss_sub_core"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="243" bodyend="266"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>CmdPkt</name></member>
+      <member refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>Config</name></member>
+      <member refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>ConfigInfo</name></member>
+      <member refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>DsiPtr</name></member>
+      <member refid="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>ErrorCallback</name></member>
+      <member refid="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>ErrRef</name></member>
+      <member refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>IsReady</name></member>
+      <member refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" prot="public" virt="non-virtual"><scope>XDsiTxSs</scope><name>SpktData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_h_a1_context" kind="struct" prot="public">
+    <compoundname>SHA1Context</compoundname>
+    <includes local="no">sha1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_h_a1_context_1a6d4330353a57a47afd49c4f1b9d6cb92" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SHA1Context::Intermediate_Hash[SHA1HashSize/4]</definition>
+        <argsstring>[SHA1HashSize/4]</argsstring>
+        <name>Intermediate_Hash</name>
+        <briefdescription>
+<para>Message Digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1ac352e4c9ff22eef52af0d76b52765426" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SHA1Context::Length_Low</definition>
+        <argsstring></argsstring>
+        <name>Length_Low</name>
+        <briefdescription>
+<para>Message length in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1a01654134ccdc020bb9a855b4d5198116" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SHA1Context::Length_High</definition>
+        <argsstring></argsstring>
+        <name>Length_High</name>
+        <briefdescription>
+<para>Message length in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1af59a4b732989a1b7c11c03a177a810ba" prot="public" static="no" mutable="no">
+        <type>int_least16_t</type>
+        <definition>int_least16_t SHA1Context::Message_Block_Index</definition>
+        <argsstring></argsstring>
+        <name>Message_Block_Index</name>
+        <briefdescription>
+<para>Index into message block array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1ab9a620b6c84fc2baad67f285a8931623" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t SHA1Context::Message_Block[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>Message_Block</name>
+        <briefdescription>
+<para>512-bit message blocks </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1a3722d8be51c7a1a4e8083c3f1a5adfa1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SHA1Context::Computed</definition>
+        <argsstring></argsstring>
+        <name>Computed</name>
+        <briefdescription>
+<para>Is the digest computed? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_h_a1_context_1af549987a735051dc4b3b50b106fde5bb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SHA1Context::Corrupted</definition>
+        <argsstring></argsstring>
+        <name>Corrupted</name>
+        <briefdescription>
+<para>Is the message digest corrupted? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure will hold context information for the SHA-1 hashing operation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="48" bodyend="60"/>
+    <listofallmembers>
+      <member refid="struct_s_h_a1_context_1a3722d8be51c7a1a4e8083c3f1a5adfa1" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Computed</name></member>
+      <member refid="struct_s_h_a1_context_1af549987a735051dc4b3b50b106fde5bb" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Corrupted</name></member>
+      <member refid="struct_s_h_a1_context_1a6d4330353a57a47afd49c4f1b9d6cb92" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Intermediate_Hash</name></member>
+      <member refid="struct_s_h_a1_context_1a01654134ccdc020bb9a855b4d5198116" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Length_High</name></member>
+      <member refid="struct_s_h_a1_context_1ac352e4c9ff22eef52af0d76b52765426" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Length_Low</name></member>
+      <member refid="struct_s_h_a1_context_1ab9a620b6c84fc2baad67f285a8931623" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Message_Block</name></member>
+      <member refid="struct_s_h_a1_context_1af59a4b732989a1b7c11c03a177a810ba" prot="public" virt="non-virtual"><scope>SHA1Context</scope><name>Message_Block_Index</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___partition_header" kind="struct" prot="public">
+    <compoundname>XSecure_PartitionHeader</compoundname>
+    <includes local="no">xsecure.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a76ef207bfd18afbfe1106f4de02e0b81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::EncryptedDataWordLength</definition>
+        <argsstring></argsstring>
+        <name>EncryptedDataWordLength</name>
+        <briefdescription>
+<para>Encrypted word length of partition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1abd26e358a9d71c974ac5b2df9c400168" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::UnEncryptedDataWordLength</definition>
+        <argsstring></argsstring>
+        <name>UnEncryptedDataWordLength</name>
+        <briefdescription>
+<para>unencrypted word length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a4fc8dc2872fe5773683bc606220994e2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::TotalDataWordLength</definition>
+        <argsstring></argsstring>
+        <name>TotalDataWordLength</name>
+        <briefdescription>
+<para>Total word length including the authentication certificate if any. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a18fbeea3fb57286dcc783c794fa16d00" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::NextPartitionOffset</definition>
+        <argsstring></argsstring>
+        <name>NextPartitionOffset</name>
+        <briefdescription>
+<para>Address of the next partition header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga8edc4da56d93ab6df2072aa149d79344" compoundref="xsecure_8c" startline="796" endline="961">XSecure_AuthenticationHeaders</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1ab7110ff6c74257c0ae5a48536336179c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_PartitionHeader::DestinationExecutionAddress</definition>
+        <argsstring></argsstring>
+        <name>DestinationExecutionAddress</name>
+        <briefdescription>
+<para>Execution address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1ad4f61826158e8a4dea1a38a6c2b0e36e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_PartitionHeader::DestinationLoadAddress</definition>
+        <argsstring></argsstring>
+        <name>DestinationLoadAddress</name>
+        <briefdescription>
+<para>Load address in DDR/TCM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a23df9f14ab6d3a6a8322570cb52971bc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::DataWordOffset</definition>
+        <argsstring></argsstring>
+        <name>DataWordOffset</name>
+        <briefdescription>
+<para>Data word offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a35013a9c50a0ace9d0b6469cb94b604d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::PartitionAttributes</definition>
+        <argsstring></argsstring>
+        <name>PartitionAttributes</name>
+        <briefdescription>
+<para>partition attributes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a559eee92b35f8535a8a01a1e267cc794" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::SectionCount</definition>
+        <argsstring></argsstring>
+        <name>SectionCount</name>
+        <briefdescription>
+<para>section count </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a773bf8cc636cbd15ac63b3d482bb894f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::ChecksumWordOffset</definition>
+        <argsstring></argsstring>
+        <name>ChecksumWordOffset</name>
+        <briefdescription>
+<para>address to checksum when enabled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a67a946cbdc6a3930b37bfb7ed43476e1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::ImageHeaderOffset</definition>
+        <argsstring></argsstring>
+        <name>ImageHeaderOffset</name>
+        <briefdescription>
+<para>address to image header </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a2ead9fd37eaa01edc17f100e935f45cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::AuthCertificateOffset</definition>
+        <argsstring></argsstring>
+        <name>AuthCertificateOffset</name>
+        <briefdescription>
+<para>address to the authentication certificate when enabled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a22433d4c1f2b2fc150edfc11cd7ead64" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::Iv</definition>
+        <argsstring></argsstring>
+        <name>Iv</name>
+        <briefdescription>
+<para>8 bits are to be added to and remaining are reserved </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partition_header_1a414c3fe74d467220afb4b57504b4a634" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartitionHeader::Checksum</definition>
+        <argsstring></argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+<para>checksum of the partition header </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the partition header details. </para>    </briefdescription>
+    <detaileddescription>
+<para>It contains all the information of partition header in order. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="281" bodyend="299"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___partition_header_1a2ead9fd37eaa01edc17f100e935f45cf" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>AuthCertificateOffset</name></member>
+      <member refid="struct_x_secure___partition_header_1a414c3fe74d467220afb4b57504b4a634" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>Checksum</name></member>
+      <member refid="struct_x_secure___partition_header_1a773bf8cc636cbd15ac63b3d482bb894f" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>ChecksumWordOffset</name></member>
+      <member refid="struct_x_secure___partition_header_1a23df9f14ab6d3a6a8322570cb52971bc" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>DataWordOffset</name></member>
+      <member refid="struct_x_secure___partition_header_1ab7110ff6c74257c0ae5a48536336179c" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>DestinationExecutionAddress</name></member>
+      <member refid="struct_x_secure___partition_header_1ad4f61826158e8a4dea1a38a6c2b0e36e" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>DestinationLoadAddress</name></member>
+      <member refid="struct_x_secure___partition_header_1a76ef207bfd18afbfe1106f4de02e0b81" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>EncryptedDataWordLength</name></member>
+      <member refid="struct_x_secure___partition_header_1a67a946cbdc6a3930b37bfb7ed43476e1" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>ImageHeaderOffset</name></member>
+      <member refid="struct_x_secure___partition_header_1a22433d4c1f2b2fc150edfc11cd7ead64" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>Iv</name></member>
+      <member refid="struct_x_secure___partition_header_1a18fbeea3fb57286dcc783c794fa16d00" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>NextPartitionOffset</name></member>
+      <member refid="struct_x_secure___partition_header_1a35013a9c50a0ace9d0b6469cb94b604d" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>PartitionAttributes</name></member>
+      <member refid="struct_x_secure___partition_header_1a559eee92b35f8535a8a01a1e267cc794" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>SectionCount</name></member>
+      <member refid="struct_x_secure___partition_header_1a4fc8dc2872fe5773683bc606220994e2" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>TotalDataWordLength</name></member>
+      <member refid="struct_x_secure___partition_header_1abd26e358a9d71c974ac5b2df9c400168" prot="public" virt="non-virtual"><scope>XSecure_PartitionHeader</scope><name>UnEncryptedDataWordLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

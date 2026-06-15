@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__multi__scaler___video___config" kind="struct" prot="public">
+    <compoundname>XV_multi_scaler_Video_Config</compoundname>
+    <includes local="no">xv_multi_scaler_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a8b381fecdeae9d3e33a10acf77d3a400" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::ChannelId</definition>
+        <argsstring></argsstring>
+        <name>ChannelId</name>
+        <briefdescription>
+<para>Output channel identifier (0-7) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1ac49861e151f2bdaa9c10f85789def0a6" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_multi_scaler_Video_Config::SrcImgBuf0</definition>
+        <argsstring></argsstring>
+        <name>SrcImgBuf0</name>
+        <briefdescription>
+<para>Source image buffer 0 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1ac865217ba2ae35b47bad8e1f0c14214a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_multi_scaler_Video_Config::SrcImgBuf1</definition>
+        <argsstring></argsstring>
+        <name>SrcImgBuf1</name>
+        <briefdescription>
+<para>Source image buffer 1 address (for chroma) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1aee1e004a9996d57d3e672e1b37bb97c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::HeightIn</definition>
+        <argsstring></argsstring>
+        <name>HeightIn</name>
+        <briefdescription>
+<para>Input image height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a3e20ef3965e65216307d3a7b9680f4ac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::HeightOut</definition>
+        <argsstring></argsstring>
+        <name>HeightOut</name>
+        <briefdescription>
+<para>Output image height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1af081389d32fd02fe58b7eea54cb5bb85" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::WidthIn</definition>
+        <argsstring></argsstring>
+        <name>WidthIn</name>
+        <briefdescription>
+<para>Input image width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a89cad588496c291deb22461abe56483e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::WidthOut</definition>
+        <argsstring></argsstring>
+        <name>WidthOut</name>
+        <briefdescription>
+<para>Output image width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1ae8d008b02058f5e44755cb63b909ceb2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::ColorFormatIn</definition>
+        <argsstring></argsstring>
+        <name>ColorFormatIn</name>
+        <briefdescription>
+<para>Input color format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a4b50bc5d11363b1da56605a851d7dd7e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::ColorFormatOut</definition>
+        <argsstring></argsstring>
+        <name>ColorFormatOut</name>
+        <briefdescription>
+<para>Output color format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1affa95d9f560d8aad722849d7555d43a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::InStride</definition>
+        <argsstring></argsstring>
+        <name>InStride</name>
+        <briefdescription>
+<para>Input buffer stride in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1ac780f887c6863f1ea098e67e914876af" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Video_Config::OutStride</definition>
+        <argsstring></argsstring>
+        <name>OutStride</name>
+        <briefdescription>
+<para>Output buffer stride in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1aeb02ddf050dc9504dfbd909af26c94eb" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_multi_scaler_Video_Config::DstImgBuf0</definition>
+        <argsstring></argsstring>
+        <name>DstImgBuf0</name>
+        <briefdescription>
+<para>Destination image buffer 0 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a1937b437d3262059dbe660258b578e3e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_multi_scaler_Video_Config::DstImgBuf1</definition>
+        <argsstring></argsstring>
+        <name>DstImgBuf1</name>
+        <briefdescription>
+<para>Destination image buffer 1 address (for chroma) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" compoundref="xv__multi__scaler__l2_8c" startline="540" endline="567">XV_MultiScalerGetChannelConfig</referencedby>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___video___config_1a66ca47e5e09d10677d21bf9cd5b67320" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__multi__scaler___crop___window" kindref="compound">XV_multi_scaler_Crop_Window</ref></type>
+        <definition>XV_multi_scaler_Crop_Window XV_multi_scaler_Video_Config::CropWin</definition>
+        <argsstring></argsstring>
+        <name>CropWin</name>
+        <briefdescription>
+<para>Crop window configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video channel configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="9">
+        <label>XV_multi_scaler_Crop_Window</label>
+        <link refid="struct_x_v__multi__scaler___crop___window"/>
+      </node>
+      <node id="8">
+        <label>XV_multi_scaler_Video_Config</label>
+        <link refid="struct_x_v__multi__scaler___video___config"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>CropWin</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="158" bodyend="173"/>
+    <listofallmembers>
+      <member refid="struct_x_v__multi__scaler___video___config_1a8b381fecdeae9d3e33a10acf77d3a400" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>ChannelId</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1ae8d008b02058f5e44755cb63b909ceb2" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>ColorFormatIn</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1a4b50bc5d11363b1da56605a851d7dd7e" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>ColorFormatOut</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1a66ca47e5e09d10677d21bf9cd5b67320" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>CropWin</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1aeb02ddf050dc9504dfbd909af26c94eb" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>DstImgBuf0</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1a1937b437d3262059dbe660258b578e3e" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>DstImgBuf1</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1aee1e004a9996d57d3e672e1b37bb97c2" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>HeightIn</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1a3e20ef3965e65216307d3a7b9680f4ac" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>HeightOut</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1affa95d9f560d8aad722849d7555d43a2" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>InStride</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1ac780f887c6863f1ea098e67e914876af" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>OutStride</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1ac49861e151f2bdaa9c10f85789def0a6" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>SrcImgBuf0</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1ac865217ba2ae35b47bad8e1f0c14214a" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>SrcImgBuf1</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1af081389d32fd02fe58b7eea54cb5bb85" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>WidthIn</name></member>
+      <member refid="struct_x_v__multi__scaler___video___config_1a89cad588496c291deb22461abe56483e" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Video_Config</scope><name>WidthOut</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_gic" kind="struct" prot="public">
+    <compoundname>XScuGic</compoundname>
+    <includes local="no">xscugic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref> *</type>
+        <definition>XScuGic_Config* XScuGic::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration table entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" compoundref="xscugic_8c" startline="509" endline="602">XScuGic_CfgInitialize</referencedby>
+        <referencedby refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" compoundref="xscugic_8c" startline="627" endline="652">XScuGic_Connect</referencedby>
+        <referencedby refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" compoundref="xscugic_8c" startline="669" endline="714">XScuGic_Disconnect</referencedby>
+        <referencedby refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" compoundref="xscugic__intr_8c" startline="94" endline="162">XScuGic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuGic::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" compoundref="xscugic_8c" startline="509" endline="602">XScuGic_CfgInitialize</referencedby>
+        <referencedby refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" compoundref="xscugic_8c" startline="627" endline="652">XScuGic_Connect</referencedby>
+        <referencedby refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" compoundref="xscugic_8c" startline="807" endline="869">XScuGic_Disable</referencedby>
+        <referencedby refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" compoundref="xscugic_8c" startline="669" endline="714">XScuGic_Disconnect</referencedby>
+        <referencedby refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" compoundref="xscugic_8c" startline="732" endline="788">XScuGic_Enable</referencedby>
+        <referencedby refid="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" compoundref="xscugic_8c" startline="1119" endline="1177">XScuGic_GetPriorityTriggerType</referencedby>
+        <referencedby refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" compoundref="xscugic__selftest_8c" startline="67" endline="95">XScuGic_SelfTest</referencedby>
+        <referencedby refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" compoundref="xscugic_8c" startline="1018" endline="1101">XScuGic_SetPriorityTriggerType</referencedby>
+        <referencedby refid="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" compoundref="xscugic_8c" startline="893" endline="967">XScuGic_SoftwareIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuGic::UnhandledInterrupts</definition>
+        <argsstring></argsstring>
+        <name>UnhandledInterrupts</name>
+        <briefdescription>
+<para>Intc Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every intc device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XScuGic_Config</label>
+        <link refid="struct_x_scu_gic___config"/>
+      </node>
+      <node id="1">
+        <label>XScuGic</label>
+        <link refid="struct_x_scu_gic"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="249" bodyend="257"/>
+    <listofallmembers>
+      <member refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" prot="public" virt="non-virtual"><scope>XScuGic</scope><name>Config</name></member>
+      <member refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" prot="public" virt="non-virtual"><scope>XScuGic</scope><name>IsReady</name></member>
+      <member refid="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" prot="public" virt="non-virtual"><scope>XScuGic</scope><name>UnhandledInterrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

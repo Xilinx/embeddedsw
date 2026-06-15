@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsv__services_8h" kind="file">
+    <compoundname>xsysmonpsv_services.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includedby refid="xsysmonpsv__services_8c" local="yes">xsysmonpsv_services.c</includedby>
+    <includedby refid="xsysmonpsv_8h" local="yes">xsysmonpsv.h</includedby>
+    <incdepgraph>
+      <node id="178">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="176">
+        <label>xsysmonpsv_services.h</label>
+        <link refid="xsysmonpsv_services.h"/>
+        <childnode refid="177" relation="include">
+        </childnode>
+        <childnode refid="178" relation="include">
+        </childnode>
+      </node>
+      <node id="177">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="180">
+        <label>xsysmonpsv_services.c</label>
+        <link refid="xsysmonpsv__services_8c"/>
+      </node>
+      <node id="179">
+        <label>xsysmonpsv_services.h</label>
+        <link refid="xsysmonpsv_services.h"/>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+      </node>
+      <node id="182">
+        <label>xsysmonpsv.c</label>
+        <link refid="xsysmonpsv_8c"/>
+      </node>
+      <node id="181">
+        <label>xsysmonpsv.h</label>
+        <link refid="xsysmonpsv_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+      </node>
+      <node id="185">
+        <label>xsysmonpsv_intr_example.c</label>
+        <link refid="xsysmonpsv__intr__example_8c"/>
+      </node>
+      <node id="184">
+        <label>xsysmonpsv_sinit.c</label>
+        <link refid="xsysmonpsv__sinit_8c"/>
+      </node>
+      <node id="186">
+        <label>xsysmonpsv_polled_example.c</label>
+        <link refid="xsysmonpsv__polled__example_8c"/>
+      </node>
+      <node id="183">
+        <label>xsysmonpsv_intr.c</label>
+        <link refid="xsysmonpsv__intr_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsysmonpsv__services_8h_1a27ee2cbf4e86a5e66f8ed744187a805f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_EnableVoltageEvents</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 Supply, u32 IntrNum)</argsstring>
+        <name>XSysMonPsv_EnableVoltageEvents</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Supply</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrNum</declname>
+        </param>
+        <briefdescription>
+<para>Enables voltage event for the supply. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum from the XSysMonPsv_Supply. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt Offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if error.<itemizedlist>
+<listitem><para>XST_SUCCESS if successful. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.c" bodystart="58" bodyend="86"/>
+        <references refid="xsysmonpsv__common_8h_1a16099b2571d3ca0524e7e54165aa80d6" compoundref="xsysmonpsv__common_8h" startline="84">ALARM_REG</references>
+        <references refid="xsysmonpsv__common_8h_1abb9e93a5e3a832c42d695231684ba43d" compoundref="xsysmonpsv__common_8h" startline="87">ALARM_SHIFT</references>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="117">XSysMonPsv::Config</references>
+        <references refid="xsysmonpsv__common_8h_1a19668d9ffa3ce7d0838b70efa933fc08" compoundref="xsysmonpsv__common_8h" startline="90">GET_BIT</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="87">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1ga9113de15440d133d50790fe91a6d45c0" compoundref="xsysmonpsv__hw_8h" startline="748">XSYSMONPSV_ALARM_REG0</references>
+        <references refid="xsysmonpsv__common_8c_1a4ae75168c5bf36923920778a77c15190" compoundref="xsysmonpsv__common_8c" startline="379" endline="395">XSysMonPsv_InterruptEnable</references>
+        <references refid="group__sysmonpsv__api_1ga916b6265b6d630fc8678e714e3123dfd" compoundref="xsysmonpsv__hw_8h" startline="1072">XSYSMONPSV_INVALID_SUPPLY</references>
+        <references refid="xsysmonpsv__driver_8h_1a16eec4745af4af2aaee82607ad4ba2e3" compoundref="xsysmonpsv__driver_8h" startline="59">XSYSMONPSV_MAX_SUPPLIES</references>
+        <references refid="xsysmonpsv__direct_8c_1af4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="49" endline="54">XSysMonPsv_ReadReg32</references>
+        <references refid="xsysmonpsv__direct_8c_1a858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="67" endline="73">XSysMonPsv_WriteReg32</references>
+        <referencedby refid="xsysmonpsv__intr__example_8c_1a08f29d1a3ede32c28ff1b454b3b68a28" compoundref="xsysmonpsv__intr__example_8c" startline="141" endline="309">SysMonPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsysmonpsv__services_8h_1ae768764267b169d51b366abe2c67e6ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_DisableVoltageEvents</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 Supply)</argsstring>
+        <name>XSysMonPsv_DisableVoltageEvents</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Supply</declname>
+        </param>
+        <briefdescription>
+<para>Disables voltage event for the supply. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum from the XSysMonPsv_Supply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if error.<itemizedlist>
+<listitem><para>XST_SUCCESS if successful. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.c" bodystart="100" bodyend="126"/>
+        <references refid="xsysmonpsv__common_8h_1a16099b2571d3ca0524e7e54165aa80d6" compoundref="xsysmonpsv__common_8h" startline="84">ALARM_REG</references>
+        <references refid="xsysmonpsv__common_8h_1abb9e93a5e3a832c42d695231684ba43d" compoundref="xsysmonpsv__common_8h" startline="87">ALARM_SHIFT</references>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="117">XSysMonPsv::Config</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="87">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1ga9113de15440d133d50790fe91a6d45c0" compoundref="xsysmonpsv__hw_8h" startline="748">XSYSMONPSV_ALARM_REG0</references>
+        <references refid="group__sysmonpsv__api_1ga916b6265b6d630fc8678e714e3123dfd" compoundref="xsysmonpsv__hw_8h" startline="1072">XSYSMONPSV_INVALID_SUPPLY</references>
+        <references refid="xsysmonpsv__driver_8h_1a16eec4745af4af2aaee82607ad4ba2e3" compoundref="xsysmonpsv__driver_8h" startline="59">XSYSMONPSV_MAX_SUPPLIES</references>
+        <references refid="xsysmonpsv__direct_8c_1af4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="49" endline="54">XSysMonPsv_ReadReg32</references>
+        <references refid="xsysmonpsv__direct_8c_1a858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="67" endline="73">XSysMonPsv_WriteReg32</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>_XSYSMONPSV_SERVICES_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_XSYSMONPSV_SERVICES_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR5)<sp/>||<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(PLATFORM_MB)<sp/>&amp;&amp;<sp/>defined<sp/>(XIL_INTERRUPT)<sp/>&amp;&amp;<sp/>defined<sp/>(SDT)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsv__services_8c_1a27ee2cbf4e86a5e66f8ed744187a805f" kindref="member">XSysMonPsv_EnableVoltageEvents</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Supply,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrNum);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsv__services_8c_1ae768764267b169d51b366abe2c67e6ad" kindref="member">XSysMonPsv_DisableVoltageEvents</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Supply);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR5)<sp/>||<sp/>defined<sp/>(__aarch64__)<sp/>||<sp/>defined<sp/>(PLATFORM_MB)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_RegisterDevTempCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsv__driver_8h_1ace82b8d812c9cfb257766db1aad68a66" kindref="member">XSysMonPsv_Handler</ref><sp/>CallbackFunc,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_UnregisterDevTempCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_RegisterOTCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsv__driver_8h_1ace82b8d812c9cfb257766db1aad68a66" kindref="member">XSysMonPsv_Handler</ref><sp/>CallbackFunc,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_UnregisterOTCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_RegisterSupplyCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysMonPsv_Supply<sp/>Supply,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsv__driver_8h_1ace82b8d812c9cfb257766db1aad68a66" kindref="member">XSysMonPsv_Handler</ref><sp/>CallbackFunc,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_UnregisterSupplyCallback(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Supply);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSysMonPsv_IntrHandler(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR5)<sp/>||<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSysMonPsv_SetupInterrupts(XScuGic<sp/>*IntcInstancePtr,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u16<sp/>IntrId);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XSYSMONPSV_SERVICES_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.h"/>
+  </compounddef>
+</doxygen>

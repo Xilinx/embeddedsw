@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y" kind="struct" prot="public">
+    <compoundname>SCSI_READ_CAPACITY</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y_1ac27586cbd3ed593e25011f0a59f2f337" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 SCSI_READ_CAPACITY::numBlocks</definition>
+        <argsstring></argsstring>
+        <name>numBlocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y_1a47a2c0a4588184cbbe2e4d5e2a966e33" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 SCSI_READ_CAPACITY::blockSize</definition>
+        <argsstring></argsstring>
+        <name>blockSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="144" bodyend="151"/>
+    <listofallmembers>
+      <member refid="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y_1a47a2c0a4588184cbbe2e4d5e2a966e33" prot="public" virt="non-virtual"><scope>SCSI_READ_CAPACITY</scope><name>blockSize</name></member>
+      <member refid="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y_1ac27586cbd3ed593e25011f0a59f2f337" prot="public" virt="non-virtual"><scope>SCSI_READ_CAPACITY</scope><name>numBlocks</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

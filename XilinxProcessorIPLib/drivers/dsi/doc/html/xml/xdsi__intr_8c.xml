@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdsi__intr_8c" kind="file">
+    <compoundname>xdsi_intr.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xdsi__hw_8h" local="yes">xdsi_hw.h</includes>
+    <includes refid="xdsi_8h" local="yes">xdsi.h</includes>
+    <incdepgraph>
+      <node id="53">
+        <label>xdsi_hw.h</label>
+        <link refid="xdsi__hw_8h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xil_io.h</label>
+      </node>
+      <node id="55">
+        <label>xdsi.h</label>
+        <link refid="xdsi_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xstatus.h</label>
+      </node>
+      <node id="57">
+        <label>xvidc.h</label>
+      </node>
+      <node id="56">
+        <label>xil_types.h</label>
+      </node>
+      <node id="51">
+        <label>xdsi_intr.c</label>
+        <link refid="xdsi_intr.c"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dsi_1ga5884ff79a940d84e55fdc7d9fc6be1f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_InterruptEnable</definition>
+        <argsstring>(XDsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function will enable the interrupts present in the interrupt mask passed onto the function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="61" bodyend="71"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gac3e09d98f76b1f93db4ccbf0aa149aa5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_InterruptDisable</definition>
+        <argsstring>(XDsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function will disable the interrupts present in the interrupt mask passed onto the function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="84" bodyend="93"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gadbca55f4daff263f50034e122be0f001" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi_InterruptGetEnabled</definition>
+        <argsstring>(XDsi *InstancePtr)</argsstring>
+        <name>XDsi_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the interrupt mask set (enabled) in the DSI core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt enable register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="107" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi_InterruptGetStatus</definition>
+        <argsstring>(XDsi *InstancePtr)</argsstring>
+        <name>XDsi_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the list of interrupts Invoked in the Interrupt Status Register of the DSI core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt Status register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="132" bodyend="142"/>
+        <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_InterruptClear</definition>
+        <argsstring>(XDsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function will clear the interrupts set in the Interrupt Status Register of the DSI core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Interrupt Mask with bits set for corresponding interrupt to be cleared in the Interrupt Status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="156" bodyend="166"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+        <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDsi_SetCallback</definition>
+        <argsstring>(XDsi *InstancePtr, u32 HandleType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDsi_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandleType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>HandlerType                     Invoked by this driver when:
+-----------------------  --------------------------------------------------
+XDSI_HANDLER_UNSUPPORT_DATATYPE Un support data type detected
+XDSI_HANDLER_PIXELDATA_UNDERRUN Byte stream FIFO starves for Pixel during
+                                  HACT transmission
+XDSI_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
+                           Stream Line Buffer Full, Incorrect Lanes, etc
+XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</preformatted></para><para><preformatted></preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandleType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of call back to be registered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to a call back function which is called when a particular event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a void pointer to data to be referenced to by the CallbackFunc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="921" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="202" bodyend="237"/>
+        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="224">XDsi::CmdQFIFOFullCallback</references>
+        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="226">XDsi::CmdQFIFOFullRef</references>
+        <references refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" compoundref="xdsi_8h" startline="228">XDsi::ErrorCallback</references>
+        <references refid="struct_x_dsi_1a66cf1526618ca4310e53ac9c53d8bd27" compoundref="xdsi_8h" startline="230">XDsi::ErrRef</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="218">XDsi::PixelDataUnderrunCallback</references>
+        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="222">XDsi::PixelDataUnderrundRef</references>
+        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="215">XDsi::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="213">XDsi::UnSupportedDataTypeCallback</references>
+        <references refid="group__dsi_1ga31ed3220401bdd75e8a00d01032f6f3e" compoundref="xdsi_8h" startline="64">XDSI_HANDLER_CMDQ_FIFOFULL</references>
+        <references refid="group__dsi_1gac110653d63c54ff608aa027071c6f049" compoundref="xdsi_8h" startline="63">XDSI_HANDLER_OTHERERROR</references>
+        <references refid="group__dsi_1ga4355644285ba9dabf3f5d38ffc25359c" compoundref="xdsi_8h" startline="62">XDSI_HANDLER_PIXELDATA_UNDERRUN</references>
+        <references refid="group__dsi_1gadb72912c633ca5235856df31d2f517ec" compoundref="xdsi_8h" startline="61">XDSI_HANDLER_UNSUPPORT_DATATYPE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga925b34dea84b254a23db6570082c70fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XDsi_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the DSI core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the Invoked interrupt from the Interrupt Status register determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" kindref="member">XDsi_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="259" bodyend="298"/>
+        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="224">XDsi::CmdQFIFOFullCallback</references>
+        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="226">XDsi::CmdQFIFOFullRef</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="218">XDsi::PixelDataUnderrunCallback</references>
+        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="222">XDsi::PixelDataUnderrundRef</references>
+        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="215">XDsi::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="213">XDsi::UnSupportedDataTypeCallback</references>
+        <references refid="group__dsi_1ga70eb96c20dcdf636a21fb9140d4798e8" compoundref="xdsi__hw_8h" startline="310">XDSI_IER_CMDQ_FIFO_FULL_MASK</references>
+        <references refid="group__dsi_1gab30c45469c76c7f5fcd24956466199ed" compoundref="xdsi__hw_8h" startline="313">XDSI_IER_DATA_ID_ERR_MASK</references>
+        <references refid="group__dsi_1ga73680e01af90788e31e7d4592f6cd600" compoundref="xdsi__hw_8h" startline="316">XDSI_IER_PXL_UNDR_RUN_MASK</references>
+        <references refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" compoundref="xdsi__intr_8c" startline="156" endline="166">XDsi_InterruptClear</references>
+        <references refid="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" compoundref="xdsi__intr_8c" startline="132" endline="142">XDsi_InterruptGetStatus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdsi__hw_8h" kindref="compound">xdsi_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdsi_8h" kindref="compound">xdsi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__dsi_1ga5884ff79a940d84e55fdc7d9fc6be1f7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga5884ff79a940d84e55fdc7d9fc6be1f7" kindref="member">XDsi_InterruptEnable</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" kindref="member">XDSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/>XDsi_GetIntrEnableStatus(InstancePtr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_IntrEnable(InstancePtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__dsi_1gac3e09d98f76b1f93db4ccbf0aa149aa5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gac3e09d98f76b1f93db4ccbf0aa149aa5" kindref="member">XDsi_InterruptDisable</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" kindref="member">XDSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_IntrDisable(InstancePtr,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask<sp/>&amp;<sp/>(XDsi_GetIntrEnableStatus(InstancePtr))));</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="group__dsi_1gadbca55f4daff263f50034e122be0f001" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi_1gadbca55f4daff263f50034e122be0f001" kindref="member">XDsi_InterruptGetEnabled</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XDsi_GetIntrEnableStatus(InstancePtr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="132" refid="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" kindref="member">XDsi_InterruptGetStatus</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XDsi_GetIntrStatus(InstancePtr);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="156" refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" kindref="member">XDsi_InterruptClear</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" kindref="member">XDSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;=<sp/>XDsi_GetIntrStatus(InstancePtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_IntrClear(InstancePtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202" refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" kindref="member">XDsi_SetCallback</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandleType,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandleType)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gadb72912c633ca5235856df31d2f517ec" kindref="member">XDSI_HANDLER_UNSUPPORT_DATATYPE</ref>:</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" kindref="member">UnSupportedDataTypeCallback</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" kindref="member">UnsupportDataTypeRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga4355644285ba9dabf3f5d38ffc25359c" kindref="member">XDSI_HANDLER_PIXELDATA_UNDERRUN</ref>:</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" kindref="member">PixelDataUnderrunCallback</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" kindref="member">PixelDataUnderrundRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga31ed3220401bdd75e8a00d01032f6f3e" kindref="member">XDSI_HANDLER_CMDQ_FIFOFULL</ref>:</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" kindref="member">CmdQFIFOFullCallback</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" kindref="member">CmdQFIFOFullRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gac110653d63c54ff608aa027071c6f049" kindref="member">XDSI_HANDLER_OTHERERROR</ref>:</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" kindref="member">ErrorCallback</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a66cf1526618ca4310e53ac9c53d8bd27" kindref="member">ErrRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalid<sp/>value<sp/>of<sp/>HandleType<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="259" refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" kindref="member">XDsi_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InvokedIntr;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*XDsiPtr<sp/>=<sp/>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsiPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsiPtr-&gt;<ref refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Invoked<sp/>interrupts<sp/>in<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InvokedIntr<sp/>=<sp/><ref refid="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" kindref="member">XDsi_InterruptGetStatus</ref>(XDsiPtr);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>InvokedIntr<sp/>&amp;<sp/><ref refid="group__dsi_1gab30c45469c76c7f5fcd24956466199ed" kindref="member">XDSI_IER_DATA_ID_ERR_MASK</ref>;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>UnSupportedDataType<sp/>then<sp/>call<sp/>corresponding<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsiPtr-&gt;<ref refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" kindref="member">UnSupportedDataTypeCallback</ref></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDsiPtr-&gt;<ref refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" kindref="member">UnsupportDataTypeRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>InvokedIntr<sp/>&amp;<sp/><ref refid="group__dsi_1ga73680e01af90788e31e7d4592f6cd600" kindref="member">XDSI_IER_PXL_UNDR_RUN_MASK</ref>;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>ShortPacket<sp/>Interrupts<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsiPtr-&gt;<ref refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" kindref="member">PixelDataUnderrunCallback</ref></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDsiPtr-&gt;<ref refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" kindref="member">PixelDataUnderrundRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>InvokedIntr<sp/>&amp;<sp/><ref refid="group__dsi_1ga70eb96c20dcdf636a21fb9140d4798e8" kindref="member">XDSI_IER_CMDQ_FIFO_FULL_MASK</ref>;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Command<sp/>queue<sp/>FIFO<sp/>full<sp/>Interrupts<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsiPtr-&gt;<ref refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" kindref="member">CmdQFIFOFullCallback</ref></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDsiPtr-&gt;<ref refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" kindref="member">CmdQFIFOFullRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>Invoked<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" kindref="member">XDsi_InterruptClear</ref>(XDsiPtr,<sp/>InvokedIntr);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c"/>
+  </compounddef>
+</doxygen>

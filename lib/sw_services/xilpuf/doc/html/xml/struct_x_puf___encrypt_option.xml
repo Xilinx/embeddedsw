@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_puf___encrypt_option" kind="struct" prot="public">
+    <compoundname>XPuf_EncryptOption</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a8d331457b477265058684e8d193ae9e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncRedKey</definition>
+        <argsstring></argsstring>
+        <name>EncRedKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a8b8655de25feaa27f1f5066536453791" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncUds</definition>
+        <argsstring></argsstring>
+        <name>EncUds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a8a62ee0692fd86e009033c6998741ac7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncDmePrivKey0</definition>
+        <argsstring></argsstring>
+        <name>EncDmePrivKey0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a9dfc98425829ddbf172deabad33370b2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncDmePrivKey1</definition>
+        <argsstring></argsstring>
+        <name>EncDmePrivKey1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a7e4792719d2f4c5f2ed3b8342541f699" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncDmePrivKey2</definition>
+        <argsstring></argsstring>
+        <name>EncDmePrivKey2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___encrypt_option_1a03aafe247662c2dd0e141f9834012bd0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_EncryptOption::EncDmePrivKey3</definition>
+        <argsstring></argsstring>
+        <name>EncDmePrivKey3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.c" bodystart="88" bodyend="95"/>
+    <listofallmembers>
+      <member refid="struct_x_puf___encrypt_option_1a8a62ee0692fd86e009033c6998741ac7" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncDmePrivKey0</name></member>
+      <member refid="struct_x_puf___encrypt_option_1a9dfc98425829ddbf172deabad33370b2" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncDmePrivKey1</name></member>
+      <member refid="struct_x_puf___encrypt_option_1a7e4792719d2f4c5f2ed3b8342541f699" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncDmePrivKey2</name></member>
+      <member refid="struct_x_puf___encrypt_option_1a03aafe247662c2dd0e141f9834012bd0" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncDmePrivKey3</name></member>
+      <member refid="struct_x_puf___encrypt_option_1a8d331457b477265058684e8d193ae9e1" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncRedKey</name></member>
+      <member refid="struct_x_puf___encrypt_option_1a8b8655de25feaa27f1f5066536453791" prot="public" virt="non-virtual"><scope>XPuf_EncryptOption</scope><name>EncUds</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

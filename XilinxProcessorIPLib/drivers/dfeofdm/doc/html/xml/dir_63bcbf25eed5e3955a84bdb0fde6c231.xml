@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_63bcbf25eed5e3955a84bdb0fde6c231" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdfeofdm_8c">xdfeofdm.c</innerfile>
+    <innerfile refid="xdfeofdm_8h">xdfeofdm.h</innerfile>
+    <innerfile refid="xdfeofdm__hw_8h">xdfeofdm_hw.h</innerfile>
+    <innerfile refid="xdfeofdm__intr_8c">xdfeofdm_intr.c</innerfile>
+    <innerfile refid="xdfeofdm__sinit_8c">xdfeofdm_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/"/>
+  </compounddef>
+</doxygen>

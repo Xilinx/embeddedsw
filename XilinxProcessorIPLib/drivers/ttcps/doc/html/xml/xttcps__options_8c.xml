@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xttcps__options_8c" kind="file">
+    <compoundname>xttcps_options.c</compoundname>
+    <includes refid="xttcps_8h" local="yes">xttcps.h</includes>
+    <incdepgraph>
+      <node id="84">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="85">
+        <label>xil_io.h</label>
+      </node>
+      <node id="82">
+        <label>xttcps_hw.h</label>
+        <link refid="xttcps__hw_8h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xstatus.h</label>
+      </node>
+      <node id="83">
+        <label>xil_types.h</label>
+      </node>
+      <node id="81">
+        <label>xttcps.h</label>
+        <link refid="xttcps_8h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>xttcps_options.c</label>
+        <link refid="xttcps_options.c"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_options_map" prot="public">OptionsMap</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ttcps_1ga9e7551455da1387b5908dd7df0b4de91" prot="public" static="no">
+        <name>XTTCPS_NUM_TMRCTR_OPTIONS</name>
+        <initializer>(sizeof(TmrCtrOptionsTable) / \
+				   sizeof(OptionsMap))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__ttcps_1ga3be30f2af3ec74a68bdb9dcbc424b877" prot="public" static="yes" mutable="no">
+        <type>OptionsMap</type>
+        <definition>OptionsMap TmrCtrOptionsTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>TmrCtrOptionsTable</name>
+        <initializer>= {
+	{
+		<ref refid="group__ttcps_1ga3583fa93646d878d3c43186df93e1ada" kindref="member">XTTCPS_OPTION_EXTERNAL_CLK</ref>, <ref refid="group__ttcps_1ga0ad0d2fc32052665beb38425b8355808" kindref="member">XTTCPS_CLK_CNTRL_SRC_MASK</ref>,
+		<ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1ga7364b78f01ad1b27a076ef9ce568f497" kindref="member">XTTCPS_OPTION_CLK_EDGE_NEG</ref>, <ref refid="group__ttcps_1ga29a848536966e6edb1a59971931eb6ef" kindref="member">XTTCPS_CLK_CNTRL_EXT_EDGE_MASK</ref>,
+		<ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1gabe4c649641c3efc6f2fe07e6810d2048" kindref="member">XTTCPS_OPTION_INTERVAL_MODE</ref>, <ref refid="group__ttcps_1ga47b98db0d18d856c81c04b0e5e49a875" kindref="member">XTTCPS_CNT_CNTRL_INT_MASK</ref>,
+		<ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1gaeeae7b90036e1a13b52e7b2875942efd" kindref="member">XTTCPS_OPTION_DECREMENT</ref>, <ref refid="group__ttcps_1ga74e687181d1a3883c83b29bfaf501418" kindref="member">XTTCPS_CNT_CNTRL_DECR_MASK</ref>,
+		<ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1gaa66b7479dcccbd1a6117d47831d882d5" kindref="member">XTTCPS_OPTION_MATCH_MODE</ref>, <ref refid="group__ttcps_1ga0fcc8d087e0c9f3241abc1af5fac18c5" kindref="member">XTTCPS_CNT_CNTRL_MATCH_MASK</ref>,
+		<ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1ga93f486a44e4fcd438306b1db3f301a95" kindref="member">XTTCPS_OPTION_WAVE_DISABLE</ref>, <ref refid="group__ttcps_1gaf70f141431c9cc3c460f4eca42e8aefb" kindref="member">XTTCPS_CNT_CNTRL_EN_WAVE_MASK</ref>,
+		<ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>
+	},
+	{
+		<ref refid="group__ttcps_1gaf39b9b3bfc4ceef12bb0cea724cf2359" kindref="member">XTTCPS_OPTION_WAVE_POLARITY</ref>, <ref refid="group__ttcps_1ga28cbcfa250bc16b43297a408903156c1" kindref="member">XTTCPS_CNT_CNTRL_POL_WAVE_MASK</ref>,
+		<ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>
+	},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTtcPs_SetOptions</definition>
+        <argsstring>(XTtcPs *InstancePtr, u32 Options)</argsstring>
+        <name>XTtcPs_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the options for the TTC device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specified options to be set. This is a bit mask where a 1 means to turn the option on, and a 0 means to turn the option off. One or more bit values may be contained in the mask. See the bit definitions named XTTCPS_*_OPTION in the file <ref refid="xttcps_8h" kindref="compound">xttcps.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_FAILURE if any of the options are unknown.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="115" bodyend="157"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" compoundref="xttcps__hw_8h" startline="60">XTTCPS_CLK_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" compoundref="xttcps__hw_8h" startline="61">XTTCPS_CNT_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+        <references refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" compoundref="xttcps__hw_8h" startline="182">XTtcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1gac33ce44553e83555369c400b964234e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTtcPs_GetOptions</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the settings for the options for the TTC device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+The return u32 contains the specified options that are set. This is a bit mask where a &apos;1&apos; means the option is on, and a&apos;0&apos; means the option is off. One or more bit values may be contained in the mask. See the bit definitions named XTTCPS_*_OPTION in the file <ref refid="xttcps_8h" kindref="compound">xttcps.h</ref>.</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="176" bodyend="206"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xttcps_8h" kindref="compound">xttcps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>Create<sp/>the<sp/>table<sp/>of<sp/>options<sp/>which<sp/>are<sp/>processed<sp/>to<sp/>get/set<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>options.<sp/>These<sp/>options<sp/>are<sp/>table<sp/>driven<sp/>to<sp/>allow<sp/>easy<sp/>maintenance<sp/>and</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>expansion<sp/>of<sp/>the<sp/>options.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Option;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}<sp/>OptionsMap;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>OptionsMap<sp/>TmrCtrOptionsTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga3583fa93646d878d3c43186df93e1ada" kindref="member">XTTCPS_OPTION_EXTERNAL_CLK</ref>,<sp/><ref refid="group__ttcps_1ga0ad0d2fc32052665beb38425b8355808" kindref="member">XTTCPS_CLK_CNTRL_SRC_MASK</ref>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga7364b78f01ad1b27a076ef9ce568f497" kindref="member">XTTCPS_OPTION_CLK_EDGE_NEG</ref>,<sp/><ref refid="group__ttcps_1ga29a848536966e6edb1a59971931eb6ef" kindref="member">XTTCPS_CLK_CNTRL_EXT_EDGE_MASK</ref>,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gabe4c649641c3efc6f2fe07e6810d2048" kindref="member">XTTCPS_OPTION_INTERVAL_MODE</ref>,<sp/><ref refid="group__ttcps_1ga47b98db0d18d856c81c04b0e5e49a875" kindref="member">XTTCPS_CNT_CNTRL_INT_MASK</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gaeeae7b90036e1a13b52e7b2875942efd" kindref="member">XTTCPS_OPTION_DECREMENT</ref>,<sp/><ref refid="group__ttcps_1ga74e687181d1a3883c83b29bfaf501418" kindref="member">XTTCPS_CNT_CNTRL_DECR_MASK</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gaa66b7479dcccbd1a6117d47831d882d5" kindref="member">XTTCPS_OPTION_MATCH_MODE</ref>,<sp/><ref refid="group__ttcps_1ga0fcc8d087e0c9f3241abc1af5fac18c5" kindref="member">XTTCPS_CNT_CNTRL_MATCH_MASK</ref>,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga93f486a44e4fcd438306b1db3f301a95" kindref="member">XTTCPS_OPTION_WAVE_DISABLE</ref>,<sp/><ref refid="group__ttcps_1gaf70f141431c9cc3c460f4eca42e8aefb" kindref="member">XTTCPS_CNT_CNTRL_EN_WAVE_MASK</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gaf39b9b3bfc4ceef12bb0cea724cf2359" kindref="member">XTTCPS_OPTION_WAVE_POLARITY</ref>,<sp/><ref refid="group__ttcps_1ga28cbcfa250bc16b43297a408903156c1" kindref="member">XTTCPS_CNT_CNTRL_POL_WAVE_MASK</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_NUM_TMRCTR_OPTIONS<sp/>(sizeof(TmrCtrOptionsTable)<sp/>/<sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sizeof(OptionsMap))</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="115" refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" kindref="member">XTtcPs_SetOptions</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CountReg;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClockReg;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>input<sp/>arguments<sp/>and<sp/>in<sp/>case<sp/>of<sp/>error<sp/>conditions<sp/>assert.</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClockReg<sp/>=<sp/><ref refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kindref="member">XTtcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" kindref="member">Config</ref>.<ref refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CountReg<sp/>=<sp/><ref refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kindref="member">XTtcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" kindref="member">Config</ref>.<ref refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table,<sp/>turning<sp/>the<sp/>option<sp/>on<sp/>or<sp/>off</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>depending<sp/>on<sp/>whether<sp/>the<sp/>bit<sp/>is<sp/>set<sp/>in<sp/>the<sp/>incoming<sp/>options<sp/>flag.</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XTTCPS_NUM_TMRCTR_OPTIONS;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Options<sp/>&amp;<sp/>TmrCtrOptionsTable[Index].Option)<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TmrCtrOptionsTable[Index].Register<sp/>==<sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClockReg<sp/>|=<sp/>TmrCtrOptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CountReg<sp/>|=<sp/>TmrCtrOptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TmrCtrOptionsTable[Index].Register<sp/>==<sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClockReg<sp/>&amp;=<sp/>~TmrCtrOptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CountReg<sp/>&amp;=<sp/>~TmrCtrOptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Now<sp/>write<sp/>the<sp/>registers.<sp/>Leave<sp/>it<sp/>to<sp/>the<sp/>upper<sp/>layers<sp/>to<sp/>restart<sp/>the</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>device.</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" kindref="member">XTtcPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" kindref="member">Config</ref>.<ref refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" kindref="member">XTTCPS_CLK_CNTRL_OFFSET</ref>,<sp/>ClockReg);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" kindref="member">XTtcPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" kindref="member">Config</ref>.<ref refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>,<sp/>CountReg);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="176" refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" kindref="member">XTtcPs_GetOptions</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionsFlag<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>input<sp/>arguments<sp/>and<sp/>in<sp/>case<sp/>of<sp/>error<sp/>conditions<sp/>assert.</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table<sp/>to<sp/>determine<sp/>which<sp/>options<sp/>are<sp/>set</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XTTCPS_NUM_TMRCTR_OPTIONS;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>control<sp/>register<sp/>to<sp/>determine<sp/>which<sp/>options<sp/>are</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>currently<sp/>set.</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kindref="member">XTtcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" kindref="member">Config</ref>.<ref refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmrCtrOptionsTable[Index].</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Register<sp/>&amp;<sp/>TmrCtrOptionsTable[Index].Mask)<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionsFlag<sp/>|=<sp/>TmrCtrOptionsTable[Index].Option;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OptionsFlag;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c"/>
+  </compounddef>
+</doxygen>

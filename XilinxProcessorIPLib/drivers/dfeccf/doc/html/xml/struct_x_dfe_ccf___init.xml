@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___init" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Init</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___init_1a33a2bd2ba08ad2526b80ed3e60338537" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___c_c_sequence" kindref="compound">XDfeCcf_CCSequence</ref></type>
+        <definition>XDfeCcf_CCSequence XDfeCcf_Init::Sequence</definition>
+        <argsstring></argsstring>
+        <name>Sequence</name>
+        <briefdescription>
+<para>CCID sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___init_1ae158951ef0ce8ea7c1726d0590cb3231" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Init::GainStage</definition>
+        <argsstring></argsstring>
+        <name>GainStage</name>
+        <briefdescription>
+<para>[0,1] Enable gain stage </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Init::TuserSelect</definition>
+        <argsstring></argsstring>
+        <name>TuserSelect</name>
+        <briefdescription>
+<para>[0,1] Select DL or UL TUSER </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Initialization, &quot;one-time&quot; configuration parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="23">
+        <label>XDfeCcf_Init</label>
+        <link refid="struct_x_dfe_ccf___init"/>
+        <childnode refid="24" relation="usage">
+          <edgelabel>Sequence</edgelabel>
+        </childnode>
+      </node>
+      <node id="24">
+        <label>XDfeCcf_CCSequence</label>
+        <link refid="struct_x_dfe_ccf___c_c_sequence"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="296" bodyend="300"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___init_1ae158951ef0ce8ea7c1726d0590cb3231" prot="public" virt="non-virtual"><scope>XDfeCcf_Init</scope><name>GainStage</name></member>
+      <member refid="struct_x_dfe_ccf___init_1a33a2bd2ba08ad2526b80ed3e60338537" prot="public" virt="non-virtual"><scope>XDfeCcf_Init</scope><name>Sequence</name></member>
+      <member refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" prot="public" virt="non-virtual"><scope>XDfeCcf_Init</scope><name>TuserSelect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

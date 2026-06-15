@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2a692a862d5eed649800773beb5d1696" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xusbps__audio__example_8c">xusbps_audio_example.c</innerfile>
+    <innerfile refid="xusbps__audiodata_8h">xusbps_audiodata.h</innerfile>
+    <innerfile refid="xusbps__ch9_8c">xusbps_ch9.c</innerfile>
+    <innerfile refid="xusbps__ch9_8h">xusbps_ch9.h</innerfile>
+    <innerfile refid="xusbps__ch9__audio_8c">xusbps_ch9_audio.c</innerfile>
+    <innerfile refid="xusbps__ch9__audio_8h">xusbps_ch9_audio.h</innerfile>
+    <innerfile refid="xusbps__ch9__storage_8c">xusbps_ch9_storage.c</innerfile>
+    <innerfile refid="xusbps__ch9__storage_8h">xusbps_ch9_storage.h</innerfile>
+    <innerfile refid="xusbps__class__audio_8c">xusbps_class_audio.c</innerfile>
+    <innerfile refid="xusbps__class__audio_8h">xusbps_class_audio.h</innerfile>
+    <innerfile refid="xusbps__class__storage_8c">xusbps_class_storage.c</innerfile>
+    <innerfile refid="xusbps__class__storage_8h">xusbps_class_storage.h</innerfile>
+    <innerfile refid="xusbps__intr__example_8c">xusbps_intr_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/"/>
+  </compounddef>
+</doxygen>

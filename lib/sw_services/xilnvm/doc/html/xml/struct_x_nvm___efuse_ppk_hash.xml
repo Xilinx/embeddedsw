@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_ppk_hash" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePpkHash</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a324a0ffd2725850a617daac2962c7ebf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::ActualPpkHashSize</definition>
+        <argsstring></argsstring>
+        <name>ActualPpkHashSize</name>
+        <briefdescription>
+<para>PPK hash size to be programmed it can be either 256/384 bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a640dc5d0c6bb0ae51f0ba1cb0d47ca9d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>Ppk0Hash</name>
+        <briefdescription>
+<para>PPK0 hash value to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a69ab0a315b8adefb9e8b0e16738f6a7f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::Ppk1Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>Ppk1Hash</name>
+        <briefdescription>
+<para>PPK1 hash value to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a5eacdd1ac1aec50713bc0f2e9dc07bc0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::PrgmPpk0Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk0Hash</name>
+        <briefdescription>
+<para>Flag to determine whether to program PPK0 hash or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a0415883e85bba272ca2aa08257d732ec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::PrgmPpk1Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk1Hash</name>
+        <briefdescription>
+<para>Flag to determine whether to program PPK1 hash or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a8f34719fc8bf6629de04a43ba74c5b77" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::Ppk2Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>Ppk2Hash</name>
+        <briefdescription>
+<para>PPK2 hash value to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1ae98360e6297ff7e80f28943473100bb0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::PrgmPpk2Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk2Hash</name>
+        <briefdescription>
+<para>Flag to determine whether to program PPK2 hash or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a45a618cd58083e6b4d529efb65063b1a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::PrgmPpk0Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk0Hash</name>
+        <briefdescription>
+<para>Program PPK0 hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a1739c2640ee3285353628bcf98eb3e15" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::PrgmPpk1Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk1Hash</name>
+        <briefdescription>
+<para>Program PPK1 hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a7371cb85b53241054beb3517f733737a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePpkHash::PrgmPpk2Hash</definition>
+        <argsstring></argsstring>
+        <name>PrgmPpk2Hash</name>
+        <briefdescription>
+<para>Program PPK2 hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1af1476b053a9797f9dfb4e3a787d4a581" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</argsstring>
+        <name>Ppk0Hash</name>
+        <briefdescription>
+<para>PPK0 hash data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a264791193525f5b16fe9ac55079393f6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</argsstring>
+        <name>Ppk1Hash</name>
+        <briefdescription>
+<para>PPK1 hash data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ppk_hash_1a3087f077b37cf8d8e9721dc65f29e46c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePpkHash::Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]</argsstring>
+        <name>Ppk2Hash</name>
+        <briefdescription>
+<para>PPK2 hash data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse PPK hashes </para>    </briefdescription>
+    <detaileddescription>
+<para>Structure for Ppk hash data. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="252" bodyend="262"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a324a0ffd2725850a617daac2962c7ebf" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>ActualPpkHashSize</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a640dc5d0c6bb0ae51f0ba1cb0d47ca9d" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk0Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1af1476b053a9797f9dfb4e3a787d4a581" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk0Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a69ab0a315b8adefb9e8b0e16738f6a7f" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk1Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a264791193525f5b16fe9ac55079393f6" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk1Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a8f34719fc8bf6629de04a43ba74c5b77" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk2Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a3087f077b37cf8d8e9721dc65f29e46c" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>Ppk2Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a5eacdd1ac1aec50713bc0f2e9dc07bc0" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk0Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a45a618cd58083e6b4d529efb65063b1a" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk0Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a0415883e85bba272ca2aa08257d732ec" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk1Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a1739c2640ee3285353628bcf98eb3e15" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk1Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1ae98360e6297ff7e80f28943473100bb0" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk2Hash</name></member>
+      <member refid="struct_x_nvm___efuse_ppk_hash_1a7371cb85b53241054beb3517f733737a" prot="public" virt="non-virtual"><scope>XNvm_EfusePpkHash</scope><name>PrgmPpk2Hash</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

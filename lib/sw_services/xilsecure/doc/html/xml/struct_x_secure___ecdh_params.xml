@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___ecdh_params" kind="struct" prot="public">
+    <compoundname>XSecure_EcdhParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1a2bc717f679e9bca28e4a8632577d093b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::CurveType</definition>
+        <argsstring></argsstring>
+        <name>CurveType</name>
+        <briefdescription>
+<para>ECC curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1acbb67a069297a08fe37c0d619793ba77" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::PubKeyAddrHigh</definition>
+        <argsstring></argsstring>
+        <name>PubKeyAddrHigh</name>
+        <briefdescription>
+<para>Higher 32-bit address of public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1acb8bfaf86a3d7e0b95a7136ef2e2f42a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::PubKeyAddrLow</definition>
+        <argsstring></argsstring>
+        <name>PubKeyAddrLow</name>
+        <briefdescription>
+<para>Lower 32-bit address of public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1a003387faf4c427fe24ed18d0eb45c799" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::PrivKeyAddrHigh</definition>
+        <argsstring></argsstring>
+        <name>PrivKeyAddrHigh</name>
+        <briefdescription>
+<para>Higher 32-bit address of private key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1a1774b6c2a6bc2a7cb4eabb8eb14797df" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::PrivKeyAddrLow</definition>
+        <argsstring></argsstring>
+        <name>PrivKeyAddrLow</name>
+        <briefdescription>
+<para>Lower 32-bit address of private key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1aff4635248bf5255789345c3fa2323f59" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::SharedSecretAddrHigh</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretAddrHigh</name>
+        <briefdescription>
+<para>Higher 32-bit address of Shared secret to be copied. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecdh_params_1a0de62e0406c9a7cda1bd9f0e41dbb8c5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EcdhParams::SharedSecretAddrLow</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretAddrLow</name>
+        <briefdescription>
+<para>Lower 32-bit address of Shared secret to be copied. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for ECDH. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="186" bodyend="194"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___ecdh_params_1a2bc717f679e9bca28e4a8632577d093b" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>CurveType</name></member>
+      <member refid="struct_x_secure___ecdh_params_1a003387faf4c427fe24ed18d0eb45c799" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>PrivKeyAddrHigh</name></member>
+      <member refid="struct_x_secure___ecdh_params_1a1774b6c2a6bc2a7cb4eabb8eb14797df" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>PrivKeyAddrLow</name></member>
+      <member refid="struct_x_secure___ecdh_params_1acbb67a069297a08fe37c0d619793ba77" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>PubKeyAddrHigh</name></member>
+      <member refid="struct_x_secure___ecdh_params_1acb8bfaf86a3d7e0b95a7136ef2e2f42a" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>PubKeyAddrLow</name></member>
+      <member refid="struct_x_secure___ecdh_params_1aff4635248bf5255789345c3fa2323f59" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>SharedSecretAddrHigh</name></member>
+      <member refid="struct_x_secure___ecdh_params_1a0de62e0406c9a7cda1bd9f0e41dbb8c5" prot="public" virt="non-virtual"><scope>XSecure_EcdhParams</scope><name>SharedSecretAddrLow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

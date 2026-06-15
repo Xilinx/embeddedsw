@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_config__s_1a09eab73de181af44af1eb27a3be39c61" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceConfig_s::ispHwId</definition>
+        <argsstring></argsstring>
+        <name>ispHwId</name>
+        <briefdescription>
+<para>Hardware Pipeline ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_config__s_1a5fe44c997aaeb1f75141bb63655978fa" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7c93188700dfdbe0d9ae01295eeecd95" kindref="member">CamDeviceInputConfig_t</ref></type>
+        <definition>CamDeviceInputConfig_t CamDeviceConfig_s::inputCfg</definition>
+        <argsstring></argsstring>
+        <name>inputCfg</name>
+        <briefdescription>
+<para>Input device configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_config__s_1ad7857effd1d441571c3bba6af0503481" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga000e3a3251cbc743895dab94987c2283" kindref="member">CamDeviceWorkConfig_t</ref></type>
+        <definition>CamDeviceWorkConfig_t CamDeviceConfig_s::workCfg</definition>
+        <argsstring></argsstring>
+        <name>workCfg</name>
+        <briefdescription>
+<para>ISP Work configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_config__s_1ae8aaba42523ef9ff56332ef237a97bfa" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gadb61329bd70dc01778bfef376d456a57" kindref="member">CamDeviceOutputConfig_t</ref></type>
+        <definition>CamDeviceOutputConfig_t CamDeviceConfig_s::outputCfg</definition>
+        <argsstring></argsstring>
+        <name>outputCfg</name>
+        <briefdescription>
+<para>ISP output configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_config__s_1ad90b07bee101e1274e45e5392ac2216a" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga8352ff5ed3f9d467d53dc70d43ecf0ad" kindref="member">CamDeviceSwitchSeqPriority_t</ref></type>
+        <definition>CamDeviceSwitchSeqPriority_t CamDeviceConfig_s::priority</definition>
+        <argsstring></argsstring>
+        <name>priority</name>
+        <briefdescription>
+<para>Input device priority in switch control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_config__s_1ac7b00174bc944eedeb14f28d2a97e30b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* CamDeviceConfig_s::hCascade</definition>
+        <argsstring></argsstring>
+        <name>hCascade</name>
+        <briefdescription>
+<para>Cascade ctx handle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to create camera device instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="222">
+        <label>CamDeviceConfig_s</label>
+        <link refid="struct_cam_device_config__s"/>
+        <childnode refid="223" relation="usage">
+          <edgelabel>workCfg</edgelabel>
+        </childnode>
+        <childnode refid="228" relation="usage">
+          <edgelabel>outputCfg</edgelabel>
+        </childnode>
+        <childnode refid="229" relation="usage">
+          <edgelabel>inputCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="228">
+        <label>CamDeviceOutputConfig_s</label>
+        <link refid="struct_cam_device_output_config__s"/>
+      </node>
+      <node id="224">
+        <label>CamDeviceModeConfig_s</label>
+        <link refid="union_cam_device_mode_config__s"/>
+        <childnode refid="225" relation="usage">
+          <edgelabel>mcm</edgelabel>
+        </childnode>
+        <childnode refid="226" relation="usage">
+          <edgelabel>stream</edgelabel>
+        </childnode>
+      </node>
+      <node id="225">
+        <label>CamDeviceMcmModeConfig_s</label>
+        <link refid="struct_cam_device_mcm_mode_config__s"/>
+      </node>
+      <node id="223">
+        <label>CamDeviceWorkConfig_s</label>
+        <link refid="struct_cam_device_work_config__s"/>
+        <childnode refid="224" relation="usage">
+          <edgelabel>modeCfg</edgelabel>
+        </childnode>
+        <childnode refid="227" relation="usage">
+          <edgelabel>tileCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="226">
+        <label>CamDeviceStreamModeConfig_s</label>
+        <link refid="struct_cam_device_stream_mode_config__s"/>
+      </node>
+      <node id="227">
+        <label>CamDeviceTileModeConfig_s</label>
+        <link refid="struct_cam_device_tile_mode_config__s"/>
+      </node>
+      <node id="229">
+        <label>CamDeviceInputConfig_s</label>
+        <link refid="struct_cam_device_input_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="127" bodyend="134"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_config__s_1ac7b00174bc944eedeb14f28d2a97e30b" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>hCascade</name></member>
+      <member refid="struct_cam_device_config__s_1a5fe44c997aaeb1f75141bb63655978fa" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>inputCfg</name></member>
+      <member refid="struct_cam_device_config__s_1a09eab73de181af44af1eb27a3be39c61" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>ispHwId</name></member>
+      <member refid="struct_cam_device_config__s_1ae8aaba42523ef9ff56332ef237a97bfa" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>outputCfg</name></member>
+      <member refid="struct_cam_device_config__s_1ad90b07bee101e1274e45e5392ac2216a" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>priority</name></member>
+      <member refid="struct_cam_device_config__s_1ad7857effd1d441571c3bba6af0503481" prot="public" virt="non-virtual"><scope>CamDeviceConfig_s</scope><name>workCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

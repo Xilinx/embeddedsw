@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___sw_pcr_extend_params" kind="struct" prot="public">
+    <compoundname>XOcp_SwPcrExtendParams</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1acd0d5c22baa2384c39ac448963605249" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrExtendParams::PcrNum</definition>
+        <argsstring></argsstring>
+        <name>PcrNum</name>
+        <briefdescription>
+<para>SW PCR number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrExtendParams::MeasurementIdx</definition>
+        <argsstring></argsstring>
+        <name>MeasurementIdx</name>
+        <briefdescription>
+<para>Measurement index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrExtendParams::DataSize</definition>
+        <argsstring></argsstring>
+        <name>DataSize</name>
+        <briefdescription>
+<para>Data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrExtendParams::OverWrite</definition>
+        <argsstring></argsstring>
+        <name>OverWrite</name>
+        <briefdescription>
+<para>Digest to overwrite or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XOcp_SwPcrExtendParams::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of the data to be extended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Software PCR extend parameters structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="150" bodyend="156"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>DataAddr</name></member>
+      <member refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>DataSize</name></member>
+      <member refid="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>MeasurementIdx</name></member>
+      <member refid="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>OverWrite</name></member>
+      <member refid="struct_x_ocp___sw_pcr_extend_params_1acd0d5c22baa2384c39ac448963605249" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>PcrNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

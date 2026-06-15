@@ -1,0 +1,1399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__lms__ots_8h" kind="file">
+    <compoundname>xsecure_lms_ots.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includedby refid="xsecure__lms_8h" local="yes">xsecure_lms.h</includedby>
+    <includedby refid="xsecure__lms__core_8h" local="yes">xsecure_lms_core.h</includedby>
+    <includedby refid="xsecure__lms__ots_8c" local="yes">xsecure_lms_ots.c</includedby>
+    <incdepgraph>
+      <node id="2028">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="2026">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure_lms_ots.h"/>
+        <childnode refid="2027" relation="include">
+        </childnode>
+        <childnode refid="2028" relation="include">
+        </childnode>
+      </node>
+      <node id="2027">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2037">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="2034">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="2031">
+        <label>xsecure_lms.c</label>
+        <link refid="xsecure__lms_8c"/>
+      </node>
+      <node id="2030">
+        <label>xsecure_lms.h</label>
+        <link refid="xsecure__lms_8h"/>
+        <childnode refid="2031" relation="include">
+        </childnode>
+        <childnode refid="2032" relation="include">
+        </childnode>
+        <childnode refid="2038" relation="include">
+        </childnode>
+      </node>
+      <node id="2036">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="2033">
+        <label>xsecure_lms_core.c</label>
+        <link refid="xsecure__lms__core_8c"/>
+      </node>
+      <node id="2032">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure__lms__core_8h"/>
+        <childnode refid="2033" relation="include">
+        </childnode>
+        <childnode refid="2034" relation="include">
+        </childnode>
+        <childnode refid="2035" relation="include">
+        </childnode>
+        <childnode refid="2036" relation="include">
+        </childnode>
+        <childnode refid="2037" relation="include">
+        </childnode>
+      </node>
+      <node id="2035">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="2039">
+        <label>xsecure_lms_ots.c</label>
+        <link refid="xsecure__lms__ots_8c"/>
+      </node>
+      <node id="2029">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure_lms_ots.h"/>
+        <childnode refid="2030" relation="include">
+        </childnode>
+        <childnode refid="2032" relation="include">
+        </childnode>
+        <childnode refid="2039" relation="include">
+        </childnode>
+      </node>
+      <node id="2038">
+        <label>xsecure_lms_hss.h</label>
+        <link refid="xsecure__lms__hss_8h"/>
+        <childnode refid="2032" relation="include">
+        </childnode>
+        <childnode refid="2035" relation="include">
+        </childnode>
+        <childnode refid="2036" relation="include">
+        </childnode>
+        <childnode refid="2037" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___lms_ots_param" prot="public">XSecure_LmsOtsParam</innerclass>
+    <innerclass refid="union_x_secure___lms_ots_public_key__" prot="public">XSecure_LmsOtsPublicKey_</innerclass>
+    <innerclass refid="union_x_secure___lms_ots_hash_per_digit__" prot="public">XSecure_LmsOtsHashPerDigit_</innerclass>
+    <innerclass refid="union_x_secure___lms_ots_sign_to_pub_key_hash__" prot="public">XSecure_LmsOtsSignToPubKeyHash_</innerclass>
+    <innerclass refid="struct_x_secure___lms_ots_signature__" prot="public">XSecure_LmsOtsSignature_</innerclass>
+    <innerclass refid="union_x_secure___lms_data_digest_fixed_fields__" prot="public">XSecure_LmsDataDigestFixedFields_</innerclass>
+    <innerclass refid="union_x_secure___lms_data_digest__" prot="public">XSecure_LmsDataDigest_</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gac558edd4dd7643d17f2378f538378ce2" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_TYPE_MAX_SUPPORTED</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Max supported types, used for creating lookup table for parameters for types supported number should be max valid + 1 (as first slot will be for invalid parameterXSecure_LmsOtsType XSecure_LmsOtsType. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" prot="public" static="no">
+        <name>XSECURE_ALLFS</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>32-bit value with all bits set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_TYPE_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>common lengths - they remain same irrespective of place they are used </para>        </briefdescription>
+        <detaileddescription>
+<para>Length of type field </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" prot="public" static="no">
+        <name>XSECURE_LMS_I_FIELD_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Length of I field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" prot="public" static="no">
+        <name>XSECURE_LMS_Q_FIELD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Length of q field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" prot="public" static="no">
+        <name>XSECURE_LMS_N_FIELD_SIZE</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>For now supported variants o/p length match. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" prot="public" static="no">
+        <name>XSECURE_LMS_C_FIELD_SIZE</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>32 byte random value for every msg to be authenticated </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga120df5670a44284bf4201bd8206da79e" prot="public" static="no">
+        <name>XSECURE_LMS_D_MESG_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Size of XSECURE_D_MESG. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga14f158c9b894c033079ab2b65989a28b" prot="public" static="no">
+        <name>XSECURE_LMS_D_PBLC_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Size of XSECURE_D_PBLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga1a34947f51bffe3c3aada7d9e34f2541" prot="public" static="no">
+        <name>XSECURE_LMS_DIGEST_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" kindref="member">XSECURE_LMS_N_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Digest and Checksum related. </para>        </briefdescription>
+        <detaileddescription>
+<para>&apos;n&apos; bytes, output of SHA operation </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" compoundref="xsecure__lms__core_8c" startline="1233" endline="1286">XSecure_LmsHashMessage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga1210354bf52acf6271513b1432f9d901" prot="public" static="no">
+        <name>XSECURE_LMS_CHECKSUM_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Length of checksum field after digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaeebd096c31f8e28bda96fb99ae3c708a" prot="public" static="no">
+        <name>XSECURE_LMS_DIGEST_CHECKSUM_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga1a34947f51bffe3c3aada7d9e34f2541" kindref="member">XSECURE_LMS_DIGEST_SIZE</ref> + \
+						<ref refid="group__xsecure__lms__server__apis_1ga1210354bf52acf6271513b1432f9d901" kindref="member">XSECURE_LMS_CHECKSUM_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Digest of data to be authenticated concatenated with checksum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga434d38a2acb11f42b7fed781844eb3ee" prot="public" static="no">
+        <name>XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1ga120df5670a44284bf4201bd8206da79e" kindref="member">XSECURE_LMS_D_MESG_FIELD_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" kindref="member">XSECURE_LMS_C_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Prefix fields length, before sending actual data to sha engine for digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" compoundref="xsecure__lms__core_8c" startline="1233" endline="1286">XSecure_LmsHashMessage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga9ee64fde0f18383f0538122bab3b8796" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_PUB_KEY_FIXED_FIELD_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" kindref="member">XSECURE_LMS_OTS_TYPE_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>OTS public key sizes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaa531d809f053cd3604b535575e174027" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" kindref="member">XSECURE_LMS_N_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>&apos;n&apos; bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gac3d009a0481c020ebf60f58d407264b9" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga9ee64fde0f18383f0538122bab3b8796" kindref="member">XSECURE_LMS_OTS_PUB_KEY_FIXED_FIELD_SIZE</ref> + \
+							<ref refid="group__xsecure__lms__server__apis_1gaa531d809f053cd3604b535575e174027" kindref="member">XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>OTS Public key total size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga6f53078196b73873798431d1c06a2534" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>&apos;i&apos; Field, this causes different hash output for hash position in signature </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga32a0e6dc2314d4456dba0d970f12118d" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>&apos;j&apos; Field, this causes different hash output for per iteration (inner loop) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaa786bfe4eb919d635e4aa0fe3f21d902" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" kindref="member">XSECURE_LMS_N_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para><verbatim> Size of individual hash chain placed
+</verbatim> in sequence in signature </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga45f1bba20bcc06a4361b89c1d5a65668" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga6f53078196b73873798431d1c06a2534" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga32a0e6dc2314d4456dba0d970f12118d" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gaa786bfe4eb919d635e4aa0fe3f21d902" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Total size of buffer, <ref refid="group__xsecure__lms__server__apis_1gad723b74a2a699cb721e81b18834d2b3f" kindref="member">XSecure_LmsOtsHashPerDigit</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gab1be775bdd080fd9bc80c72cc7a0a238" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE</name>
+        <param><defname>p</defname></param>
+        <initializer>((u32)p * <ref refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" kindref="member">XSECURE_LMS_N_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Used for calculating the size of z array, based on p value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaa4edf559af82782a00459dee656f86ef" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE</name>
+        <initializer>((u32)<ref refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda6b54cd89ac0ec36566eb03ca759a4adb" kindref="member">XSECURE_LMS_OTS_W2_P</ref> *\
+								 <ref refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" kindref="member">XSECURE_LMS_N_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Max possible size as supported only till <ref refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda7a97deeaa38f02b3b5b1be69f7294aef" kindref="member">XSECURE_LMS_OTS_W2</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga82176c002a5c65e1876ec23722ca8c9e" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga14f158c9b894c033079ab2b65989a28b" kindref="member">XSECURE_LMS_D_PBLC_FIELD_SIZE</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gaa4edf559af82782a00459dee656f86ef" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Total MAX Size of buffer used in OTS verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga933c28504d62c99bb41fd687a98dda90" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURRENT_SIZE</name>
+        <param><defname>p</defname></param>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref> +\
+								<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref> +\
+								<ref refid="group__xsecure__lms__server__apis_1ga14f158c9b894c033079ab2b65989a28b" kindref="member">XSECURE_LMS_D_PBLC_FIELD_SIZE</ref> +\
+								<ref refid="group__xsecure__lms__server__apis_1gab1be775bdd080fd9bc80c72cc7a0a238" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE</ref>(p))</initializer>
+        <briefdescription>
+<para>Total Size of buffer used in OTS verification, while considering current &apos;p&apos; parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gac9927e5c3c5d95e9d1b82ffaf800c241" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_PUBKEY_I_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Offset of &apos;I&apos; field in OTS Public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga15c74a74560860dfadce0dd25a9cbf1b" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_PUBKEY_Q_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gac9927e5c3c5d95e9d1b82ffaf800c241" kindref="member">XSECURE_LMS_OTS_PUBKEY_I_OFFSET</ref> +\
+								 <ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;q&apos; field in OTS Public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga57cc8baa8a82a27f721b46f46a21b159" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Offset of &apos;Type&apos; field in OTS Signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gadf5b0f6845109ee4715a5f00c732c0b5" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga57cc8baa8a82a27f721b46f46a21b159" kindref="member">XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" kindref="member">XSECURE_LMS_OTS_TYPE_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;C&apos; field in OTS Signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga3b359b6616f5f14b2aec628127efedb3" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_Y_FIELD_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gadf5b0f6845109ee4715a5f00c732c0b5" kindref="member">XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" kindref="member">XSECURE_LMS_C_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;Y&apos; field in OTS Signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaac4a22a134d85196ad6251a8625d0540" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Offset of &apos;I&apos; field in temporary buffer, where inner loops result are stored, for reprocessing during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga2aa682e71138d9b9168c6d9ccf8bb045" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gaac4a22a134d85196ad6251a8625d0540" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;q&apos; field in temporary buffer, where inner loops result are stored, for reprocessing during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga872fd1b27436b36a3bdb133e5d93b546" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga2aa682e71138d9b9168c6d9ccf8bb045" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;i&apos; field in temporary buffer, where inner loops result are stored, for reprocessing during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga36a971ffbf11978decc4a0a1dc3cfc2d" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga872fd1b27436b36a3bdb133e5d93b546" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga6f53078196b73873798431d1c06a2534" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;j&apos; field in temporary buffer, where inner loops result are stored, for reprocessing during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga4e7bc6e10bad27014918aefba9c22e7f" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga36a971ffbf11978decc4a0a1dc3cfc2d" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga32a0e6dc2314d4456dba0d970f12118d" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;Y&apos; field in temporary buffer, where inner loops result are stored, for reprocessing during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gae4f452928f5c6d3dee20a89eb65ea74d" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Offset of &apos;I&apos; field in temporary buffer, where inner loops result is concatenated during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gae8ca7a1a78fe23831689ed42f85486b7" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gae4f452928f5c6d3dee20a89eb65ea74d" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;q&apos; field in temporary buffer, where inner loops result is concatenated during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga4099a5d490b4e96ea8e446cdb9ef9f0e" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1gae8ca7a1a78fe23831689ed42f85486b7" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" kindref="member">XSECURE_LMS_Q_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of D_PBLC field in temporary buffer, where inner loops result is concatenated during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__server__apis_1gadf43d3cc0d824419b7f2e25d324735ec" prot="public" static="no">
+        <name>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Z_OFFSET</name>
+        <initializer>(<ref refid="group__xsecure__lms__server__apis_1ga4099a5d490b4e96ea8e446cdb9ef9f0e" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1ga14f158c9b894c033079ab2b65989a28b" kindref="member">XSECURE_LMS_D_PBLC_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of &apos;z&apos; field in temporary buffer, where inner loops result is concatenated during OTS operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" prot="public" static="no">
+        <name>XSecure_LmsOtsType</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda14c75a00d14463f7e0e59cc88c2bb74c" prot="public">
+          <name>XSECURE_LMS_OTS_RESERVED</name>
+          <initializer>= 0x00000000U</initializer>
+          <briefdescription>
+<para>Reserved. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab11ff69787ad5ae19edfe81516d17a3b" prot="public">
+          <name>XSECURE_LMS_OTS_SHA256_N32_W2</name>
+          <initializer>= 0x00000002U</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHA2-256, &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda6619d07dcdfb27f24037d94c2da75b7b" prot="public">
+          <name>XSECURE_LMS_OTS_SHA256_N32_W4</name>
+          <initializer>= 0x00000003U</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHA2-256, &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdaa2c7ed54a7b6a5dfe926d865e7d0e097" prot="public">
+          <name>XSECURE_LMS_OTS_SHA256_N32_W8</name>
+          <initializer>= 0x00000004U</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHA2-256, &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda350496cca3b0fceb91fa5611ab7080c3" prot="public">
+          <name>XSECURE_LMS_OTS_SHAKE_N32_W2</name>
+          <initializer>= 0x0000000AU</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHAKE-256, &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda52b24128174e65c3d46d6b6db0675b34" prot="public">
+          <name>XSECURE_LMS_OTS_SHAKE_N32_W4</name>
+          <initializer>= 0x0000000BU</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHAKE-256, &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdafd794b1bd3853e376d68972147b2e063" prot="public">
+          <name>XSECURE_LMS_OTS_SHAKE_N32_W8</name>
+          <initializer>= 0x0000000CU</initializer>
+          <briefdescription>
+<para>&apos;n&apos; = 32, &apos;H&apos; = SHAKE-256, &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab0be342315c7753f9987ad7d713b6fbd" prot="public">
+          <name>XSECURE_LMS_OTS_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of LMS_OTS supported. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Only 32 byte output is supported, i.e., 256 bit SHA or SHAKE are only supported, w=1 is not supported </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="218" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1ga98e7ae28a938a2adda1c9d415f68a3cd" prot="public" static="no">
+        <name>XSecure_LmsOtsWIndex</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" prot="public">
+          <name>XSECURE_LMS_OTS_W_NOT_SUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda7a97deeaa38f02b3b5b1be69f7294aef" prot="public">
+          <name>XSECURE_LMS_OTS_W2</name>
+          <initializer>= 2U</initializer>
+          <briefdescription>
+<para>&apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda88b2c964e9fb3bddfec0436b3f6f5e0c" prot="public">
+          <name>XSECURE_LMS_OTS_W4</name>
+          <initializer>= 4U</initializer>
+          <briefdescription>
+<para>&apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda507a403665f09b7704663ec47209f550" prot="public">
+          <name>XSECURE_LMS_OTS_W8</name>
+          <initializer>= 8U</initializer>
+          <briefdescription>
+<para>&apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Number of bits per digit Possible values are as supported by ROM, w=1 is not supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="233" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1ga797bf08fbeb731c200889e97c2024349" prot="public" static="no">
+        <name>XSecure_LmsOtsuIndex</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" prot="public">
+          <name>XSECURE_LMS_OTS_U_NOT_SUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349afabc5db621a318c0291565a8df40c2b1" prot="public">
+          <name>XSECURE_LMS_OTS_W2_U</name>
+          <initializer>= 128U</initializer>
+          <briefdescription>
+<para>&apos;u&apos; corresponding to &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a0387d324313898d9fa5db0bc0ddd4058" prot="public">
+          <name>XSECURE_LMS_OTS_W4_U</name>
+          <initializer>= 64U</initializer>
+          <briefdescription>
+<para>&apos;u&apos; corresponding to &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a934a8457911f4003bf7c4584804cbe3e" prot="public">
+          <name>XSECURE_LMS_OTS_W8_U</name>
+          <initializer>= 32U</initializer>
+          <briefdescription>
+<para>&apos;u&apos; corresponding to &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Number of &apos;w&apos; width digits possible in message Digest, excluding checksum Possible values are as supported by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="244" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1ga48ca7b856b1c924469c32ed0b974b8d5" prot="public" static="no">
+        <name>XSecure_LmsOtsvIndex</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" prot="public">
+          <name>XSECURE_LMS_OTS_V_NOT_SUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5af0bd724fd2dcc46301755f11c800ef6c" prot="public">
+          <name>XSECURE_LMS_OTS_W2_V</name>
+          <initializer>= 5U</initializer>
+          <briefdescription>
+<para>&apos;v&apos; corresponding to &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5aabbb56f1b23fcf58fa2270a9ce7b942f" prot="public">
+          <name>XSECURE_LMS_OTS_W4_V</name>
+          <initializer>= 3U</initializer>
+          <briefdescription>
+<para>&apos;v&apos; corresponding to &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a8b42f1fc9faa06cbb2cf38aab405e238" prot="public">
+          <name>XSECURE_LMS_OTS_W8_V</name>
+          <initializer>= 2U</initializer>
+          <briefdescription>
+<para>&apos;v&apos; corresponding to &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Is the number of &apos;w&apos; width digits possible in checksum Possible values are as supported by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="255" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1ga934fb8a4fb645f4419a0c10eceb4b883" prot="public" static="no">
+        <name>XSecure_LmsOtslsIndex</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a841340a34a9debc0e10028e45ad5def0" prot="public">
+          <name>XSECURE_LMS_OTS_W2_LS</name>
+          <initializer>= 6U</initializer>
+          <briefdescription>
+<para>&apos;ls&apos; corresponding to &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a4d6adf053e43c722afcd7dc7eafbfc12" prot="public">
+          <name>XSECURE_LMS_OTS_W4_LS</name>
+          <initializer>= 4U</initializer>
+          <briefdescription>
+<para>&apos;ls&apos; corresponding to &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a479e16a32a72d34466dcb570db3ebdba" prot="public">
+          <name>XSECURE_LMS_OTS_W8_LS</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>&apos;ls&apos; corresponding to &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a0636fed8c37d4a35fce4dc7eb7e7d5aa" prot="public">
+          <name>XSECURE_LMS_OTS_LS_NOT_SUPPORTED</name>
+          <initializer>= 16U</initializer>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>No.of bits to left-shift in Checksum, in the 16 bit value Possible values are as supported by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="266" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__lms__server__apis_1ga54c7dfec9549d6617d8bcd3bf7b1f8bd" prot="public" static="no">
+        <name>XSecure_LmsOtspIndex</name>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" prot="public">
+          <name>XSECURE_LMS_OTS_P_NOT_SUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Not Supported. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda6b54cd89ac0ec36566eb03ca759a4adb" prot="public">
+          <name>XSECURE_LMS_OTS_W2_P</name>
+          <initializer>= 133U</initializer>
+          <briefdescription>
+<para>&apos;p&apos; corresponding to &apos;w&apos; = 2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda2b630ba4210f383d7cc53575cca1637d" prot="public">
+          <name>XSECURE_LMS_OTS_W4_P</name>
+          <initializer>= 67U</initializer>
+          <briefdescription>
+<para>&apos;p&apos; corresponding to &apos;w&apos; = 4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda8206e08695b310bd5b6769859e06179c" prot="public">
+          <name>XSECURE_LMS_OTS_W8_P</name>
+          <initializer>= 34U</initializer>
+          <briefdescription>
+<para>&apos;p&apos; corresponding to &apos;w&apos; = 8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Is a sum of U + V, it is number of &apos;w&apos; width digits possible in digest + checksum buffer Possible values are as supported by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="277" bodyend="282"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1ga803c68a2b51e6f2aedd0030499bd932a" prot="public" static="no">
+        <type>union <ref refid="union_x_secure___lms_ots_public_key__" kindref="compound">XSecure_LmsOtsPublicKey_</ref></type>
+        <definition>typedef union XSecure_LmsOtsPublicKey_  XSecure_LmsOtsPublicKey</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsOtsPublicKey</name>
+        <briefdescription>
+<para>LMS OTS Public key structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size = 4 + 16 + 4 + H Len (32) = 56 Bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="336" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1gad723b74a2a699cb721e81b18834d2b3f" prot="public" static="no">
+        <type>union <ref refid="union_x_secure___lms_ots_hash_per_digit__" kindref="compound">XSecure_LmsOtsHashPerDigit_</ref></type>
+        <definition>typedef union XSecure_LmsOtsHashPerDigit_  XSecure_LmsOtsHashPerDigit</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsOtsHashPerDigit</name>
+        <briefdescription>
+<para>Temporary buffer, used in LMS OTS signature verification, used in hash chain to arrive at values which will be concatenated and hashed to get public value. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="383" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1ga4259aa07b5254dccc5ce3bedf2a7cb5c" prot="public" static="no">
+        <type>union <ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash__" kindref="compound">XSecure_LmsOtsSignToPubKeyHash_</ref></type>
+        <definition>typedef union XSecure_LmsOtsSignToPubKeyHash_  XSecure_LmsOtsSignToPubKeyHash</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsOtsSignToPubKeyHash</name>
+        <briefdescription>
+<para>Structure used when validating LMS OTS, once hash chain is completed, result needs to be stored so that they can be further concatenated and hashed to get OTS public key, this provides a way to access members and fill data in a structured way. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32)) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="416" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1gaa8ec8aa23f647c6cc236d649e8b63464" prot="public" static="no">
+        <type>struct <ref refid="struct_x_secure___lms_ots_signature__" kindref="compound">XSecure_LmsOtsSignature_</ref></type>
+        <definition>typedef struct XSecure_LmsOtsSignature_  XSecure_LmsOtsSignature</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsOtsSignature</name>
+        <briefdescription>
+<para>Partial LMS OTS Signature structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>struct Size = 4 + 32 Sign size = 4 + 32 + (p * n) = 4 + n * (p+1) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="436" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1gac1d840c18fbf4e517287bf3ee6301481" prot="public" static="no">
+        <type>union <ref refid="union_x_secure___lms_data_digest_fixed_fields__" kindref="compound">XSecure_LmsDataDigestFixedFields_</ref></type>
+        <definition>typedef union XSecure_LmsDataDigestFixedFields_  XSecure_LmsDataDigestFixedFields</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsDataDigestFixedFields</name>
+        <briefdescription>
+<para>Temporary buffer, used to send prefix fields to calculate digest for data to be authenticate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="472" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__lms__server__apis_1ga05542fcb5897f19f42bef397a9ae5700" prot="public" static="no">
+        <type>union <ref refid="union_x_secure___lms_data_digest__" kindref="compound">XSecure_LmsDataDigest_</ref></type>
+        <definition>typedef union XSecure_LmsDataDigest_  XSecure_LmsDataDigest</definition>
+        <argsstring></argsstring>
+        <name>XSecure_LmsDataDigest</name>
+        <briefdescription>
+<para>Digest for message to be authenticated, along with checksum. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size = Digest (32) + Check sum (2) = 34 Bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="493" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga962337132813f098ed3a128cb4167b27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsCoeff</definition>
+        <argsstring>(u8 const *const Arr, const u32 ArrayIndex, const u32 w)</argsstring>
+        <name>XSecure_LmsOtsCoeff</name>
+        <param>
+          <type>u8 const *const</type>
+          <declname>Arr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>ArrayIndex</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+<para>This function extracts the digits from the array for bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>S (represented in bits) = 0x1234 [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0] ^ | coef(S, 7, 1)</para></simplesect>
+[1, 2, 3, 4] ^ | coef(S, 0, 4)</para><para>If i is larger than the number of w-bit values in S, then coef(S, i, w) is undefined, this can&apos;t be checked here</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Arr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte array from where the digit needs to be picked </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ArrayIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When array is divided into array of digits, i represents the index of digit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Width in bits, for each digit allowed values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>digit value. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="90" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1gae4b1b7bba0abda9f7e5f7431cf2e07ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_LmsOtsComputeChecksum</definition>
+        <argsstring>(const u8 *const Array, const u32 ArrayLen, const u32 w, const u32 ls, u32 *const Checksum)</argsstring>
+        <name>XSecure_LmsOtsComputeChecksum</name>
+        <param>
+          <type>const u8 *const</type>
+          <declname>Array</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>ArrayLen</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>ls</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Checksum</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the checksum for a given array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte array ffor which checksum needs to be calculated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ArrayLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of input array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Width in bits, for each digit allowed values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ls</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bits to left-shift the calculated checksum </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Checksum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to address, where computed checksum needs to be copied</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR - Invalid buffer length (zero length) </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>If loop counter is glitched, the signature verification fails </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="124" bodyend="155"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da6d64080b375d7a684165177f5467469b" compoundref="spartanup_2xsecure__error_8h" startline="219">XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_LmsOtsLookupParamSet</definition>
+        <argsstring>(XSecure_LmsOtsType Type, XSecure_LmsOtsParam **Parameters)</argsstring>
+        <name>XSecure_LmsOtsLookupParamSet</name>
+        <param>
+          <type><ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___lms_ots_param" kindref="compound">XSecure_LmsOtsParam</ref> **</type>
+          <declname>Parameters</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the parameters for the type of LMS OTS type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>XSecure_LmsOtsType, type of OTS algorithm selected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to array location where all predefined parameter values are present <ref refid="struct_x_secure___lms_ots_param" kindref="compound">XSecure_LmsOtsParam</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_OTS_TYPE_UNSUPPORTED_ERROR - LMS OTS type is not supported</para></listitem><listitem><para>XSECURE_LMS_OTS_TYPE_LOOKUP_GLITCH_ERROR - Glitch detected during type lookup </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Lookup table for &apos;n&apos;, &apos;w&apos;, &apos;p&apos;, &apos;ls&apos; &amp; Signature lengths</para></listitem><listitem><para>XSECURE_LMS_OTS_RESERVED, XSECURE_LMS_OTS_NOT_SUPPORTED, default</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W2</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W4</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W8</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W2</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W4</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W8</para></listitem><listitem><para>Redundant type for temporal check</para></listitem><listitem><para>&apos;w&apos; = 1&apos; variations and 24 bit hash outputs are not supported in this library</para></listitem><listitem><para>SHA-256 options</para></listitem><listitem><para>SHAKE 256 options</para></listitem><listitem><para>default, and other not supported options</para></listitem><listitem><para>Two possible glitches, replacing this condition with a NOP, we will update error and exit flipping condition, we update error and exit, so both cases it is OK.</para></listitem><listitem><para>Update register to be taken care by caller </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="170" bodyend="339"/>
+        <references refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" compoundref="xsecure__lms__ots_8h" startline="288">XSecure_LmsOtsParam::H</references>
+        <references refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a0636fed8c37d4a35fce4dc7eb7e7d5aa" compoundref="xsecure__lms__ots_8h" startline="270">XSECURE_LMS_OTS_LS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" compoundref="xsecure__lms__ots_8h" startline="278">XSECURE_LMS_OTS_P_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" compoundref="xsecure__lms__ots_8h" startline="245">XSECURE_LMS_OTS_U_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" compoundref="xsecure__lms__ots_8h" startline="256">XSECURE_LMS_OTS_V_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" compoundref="xsecure__lms__ots_8h" startline="234">XSECURE_LMS_OTS_W_NOT_SUPPORTED</references>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains structures, constants and defines used in LMS OTS and provides interface to LMS OTS operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- ----------------------------------------------------------
+5.4   kal  07/24/24 Initial release
+5.7   tvp  11/20/25  Code refactoring for platform specific LMS functionality</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XSECURE_LMS_OTS_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__xsecure__lms__server__apis_1gac558edd4dd7643d17f2378f538378ce2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_TYPE_MAX_SUPPORTED<sp/><sp/><sp/><sp/><sp/><sp/>(7U)</highlight></codeline>
+<codeline lineno="45" refid="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ALLFS<sp/><sp/><sp/>(0xFFFFFFFFU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>*********************<sp/>Sizes<sp/>**********************************************<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_TYPE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_I_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_Q_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xsecure__lms__server__apis_1gaf1072cbf0c6cb16fda51910544832a22" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_N_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_C_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_D_MESG_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_D_PBLC_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_DIGEST_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_N_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="group__xsecure__lms__server__apis_1ga1a34947f51bffe3c3aada7d9e34f2541" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_CHECKSUM_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_DIGEST_CHECKSUM_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_DIGEST_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_CHECKSUM_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__lms__server__apis_1gaeebd096c31f8e28bda96fb99ae3c708a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_I_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__lms__server__apis_1ga434d38a2acb11f42b7fed781844eb3ee" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_D_MESG_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_C_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_PUB_KEY_FIXED_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_TYPE_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_I_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="78" refid="group__xsecure__lms__server__apis_1ga9ee64fde0f18383f0538122bab3b8796" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_N_FIELD_SIZE)<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_PUB_KEY_FIXED_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="84" refid="group__xsecure__lms__server__apis_1gac3d009a0481c020ebf60f58d407264b9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sizes<sp/>related<sp/>to<sp/>fields<sp/>in<sp/>tmp<sp/>buffer<sp/>used<sp/>for<sp/>storing</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*<sp/>intermediate<sp/>values<sp/>during<sp/>hash<sp/>chains<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>&apos;n&apos;<sp/>bytes<sp/>from<sp/>LMS<sp/>OTS<sp/>signature<sp/>verification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xsecure__lms__server__apis_1ga6f53078196b73873798431d1c06a2534" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_N_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="93" refid="group__xsecure__lms__server__apis_1ga32a0e6dc2314d4456dba0d970f12118d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="comment">/*<sp/>1<sp/>reserved<sp/>byte<sp/>added<sp/>at<sp/>start<sp/>of<sp/>buffer,<sp/>to<sp/>manage<sp/>word</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>aligned<sp/>sha<sp/>finish<sp/>copies<sp/>to<sp/>buffer</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_I_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="104" refid="group__xsecure__lms__server__apis_1ga45f1bba20bcc06a4361b89c1d5a65668" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sizes<sp/>related<sp/>to<sp/>fields<sp/>in<sp/>tmp<sp/>buffer<sp/>used<sp/>for<sp/>collecting</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>concatenated<sp/>result<sp/>of<sp/>hash<sp/>chain<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>digit<sp/>processed<sp/>in<sp/>signature<sp/>during<sp/>verification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE(p)<sp/><sp/>((u32)p<sp/>*<sp/>XSECURE_LMS_N_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XSECURE_LMS_OTS_W2_P<sp/>*\</highlight></codeline>
+<codeline lineno="116" refid="group__xsecure__lms__server__apis_1gab1be775bdd080fd9bc80c72cc7a0a238" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_N_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119" refid="group__xsecure__lms__server__apis_1gaa4edf559af82782a00459dee656f86ef" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE<sp/><sp/><sp/><sp/>(XSECURE_LMS_I_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_D_PBLC_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE)</highlight></codeline>
+<codeline lineno="123" refid="group__xsecure__lms__server__apis_1ga82176c002a5c65e1876ec23722ca8c9e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURRENT_SIZE(p)<sp/>(XSECURE_LMS_I_FIELD_SIZE<sp/>+\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE<sp/>+\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_D_PBLC_FIELD_SIZE<sp/>+\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE(p))</highlight></codeline>
+<codeline lineno="129" refid="group__xsecure__lms__server__apis_1ga933c28504d62c99bb41fd687a98dda90" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>************************<sp/>offsets<sp/>*****************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Public<sp/>key<sp/>offsets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_PUBKEY_I_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_PUBKEY_Q_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_PUBKEY_I_OFFSET<sp/>+\</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_I_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="139" refid="group__xsecure__lms__server__apis_1gac9927e5c3c5d95e9d1b82ffaf800c241" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="group__xsecure__lms__server__apis_1ga15c74a74560860dfadce0dd25a9cbf1b" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OTS<sp/>signature<sp/>fields<sp/>offset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_TYPE_SIZE)</highlight></codeline>
+<codeline lineno="148" refid="group__xsecure__lms__server__apis_1ga57cc8baa8a82a27f721b46f46a21b159" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_Y_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="150" refid="group__xsecure__lms__server__apis_1gadf5b0f6845109ee4715a5f00c732c0b5" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_C_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="group__xsecure__lms__server__apis_1ga3b359b6616f5f14b2aec628127efedb3" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Offsets<sp/>of<sp/>fields<sp/>in<sp/>tmp<sp/>buffer<sp/>used<sp/>for<sp/>storing<sp/>intermediate</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/>*<sp/>values<sp/>during<sp/>hash<sp/>chains<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/>*&apos;n&apos;<sp/>bytes<sp/>from<sp/>LMS<sp/>OTS<sp/>signature<sp/>verification</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_I_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE)</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE)</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="group__xsecure__lms__server__apis_1ga4e7bc6e10bad27014918aefba9c22e7f" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Offsets<sp/>of<sp/>fields<sp/>in<sp/>tmp<sp/>buffer<sp/>used<sp/>for<sp/>collecting<sp/>concatenated<sp/>result<sp/>of<sp/>hash<sp/>chain<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/>digit<sp/>processed<sp/>in<sp/>signature<sp/>during<sp/>verification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_I_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET<sp/>(XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_Q_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Z_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_D_PBLC_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight></codeline>
+<codeline lineno="214"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda14c75a00d14463f7e0e59cc88c2bb74c" kindref="member">XSECURE_LMS_OTS_RESERVED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x00000000U,<sp/><sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab11ff69787ad5ae19edfe81516d17a3b" kindref="member">XSECURE_LMS_OTS_SHA256_N32_W2</ref><sp/><sp/><sp/>=<sp/>0x00000002U,<sp/><sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda6619d07dcdfb27f24037d94c2da75b7b" kindref="member">XSECURE_LMS_OTS_SHA256_N32_W4</ref><sp/><sp/><sp/>=<sp/>0x00000003U,<sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdaa2c7ed54a7b6a5dfe926d865e7d0e097" kindref="member">XSECURE_LMS_OTS_SHA256_N32_W8</ref><sp/><sp/><sp/>=<sp/>0x00000004U,<sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda14c75a00d14463f7e0e59cc88c2bb74c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda350496cca3b0fceb91fa5611ab7080c3" kindref="member">XSECURE_LMS_OTS_SHAKE_N32_W2</ref><sp/><sp/><sp/><sp/>=<sp/>0x0000000AU,<sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab11ff69787ad5ae19edfe81516d17a3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda52b24128174e65c3d46d6b6db0675b34" kindref="member">XSECURE_LMS_OTS_SHAKE_N32_W4</ref><sp/><sp/><sp/><sp/>=<sp/>0x0000000BU,<sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda6619d07dcdfb27f24037d94c2da75b7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdafd794b1bd3853e376d68972147b2e063" kindref="member">XSECURE_LMS_OTS_SHAKE_N32_W8</ref><sp/><sp/><sp/><sp/>=<sp/>0x0000000CU,<sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdaa2c7ed54a7b6a5dfe926d865e7d0e097" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab0be342315c7753f9987ad7d713b6fbd" kindref="member">XSECURE_LMS_OTS_NOT_SUPPORTED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda350496cca3b0fceb91fa5611ab7080c3" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref>;</highlight></codeline>
+<codeline lineno="224" refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fda52b24128174e65c3d46d6b6db0675b34" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" kindref="member">XSECURE_LMS_OTS_W_NOT_SUPPORTED</ref><sp/>=<sp/>0U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda7a97deeaa38f02b3b5b1be69f7294aef" kindref="member">XSECURE_LMS_OTS_W2</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda88b2c964e9fb3bddfec0436b3f6f5e0c" kindref="member">XSECURE_LMS_OTS_W4</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233" refid="group__xsecure__lms__server__apis_1ga98e7ae28a938a2adda1c9d415f68a3cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda507a403665f09b7704663ec47209f550" kindref="member">XSECURE_LMS_OTS_W8</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>8U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga98e7ae28a938a2adda1c9d415f68a3cd" kindref="member">XSecure_LmsOtsWIndex</ref>;</highlight></codeline>
+<codeline lineno="235" refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cda7a97deeaa38f02b3b5b1be69f7294aef" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" kindref="member">XSECURE_LMS_OTS_U_NOT_SUPPORTED</ref><sp/>=<sp/>0U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349afabc5db621a318c0291565a8df40c2b1" kindref="member">XSECURE_LMS_OTS_W2_U</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>128U,<sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a0387d324313898d9fa5db0bc0ddd4058" kindref="member">XSECURE_LMS_OTS_W4_U</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>64U,<sp/><sp/></highlight></codeline>
+<codeline lineno="244" refid="group__xsecure__lms__server__apis_1ga797bf08fbeb731c200889e97c2024349" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a934a8457911f4003bf7c4584804cbe3e" kindref="member">XSECURE_LMS_OTS_W8_U</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>32U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245" refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga797bf08fbeb731c200889e97c2024349" kindref="member">XSecure_LmsOtsuIndex</ref>;</highlight></codeline>
+<codeline lineno="246" refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349afabc5db621a318c0291565a8df40c2b1" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" kindref="member">XSECURE_LMS_OTS_V_NOT_SUPPORTED</ref><sp/>=<sp/>0U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5af0bd724fd2dcc46301755f11c800ef6c" kindref="member">XSECURE_LMS_OTS_W2_V</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>5U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5aabbb56f1b23fcf58fa2270a9ce7b942f" kindref="member">XSECURE_LMS_OTS_W4_V</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="group__xsecure__lms__server__apis_1ga48ca7b856b1c924469c32ed0b974b8d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a8b42f1fc9faa06cbb2cf38aab405e238" kindref="member">XSECURE_LMS_OTS_W8_V</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga48ca7b856b1c924469c32ed0b974b8d5" kindref="member">XSecure_LmsOtsvIndex</ref>;</highlight></codeline>
+<codeline lineno="257" refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5af0bd724fd2dcc46301755f11c800ef6c" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a841340a34a9debc0e10028e45ad5def0" kindref="member">XSECURE_LMS_OTS_W2_LS</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>6U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a4d6adf053e43c722afcd7dc7eafbfc12" kindref="member">XSECURE_LMS_OTS_W4_LS</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a479e16a32a72d34466dcb570db3ebdba" kindref="member">XSECURE_LMS_OTS_W8_LS</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="group__xsecure__lms__server__apis_1ga934fb8a4fb645f4419a0c10eceb4b883" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a0636fed8c37d4a35fce4dc7eb7e7d5aa" kindref="member">XSECURE_LMS_OTS_LS_NOT_SUPPORTED</ref><sp/>=<sp/>16U<sp/><sp/></highlight></codeline>
+<codeline lineno="267" refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a841340a34a9debc0e10028e45ad5def0" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga934fb8a4fb645f4419a0c10eceb4b883" kindref="member">XSecure_LmsOtslsIndex</ref>;</highlight></codeline>
+<codeline lineno="268" refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a4d6adf053e43c722afcd7dc7eafbfc12" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" kindref="member">XSECURE_LMS_OTS_P_NOT_SUPPORTED</ref><sp/>=<sp/>0U,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda6b54cd89ac0ec36566eb03ca759a4adb" kindref="member">XSECURE_LMS_OTS_W2_P</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>133U,<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda2b630ba4210f383d7cc53575cca1637d" kindref="member">XSECURE_LMS_OTS_W4_P</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>67U,<sp/><sp/></highlight></codeline>
+<codeline lineno="277" refid="group__xsecure__lms__server__apis_1ga54c7dfec9549d6617d8bcd3bf7b1f8bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda8206e08695b310bd5b6769859e06179c" kindref="member">XSECURE_LMS_OTS_W8_P</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>34U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278" refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga54c7dfec9549d6617d8bcd3bf7b1f8bd" kindref="member">XSecure_LmsOtspIndex</ref>;</highlight></codeline>
+<codeline lineno="279" refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bda6b54cd89ac0ec36566eb03ca759a4adb" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaMode<sp/>H;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>n;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ga98e7ae28a938a2adda1c9d415f68a3cd" kindref="member">XSecure_LmsOtsWIndex</ref><sp/>w;<sp/></highlight></codeline>
+<codeline lineno="290" refid="struct_x_secure___lms_ots_param_1a2343eb7964c16c79ac2f0457165c7bcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ga797bf08fbeb731c200889e97c2024349" kindref="member">XSecure_LmsOtsuIndex</ref><sp/>u;<sp/></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ga48ca7b856b1c924469c32ed0b974b8d5" kindref="member">XSecure_LmsOtsvIndex</ref><sp/>v;<sp/></highlight></codeline>
+<codeline lineno="294" refid="struct_x_secure___lms_ots_param_1a9d74640e9d43783512295f5c8509f430" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ga934fb8a4fb645f4419a0c10eceb4b883" kindref="member">XSecure_LmsOtslsIndex</ref><sp/>ls;<sp/></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1ga54c7dfec9549d6617d8bcd3bf7b1f8bd" kindref="member">XSecure_LmsOtspIndex</ref><sp/>p;<sp/></highlight></codeline>
+<codeline lineno="296" refid="struct_x_secure___lms_ots_param_1a68d92546005b231f814964588e40f71a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NoOfInvSign;<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignLen;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="298" refid="struct_x_secure___lms_ots_param_1ac1bb5257fb68371bb0200d7ab08929a1" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_secure___lms_ots_param" kindref="compound">XSecure_LmsOtsParam</ref>;</highlight></codeline>
+<codeline lineno="299" refid="struct_x_secure___lms_ots_param_1a27641efa1b812a352a6d4bc20cba09b2" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="union_x_secure___lms_ots_public_key__" kindref="compound">XSecure_LmsOtsPublicKey_</ref><sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Buff[<ref refid="group__xsecure__lms__server__apis_1gac3d009a0481c020ebf60f58d407264b9" kindref="member">XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE</ref>];</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref><sp/><ref refid="union_x_secure___lms_ots_public_key___1abda6846781722b0ecaad05dad79ca81a" kindref="member">Type</ref>;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_public_key___1a5a6f682a25293c27b43500503caf525c" kindref="member">I</ref>[<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="union_x_secure___lms_ots_public_key___1a9822d021b0efee41bc1bd06794c8149b" kindref="member">q</ref>;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_public_key___1a7f7e44e160def6c6f7630c0df3953377" kindref="member">K</ref>[<ref refid="group__xsecure__lms__server__apis_1gaa531d809f053cd3604b535575e174027" kindref="member">XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}__attribute__((__packed__))<sp/><ref refid="union_x_secure___lms_ots_public_key___1aac60502850ae382849dcb17ef0420476" kindref="member">Fields</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="332"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1ga803c68a2b51e6f2aedd0030499bd932a" kindref="member">XSecure_LmsOtsPublicKey</ref>;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334" refid="union_x_secure___lms_ots_public_key___1a7f7e44e160def6c6f7630c0df3953377" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>LMS<sp/>OTS<sp/>Signature<sp/>related<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight></codeline>
+<codeline lineno="345"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="union_x_secure___lms_ots_hash_per_digit__" kindref="compound">XSecure_LmsOtsHashPerDigit_</ref><sp/>{</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Buff[1U<sp/>+<sp/><ref refid="group__xsecure__lms__server__apis_1ga45f1bba20bcc06a4361b89c1d5a65668" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE</ref>];</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a5e7624a580f45248dcd50cbd949b71ea" kindref="member">Reserved</ref>;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1acb224024375d780b5335b018ac7b3b87" kindref="member">I</ref>[<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a72751c7bb4635b03d2d00231a473372e" kindref="member">q</ref>;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a21b1507e776e1a17bd991dcf4e218242" kindref="member">i</ref>;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a216f0fe82c04e6a91f424ac52f326898" kindref="member">j</ref>;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a774daf8bda328b21e78fc1ff42348f2e" kindref="member">y</ref>[<ref refid="group__xsecure__lms__server__apis_1gaa786bfe4eb919d635e4aa0fe3f21d902" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE</ref>];</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}__attribute__((__packed__))<sp/><ref refid="union_x_secure___lms_ots_hash_per_digit___1a9a45ee09c5ec9528261b01cc336727c3" kindref="member">Fields</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="379"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1gad723b74a2a699cb721e81b18834d2b3f" kindref="member">XSecure_LmsOtsHashPerDigit</ref>;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash__" kindref="compound">XSecure_LmsOtsSignToPubKeyHash_</ref><sp/>{</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Buff[<ref refid="group__xsecure__lms__server__apis_1ga82176c002a5c65e1876ec23722ca8c9e" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE</ref>];</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1afb7003f45d43db0c42c6aaa9ce46ddf7" kindref="member">I</ref>[<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1ab739f0cb7f9b1cea2d8e8ccd31a227a1" kindref="member">q</ref>;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1aecad5aa0debf08462495aad1226fd963" kindref="member">D_PBLC</ref>[2U];</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1a39ff1ba43edfe1f9ca15ee40eb8d7fb4" kindref="member">z</ref>[<ref refid="group__xsecure__lms__server__apis_1gaa4edf559af82782a00459dee656f86ef" kindref="member">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE</ref>];</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}__attribute__((__packed__))<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1a5dab1622f0460ce93f097c4d79d6ca09" kindref="member">Fields</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="412"><highlight class="normal">}<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash__" kindref="compound">XSecure_LmsOtsSignToPubKeyHash</ref>;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal">typedef<sp/>struct<sp/><ref refid="struct_x_secure___lms_ots_signature__" kindref="compound">XSecure_LmsOtsSignature_</ref><sp/>{</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref><sp/>Type;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>C[<ref refid="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" kindref="member">XSECURE_LMS_C_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Here<sp/>rest<sp/>of<sp/>the<sp/>bytes<sp/>of<sp/>signature<sp/>represented<sp/>by<sp/>y<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1gaa8ec8aa23f647c6cc236d649e8b63464" kindref="member">XSecure_LmsOtsSignature</ref>;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434" refid="struct_x_secure___lms_ots_signature___1ae7a8ff1d691fb9e20704be1eca661858" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Digest<sp/>related<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>**********************************************************************************************<sp/>*/</highlight></codeline>
+<codeline lineno="444"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="union_x_secure___lms_data_digest_fixed_fields__" kindref="compound">XSecure_LmsDataDigestFixedFields_</ref><sp/>{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Buff[<ref refid="group__xsecure__lms__server__apis_1ga434d38a2acb11f42b7fed781844eb3ee" kindref="member">XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE</ref>];</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1afb7003f45d43db0c42c6aaa9ce46ddf7" kindref="member">I</ref>[<ref refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" kindref="member">XSECURE_LMS_I_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1ab739f0cb7f9b1cea2d8e8ccd31a227a1" kindref="member">q</ref>;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>D_MESG[<ref refid="group__xsecure__lms__server__apis_1ga120df5670a44284bf4201bd8206da79e" kindref="member">XSECURE_LMS_D_MESG_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>C[<ref refid="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" kindref="member">XSECURE_LMS_C_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}__attribute__((__packed__))<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1a5dab1622f0460ce93f097c4d79d6ca09" kindref="member">Fields</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="468"><highlight class="normal">}<sp/><ref refid="group__xsecure__lms__server__apis_1gac1d840c18fbf4e517287bf3ee6301481" kindref="member">XSecure_LmsDataDigestFixedFields</ref>;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="union_x_secure___lms_data_digest__" kindref="compound">XSecure_LmsDataDigest_</ref><sp/>{</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Buff[<ref refid="group__xsecure__lms__server__apis_1gaeebd096c31f8e28bda96fb99ae3c708a" kindref="member">XSECURE_LMS_DIGEST_CHECKSUM_SIZE</ref>];</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Digest[<ref refid="group__xsecure__lms__server__apis_1ga1a34947f51bffe3c3aada7d9e34f2541" kindref="member">XSECURE_LMS_DIGEST_SIZE</ref>];</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Checksum[<ref refid="group__xsecure__lms__server__apis_1ga1210354bf52acf6271513b1432f9d901" kindref="member">XSECURE_LMS_CHECKSUM_FIELD_SIZE</ref>];</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}__attribute__((__packed__))<sp/><ref refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1a5dab1622f0460ce93f097c4d79d6ca09" kindref="member">Fields</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="489"><highlight class="normal">}<sp/><ref refid="union_x_secure___lms_data_digest__" kindref="compound">XSecure_LmsDataDigest</ref>;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491" refid="union_x_secure___lms_data_digest___1a54f64f39fd053d8cba224409ac9e04f4" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal">u32<sp/><ref refid="group__xsecure__lms__server__apis_1ga962337132813f098ed3a128cb4167b27" kindref="member">XSecure_LmsOtsCoeff</ref>(u8<sp/>const*<sp/>const<sp/>Arr,<sp/>const<sp/>u32<sp/>ArrayIndex,<sp/>const<sp/>u32<sp/>w);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1gae4b1b7bba0abda9f7e5f7431cf2e07ce" kindref="member">XSecure_LmsOtsComputeChecksum</ref>(const<sp/>u8*<sp/>const<sp/>Array,<sp/>const<sp/>u32<sp/>ArrayLen,</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>u32<sp/>w,<sp/>const<sp/>u32<sp/>ls,<sp/>u32*<sp/>const<sp/>Checksum);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" kindref="member">XSecure_LmsOtsLookupParamSet</ref>(<ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref><sp/>Type,</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___lms_ots_param" kindref="compound">XSecure_LmsOtsParam</ref>**<sp/>Parameters);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMS_OTS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h"/>
+  </compounddef>
+</doxygen>

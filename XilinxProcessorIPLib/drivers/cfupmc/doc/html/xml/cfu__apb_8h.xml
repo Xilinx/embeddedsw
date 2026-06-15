@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cfu__apb_8h" kind="file">
+    <compoundname>cfu_apb.h</compoundname>
+    <includedby refid="xcfupmc_8h" local="yes">xcfupmc.h</includedby>
+    <includedby refid="xcfupmc__hw_8h" local="yes">xcfupmc_hw.h</includedby>
+    <invincdepgraph>
+      <node id="4">
+        <label>xcfupmc_g.c</label>
+      </node>
+      <node id="5">
+        <label>xcfupmc_selftest.c</label>
+        <link refid="xcfupmc__selftest_8c"/>
+      </node>
+      <node id="3">
+        <label>xcfupmc.c</label>
+        <link refid="xcfupmc_8c"/>
+      </node>
+      <node id="2">
+        <label>xcfupmc.h</label>
+        <link refid="xcfupmc_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xcfupmc_hw.h</label>
+        <link refid="xcfupmc__hw_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xcfupmc_sinit.c</label>
+        <link refid="xcfupmc__sinit_8c"/>
+      </node>
+      <node id="1">
+        <label>cfu_apb.h</label>
+        <link refid="cfu_apb.h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CFU_APB_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor">#define<sp/>CFU_APB_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0XF12B0000U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR<sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000000U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_SEU_ENDOFCALIB_MASK<sp/><sp/><sp/><sp/>(0X00000001U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_DECOMP_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000040U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK<sp/><sp/><sp/><sp/><sp/>(0X00000020U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK<sp/><sp/><sp/><sp/>(0X00000010U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0X00000008U)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_CRC32_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000004U)</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ISR_CRC8_ERROR_MASK<sp/>(0X00000002U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ITR<sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000010U)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_PROTECT<sp/><sp/><sp/><sp/><sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000014U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_PROTECT_ACTIVE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_PROTECT_ACTIVE_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_PROTECT_ACTIVE_MASK<sp/>(0X00000001U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000018U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK<sp/><sp/><sp/><sp/>(0X00002000U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_GRESTORE_MASK<sp/><sp/>(0X00000020U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_GLUTMASK_MASK<sp/><sp/><sp/><sp/>(0X00000008U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_EN_GLOBS_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000004U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_EOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000002U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK<sp/><sp/><sp/><sp/><sp/>(0X00000001U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL<sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X0000001CU)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_SLVERR_EN_MASK<sp/><sp/>(0X00004000U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK<sp/><sp/><sp/>(0X00000080U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK<sp/><sp/><sp/><sp/><sp/>(0X00000040U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_DECOMPRESS_MASK<sp/>(0X00000004U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_SEU_GO_MASK<sp/><sp/><sp/><sp/><sp/>(0X00000002U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK<sp/><sp/><sp/><sp/>(0X00000001U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000028U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ROW_RANGE<sp/><sp/><sp/><sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X0000006CU)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_ROW_RANGE_NUM_MASK<sp/><sp/><sp/><sp/>(0X0000001FU)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_STATUS<sp/><sp/><sp/><sp/><sp/><sp/>(CFU_APB_BASEADDR<sp/>+<sp/>0X00000100U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK<sp/>(0X00002000U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK<sp/>(0X00000008U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_STATUS_HC_COMPLETE_MASK<sp/><sp/><sp/><sp/><sp/>(0X00000004U)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK<sp/>(0X00000002U)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_QWORD_CNT<sp/><sp/><sp/><sp/>((CFU_APB_BASEADDR)<sp/>+<sp/>0x00000108U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_QWORD_CNT_NUM_MASK<sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CFU_APB_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/cfu_apb.h"/>
+  </compounddef>
+</doxygen>

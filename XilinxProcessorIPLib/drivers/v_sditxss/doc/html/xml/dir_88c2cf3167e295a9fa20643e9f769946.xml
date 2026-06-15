@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_88c2cf3167e295a9fa20643e9f769946" kind="dir">
+    <compoundname>xuhdsdi_pixco_example</compoundname>
+    <innerfile refid="platform_8c">platform.c</innerfile>
+    <innerfile refid="platform_8h">platform.h</innerfile>
+    <innerfile refid="platform__config_8h">platform_config.h</innerfile>
+    <innerfile refid="si570drv_8c">si570drv.c</innerfile>
+    <innerfile refid="si570drv_8h">si570drv.h</innerfile>
+    <innerfile refid="xsdi__example_8c">xsdi_example.c</innerfile>
+    <innerfile refid="xsdi__menu_8c">xsdi_menu.c</innerfile>
+    <innerfile refid="xsdi__menu_8h">xsdi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/"/>
+  </compounddef>
+</doxygen>

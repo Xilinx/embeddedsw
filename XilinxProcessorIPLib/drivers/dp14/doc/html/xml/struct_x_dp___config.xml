@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___config" kind="struct" prot="public">
+    <compoundname>XDp_Config</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___config_1a963cc12f6d7467fa227e3c48786b53cc" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDp_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDp_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="515" bodyend="-1"/>
+        <referencedby refid="xdp__selftest__example_8c_1a49dea84bb9db95f42fe9f4026515f8a4" compoundref="xdp__selftest__example_8c" startline="99" endline="116">Dp_SelfTestExample</referencedby>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+        <referencedby refid="xdp__tx__example__common_8h_1a7890171f707168d57a1ee86a34eede68" compoundref="xdp__tx__example__common_8c" startline="101" endline="122">Dptx_SetupExample</referencedby>
+        <referencedby refid="xdp__tx__example__common_8h_1a6700facd123226784319febf7189c092" compoundref="xdp__tx__example__common_8c" startline="137" endline="223">Dptx_StartLink</referencedby>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="164" endline="200">XDp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a9a0799787a21f54ae0eddb8de0b7cf14" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_Config::SAxiClkHz</definition>
+        <argsstring></argsstring>
+        <name>SAxiClkHz</name>
+        <briefdescription>
+<para>The clock frequency of the core instance&apos;s S_AXI_ACLK port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1ab2987e7be375659d959a7e97a96f035a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+<para>The maximum lane count supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="518" bodyend="-1"/>
+        <referencedby refid="group__dp_1gaa1d4f025616d218cff6dc47ca3456ff4" compoundref="xdp_8c" startline="2006" endline="2023">XDp_IsLaneCountValid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a365f2d8d2631612e1946901662a64b0b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::MaxLinkRate</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate</name>
+        <briefdescription>
+<para>The maximum link rate supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="520" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga57017c66cf4d3bcf72d257368119e008" compoundref="xdp_8c" startline="1971" endline="1989">XDp_IsLinkRateValid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a1848e773ea65e28aa85440c72c4bc9bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::MaxBitsPerColor</definition>
+        <argsstring></argsstring>
+        <name>MaxBitsPerColor</name>
+        <briefdescription>
+<para>The maximum bits/color supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a3f284f0e071c5a742ac50c143ea66a47" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::QuadPixelEn</definition>
+        <argsstring></argsstring>
+        <name>QuadPixelEn</name>
+        <briefdescription>
+<para>Quad pixel support by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a8bd1f6452601ab45a534e5e567cef1e6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::DualPixelEn</definition>
+        <argsstring></argsstring>
+        <name>DualPixelEn</name>
+        <briefdescription>
+<para>Dual pixel support by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a804bd984a9fe7f1e19d780bf57ed17a7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::YCrCbEn</definition>
+        <argsstring></argsstring>
+        <name>YCrCbEn</name>
+        <briefdescription>
+<para>YCrCb format support by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="528" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a9b41ca69bf5e0ae7300c9a5abd5b34fe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::YOnlyEn</definition>
+        <argsstring></argsstring>
+        <name>YOnlyEn</name>
+        <briefdescription>
+<para>YOnly format support by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="530" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1ad55c96c3cb3b68375ef00270f99624c4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::PayloadDataWidth</definition>
+        <argsstring></argsstring>
+        <name>PayloadDataWidth</name>
+        <briefdescription>
+<para>The payload data width used by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a2b28d245a94a32d3cf47f2a48044ed3d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::SecondaryChEn</definition>
+        <argsstring></argsstring>
+        <name>SecondaryChEn</name>
+        <briefdescription>
+<para>This core instance supports audio packets being sent by the secondary channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1aca6d4ff74a97c61024cb9d01208beb15" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::NumAudioChs</definition>
+        <argsstring></argsstring>
+        <name>NumAudioChs</name>
+        <briefdescription>
+<para>The number of audio channels supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1ad2199240482b0fe872899ab24eb65cab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::MstSupport</definition>
+        <argsstring></argsstring>
+        <name>MstSupport</name>
+        <briefdescription>
+<para>Multi-stream transport (MST) mode is enabled by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a19f28705ad36d2977c7000949184fb9c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::NumMstStreams</definition>
+        <argsstring></argsstring>
+        <name>NumMstStreams</name>
+        <briefdescription>
+<para>The total number of MST streams supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="540" bodyend="-1"/>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a1632df176c6aa05831f6456bc8c0ea6e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::DpProtocol</definition>
+        <argsstring></argsstring>
+        <name>DpProtocol</name>
+        <briefdescription>
+<para>The DisplayPort protocol version that this core instance is configured for. </para>        </briefdescription>
+        <detaileddescription>
+<para>0 = v1.1a, 1 = v1.2, 2 = v1.4. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1a69d4f2f8c4557a548f9a0d32fe39ef18" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::IsRx</definition>
+        <argsstring></argsstring>
+        <name>IsRx</name>
+        <briefdescription>
+<para>The type of DisplayPort core. </para>        </briefdescription>
+        <detaileddescription>
+<para>0 = TX, 1 = RX. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the DisplayPort core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="509" bodyend="547"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dp___config_1a1632df176c6aa05831f6456bc8c0ea6e" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>DpProtocol</name></member>
+      <member refid="struct_x_dp___config_1a8bd1f6452601ab45a534e5e567cef1e6" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>DualPixelEn</name></member>
+      <member refid="struct_x_dp___config_1a69d4f2f8c4557a548f9a0d32fe39ef18" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>IsRx</name></member>
+      <member refid="struct_x_dp___config_1a1848e773ea65e28aa85440c72c4bc9bd" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>MaxBitsPerColor</name></member>
+      <member refid="struct_x_dp___config_1ab2987e7be375659d959a7e97a96f035a" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_dp___config_1a365f2d8d2631612e1946901662a64b0b" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>MaxLinkRate</name></member>
+      <member refid="struct_x_dp___config_1ad2199240482b0fe872899ab24eb65cab" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>MstSupport</name></member>
+      <member refid="struct_x_dp___config_1a963cc12f6d7467fa227e3c48786b53cc" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dp___config_1aca6d4ff74a97c61024cb9d01208beb15" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>NumAudioChs</name></member>
+      <member refid="struct_x_dp___config_1a19f28705ad36d2977c7000949184fb9c" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>NumMstStreams</name></member>
+      <member refid="struct_x_dp___config_1ad55c96c3cb3b68375ef00270f99624c4" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>PayloadDataWidth</name></member>
+      <member refid="struct_x_dp___config_1a3f284f0e071c5a742ac50c143ea66a47" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>QuadPixelEn</name></member>
+      <member refid="struct_x_dp___config_1a9a0799787a21f54ae0eddb8de0b7cf14" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>SAxiClkHz</name></member>
+      <member refid="struct_x_dp___config_1a2b28d245a94a32d3cf47f2a48044ed3d" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>SecondaryChEn</name></member>
+      <member refid="struct_x_dp___config_1a804bd984a9fe7f1e19d780bf57ed17a7" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>YCrCbEn</name></member>
+      <member refid="struct_x_dp___config_1a9b41ca69bf5e0ae7300c9a5abd5b34fe" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>YOnlyEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

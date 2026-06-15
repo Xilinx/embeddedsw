@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp22__cipher__dp__selftest_8c" kind="file">
+    <compoundname>xhdcp22_cipher_dp_selftest.c</compoundname>
+    <includes refid="xhdcp22__cipher__dp_8h" local="yes">xhdcp22_cipher_dp.h</includes>
+    <incdepgraph>
+      <node id="45">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="44">
+        <label>xil_io.h</label>
+      </node>
+      <node id="42">
+        <label>xhdcp22_cipher_dp_hw.h</label>
+        <link refid="xhdcp22__cipher__dp__hw_8h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xstatus.h</label>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="40">
+        <label>xhdcp22_cipher_dp_selftest.c</label>
+        <link refid="xhdcp22_cipher_dp_selftest.c"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xhdcp22_cipher_dp.h</label>
+        <link refid="xhdcp22__cipher__dp_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22Cipher_Dp_SelfTest</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr)</argsstring>
+        <name>XHdcp22Cipher_Dp_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads ID of the peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if ID was matched.</para></listitem><listitem><para>XST_FAILURE if ID was mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_selftest.c" bodystart="59" bodyend="78"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1gacce7070e4d4e8c1dc04c517862c7417b" compoundref="xhdcp22__cipher__dp__hw_8h" startline="115">XHDCP22_CIPHER_MASK_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga386adc1b38325505ded478f4d40fa692" compoundref="xhdcp22__cipher__dp__hw_8h" startline="114">XHDCP22_CIPHER_SHIFT_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga6bae35ace045d9b076fa767511f7d5b9" compoundref="xhdcp22__cipher__dp__hw_8h" startline="116">XHDCP22_CIPHER_VER_ID</references>
+        <references refid="group__hdcp22__cipher__dp_1gaab5edfdfe3390aa42c35801ea76b7a2f" compoundref="xhdcp22__cipher__dp__hw_8h" startline="45">XHDCP22_CIPHER_VER_ID_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" compoundref="xhdcp22__cipher__dp__hw_8h" startline="148">XHdcp22Cipher_Dp_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp22__cipher__dp_8h" kindref="compound">xhdcp22_cipher_dp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" kindref="member">XHdcp22Cipher_Dp_SelfTest</ref>(<ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>PIO<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" kindref="member">XHdcp22Cipher_Dp_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" kindref="member">Config</ref>.<ref refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__hdcp22__cipher__dp_1gaab5edfdfe3390aa42c35801ea76b7a2f" kindref="member">XHDCP22_CIPHER_VER_ID_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>((RegValue)<sp/>&gt;&gt;<sp/>(<ref refid="group__hdcp22__cipher__dp_1ga386adc1b38325505ded478f4d40fa692" kindref="member">XHDCP22_CIPHER_SHIFT_16</ref>))<sp/>&amp;<sp/>(<ref refid="group__hdcp22__cipher__dp_1gacce7070e4d4e8c1dc04c517862c7417b" kindref="member">XHDCP22_CIPHER_MASK_16</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegValue<sp/>!=<sp/>(<ref refid="group__hdcp22__cipher__dp_1ga6bae35ace045d9b076fa767511f7d5b9" kindref="member">XHDCP22_CIPHER_VER_ID</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_FAILURE);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_selftest.c"/>
+  </compounddef>
+</doxygen>

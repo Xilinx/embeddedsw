@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9778fcbdef09e9fe57db838e5f3fa027" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__warp__init_8c">xv_warp_init.c</innerfile>
+    <innerfile refid="xv__warp__init_8h">xv_warp_init.h</innerfile>
+    <innerfile refid="xv__warp__init__g_8c">xv_warp_init_g.c</innerfile>
+    <innerfile refid="xv__warp__init__hw_8h">xv_warp_init_hw.h</innerfile>
+    <innerfile refid="xv__warp__init__intr_8c">xv_warp_init_intr.c</innerfile>
+    <innerfile refid="xv__warp__init__l2_8c">xv_warp_init_l2.c</innerfile>
+    <innerfile refid="xv__warp__init__l2_8h">xv_warp_init_l2.h</innerfile>
+    <innerfile refid="xv__warp__init__linux_8c">xv_warp_init_linux.c</innerfile>
+    <innerfile refid="xv__warp__init__sinit_8c">xv_warp_init_sinit.c</innerfile>
+    <innerfile refid="xv__warp__init__utils_8c">xv_warp_init_utils.c</innerfile>
+    <innerfile refid="xv__warp__init__utils_8h">xv_warp_init_utils.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/"/>
+  </compounddef>
+</doxygen>

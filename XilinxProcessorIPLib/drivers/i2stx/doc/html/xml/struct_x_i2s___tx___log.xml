@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i2s___tx___log" kind="struct" prot="public">
+    <compoundname>XI2s_Tx_Log</compoundname>
+    <includes local="no">xi2stx_debug.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i2s___tx___log_item" kindref="compound">XI2s_Tx_LogItem</ref></type>
+        <definition>XI2s_Tx_LogItem XI2s_Tx_Log::Items[XI2S_TX_LOG_ITEM_BUFFER_SIZE]</definition>
+        <argsstring>[XI2S_TX_LOG_ITEM_BUFFER_SIZE]</argsstring>
+        <name>Items</name>
+        <briefdescription>
+<para>Log item buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="101" endline="125">XI2s_Tx_LogRead</referencedby>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI2s_Tx_Log::Head</definition>
+        <argsstring></argsstring>
+        <name>Head</name>
+        <briefdescription>
+<para>Head pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="101" endline="125">XI2s_Tx_LogRead</referencedby>
+        <referencedby refid="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" compoundref="xi2stx__debug_8c" startline="137" endline="145">XI2s_Tx_LogReset</referencedby>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI2s_Tx_Log::Tail</definition>
+        <argsstring></argsstring>
+        <name>Tail</name>
+        <briefdescription>
+<para>Tail pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="101" endline="125">XI2s_Tx_LogRead</referencedby>
+        <referencedby refid="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" compoundref="xi2stx__debug_8c" startline="137" endline="145">XI2s_Tx_LogReset</referencedby>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2s_Tx_Log::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Logging Enabled/Disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" compoundref="xi2stx__debug_8c" startline="137" endline="145">XI2s_Tx_LogReset</referencedby>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The I2s Transmitter Log buffer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XI2s_Tx_LogItem</label>
+        <link refid="struct_x_i2s___tx___log_item"/>
+      </node>
+      <node id="6">
+        <label>XI2s_Tx_Log</label>
+        <link refid="struct_x_i2s___tx___log"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Items</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="78" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" prot="public" virt="non-virtual"><scope>XI2s_Tx_Log</scope><name>Head</name></member>
+      <member refid="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" prot="public" virt="non-virtual"><scope>XI2s_Tx_Log</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" prot="public" virt="non-virtual"><scope>XI2s_Tx_Log</scope><name>Items</name></member>
+      <member refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" prot="public" virt="non-virtual"><scope>XI2s_Tx_Log</scope><name>Tail</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

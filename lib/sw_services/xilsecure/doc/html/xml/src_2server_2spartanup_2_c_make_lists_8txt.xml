@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2server_2spartanup_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/server/spartanup/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_error.h)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_plat.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_sha_hw.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_sss.h)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_utils.h)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_sha3alginfo.h)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_aesalginfo.h)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_lmsalginfo.h)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_plat.c)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_sss.c)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_utils.c)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">if<sp/>(${YOCTO})</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>set<sp/>(STATIC_XILSECURE_LIB<sp/>${CMAKE_LIBRARY_PATH}/libxilsecure.a)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>()</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>set<sp/>(STATIC_XILSECURE_LIB<sp/>${CMAKE_BINARY_DIR}/libsrc/xilsecure/src/libxilsecure.a)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">if(&quot;spartanuplusaes1&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>Ecdsa.h)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_ellipticalginfo.h)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>if(&quot;${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/libRSA5X_mb.a<sp/>${STATIC_XILSECURE_LIB})</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>if(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze_riscv</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/libRSA5X_mb_riscv.a<sp/>${STATIC_XILSECURE_LIB})</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

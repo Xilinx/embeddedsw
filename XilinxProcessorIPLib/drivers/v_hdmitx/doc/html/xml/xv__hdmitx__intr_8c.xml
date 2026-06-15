@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmitx__intr_8c" kind="file">
+    <compoundname>xv_hdmitx_intr.c</compoundname>
+    <includes refid="xv__hdmitx_8h" local="yes">xv_hdmitx.h</includes>
+    <incdepgraph>
+      <node id="60">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="59">
+        <label>xil_io.h</label>
+      </node>
+      <node id="64">
+        <label>xv_hdmitx_vsif.h</label>
+        <link refid="xv__hdmitx__vsif_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xdebug.h</label>
+      </node>
+      <node id="58">
+        <label>xv_hdmitx_hw.h</label>
+        <link refid="xv__hdmitx__hw_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xv_hdmitx_intr.c</label>
+        <link refid="xv_hdmitx_intr.c"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xstatus.h</label>
+      </node>
+      <node id="57">
+        <label>xv_hdmitx.h</label>
+        <link refid="xv__hdmitx_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xvidc.h</label>
+      </node>
+      <node id="65">
+        <label>xil_types.h</label>
+      </node>
+      <node id="66">
+        <label>xv_hdmic.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hdmitx__intr_8c_1a9032a20165ca65e82efc8c9f298b2807" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void HdmiTx_PioIntrHandler</definition>
+        <argsstring>(XV_HdmiTx *InstancePtr)</argsstring>
+        <name>HdmiTx_PioIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HDMI TX PIO peripheral interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads corresponding event interrupt from the PIO_IN_EVT register. It determines the source of the interrupts and calls according callbacks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" bodystart="230" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitx__intr_8c_1a203333bb73fd7cf5086e5a04bdc21090" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void HdmiTx_DdcIntrHandler</definition>
+        <argsstring>(XV_HdmiTx *InstancePtr)</argsstring>
+        <name>HdmiTx_DdcIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HDMI TX DDC peripheral interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads DDC Status register and determines the timeout. It also determines the state and based on that performs required operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" bodystart="364" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitx__intr_8c_1a25e91176ce93f223449dcb56c375ac51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiTx_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XV_HdmiTx_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the HDMI TX driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from PIO and DDC peripheral, determines the source of the interrupts, clears the interrupts and calls callbacks accordingly.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="xv__hdmitx_8h_1ad5d2e73cdff6d7aeb5aaf3d2520b0df6" kindref="member">XV_HdmiTx_SetCallback()</ref> during initialization phase. An example delivered with this driver demonstrates how this could be done.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" bodystart="74" bodyend="104"/>
+        <references refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" compoundref="xv__hdmitx_8h" startline="208">XV_HdmiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" compoundref="xv__hdmitx_8h" startline="264">XV_HdmiTx::Config</references>
+        <references refid="struct_x_v___hdmi_tx_1a7e506f0c45644cae05d5bf9839c8d7ee" compoundref="xv__hdmitx_8h" startline="265">XV_HdmiTx::IsReady</references>
+        <references refid="xv__hdmitx__hw_8h_1aed853aca89756ea743e083e7573d1617" compoundref="xv__hdmitx__hw_8h" startline="256">XV_HDMITX_DDC_STA_IRQ_MASK</references>
+        <references refid="xv__hdmitx__hw_8h_1add689faff8e7c346c9d8202355678a22" compoundref="xv__hdmitx__hw_8h" startline="234">XV_HDMITX_DDC_STA_OFFSET</references>
+        <references refid="xv__hdmitx__hw_8h_1aa8c178b5851211ca5b20faee275a73f8" compoundref="xv__hdmitx__hw_8h" startline="132">XV_HDMITX_PIO_STA_IRQ_MASK</references>
+        <references refid="xv__hdmitx__hw_8h_1a9374a3f25d4d9c91c02d383d66443b4b" compoundref="xv__hdmitx__hw_8h" startline="84">XV_HDMITX_PIO_STA_OFFSET</references>
+        <references refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" compoundref="xv__hdmitx__hw_8h" startline="436">XV_HdmiTx_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitx__intr_8c_1ad5d2e73cdff6d7aeb5aaf3d2520b0df6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HdmiTx_SetCallback</definition>
+        <argsstring>(XV_HdmiTx *InstancePtr, XV_HdmiTx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XV_HdmiTx_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__hdmitx_8h_1a13f3db95069a268ab390dd4102604fb2" kindref="member">XV_HdmiTx_HandlerType</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType              Callback Function Type
+-----------------------  --------------------------------------------------
+(XV_HDMITX_HANDLER_HPD)   HpdCallback
+(XV_HDMITX_HANDLER_VS)    VsCallback
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c" bodystart="133" bodyend="212"/>
+        <references refid="struct_x_v___hdmi_tx_1acba0f95fd62275caa84815d705becb23" compoundref="xv__hdmitx_8h" startline="296">XV_HdmiTx::BrdgOverflowCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1add75a74c0d9feba1f3d1bee77765a931" compoundref="xv__hdmitx_8h" startline="298">XV_HdmiTx::BrdgOverflowRef</references>
+        <references refid="struct_x_v___hdmi_tx_1a138a54e6a18f55252326a98b02dc2228" compoundref="xv__hdmitx_8h" startline="303">XV_HdmiTx::BrdgUnderflowCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1ae8fc52bf635029197d71ca9d778e5edb" compoundref="xv__hdmitx_8h" startline="306">XV_HdmiTx::BrdgUnderflowRef</references>
+        <references refid="struct_x_v___hdmi_tx_1ac80e8b35a5b37348606520f5d2181126" compoundref="xv__hdmitx_8h" startline="289">XV_HdmiTx::BrdgUnlockedCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1abc2b373a46fe068019b69fd824ff4320" compoundref="xv__hdmitx_8h" startline="291">XV_HdmiTx::BrdgUnlockedRef</references>
+        <references refid="struct_x_v___hdmi_tx_1ac1656ae24732ed35b46c51b248fc8029" compoundref="xv__hdmitx_8h" startline="268">XV_HdmiTx::ConnectCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1ae6bf6e3c9a0da202976056f309b34925" compoundref="xv__hdmitx_8h" startline="270">XV_HdmiTx::ConnectRef</references>
+        <references refid="struct_x_v___hdmi_tx_1a9b9ff3601359f9ea7851ff8dec7d7fcd" compoundref="xv__hdmitx_8h" startline="300">XV_HdmiTx::IsBrdgOverflowCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1a3feb040339cfbcd69bc3036a9ac4a488" compoundref="xv__hdmitx_8h" startline="308">XV_HdmiTx::IsBrdgUnderflowCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1abaeb8d3a7cc7697002f093430a2fd78a" compoundref="xv__hdmitx_8h" startline="293">XV_HdmiTx::IsBrdgUnlockedCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1ab1ab5b027e47ec17879510b40b15bedf" compoundref="xv__hdmitx_8h" startline="272">XV_HdmiTx::IsConnectCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1a1a62a8a0a74757a9468726b54b44c9d0" compoundref="xv__hdmitx_8h" startline="315">XV_HdmiTx::IsStreamDownCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1a761a789d8b6e6717066ce4885072db4e" compoundref="xv__hdmitx_8h" startline="322">XV_HdmiTx::IsStreamUpCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1adb4b8a1df24a626f1cf25913cc83f61a" compoundref="xv__hdmitx_8h" startline="279">XV_HdmiTx::IsToggleCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1a11fbdfcb6af81a314dd1d8f7288f0994" compoundref="xv__hdmitx_8h" startline="286">XV_HdmiTx::IsVsCallbackSet</references>
+        <references refid="struct_x_v___hdmi_tx_1a6fabffd615560a4cf858905fa822f60a" compoundref="xv__hdmitx_8h" startline="311">XV_HdmiTx::StreamDownCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1a07fbd05cdb052f44a88da14ada7d633e" compoundref="xv__hdmitx_8h" startline="313">XV_HdmiTx::StreamDownRef</references>
+        <references refid="struct_x_v___hdmi_tx_1a862df69615a0455c7a92ecada71d6355" compoundref="xv__hdmitx_8h" startline="318">XV_HdmiTx::StreamUpCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1a3ae9594da3e1adfc2ca2bba9ef92bf18" compoundref="xv__hdmitx_8h" startline="320">XV_HdmiTx::StreamUpRef</references>
+        <references refid="struct_x_v___hdmi_tx_1a0692825d12d84e5cab2221960b2f49fd" compoundref="xv__hdmitx_8h" startline="275">XV_HdmiTx::ToggleCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1a3816c7539f98496ccd9a8da0e283944d" compoundref="xv__hdmitx_8h" startline="277">XV_HdmiTx::ToggleRef</references>
+        <references refid="struct_x_v___hdmi_tx_1aefc2a05e2f9009cbddb1602c515cd933" compoundref="xv__hdmitx_8h" startline="282">XV_HdmiTx::VsCallback</references>
+        <references refid="struct_x_v___hdmi_tx_1a8652fe2ea7b0e1cd785f08cac054188e" compoundref="xv__hdmitx_8h" startline="284">XV_HdmiTx::VsRef</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains interrupt related functions for Xilinx HDMI TX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Please see <ref refid="xv__hdmitx_8h" kindref="compound">xv_hdmitx.h</ref> for more details of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00         10/07/15 Initial release.
+1.1   YH     18/08/16 squash unused variable compiler warning
+1.2   YH     16/01/18 Added bridge unlock interrupt
+1.3   MMO    11/08/18 Added bridge overflow and underflow interrupt
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmitx_8h" kindref="compound">xv_hdmitx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HdmiTx_PioIntrHandler(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HdmiTx_DdcIntrHandler(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="xv__hdmitx__intr_8c_1a25e91176ce93f223449dcb56c375ac51" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmitx_8h_1a25e91176ce93f223449dcb56c375ac51" kindref="member">XV_HdmiTx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*HdmiTxPtr<sp/>=<sp/>(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdmiTxPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdmiTxPtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7e506f0c45644cae05d5bf9839c8d7ee" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PIO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" kindref="member">XV_HdmiTx_ReadReg</ref>(HdmiTxPtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1a9374a3f25d4d9c91c02d383d66443b4b" kindref="member">XV_HDMITX_PIO_STA_OFFSET</ref>))<sp/>&amp;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1aa8c178b5851211ca5b20faee275a73f8" kindref="member">XV_HDMITX_PIO_STA_IRQ_MASK</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>PIO<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdmiTx_PioIntrHandler(HdmiTxPtr);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DDC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" kindref="member">XV_HdmiTx_ReadReg</ref>(HdmiTxPtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1add689faff8e7c346c9d8202355678a22" kindref="member">XV_HDMITX_DDC_STA_OFFSET</ref>))<sp/>&amp;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1aed853aca89756ea743e083e7573d1617" kindref="member">XV_HDMITX_DDC_STA_IRQ_MASK</ref>);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>DDC<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdmiTx_DdcIntrHandler(HdmiTxPtr);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="133" refid="xv__hdmitx__intr_8c_1ad5d2e73cdff6d7aeb5aaf3d2520b0df6" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hdmitx_8h_1ad5d2e73cdff6d7aeb5aaf3d2520b0df6" kindref="member">XV_HdmiTx_SetCallback</ref>(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx_8h_1a13f3db95069a268ab390dd4102604fb2" kindref="member">XV_HdmiTx_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&gt;=<sp/>(XV_HDMITX_HANDLER_CONNECT));</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_CONNECT):</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ac1656ae24732ed35b46c51b248fc8029" kindref="member">ConnectCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ae6bf6e3c9a0da202976056f309b34925" kindref="member">ConnectRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ab1ab5b027e47ec17879510b40b15bedf" kindref="member">IsConnectCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_TOGGLE):</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0692825d12d84e5cab2221960b2f49fd" kindref="member">ToggleCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3816c7539f98496ccd9a8da0e283944d" kindref="member">ToggleRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1adb4b8a1df24a626f1cf25913cc83f61a" kindref="member">IsToggleCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_BRDGUNLOCK):</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ac80e8b35a5b37348606520f5d2181126" kindref="member">BrdgUnlockedCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1abc2b373a46fe068019b69fd824ff4320" kindref="member">BrdgUnlockedRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1abaeb8d3a7cc7697002f093430a2fd78a" kindref="member">IsBrdgUnlockedCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_BRDGOVERFLOW):</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1acba0f95fd62275caa84815d705becb23" kindref="member">BrdgOverflowCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1add75a74c0d9feba1f3d1bee77765a931" kindref="member">BrdgOverflowRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a9b9ff3601359f9ea7851ff8dec7d7fcd" kindref="member">IsBrdgOverflowCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_BRDGUNDERFLOW):</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a138a54e6a18f55252326a98b02dc2228" kindref="member">BrdgUnderflowCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ae8fc52bf635029197d71ca9d778e5edb" kindref="member">BrdgUnderflowRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3feb040339cfbcd69bc3036a9ac4a488" kindref="member">IsBrdgUnderflowCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_VS):</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1aefc2a05e2f9009cbddb1602c515cd933" kindref="member">VsCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a8652fe2ea7b0e1cd785f08cac054188e" kindref="member">VsRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a11fbdfcb6af81a314dd1d8f7288f0994" kindref="member">IsVsCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Stream<sp/>down<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_STREAM_DOWN):</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a6fabffd615560a4cf858905fa822f60a" kindref="member">StreamDownCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a07fbd05cdb052f44a88da14ada7d633e" kindref="member">StreamDownRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a1a62a8a0a74757a9468726b54b44c9d0" kindref="member">IsStreamDownCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Stream<sp/>up<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITX_HANDLER_STREAM_UP):</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a862df69615a0455c7a92ecada71d6355" kindref="member">StreamUpCallback</ref><sp/>=<sp/>(<ref refid="xv__hdmitx_8h_1ae8a70df98d7f9509bf1f21f1107fa49d" kindref="member">XV_HdmiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3ae9594da3e1adfc2ca2bba9ef92bf18" kindref="member">StreamUpRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a761a789d8b6e6717066ce4885072db4e" kindref="member">IsStreamUpCallbackSet</ref><sp/>=<sp/>(TRUE);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_INVALID_PARAM);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="230"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HdmiTx_PioIntrHandler(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Event;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>PIO<sp/>IN<sp/>Event<sp/>register.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" kindref="member">XV_HdmiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1a5393d399e287df6c50b6c32b90b1cf93" kindref="member">XV_HDMITX_PIO_IN_EVT_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>event<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__hw_8h_1a3b74e3c052543284012c23ec717af9d1" kindref="member">XV_HdmiTx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1a5393d399e287df6c50b6c32b90b1cf93" kindref="member">XV_HDMITX_PIO_IN_EVT_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Event));</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" kindref="member">XV_HdmiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1ae1aa781005ce21dab9e7af6e4c091d0e" kindref="member">XV_HDMITX_PIO_IN_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HPD<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1a02fe47969aef0025a0dcde5f67059f4a" kindref="member">XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1adb4b8a1df24a626f1cf25913cc83f61a" kindref="member">IsToggleCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0692825d12d84e5cab2221960b2f49fd" kindref="member">ToggleCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3816c7539f98496ccd9a8da0e283944d" kindref="member">ToggleRef</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HPD<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1a38b7234925ae25a8a5104c446e2b0c50" kindref="member">XV_HDMITX_PIO_IN_HPD_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>the<sp/>HPD<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Data)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1a38b7234925ae25a8a5104c446e2b0c50" kindref="member">XV_HDMITX_PIO_IN_HPD_MASK</ref>))</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0f92bb0204c62c0fc3402f018c062e40" kindref="member">Stream</ref>.<ref refid="struct_x_v___hdmi_tx___stream_1a4239c08cfef43b6efe597fdb6c501c8d" kindref="member">IsConnected</ref><sp/>=<sp/>(TRUE);<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Set<sp/>connected<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0f92bb0204c62c0fc3402f018c062e40" kindref="member">Stream</ref>.<ref refid="struct_x_v___hdmi_tx___stream_1a4239c08cfef43b6efe597fdb6c501c8d" kindref="member">IsConnected</ref><sp/>=<sp/>(FALSE);<sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Clear<sp/>connected<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ab1ab5b027e47ec17879510b40b15bedf" kindref="member">IsConnectCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ac1656ae24732ed35b46c51b248fc8029" kindref="member">ConnectCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ae6bf6e3c9a0da202976056f309b34925" kindref="member">ConnectRef</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bridge<sp/>Unlocked<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1af0d1a093d1b0ef6ff6d0c595fbbc689d" kindref="member">XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1abaeb8d3a7cc7697002f093430a2fd78a" kindref="member">IsBrdgUnlockedCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ac80e8b35a5b37348606520f5d2181126" kindref="member">BrdgUnlockedCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1abc2b373a46fe068019b69fd824ff4320" kindref="member">BrdgUnlockedRef</ref>);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bridge<sp/>Overflow<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1a183040712bab60e3b122ced003b6094d" kindref="member">XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a9b9ff3601359f9ea7851ff8dec7d7fcd" kindref="member">IsBrdgOverflowCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1acba0f95fd62275caa84815d705becb23" kindref="member">BrdgOverflowCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1add75a74c0d9feba1f3d1bee77765a931" kindref="member">BrdgOverflowRef</ref>);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bridge<sp/>Underflow<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1aeeca103fdb0a14d806a07cbbbac3a5a6" kindref="member">XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3feb040339cfbcd69bc3036a9ac4a488" kindref="member">IsBrdgUnderflowCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a138a54e6a18f55252326a98b02dc2228" kindref="member">BrdgUnderflowCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1ae8fc52bf635029197d71ca9d778e5edb" kindref="member">BrdgUnderflowRef</ref>);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Vsync<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1a5e6881f3d1d651347a8e507c6d708aa6" kindref="member">XV_HDMITX_PIO_IN_VS_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a11fbdfcb6af81a314dd1d8f7288f0994" kindref="member">IsVsCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1aefc2a05e2f9009cbddb1602c515cd933" kindref="member">VsCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a8652fe2ea7b0e1cd785f08cac054188e" kindref="member">VsRef</ref>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Link<sp/>ready<sp/>event<sp/>has<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1af84ed4e0a3e63ee5b5eeb18b5f9172f6" kindref="member">XV_HDMITX_PIO_IN_LNK_RDY_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>the<sp/>link<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Data)<sp/>&amp;<sp/>(<ref refid="xv__hdmitx__hw_8h_1af84ed4e0a3e63ee5b5eeb18b5f9172f6" kindref="member">XV_HDMITX_PIO_IN_LNK_RDY_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Set<sp/>stream<sp/>status<sp/>to<sp/>up<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0f92bb0204c62c0fc3402f018c062e40" kindref="member">Stream</ref>.<ref refid="struct_x_v___hdmi_tx___stream_1a577d0e96c465c57b4ea25523a5186188" kindref="member">State</ref><sp/>=<sp/><ref refid="xv__hdmitx_8h_1a73ae987f90760fc28e1d19b81d875a26af01863138cb3cf0ebfc4233ba852b8d1" kindref="member">XV_HDMITX_STATE_STREAM_UP</ref>;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>AUX<sp/>peripheral<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx_8h_1ac0ac0a64725ea05d65bda3554cd4e29f" kindref="member">XV_HdmiTx_AuxEnable</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>AUX<sp/>peripheral<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx_8h_1ab7698b34eef6532f70f24d5847f83895" kindref="member">XV_HdmiTx_AuxIntrEnable</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a761a789d8b6e6717066ce4885072db4e" kindref="member">IsStreamUpCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a862df69615a0455c7a92ecada71d6355" kindref="member">StreamUpCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a3ae9594da3e1adfc2ca2bba9ef92bf18" kindref="member">StreamUpRef</ref>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Link<sp/>down<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Set<sp/>stream<sp/>status<sp/>to<sp/>down<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a0f92bb0204c62c0fc3402f018c062e40" kindref="member">Stream</ref>.<ref refid="struct_x_v___hdmi_tx___stream_1a577d0e96c465c57b4ea25523a5186188" kindref="member">State</ref><sp/>=<sp/><ref refid="xv__hdmitx_8h_1a73ae987f90760fc28e1d19b81d875a26aa8e9496175cdf2ae48d860fedfe41dba" kindref="member">XV_HDMITX_STATE_STREAM_DOWN</ref>;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>Audio<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx_8h_1ab0d38d78bc8117d38c039d743892eeab" kindref="member">XV_HdmiTx_AudioDisable</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>AUX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx_8h_1a444350a902159b2592e1dfaebd38a518" kindref="member">XV_HdmiTx_AuxDisable</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a1a62a8a0a74757a9468726b54b44c9d0" kindref="member">IsStreamDownCallbackSet</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a6fabffd615560a4cf858905fa822f60a" kindref="member">StreamDownCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a07fbd05cdb052f44a88da14ada7d633e" kindref="member">StreamDownRef</ref>);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HdmiTx_DdcIntrHandler(<ref refid="struct_x_v___hdmi_tx" kindref="compound">XV_HdmiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>DDC<sp/>Status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__hdmitx__hw_8h_1a41b837de9bdbba60a15baa46362dd851" kindref="member">XV_HdmiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmitx__hw_8h_1add689faff8e7c346c9d8202355678a22" kindref="member">XV_HDMITX_DDC_STA_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Data;<sp/></highlight><highlight class="comment">/*<sp/>squash<sp/>unused<sp/>variable<sp/>compiler<sp/>warning<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_intr.c"/>
+  </compounddef>
+</doxygen>

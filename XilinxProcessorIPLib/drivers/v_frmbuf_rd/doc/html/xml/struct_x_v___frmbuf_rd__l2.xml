@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___frmbuf_rd__l2" kind="struct" prot="public">
+    <compoundname>XV_FrmbufRd_l2</compoundname>
+    <includes local="no">xv_frmbufrd_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref></type>
+        <definition>XV_frmbufrd XV_FrmbufRd_l2::FrmbufRd</definition>
+        <argsstring></argsstring>
+        <name>FrmbufRd</name>
+        <briefdescription>
+<para>Frame Buffer Read instance data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga4a2a50eb3122b05363529db59acaa699" compoundref="xv__frmbufrd__l2_8c" startline="1103" endline="1113">XVFrmbufRd_Get_FidErrorCount</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaa7f04dec0da407195c91e99252ba2f4d" compoundref="xv__frmbufrd__l2_8c" startline="1081" endline="1091">XVFrmbufRd_Get_FidErrorOut</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga332ca9116cadeb32b1904ce3dde65abc" compoundref="xv__frmbufrd__l2_8c" startline="1059" endline="1069">XVFrmbufRd_Get_FidOutMode</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaa3a66d4846e2dc24fef32aa98ac9806c" compoundref="xv__frmbufrd__l2_8c" startline="1128" endline="1138">XVFrmbufRd_Get_FieldOut</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaeac91da19a88ff2480eae16be554b1f2" compoundref="xv__frmbufrd__l2_8c" startline="853" endline="861">XVFrmbufRd_GetBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga7475f43a7f18a159c1714849fe170c3b" compoundref="xv__frmbufrd__l2_8c" startline="964" endline="972">XVFrmbufRd_GetChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaf6aab33970a5d93caf764bddea2c86c4" compoundref="xv__frmbufrd__l2_8c" startline="1010" endline="1019">XVFrmbufRd_GetFieldID</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gacca36af12be280cd3cc168feb0a28bd4" compoundref="xv__frmbufrd__l2_8c" startline="907" endline="915">XVFrmbufRd_GetVChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gadc1c4c534e72cdcf6a19cf837da61470" compoundref="xv__frmbufrd__l2_8c" startline="248" endline="267">XVFrmbufRd_Initialize</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga0faa399949f921d9a32ceb8321de756e" compoundref="xv__frmbufrd__l2_8c" startline="357" endline="367">XVFrmbufRd_InterruptDisable</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga95f8a0ce5448dc0b3adcaed0365aacfb" compoundref="xv__frmbufrd__l2_8c" startline="331" endline="341">XVFrmbufRd_InterruptEnable</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga2b93653c8567e7735888fe5e8c76aabf" compoundref="xv__frmbufrd__l2_8c" startline="1033" endline="1046">XVFrmbufRd_Set_FidOutMode</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gab166d212d55646b832a8f7c301e5f2ac" compoundref="xv__frmbufrd__l2_8c" startline="818" endline="842">XVFrmbufRd_SetBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga395f9c364ef8378189bf0464d2130d59" compoundref="xv__frmbufrd__l2_8c" startline="928" endline="952">XVFrmbufRd_SetChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga76d715c4caace0c73116230fb3b51a66" compoundref="xv__frmbufrd__l2_8c" startline="986" endline="998">XVFrmbufRd_SetFieldID</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga84c9a6e2049cb53358884cd8e3aafbc2" compoundref="xv__frmbufrd__l2_8c" startline="873" endline="896">XVFrmbufRd_SetVChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga0e9f4473b9679d84441160c08b461d9b" compoundref="xv__frmbufrd__l2_8c" startline="378" endline="383">XVFrmbufRd_Start</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaf95f5597208997861ca3b2de238821e1" compoundref="xv__frmbufrd__l2_8c" startline="401" endline="424">XVFrmbufRd_Stop</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga05848286286c2df893b2ef8195167e47" compoundref="xv__frmbufrd__l2_8c" startline="440" endline="459">XVFrmbufRd_WaitForIdle</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__frmbufrd__l2_8h_1af768bed50faa73ab2b391458998ec4ce" kindref="member">XVFrmbufRd_Callback</ref></type>
+        <definition>XVFrmbufRd_Callback XV_FrmbufRd_l2::FrameDoneCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameDoneCallback</name>
+        <briefdescription>
+<para>Callback for frame processing done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" compoundref="xv__frmbufrd__l2__intr_8c" startline="62" endline="90">XVFrmbufRd_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_FrmbufRd_l2::CallbackDoneRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackDoneRef</name>
+        <briefdescription>
+<para>To be passed to the connect interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" compoundref="xv__frmbufrd__l2__intr_8c" startline="62" endline="90">XVFrmbufRd_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__frmbufrd__l2_8h_1af768bed50faa73ab2b391458998ec4ce" kindref="member">XVFrmbufRd_Callback</ref></type>
+        <definition>XVFrmbufRd_Callback XV_FrmbufRd_l2::FrameReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameReadyCallback</name>
+        <briefdescription>
+<para>Callback for frame processing ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" compoundref="xv__frmbufrd__l2__intr_8c" startline="62" endline="90">XVFrmbufRd_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_FrmbufRd_l2::CallbackReadyRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackReadyRef</name>
+        <briefdescription>
+<para><verbatim>To be passed to the connect interrupt
+</verbatim> callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" compoundref="xv__frmbufrd__l2__intr_8c" startline="62" endline="90">XVFrmbufRd_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___frmbuf_rd__l2_1ada8c009caccb985b0e3410c572852b73" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoStream</type>
+        <definition>XVidC_VideoStream XV_FrmbufRd_l2::Stream</definition>
+        <argsstring></argsstring>
+        <name>Stream</name>
+        <briefdescription>
+<para>Output AXIS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1gafa85f47f05af0d3353f3cdcadbb29a1c" compoundref="xv__frmbufrd__l2_8c" startline="797" endline="800">XVFrmbufRd_GetVideoStream</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Frame Buffer Read driver Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every frame buffer read device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="10">
+        <label>XV_frmbufrd_Config</label>
+        <link refid="struct_x_v__frmbufrd___config"/>
+      </node>
+      <node id="8">
+        <label>XV_FrmbufRd_l2</label>
+        <link refid="struct_x_v___frmbuf_rd__l2"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>FrmbufRd</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XV_frmbufrd</label>
+        <link refid="struct_x_v__frmbufrd"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2.h" bodystart="161" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>CallbackDoneRef</name></member>
+      <member refid="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>CallbackReadyRef</name></member>
+      <member refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>FrameDoneCallback</name></member>
+      <member refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>FrameReadyCallback</name></member>
+      <member refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>FrmbufRd</name></member>
+      <member refid="struct_x_v___frmbuf_rd__l2_1ada8c009caccb985b0e3410c572852b73" prot="public" virt="non-virtual"><scope>XV_FrmbufRd_l2</scope><name>Stream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

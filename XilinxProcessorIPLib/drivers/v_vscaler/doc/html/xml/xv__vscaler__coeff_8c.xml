@@ -1,0 +1,964 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vscaler__coeff_8c" kind="file">
+    <compoundname>xv_vscaler_coeff.c</compoundname>
+    <includes refid="xv__vscaler__l2_8h" local="yes">xv_vscaler_l2.h</includes>
+    <incdepgraph>
+      <node id="28">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="30">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>xv_vscaler_l2.h</label>
+        <link refid="xv__vscaler__l2_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xv_vscaler.h</label>
+        <link refid="xv__vscaler_8h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xv_vscaler_hw.h</label>
+        <link refid="xv__vscaler__hw_8h"/>
+      </node>
+      <node id="29">
+        <label>xstatus.h</label>
+      </node>
+      <node id="25">
+        <label>xvidc.h</label>
+      </node>
+      <node id="27">
+        <label>xil_types.h</label>
+      </node>
+      <node id="23">
+        <label>xv_vscaler_coeff.c</label>
+        <link refid="xv_vscaler_coeff.c"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__vscaler_1gab758b04c44e9ba0fbd656bf02270b330" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_Lanczos2_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</argsstring>
+        <name>XV_vscaler_Lanczos2_taps6</name>
+        <briefdescription>
+<para>XV_vscaler_Lanczos2_taps6 Default fixed coefficient set for 6-tap Lanczos2 vertical scaler filter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each row represents a phase; columns are tap coefficients. Values are in Q12 fixed-point format. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1gaa84ca638b4557dd1090b6962a38f152f" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga6e7692e5dbe91495b2f4bcb49797c6fc" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps6_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps6_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga4338136efe5eacbedc24d24c4ba35daa" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps6_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps6_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1gaf997b748d2a5e763247551481597db0d" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps6_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps6_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga8eede75bd71489d7c59b369f2f11ab88" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps8_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps8_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga06ee3dbbf97a4898ffd418542fc39c0c" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps8_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps8_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga4ed6c1b5b7297b27e4d8d65d2f5f3ce6" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps8_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps8_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1gac132fe8af1122c7af8ba5caf88ec07ed" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps10_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps10_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1gaeed8a3887c998c1bf11c6a7637421c23" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps10_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps10_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="648" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="648" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vscaler_1ga9caa29ac0fa5160ed9c114c509101324" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vscaler_fixedcoeff_taps12_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12]</argsstring>
+        <name>XV_vscaler_fixedcoeff_taps12_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" line="716" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c" bodystart="716" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__vscaler__l2_8h" kindref="compound">xv_vscaler_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="group__v__vscaler_1gab758b04c44e9ba0fbd656bf02270b330" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1gab758b04c44e9ba0fbd656bf02270b330" kindref="member">XV_vscaler_Lanczos2_taps6</ref>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>4096,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/>0,<sp/>},</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/>-40,<sp/>4099,<sp/><sp/><sp/>42,<sp/><sp/><sp/><sp/>0,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-1,<sp/><sp/>-77,<sp/>4097,<sp/><sp/><sp/>87,<sp/><sp/><sp/>-1,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-2,<sp/>-111,<sp/>4092,<sp/><sp/>134,<sp/><sp/><sp/>-2,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/>-143,<sp/>4082,<sp/><sp/>184,<sp/><sp/><sp/>-4,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/>-173,<sp/>4068,<sp/><sp/>237,<sp/><sp/><sp/>-7,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/>-201,<sp/>4051,<sp/><sp/>292,<sp/><sp/>-10,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/>-226,<sp/>4029,<sp/><sp/>350,<sp/><sp/>-13,<sp/>-33,<sp/>},</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>-248,<sp/>4003,<sp/><sp/>411,<sp/><sp/>-18,<sp/>-38,<sp/>},</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/>-269,<sp/>3974,<sp/><sp/>474,<sp/><sp/>-23,<sp/>-43,<sp/>},</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-287,<sp/>3940,<sp/><sp/>539,<sp/><sp/>-28,<sp/>-47,<sp/>},</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-303,<sp/>3903,<sp/><sp/>608,<sp/><sp/>-34,<sp/>-54,<sp/>},</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-317,<sp/>3862,<sp/><sp/>678,<sp/><sp/>-41,<sp/>-58,<sp/>},</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32,<sp/>-329,<sp/>3817,<sp/><sp/>751,<sp/><sp/>-49,<sp/>-62,<sp/>},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-37,<sp/>-339,<sp/>3768,<sp/><sp/>826,<sp/><sp/>-57,<sp/>-65,<sp/>},</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-41,<sp/>-347,<sp/>3716,<sp/><sp/>903,<sp/><sp/>-65,<sp/>-70,<sp/>},</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-45,<sp/>-353,<sp/>3661,<sp/><sp/>982,<sp/><sp/>-75,<sp/>-74,<sp/>},</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-50,<sp/>-358,<sp/>3602,<sp/>1063,<sp/><sp/>-84,<sp/>-77,<sp/>},</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-54,<sp/>-361,<sp/>3539,<sp/>1146,<sp/><sp/>-95,<sp/>-79,<sp/>},</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-58,<sp/>-362,<sp/>3474,<sp/>1230,<sp/>-106,<sp/>-82,<sp/>},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-62,<sp/>-361,<sp/>3406,<sp/>1317,<sp/>-117,<sp/>-87,<sp/>},</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-66,<sp/>-359,<sp/>3335,<sp/>1404,<sp/>-128,<sp/>-90,<sp/>},</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-70,<sp/>-356,<sp/>3261,<sp/>1493,<sp/>-140,<sp/>-92,<sp/>},</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-74,<sp/>-351,<sp/>3185,<sp/>1583,<sp/>-153,<sp/>-94,<sp/>},</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-77,<sp/>-346,<sp/>3106,<sp/>1673,<sp/>-165,<sp/>-95,<sp/>},</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-81,<sp/>-339,<sp/>3025,<sp/>1765,<sp/>-178,<sp/>-96,<sp/>},</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-84,<sp/>-331,<sp/>2942,<sp/>1857,<sp/>-191,<sp/>-97,<sp/>},</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-87,<sp/>-322,<sp/>2858,<sp/>1950,<sp/>-204,<sp/>-99,<sp/>},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-89,<sp/>-313,<sp/>2771,<sp/>2043,<sp/>-217,<sp/>-99,<sp/>},</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-92,<sp/>-302,<sp/>2683,<sp/>2136,<sp/>-230,<sp/>-99,<sp/>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-94,<sp/>-292,<sp/>2594,<sp/>2228,<sp/>-243,<sp/>-97,<sp/>},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-95,<sp/>-280,<sp/>2504,<sp/>2321,<sp/>-256,<sp/>-98,<sp/>},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-97,<sp/>-268,<sp/>2413,<sp/>2413,<sp/>-268,<sp/>-97,<sp/>},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-97,<sp/>-256,<sp/>2321,<sp/>2504,<sp/>-280,<sp/>-96,<sp/>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-98,<sp/>-243,<sp/>2228,<sp/>2594,<sp/>-292,<sp/>-93,<sp/>},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-98,<sp/>-230,<sp/>2136,<sp/>2683,<sp/>-302,<sp/>-93,<sp/>},</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-98,<sp/>-217,<sp/>2043,<sp/>2771,<sp/>-313,<sp/>-90,<sp/>},</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-98,<sp/>-204,<sp/>1950,<sp/>2858,<sp/>-322,<sp/>-88,<sp/>},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-97,<sp/>-191,<sp/>1857,<sp/>2942,<sp/>-331,<sp/>-84,<sp/>},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-96,<sp/>-178,<sp/>1765,<sp/>3025,<sp/>-339,<sp/>-81,<sp/>},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-95,<sp/>-165,<sp/>1673,<sp/>3106,<sp/>-346,<sp/>-77,<sp/>},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-93,<sp/>-153,<sp/>1583,<sp/>3185,<sp/>-351,<sp/>-75,<sp/>},</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-91,<sp/>-140,<sp/>1493,<sp/>3261,<sp/>-356,<sp/>-71,<sp/>},</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-89,<sp/>-128,<sp/>1404,<sp/>3335,<sp/>-359,<sp/>-67,<sp/>},</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-86,<sp/>-117,<sp/>1317,<sp/>3406,<sp/>-361,<sp/>-63,<sp/>},</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-83,<sp/>-106,<sp/>1230,<sp/>3474,<sp/>-362,<sp/>-57,<sp/>},</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-80,<sp/><sp/>-95,<sp/>1146,<sp/>3539,<sp/>-361,<sp/>-53,<sp/>},</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-77,<sp/><sp/>-84,<sp/>1063,<sp/>3602,<sp/>-358,<sp/>-50,<sp/>},</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-73,<sp/><sp/>-75,<sp/><sp/>982,<sp/>3661,<sp/>-353,<sp/>-46,<sp/>},</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-69,<sp/><sp/>-65,<sp/><sp/>903,<sp/>3716,<sp/>-347,<sp/>-42,<sp/>},</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-65,<sp/><sp/>-57,<sp/><sp/>826,<sp/>3768,<sp/>-339,<sp/>-37,<sp/>},</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-61,<sp/><sp/>-49,<sp/><sp/>751,<sp/>3817,<sp/>-329,<sp/>-33,<sp/>},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-57,<sp/><sp/>-41,<sp/><sp/>678,<sp/>3862,<sp/>-317,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-52,<sp/><sp/>-34,<sp/><sp/>608,<sp/>3903,<sp/>-303,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-47,<sp/><sp/>-28,<sp/><sp/>539,<sp/>3940,<sp/>-287,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-43,<sp/><sp/>-23,<sp/><sp/>474,<sp/>3974,<sp/>-269,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-38,<sp/><sp/>-18,<sp/><sp/>411,<sp/>4003,<sp/>-248,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-33,<sp/><sp/>-13,<sp/><sp/>350,<sp/>4029,<sp/>-226,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/><sp/>-10,<sp/><sp/>292,<sp/>4051,<sp/>-201,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/><sp/><sp/>-7,<sp/><sp/>237,<sp/>4068,<sp/>-173,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/><sp/>-4,<sp/><sp/>184,<sp/>4082,<sp/>-143,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/><sp/><sp/>-2,<sp/><sp/>134,<sp/>4092,<sp/>-111,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/><sp/><sp/>-1,<sp/><sp/><sp/>87,<sp/>4097,<sp/><sp/>-77,<sp/><sp/>-1,<sp/>},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/>42,<sp/>4099,<sp/><sp/>-40,<sp/><sp/><sp/>0,<sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>1.25<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-102,<sp/><sp/>512,<sp/>3208,<sp/><sp/>512,<sp/>-102,<sp/><sp/>68,<sp/>},</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-97,<sp/><sp/>471,<sp/>3209,<sp/><sp/>555,<sp/>-107,<sp/><sp/>65,<sp/>},</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-92,<sp/><sp/>431,<sp/>3208,<sp/><sp/>599,<sp/>-113,<sp/><sp/>63,<sp/>},</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-87,<sp/><sp/>392,<sp/>3205,<sp/><sp/>645,<sp/>-118,<sp/><sp/>59,<sp/>},</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-82,<sp/><sp/>354,<sp/>3199,<sp/><sp/>691,<sp/>-124,<sp/><sp/>58,<sp/>},</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-77,<sp/><sp/>318,<sp/>3191,<sp/><sp/>739,<sp/>-130,<sp/><sp/>55,<sp/>},</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-72,<sp/><sp/>282,<sp/>3181,<sp/><sp/>788,<sp/>-136,<sp/><sp/>53,<sp/>},</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-68,<sp/><sp/>248,<sp/>3169,<sp/><sp/>838,<sp/>-141,<sp/><sp/>50,<sp/>},</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-64,<sp/><sp/>216,<sp/>3155,<sp/><sp/>889,<sp/>-147,<sp/><sp/>47,<sp/>},</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-59,<sp/><sp/>184,<sp/>3139,<sp/><sp/>941,<sp/>-153,<sp/><sp/>44,<sp/>},</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-55,<sp/><sp/>154,<sp/>3120,<sp/><sp/>993,<sp/>-158,<sp/><sp/>42,<sp/>},</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-52,<sp/><sp/>125,<sp/>3100,<sp/>1047,<sp/>-164,<sp/><sp/>40,<sp/>},</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-48,<sp/><sp/><sp/>98,<sp/>3077,<sp/>1101,<sp/>-169,<sp/><sp/>37,<sp/>},</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-44,<sp/><sp/><sp/>71,<sp/>3052,<sp/>1157,<sp/>-174,<sp/><sp/>34,<sp/>},</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-41,<sp/><sp/><sp/>46,<sp/>3025,<sp/>1212,<sp/>-180,<sp/><sp/>34,<sp/>},</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-38,<sp/><sp/><sp/>23,<sp/>2996,<sp/>1269,<sp/>-184,<sp/><sp/>30,<sp/>},</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-35,<sp/><sp/><sp/><sp/>0,<sp/>2965,<sp/>1326,<sp/>-189,<sp/><sp/>29,<sp/>},</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-32,<sp/><sp/>-21,<sp/>2933,<sp/>1383,<sp/>-193,<sp/><sp/>26,<sp/>},</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-29,<sp/><sp/>-41,<sp/>2898,<sp/>1441,<sp/>-198,<sp/><sp/>25,<sp/>},</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-26,<sp/><sp/>-60,<sp/>2862,<sp/>1500,<sp/>-201,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-24,<sp/><sp/>-78,<sp/>2823,<sp/>1558,<sp/>-205,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-21,<sp/><sp/>-94,<sp/>2784,<sp/>1617,<sp/>-208,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-19,<sp/>-109,<sp/>2742,<sp/>1676,<sp/>-210,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-17,<sp/>-123,<sp/>2699,<sp/>1734,<sp/>-212,<sp/><sp/>15,<sp/>},</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-14,<sp/>-136,<sp/>2654,<sp/>1793,<sp/>-214,<sp/><sp/>13,<sp/>},</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-12,<sp/>-148,<sp/>2608,<sp/>1852,<sp/>-214,<sp/><sp/>10,<sp/>},</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-10,<sp/>-159,<sp/>2560,<sp/>1910,<sp/>-215,<sp/><sp/>10,<sp/>},</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>-9,<sp/>-168,<sp/>2512,<sp/>1968,<sp/>-215,<sp/><sp/><sp/>8,<sp/>},</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>-7,<sp/>-177,<sp/>2461,<sp/>2026,<sp/>-214,<sp/><sp/><sp/>7,<sp/>},</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>-5,<sp/>-185,<sp/>2410,<sp/>2083,<sp/>-212,<sp/><sp/><sp/>5,<sp/>},</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>-3,<sp/>-192,<sp/>2358,<sp/>2139,<sp/>-209,<sp/><sp/><sp/>3,<sp/>},</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>-2,<sp/>-197,<sp/>2304,<sp/>2195,<sp/>-206,<sp/><sp/><sp/>2,<sp/>},</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>0,<sp/>-202,<sp/>2250,<sp/>2250,<sp/>-202,<sp/><sp/><sp/>0,<sp/>},</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>2,<sp/>-206,<sp/>2195,<sp/>2304,<sp/>-197,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>3,<sp/>-209,<sp/>2139,<sp/>2358,<sp/>-192,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>5,<sp/>-212,<sp/>2083,<sp/>2410,<sp/>-185,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>6,<sp/>-214,<sp/>2026,<sp/>2461,<sp/>-177,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/>8,<sp/>-215,<sp/>1968,<sp/>2512,<sp/>-168,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>10,<sp/>-215,<sp/>1910,<sp/>2560,<sp/>-159,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>11,<sp/>-214,<sp/>1852,<sp/>2608,<sp/>-148,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>13,<sp/>-214,<sp/>1793,<sp/>2654,<sp/>-136,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>15,<sp/>-212,<sp/>1734,<sp/>2699,<sp/>-123,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>17,<sp/>-210,<sp/>1676,<sp/>2742,<sp/>-109,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>18,<sp/>-208,<sp/>1617,<sp/>2784,<sp/><sp/>-94,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>20,<sp/>-205,<sp/>1558,<sp/>2823,<sp/><sp/>-78,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>22,<sp/>-201,<sp/>1500,<sp/>2862,<sp/><sp/>-60,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>24,<sp/>-198,<sp/>1441,<sp/>2898,<sp/><sp/>-41,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>26,<sp/>-193,<sp/>1383,<sp/>2933,<sp/><sp/>-21,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>28,<sp/>-189,<sp/>1326,<sp/>2965,<sp/><sp/><sp/><sp/>0,<sp/>-34,<sp/>},</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>30,<sp/>-184,<sp/>1269,<sp/>2996,<sp/><sp/><sp/>23,<sp/>-38,<sp/>},</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>33,<sp/>-180,<sp/>1212,<sp/>3025,<sp/><sp/><sp/>46,<sp/>-40,<sp/>},</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>35,<sp/>-174,<sp/>1157,<sp/>3052,<sp/><sp/><sp/>71,<sp/>-45,<sp/>},</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>37,<sp/>-169,<sp/>1101,<sp/>3077,<sp/><sp/><sp/>98,<sp/>-48,<sp/>},</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>40,<sp/>-164,<sp/>1047,<sp/>3100,<sp/><sp/>125,<sp/>-52,<sp/>},</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>42,<sp/>-158,<sp/><sp/>993,<sp/>3120,<sp/><sp/>154,<sp/>-55,<sp/>},</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>44,<sp/>-153,<sp/><sp/>941,<sp/>3139,<sp/><sp/>184,<sp/>-59,<sp/>},</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>47,<sp/>-147,<sp/><sp/>889,<sp/>3155,<sp/><sp/>216,<sp/>-64,<sp/>},</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>50,<sp/>-141,<sp/><sp/>838,<sp/>3169,<sp/><sp/>248,<sp/>-68,<sp/>},</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>52,<sp/>-136,<sp/><sp/>788,<sp/>3181,<sp/><sp/>282,<sp/>-71,<sp/>},</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>55,<sp/>-130,<sp/><sp/>739,<sp/>3191,<sp/><sp/>318,<sp/>-77,<sp/>},</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>57,<sp/>-124,<sp/><sp/>691,<sp/>3199,<sp/><sp/>354,<sp/>-81,<sp/>},</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>60,<sp/>-118,<sp/><sp/>645,<sp/>3205,<sp/><sp/>392,<sp/>-88,<sp/>},</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>63,<sp/>-113,<sp/><sp/>599,<sp/>3208,<sp/><sp/>431,<sp/>-92,<sp/>},</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>65,<sp/>-107,<sp/><sp/>555,<sp/>3209,<sp/><sp/>471,<sp/>-97,<sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>2.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps6_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/>970,<sp/>2235,<sp/><sp/>970,<sp/><sp/><sp/>0,<sp/>-79,<sp/>},</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/>943,<sp/>2233,<sp/><sp/>997,<sp/><sp/><sp/>3,<sp/>-77,<sp/>},</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/>915,<sp/>2231,<sp/>1025,<sp/><sp/><sp/>6,<sp/>-76,<sp/>},</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/>888,<sp/>2227,<sp/>1052,<sp/><sp/>10,<sp/>-73,<sp/>},</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/>861,<sp/>2223,<sp/>1079,<sp/><sp/>14,<sp/>-71,<sp/>},</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>834,<sp/>2218,<sp/>1107,<sp/><sp/>18,<sp/>-69,<sp/>},</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>808,<sp/>2213,<sp/>1134,<sp/><sp/>22,<sp/>-67,<sp/>},</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/>782,<sp/>2206,<sp/>1162,<sp/><sp/>27,<sp/>-66,<sp/>},</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/>756,<sp/>2199,<sp/>1189,<sp/><sp/>32,<sp/>-63,<sp/>},</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>731,<sp/>2191,<sp/>1217,<sp/><sp/>37,<sp/>-62,<sp/>},</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>706,<sp/>2182,<sp/>1245,<sp/><sp/>42,<sp/>-59,<sp/>},</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>681,<sp/>2172,<sp/>1272,<sp/><sp/>48,<sp/>-56,<sp/>},</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>657,<sp/>2162,<sp/>1300,<sp/><sp/>55,<sp/>-56,<sp/>},</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>633,<sp/>2151,<sp/>1327,<sp/><sp/>61,<sp/>-54,<sp/>},</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>609,<sp/>2139,<sp/>1355,<sp/><sp/>68,<sp/>-52,<sp/>},</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>586,<sp/>2126,<sp/>1382,<sp/><sp/>76,<sp/>-50,<sp/>},</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>564,<sp/>2113,<sp/>1410,<sp/><sp/>83,<sp/>-49,<sp/>},</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>541,<sp/>2099,<sp/>1437,<sp/><sp/>91,<sp/>-47,<sp/>},</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>520,<sp/>2084,<sp/>1464,<sp/>100,<sp/>-46,<sp/>},</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>498,<sp/>2069,<sp/>1491,<sp/>109,<sp/>-45,<sp/>},</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>477,<sp/>2053,<sp/>1517,<sp/>118,<sp/>-42,<sp/>},</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>457,<sp/>2036,<sp/>1544,<sp/>128,<sp/>-42,<sp/>},</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>437,<sp/>2019,<sp/>1570,<sp/>138,<sp/>-41,<sp/>},</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>418,<sp/>2001,<sp/>1596,<sp/>148,<sp/>-39,<sp/>},</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>399,<sp/>1983,<sp/>1622,<sp/>160,<sp/>-40,<sp/>},</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>380,<sp/>1964,<sp/>1647,<sp/>171,<sp/>-37,<sp/>},</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>362,<sp/>1944,<sp/>1672,<sp/>183,<sp/>-36,<sp/>},</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>345,<sp/>1924,<sp/>1697,<sp/>195,<sp/>-36,<sp/>},</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/>328,<sp/>1903,<sp/>1722,<sp/>208,<sp/>-35,<sp/>},</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/>311,<sp/>1882,<sp/>1746,<sp/>221,<sp/>-34,<sp/>},</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/>295,<sp/>1860,<sp/>1770,<sp/>235,<sp/>-33,<sp/>},</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/>279,<sp/>1838,<sp/>1793,<sp/>249,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32,<sp/>264,<sp/>1816,<sp/>1816,<sp/>264,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32,<sp/>249,<sp/>1793,<sp/>1838,<sp/>279,<sp/>-31,<sp/>},</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-33,<sp/>235,<sp/>1770,<sp/>1860,<sp/>295,<sp/>-31,<sp/>},</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-34,<sp/>221,<sp/>1746,<sp/>1882,<sp/>311,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-35,<sp/>208,<sp/>1722,<sp/>1903,<sp/>328,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-35,<sp/>195,<sp/>1697,<sp/>1924,<sp/>345,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-36,<sp/>183,<sp/>1672,<sp/>1944,<sp/>362,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-37,<sp/>171,<sp/>1647,<sp/>1964,<sp/>380,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-38,<sp/>160,<sp/>1622,<sp/>1983,<sp/>399,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-39,<sp/>148,<sp/>1596,<sp/>2001,<sp/>418,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-40,<sp/>138,<sp/>1570,<sp/>2019,<sp/>437,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-42,<sp/>128,<sp/>1544,<sp/>2036,<sp/>457,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-43,<sp/>118,<sp/>1517,<sp/>2053,<sp/>477,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-44,<sp/>109,<sp/>1491,<sp/>2069,<sp/>498,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-46,<sp/>100,<sp/>1464,<sp/>2084,<sp/>520,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-47,<sp/><sp/>91,<sp/>1437,<sp/>2099,<sp/>541,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-49,<sp/><sp/>83,<sp/>1410,<sp/>2113,<sp/>564,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-50,<sp/><sp/>76,<sp/>1382,<sp/>2126,<sp/>586,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-52,<sp/><sp/>68,<sp/>1355,<sp/>2139,<sp/>609,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-54,<sp/><sp/>61,<sp/>1327,<sp/>2151,<sp/>633,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-55,<sp/><sp/>55,<sp/>1300,<sp/>2162,<sp/>657,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-57,<sp/><sp/>48,<sp/>1272,<sp/>2172,<sp/>681,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-59,<sp/><sp/>42,<sp/>1245,<sp/>2182,<sp/>706,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-61,<sp/><sp/>37,<sp/>1217,<sp/>2191,<sp/>731,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-63,<sp/><sp/>32,<sp/>1189,<sp/>2199,<sp/>756,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-65,<sp/><sp/>27,<sp/>1162,<sp/>2206,<sp/>782,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-67,<sp/><sp/>22,<sp/>1134,<sp/>2213,<sp/>808,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-69,<sp/><sp/>18,<sp/>1107,<sp/>2218,<sp/>834,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-71,<sp/><sp/>14,<sp/>1079,<sp/>2223,<sp/>861,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-73,<sp/><sp/>10,<sp/>1052,<sp/>2227,<sp/>888,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-75,<sp/><sp/><sp/>6,<sp/>1025,<sp/>2231,<sp/>915,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-77,<sp/><sp/><sp/>3,<sp/><sp/>997,<sp/>2233,<sp/>943,<sp/><sp/>-3,<sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>3.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps6_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>126,<sp/>1019,<sp/>1806,<sp/>1019,<sp/><sp/>126,<sp/><sp/><sp/>0,<sp/>},</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>120,<sp/>1000,<sp/>1805,<sp/>1038,<sp/><sp/>132,<sp/><sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>114,<sp/><sp/>980,<sp/>1804,<sp/>1057,<sp/><sp/>138,<sp/><sp/><sp/>3,<sp/>},</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>108,<sp/><sp/>961,<sp/>1802,<sp/>1075,<sp/><sp/>145,<sp/><sp/><sp/>5,<sp/>},</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>103,<sp/><sp/>942,<sp/>1800,<sp/>1094,<sp/><sp/>152,<sp/><sp/><sp/>5,<sp/>},</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>98,<sp/><sp/>922,<sp/>1797,<sp/>1113,<sp/><sp/>159,<sp/><sp/><sp/>7,<sp/>},</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>93,<sp/><sp/>903,<sp/>1794,<sp/>1131,<sp/><sp/>167,<sp/><sp/><sp/>8,<sp/>},</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>88,<sp/><sp/>884,<sp/>1790,<sp/>1150,<sp/><sp/>174,<sp/><sp/>10,<sp/>},</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>84,<sp/><sp/>865,<sp/>1786,<sp/>1168,<sp/><sp/>182,<sp/><sp/>11,<sp/>},</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>80,<sp/><sp/>846,<sp/>1782,<sp/>1187,<sp/><sp/>191,<sp/><sp/>10,<sp/>},</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>76,<sp/><sp/>827,<sp/>1777,<sp/>1205,<sp/><sp/>199,<sp/><sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>72,<sp/><sp/>809,<sp/>1771,<sp/>1223,<sp/><sp/>208,<sp/><sp/>13,<sp/>},</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>68,<sp/><sp/>790,<sp/>1766,<sp/>1241,<sp/><sp/>217,<sp/><sp/>14,<sp/>},</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>65,<sp/><sp/>772,<sp/>1759,<sp/>1259,<sp/><sp/>226,<sp/><sp/>15,<sp/>},</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>753,<sp/>1753,<sp/>1277,<sp/><sp/>236,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>58,<sp/><sp/>735,<sp/>1746,<sp/>1295,<sp/><sp/>246,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>56,<sp/><sp/>717,<sp/>1738,<sp/>1313,<sp/><sp/>256,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>53,<sp/><sp/>699,<sp/>1730,<sp/>1330,<sp/><sp/>266,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>50,<sp/><sp/>682,<sp/>1722,<sp/>1347,<sp/><sp/>277,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>48,<sp/><sp/>664,<sp/>1713,<sp/>1364,<sp/><sp/>288,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>46,<sp/><sp/>647,<sp/>1704,<sp/>1381,<sp/><sp/>299,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>43,<sp/><sp/>630,<sp/>1694,<sp/>1398,<sp/><sp/>311,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>41,<sp/><sp/>613,<sp/>1684,<sp/>1414,<sp/><sp/>323,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>40,<sp/><sp/>596,<sp/>1674,<sp/>1430,<sp/><sp/>335,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>38,<sp/><sp/>580,<sp/>1663,<sp/>1446,<sp/><sp/>347,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>36,<sp/><sp/>563,<sp/>1652,<sp/>1462,<sp/><sp/>360,<sp/><sp/>23,<sp/>},</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>35,<sp/><sp/>547,<sp/>1641,<sp/>1478,<sp/><sp/>373,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>33,<sp/><sp/>531,<sp/>1629,<sp/>1493,<sp/><sp/>386,<sp/><sp/>24,<sp/>},</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>32,<sp/><sp/>516,<sp/>1617,<sp/>1508,<sp/><sp/>399,<sp/><sp/>24,<sp/>},</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>31,<sp/><sp/>500,<sp/>1604,<sp/>1523,<sp/><sp/>413,<sp/><sp/>25,<sp/>},</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>30,<sp/><sp/>485,<sp/>1592,<sp/>1537,<sp/><sp/>427,<sp/><sp/>25,<sp/>},</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>29,<sp/><sp/>470,<sp/>1578,<sp/>1551,<sp/><sp/>441,<sp/><sp/>27,<sp/>},</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>28,<sp/><sp/>455,<sp/>1565,<sp/>1565,<sp/><sp/>455,<sp/><sp/>28,<sp/>},</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>27,<sp/><sp/>441,<sp/>1551,<sp/>1578,<sp/><sp/>470,<sp/><sp/>29,<sp/>},</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>26,<sp/><sp/>427,<sp/>1537,<sp/>1592,<sp/><sp/>485,<sp/><sp/>29,<sp/>},</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>25,<sp/><sp/>413,<sp/>1523,<sp/>1604,<sp/><sp/>500,<sp/><sp/>31,<sp/>},</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>24,<sp/><sp/>399,<sp/>1508,<sp/>1617,<sp/><sp/>516,<sp/><sp/>32,<sp/>},</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>24,<sp/><sp/>386,<sp/>1493,<sp/>1629,<sp/><sp/>531,<sp/><sp/>33,<sp/>},</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>23,<sp/><sp/>373,<sp/>1478,<sp/>1641,<sp/><sp/>547,<sp/><sp/>34,<sp/>},</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>22,<sp/><sp/>360,<sp/>1462,<sp/>1652,<sp/><sp/>563,<sp/><sp/>37,<sp/>},</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>22,<sp/><sp/>347,<sp/>1446,<sp/>1663,<sp/><sp/>580,<sp/><sp/>38,<sp/>},</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>21,<sp/><sp/>335,<sp/>1430,<sp/>1674,<sp/><sp/>596,<sp/><sp/>40,<sp/>},</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>20,<sp/><sp/>323,<sp/>1414,<sp/>1684,<sp/><sp/>613,<sp/><sp/>42,<sp/>},</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>20,<sp/><sp/>311,<sp/>1398,<sp/>1694,<sp/><sp/>630,<sp/><sp/>43,<sp/>},</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>19,<sp/><sp/>299,<sp/>1381,<sp/>1704,<sp/><sp/>647,<sp/><sp/>46,<sp/>},</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>19,<sp/><sp/>288,<sp/>1364,<sp/>1713,<sp/><sp/>664,<sp/><sp/>48,<sp/>},</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>18,<sp/><sp/>277,<sp/>1347,<sp/>1722,<sp/><sp/>682,<sp/><sp/>50,<sp/>},</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>17,<sp/><sp/>266,<sp/>1330,<sp/>1730,<sp/><sp/>699,<sp/><sp/>54,<sp/>},</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>17,<sp/><sp/>256,<sp/>1313,<sp/>1738,<sp/><sp/>717,<sp/><sp/>55,<sp/>},</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>16,<sp/><sp/>246,<sp/>1295,<sp/>1746,<sp/><sp/>735,<sp/><sp/>58,<sp/>},</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>15,<sp/><sp/>236,<sp/>1277,<sp/>1753,<sp/><sp/>753,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>15,<sp/><sp/>226,<sp/>1259,<sp/>1759,<sp/><sp/>772,<sp/><sp/>65,<sp/>},</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>14,<sp/><sp/>217,<sp/>1241,<sp/>1766,<sp/><sp/>790,<sp/><sp/>68,<sp/>},</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>13,<sp/><sp/>208,<sp/>1223,<sp/>1771,<sp/><sp/>809,<sp/><sp/>72,<sp/>},</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>12,<sp/><sp/>199,<sp/>1205,<sp/>1777,<sp/><sp/>827,<sp/><sp/>76,<sp/>},</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>11,<sp/><sp/>191,<sp/>1187,<sp/>1782,<sp/><sp/>846,<sp/><sp/>79,<sp/>},</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>10,<sp/><sp/>182,<sp/>1168,<sp/>1786,<sp/><sp/>865,<sp/><sp/>85,<sp/>},</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>9,<sp/><sp/>174,<sp/>1150,<sp/>1790,<sp/><sp/>884,<sp/><sp/>89,<sp/>},</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>8,<sp/><sp/>167,<sp/>1131,<sp/>1794,<sp/><sp/>903,<sp/><sp/>93,<sp/>},</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>7,<sp/><sp/>159,<sp/>1113,<sp/>1797,<sp/><sp/>922,<sp/><sp/>98,<sp/>},</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>6,<sp/><sp/>152,<sp/>1094,<sp/>1800,<sp/><sp/>942,<sp/>102,<sp/>},</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>5,<sp/><sp/>145,<sp/>1075,<sp/>1802,<sp/><sp/>961,<sp/>108,<sp/>},</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>3,<sp/><sp/>138,<sp/>1057,<sp/>1804,<sp/><sp/>980,<sp/>114,<sp/>},</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>2,<sp/><sp/>132,<sp/>1038,<sp/>1805,<sp/>1000,<sp/>119,<sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps6_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>176,<sp/>1009,<sp/>1643,<sp/>1009,<sp/>176,<sp/><sp/>83,<sp/>},</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>169,<sp/><sp/>993,<sp/>1644,<sp/>1026,<sp/>183,<sp/><sp/>81,<sp/>},</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>162,<sp/><sp/>978,<sp/>1644,<sp/>1042,<sp/>190,<sp/><sp/>80,<sp/>},</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>156,<sp/><sp/>962,<sp/>1643,<sp/>1058,<sp/>198,<sp/><sp/>79,<sp/>},</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>150,<sp/><sp/>946,<sp/>1642,<sp/>1074,<sp/>205,<sp/><sp/>79,<sp/>},</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>144,<sp/><sp/>930,<sp/>1641,<sp/>1091,<sp/>213,<sp/><sp/>77,<sp/>},</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>138,<sp/><sp/>914,<sp/>1640,<sp/>1107,<sp/>222,<sp/><sp/>75,<sp/>},</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>133,<sp/><sp/>898,<sp/>1638,<sp/>1123,<sp/>230,<sp/><sp/>74,<sp/>},</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>128,<sp/><sp/>882,<sp/>1635,<sp/>1139,<sp/>239,<sp/><sp/>73,<sp/>},</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>123,<sp/><sp/>866,<sp/>1633,<sp/>1154,<sp/>248,<sp/><sp/>72,<sp/>},</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>118,<sp/><sp/>850,<sp/>1629,<sp/>1170,<sp/>257,<sp/><sp/>72,<sp/>},</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>114,<sp/><sp/>834,<sp/>1626,<sp/>1186,<sp/>267,<sp/><sp/>69,<sp/>},</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>109,<sp/><sp/>818,<sp/>1622,<sp/>1201,<sp/>276,<sp/><sp/>70,<sp/>},</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>105,<sp/><sp/>802,<sp/>1618,<sp/>1217,<sp/>286,<sp/><sp/>68,<sp/>},</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>101,<sp/><sp/>786,<sp/>1613,<sp/>1232,<sp/>297,<sp/><sp/>67,<sp/>},</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>97,<sp/><sp/>771,<sp/>1608,<sp/>1247,<sp/>307,<sp/><sp/>66,<sp/>},</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>94,<sp/><sp/>755,<sp/>1603,<sp/>1262,<sp/>318,<sp/><sp/>64,<sp/>},</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>91,<sp/><sp/>739,<sp/>1597,<sp/>1276,<sp/>328,<sp/><sp/>65,<sp/>},</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>87,<sp/><sp/>724,<sp/>1591,<sp/>1291,<sp/>339,<sp/><sp/>64,<sp/>},</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>85,<sp/><sp/>708,<sp/>1585,<sp/>1305,<sp/>351,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>82,<sp/><sp/>693,<sp/>1578,<sp/>1319,<sp/>362,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>79,<sp/><sp/>677,<sp/>1571,<sp/>1333,<sp/>374,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>77,<sp/><sp/>662,<sp/>1563,<sp/>1347,<sp/>386,<sp/><sp/>61,<sp/>},</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>75,<sp/><sp/>647,<sp/>1556,<sp/>1360,<sp/>398,<sp/><sp/>60,<sp/>},</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>73,<sp/><sp/>632,<sp/>1547,<sp/>1373,<sp/>410,<sp/><sp/>61,<sp/>},</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>71,<sp/><sp/>617,<sp/>1539,<sp/>1386,<sp/>423,<sp/><sp/>60,<sp/>},</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>69,<sp/><sp/>602,<sp/>1530,<sp/>1399,<sp/>436,<sp/><sp/>60,<sp/>},</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>68,<sp/><sp/>587,<sp/>1521,<sp/>1412,<sp/>449,<sp/><sp/>59,<sp/>},</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>66,<sp/><sp/>573,<sp/>1511,<sp/>1424,<sp/>462,<sp/><sp/>60,<sp/>},</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>65,<sp/><sp/>558,<sp/>1501,<sp/>1436,<sp/>475,<sp/><sp/>61,<sp/>},</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>64,<sp/><sp/>544,<sp/>1491,<sp/>1447,<sp/>488,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>63,<sp/><sp/>530,<sp/>1481,<sp/>1459,<sp/>502,<sp/><sp/>61,<sp/>},</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>62,<sp/><sp/>516,<sp/>1470,<sp/>1470,<sp/>516,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>62,<sp/><sp/>502,<sp/>1459,<sp/>1481,<sp/>530,<sp/><sp/>62,<sp/>},</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>488,<sp/>1447,<sp/>1491,<sp/>544,<sp/><sp/>65,<sp/>},</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>475,<sp/>1436,<sp/>1501,<sp/>558,<sp/><sp/>65,<sp/>},</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>60,<sp/><sp/>462,<sp/>1424,<sp/>1511,<sp/>573,<sp/><sp/>66,<sp/>},</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>60,<sp/><sp/>449,<sp/>1412,<sp/>1521,<sp/>587,<sp/><sp/>67,<sp/>},</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>60,<sp/><sp/>436,<sp/>1399,<sp/>1530,<sp/>602,<sp/><sp/>69,<sp/>},</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>60,<sp/><sp/>423,<sp/>1386,<sp/>1539,<sp/>617,<sp/><sp/>71,<sp/>},</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>410,<sp/>1373,<sp/>1547,<sp/>632,<sp/><sp/>73,<sp/>},</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>398,<sp/>1360,<sp/>1556,<sp/>647,<sp/><sp/>74,<sp/>},</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>61,<sp/><sp/>386,<sp/>1347,<sp/>1563,<sp/>662,<sp/><sp/>77,<sp/>},</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>62,<sp/><sp/>374,<sp/>1333,<sp/>1571,<sp/>677,<sp/><sp/>79,<sp/>},</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>62,<sp/><sp/>362,<sp/>1319,<sp/>1578,<sp/>693,<sp/><sp/>82,<sp/>},</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>63,<sp/><sp/>351,<sp/>1305,<sp/>1585,<sp/>708,<sp/><sp/>84,<sp/>},</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>64,<sp/><sp/>339,<sp/>1291,<sp/>1591,<sp/>724,<sp/><sp/>87,<sp/>},</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>64,<sp/><sp/>328,<sp/>1276,<sp/>1597,<sp/>739,<sp/><sp/>92,<sp/>},</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>65,<sp/><sp/>318,<sp/>1262,<sp/>1603,<sp/>755,<sp/><sp/>93,<sp/>},</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>66,<sp/><sp/>307,<sp/>1247,<sp/>1608,<sp/>771,<sp/><sp/>97,<sp/>},</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>67,<sp/><sp/>297,<sp/>1232,<sp/>1613,<sp/>786,<sp/>101,<sp/>},</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>68,<sp/><sp/>286,<sp/>1217,<sp/>1618,<sp/>802,<sp/>105,<sp/>},</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>69,<sp/><sp/>276,<sp/>1201,<sp/>1622,<sp/>818,<sp/>110,<sp/>},</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>70,<sp/><sp/>267,<sp/>1186,<sp/>1626,<sp/>834,<sp/>113,<sp/>},</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>71,<sp/><sp/>257,<sp/>1170,<sp/>1629,<sp/>850,<sp/>119,<sp/>},</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>72,<sp/><sp/>248,<sp/>1154,<sp/>1633,<sp/>866,<sp/>123,<sp/>},</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>73,<sp/><sp/>239,<sp/>1139,<sp/>1635,<sp/>882,<sp/>128,<sp/>},</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>75,<sp/><sp/>230,<sp/>1123,<sp/>1638,<sp/>898,<sp/>132,<sp/>},</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>76,<sp/><sp/>222,<sp/>1107,<sp/>1640,<sp/>914,<sp/>137,<sp/>},</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>77,<sp/><sp/>213,<sp/>1091,<sp/>1641,<sp/>930,<sp/>144,<sp/>},</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>78,<sp/><sp/>205,<sp/>1074,<sp/>1642,<sp/>946,<sp/>151,<sp/>},</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>79,<sp/><sp/>198,<sp/>1058,<sp/>1643,<sp/>962,<sp/>156,<sp/>},</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>80,<sp/><sp/>190,<sp/>1042,<sp/>1644,<sp/>978,<sp/>162,<sp/>},</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>82,<sp/><sp/>183,<sp/>1026,<sp/>1644,<sp/>993,<sp/>168,<sp/>}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>2.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps8_ScalingRatio2[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-55,<sp/><sp/><sp/>0,<sp/>1078,<sp/>2049,<sp/>1078,<sp/><sp/><sp/><sp/>0,<sp/>-55,<sp/><sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-53,<sp/><sp/>-7,<sp/>1055,<sp/>2049,<sp/>1102,<sp/><sp/><sp/><sp/>7,<sp/>-56,<sp/><sp/>-1,<sp/>},</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-52,<sp/>-13,<sp/>1032,<sp/>2048,<sp/>1126,<sp/><sp/><sp/>15,<sp/>-58,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-50,<sp/>-20,<sp/>1009,<sp/>2047,<sp/>1149,<sp/><sp/><sp/>22,<sp/>-59,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-49,<sp/>-26,<sp/><sp/>986,<sp/>2046,<sp/>1173,<sp/><sp/><sp/>31,<sp/>-61,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-47,<sp/>-31,<sp/><sp/>963,<sp/>2043,<sp/>1197,<sp/><sp/><sp/>39,<sp/>-62,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-46,<sp/>-37,<sp/><sp/>940,<sp/>2040,<sp/>1220,<sp/><sp/><sp/>48,<sp/>-64,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-45,<sp/>-42,<sp/><sp/>917,<sp/>2037,<sp/>1244,<sp/><sp/><sp/>57,<sp/>-65,<sp/><sp/>-7,<sp/>},</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-43,<sp/>-47,<sp/><sp/>894,<sp/>2033,<sp/>1267,<sp/><sp/><sp/>66,<sp/>-67,<sp/><sp/>-7,<sp/>},</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-42,<sp/>-51,<sp/><sp/>871,<sp/>2028,<sp/>1290,<sp/><sp/><sp/>76,<sp/>-69,<sp/><sp/>-7,<sp/>},</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-41,<sp/>-55,<sp/><sp/>848,<sp/>2023,<sp/>1313,<sp/><sp/><sp/>86,<sp/>-70,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-40,<sp/>-59,<sp/><sp/>826,<sp/>2017,<sp/>1336,<sp/><sp/><sp/>97,<sp/>-72,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-38,<sp/>-63,<sp/><sp/>803,<sp/>2010,<sp/>1359,<sp/><sp/>108,<sp/>-73,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-37,<sp/>-67,<sp/><sp/>781,<sp/>2003,<sp/>1382,<sp/><sp/>119,<sp/>-75,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-36,<sp/>-70,<sp/><sp/>759,<sp/>1996,<sp/>1405,<sp/><sp/>130,<sp/>-76,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-35,<sp/>-73,<sp/><sp/>737,<sp/>1987,<sp/>1427,<sp/><sp/>142,<sp/>-78,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-34,<sp/>-76,<sp/><sp/>715,<sp/>1979,<sp/>1449,<sp/><sp/>154,<sp/>-79,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-33,<sp/>-78,<sp/><sp/>693,<sp/>1969,<sp/>1471,<sp/><sp/>167,<sp/>-81,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32,<sp/>-81,<sp/><sp/>672,<sp/>1959,<sp/>1493,<sp/><sp/>180,<sp/>-82,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/>-83,<sp/><sp/>650,<sp/>1949,<sp/>1514,<sp/><sp/>193,<sp/>-83,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/>-85,<sp/><sp/>629,<sp/>1938,<sp/>1536,<sp/><sp/>207,<sp/>-85,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>-86,<sp/><sp/>609,<sp/>1926,<sp/>1557,<sp/><sp/>221,<sp/>-86,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-88,<sp/><sp/>588,<sp/>1914,<sp/>1577,<sp/><sp/>235,<sp/>-87,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-89,<sp/><sp/>568,<sp/>1902,<sp/>1598,<sp/><sp/>250,<sp/>-88,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>-90,<sp/><sp/>548,<sp/>1889,<sp/>1618,<sp/><sp/>265,<sp/>-89,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>-91,<sp/><sp/>528,<sp/>1875,<sp/>1638,<sp/><sp/>280,<sp/>-90,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-92,<sp/><sp/>508,<sp/>1861,<sp/>1657,<sp/><sp/>296,<sp/>-91,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-93,<sp/><sp/>489,<sp/>1846,<sp/>1676,<sp/><sp/>312,<sp/>-92,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-93,<sp/><sp/>470,<sp/>1831,<sp/>1695,<sp/><sp/>328,<sp/>-92,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-94,<sp/><sp/>451,<sp/>1816,<sp/>1714,<sp/><sp/>345,<sp/>-93,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>-94,<sp/><sp/>432,<sp/>1800,<sp/>1732,<sp/><sp/>361,<sp/>-93,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>-94,<sp/><sp/>414,<sp/>1783,<sp/>1749,<sp/><sp/>379,<sp/>-94,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-94,<sp/><sp/>396,<sp/>1767,<sp/>1767,<sp/><sp/>396,<sp/>-94,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-94,<sp/><sp/>379,<sp/>1749,<sp/>1783,<sp/><sp/>414,<sp/>-94,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-93,<sp/><sp/>361,<sp/>1732,<sp/>1800,<sp/><sp/>432,<sp/>-94,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-93,<sp/><sp/>345,<sp/>1714,<sp/>1816,<sp/><sp/>451,<sp/>-94,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-92,<sp/><sp/>328,<sp/>1695,<sp/>1831,<sp/><sp/>470,<sp/>-93,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-92,<sp/><sp/>312,<sp/>1676,<sp/>1846,<sp/><sp/>489,<sp/>-93,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-91,<sp/><sp/>296,<sp/>1657,<sp/>1861,<sp/><sp/>508,<sp/>-92,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/>-90,<sp/><sp/>280,<sp/>1638,<sp/>1875,<sp/><sp/>528,<sp/>-91,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/>-89,<sp/><sp/>265,<sp/>1618,<sp/>1889,<sp/><sp/>548,<sp/>-90,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/>-88,<sp/><sp/>250,<sp/>1598,<sp/>1902,<sp/><sp/>568,<sp/>-89,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/>-87,<sp/><sp/>235,<sp/>1577,<sp/>1914,<sp/><sp/>588,<sp/>-88,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/>-86,<sp/><sp/>221,<sp/>1557,<sp/>1926,<sp/><sp/>609,<sp/>-86,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>-85,<sp/><sp/>207,<sp/>1536,<sp/>1938,<sp/><sp/>629,<sp/>-85,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>-83,<sp/><sp/>193,<sp/>1514,<sp/>1949,<sp/><sp/>650,<sp/>-83,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/>-82,<sp/><sp/>180,<sp/>1493,<sp/>1959,<sp/><sp/>672,<sp/>-81,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/>-81,<sp/><sp/>167,<sp/>1471,<sp/>1969,<sp/><sp/>693,<sp/>-78,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>-79,<sp/><sp/>154,<sp/>1449,<sp/>1979,<sp/><sp/>715,<sp/>-76,<sp/>-34,<sp/>},</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>-78,<sp/><sp/>142,<sp/>1427,<sp/>1987,<sp/><sp/>737,<sp/>-73,<sp/>-34,<sp/>},</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/>-76,<sp/><sp/>130,<sp/>1405,<sp/>1996,<sp/><sp/>759,<sp/>-70,<sp/>-37,<sp/>},</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/>-75,<sp/><sp/>119,<sp/>1382,<sp/>2003,<sp/><sp/>781,<sp/>-67,<sp/>-37,<sp/>},</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/>-73,<sp/><sp/>108,<sp/>1359,<sp/>2010,<sp/><sp/>803,<sp/>-63,<sp/>-38,<sp/>},</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/>-72,<sp/><sp/><sp/>97,<sp/>1336,<sp/>2017,<sp/><sp/>826,<sp/>-59,<sp/>-40,<sp/>},</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/>-70,<sp/><sp/><sp/>86,<sp/>1313,<sp/>2023,<sp/><sp/>848,<sp/>-55,<sp/>-41,<sp/>},</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/>-69,<sp/><sp/><sp/>76,<sp/>1290,<sp/>2028,<sp/><sp/>871,<sp/>-51,<sp/>-41,<sp/>},</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/>-67,<sp/><sp/><sp/>66,<sp/>1267,<sp/>2033,<sp/><sp/>894,<sp/>-47,<sp/>-43,<sp/>},</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/>-65,<sp/><sp/><sp/>57,<sp/>1244,<sp/>2037,<sp/><sp/>917,<sp/>-42,<sp/>-46,<sp/>},</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/>-64,<sp/><sp/><sp/>48,<sp/>1220,<sp/>2040,<sp/><sp/>940,<sp/>-37,<sp/>-46,<sp/>},</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/>-62,<sp/><sp/><sp/>39,<sp/>1197,<sp/>2043,<sp/><sp/>963,<sp/>-31,<sp/>-48,<sp/>},</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/>-61,<sp/><sp/><sp/>31,<sp/>1173,<sp/>2046,<sp/><sp/>986,<sp/>-26,<sp/>-49,<sp/>},</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/>-59,<sp/><sp/><sp/>22,<sp/>1149,<sp/>2047,<sp/>1009,<sp/>-20,<sp/>-49,<sp/>},</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-2,<sp/>-58,<sp/><sp/><sp/>15,<sp/>1126,<sp/>2048,<sp/>1032,<sp/>-13,<sp/>-52,<sp/>},</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-1,<sp/>-56,<sp/><sp/><sp/><sp/>7,<sp/>1102,<sp/>2049,<sp/>1055,<sp/><sp/>-7,<sp/>-53,<sp/>}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>3.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps8_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/>275,<sp/>1036,<sp/>1514,<sp/>1036,<sp/><sp/>275,<sp/><sp/><sp/>0,<sp/>-40,<sp/>},</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-1,<sp/>266,<sp/>1023,<sp/>1514,<sp/>1048,<sp/><sp/>283,<sp/><sp/><sp/>1,<sp/>-38,<sp/>},</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-2,<sp/>257,<sp/>1010,<sp/>1513,<sp/>1060,<sp/><sp/>292,<sp/><sp/><sp/>2,<sp/>-36,<sp/>},</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/>249,<sp/><sp/>997,<sp/>1512,<sp/>1073,<sp/><sp/>301,<sp/><sp/><sp/>3,<sp/>-36,<sp/>},</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/>241,<sp/><sp/>983,<sp/>1510,<sp/>1085,<sp/><sp/>310,<sp/><sp/><sp/>5,<sp/>-35,<sp/>},</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/>233,<sp/><sp/>970,<sp/>1509,<sp/>1097,<sp/><sp/>319,<sp/><sp/><sp/>6,<sp/>-34,<sp/>},</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/>225,<sp/><sp/>957,<sp/>1507,<sp/>1109,<sp/><sp/>329,<sp/><sp/><sp/>7,<sp/>-33,<sp/>},</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/>217,<sp/><sp/>944,<sp/>1505,<sp/>1121,<sp/><sp/>338,<sp/><sp/><sp/>9,<sp/>-32,<sp/>},</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/>210,<sp/><sp/>931,<sp/>1503,<sp/>1133,<sp/><sp/>348,<sp/><sp/>10,<sp/>-33,<sp/>},</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/>202,<sp/><sp/>917,<sp/>1500,<sp/>1144,<sp/><sp/>358,<sp/><sp/>12,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/>195,<sp/><sp/>904,<sp/>1497,<sp/>1156,<sp/><sp/>368,<sp/><sp/>13,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/>188,<sp/><sp/>891,<sp/>1494,<sp/>1167,<sp/><sp/>378,<sp/><sp/>15,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/>181,<sp/><sp/>877,<sp/>1491,<sp/>1179,<sp/><sp/>388,<sp/><sp/>17,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/>174,<sp/><sp/>864,<sp/>1487,<sp/>1190,<sp/><sp/>398,<sp/><sp/>19,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/>168,<sp/><sp/>851,<sp/>1483,<sp/>1201,<sp/><sp/>409,<sp/><sp/>21,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/>161,<sp/><sp/>837,<sp/>1479,<sp/>1212,<sp/><sp/>419,<sp/><sp/>23,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/>155,<sp/><sp/>824,<sp/>1475,<sp/>1223,<sp/><sp/>430,<sp/><sp/>25,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/>149,<sp/><sp/>811,<sp/>1470,<sp/>1233,<sp/><sp/>441,<sp/><sp/>27,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/>142,<sp/><sp/>798,<sp/>1465,<sp/>1244,<sp/><sp/>452,<sp/><sp/>29,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>137,<sp/><sp/>784,<sp/>1460,<sp/>1254,<sp/><sp/>463,<sp/><sp/>32,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>131,<sp/><sp/>771,<sp/>1455,<sp/>1264,<sp/><sp/>474,<sp/><sp/>34,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/>125,<sp/><sp/>758,<sp/>1449,<sp/>1275,<sp/><sp/>486,<sp/><sp/>37,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/>120,<sp/><sp/>745,<sp/>1444,<sp/>1284,<sp/><sp/>497,<sp/><sp/>40,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/>115,<sp/><sp/>732,<sp/>1438,<sp/>1294,<sp/><sp/>509,<sp/><sp/>42,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/>109,<sp/><sp/>719,<sp/>1432,<sp/>1304,<sp/><sp/>520,<sp/><sp/>45,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>104,<sp/><sp/>706,<sp/>1425,<sp/>1313,<sp/><sp/>532,<sp/><sp/>48,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/>100,<sp/><sp/>693,<sp/>1418,<sp/>1322,<sp/><sp/>544,<sp/><sp/>52,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/><sp/>95,<sp/><sp/>680,<sp/>1412,<sp/>1332,<sp/><sp/>556,<sp/><sp/>55,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/><sp/>90,<sp/><sp/>667,<sp/>1404,<sp/>1340,<sp/><sp/>568,<sp/><sp/>58,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/><sp/>86,<sp/><sp/>655,<sp/>1397,<sp/>1349,<sp/><sp/>580,<sp/><sp/>62,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/>82,<sp/><sp/>642,<sp/>1390,<sp/>1358,<sp/><sp/>592,<sp/><sp/>66,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/>77,<sp/><sp/>630,<sp/>1382,<sp/>1366,<sp/><sp/>605,<sp/><sp/>69,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/>73,<sp/><sp/>617,<sp/>1374,<sp/>1374,<sp/><sp/>617,<sp/><sp/>73,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/><sp/>69,<sp/><sp/>605,<sp/>1366,<sp/>1382,<sp/><sp/>630,<sp/><sp/>77,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/><sp/>66,<sp/><sp/>592,<sp/>1358,<sp/>1390,<sp/><sp/>642,<sp/><sp/>82,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>62,<sp/><sp/>580,<sp/>1349,<sp/>1397,<sp/><sp/>655,<sp/><sp/>86,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>58,<sp/><sp/>568,<sp/>1340,<sp/>1404,<sp/><sp/>667,<sp/><sp/>90,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>55,<sp/><sp/>556,<sp/>1332,<sp/>1412,<sp/><sp/>680,<sp/><sp/>95,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>52,<sp/><sp/>544,<sp/>1322,<sp/>1418,<sp/><sp/>693,<sp/>100,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>48,<sp/><sp/>532,<sp/>1313,<sp/>1425,<sp/><sp/>706,<sp/>104,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/><sp/>45,<sp/><sp/>520,<sp/>1304,<sp/>1432,<sp/><sp/>719,<sp/>109,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/><sp/>42,<sp/><sp/>509,<sp/>1294,<sp/>1438,<sp/><sp/>732,<sp/>115,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/><sp/>40,<sp/><sp/>497,<sp/>1284,<sp/>1444,<sp/><sp/>745,<sp/>120,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/><sp/>37,<sp/><sp/>486,<sp/>1275,<sp/>1449,<sp/><sp/>758,<sp/>125,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/><sp/>34,<sp/><sp/>474,<sp/>1264,<sp/>1455,<sp/><sp/>771,<sp/>131,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/><sp/>32,<sp/><sp/>463,<sp/>1254,<sp/>1460,<sp/><sp/>784,<sp/>137,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/><sp/>29,<sp/><sp/>452,<sp/>1244,<sp/>1465,<sp/><sp/>798,<sp/>142,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/><sp/>27,<sp/><sp/>441,<sp/>1233,<sp/>1470,<sp/><sp/>811,<sp/>149,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/><sp/>25,<sp/><sp/>430,<sp/>1223,<sp/>1475,<sp/><sp/>824,<sp/>155,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/><sp/>23,<sp/><sp/>419,<sp/>1212,<sp/>1479,<sp/><sp/>837,<sp/>161,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/><sp/>21,<sp/><sp/>409,<sp/>1201,<sp/>1483,<sp/><sp/>851,<sp/>168,<sp/>-11,<sp/>},</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/><sp/>19,<sp/><sp/>398,<sp/>1190,<sp/>1487,<sp/><sp/>864,<sp/>174,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/><sp/>17,<sp/><sp/>388,<sp/>1179,<sp/>1491,<sp/><sp/>877,<sp/>181,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/><sp/>15,<sp/><sp/>378,<sp/>1167,<sp/>1494,<sp/><sp/>891,<sp/>188,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/><sp/>13,<sp/><sp/>368,<sp/>1156,<sp/>1497,<sp/><sp/>904,<sp/>195,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/><sp/>12,<sp/><sp/>358,<sp/>1144,<sp/>1500,<sp/><sp/>917,<sp/>202,<sp/><sp/>-7,<sp/>},</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/><sp/>10,<sp/><sp/>348,<sp/>1133,<sp/>1503,<sp/><sp/>931,<sp/>210,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-32,<sp/><sp/><sp/>9,<sp/><sp/>338,<sp/>1121,<sp/>1505,<sp/><sp/>944,<sp/>217,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-33,<sp/><sp/><sp/>7,<sp/><sp/>329,<sp/>1109,<sp/>1507,<sp/><sp/>957,<sp/>225,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-34,<sp/><sp/><sp/>6,<sp/><sp/>319,<sp/>1097,<sp/>1509,<sp/><sp/>970,<sp/>233,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-35,<sp/><sp/><sp/>5,<sp/><sp/>310,<sp/>1085,<sp/>1510,<sp/><sp/>983,<sp/>241,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-36,<sp/><sp/><sp/>3,<sp/><sp/>301,<sp/>1073,<sp/>1512,<sp/><sp/>997,<sp/>249,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-37,<sp/><sp/><sp/>2,<sp/><sp/>292,<sp/>1060,<sp/>1513,<sp/>1010,<sp/>257,<sp/><sp/>-1,<sp/>},</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-38,<sp/><sp/><sp/>1,<sp/><sp/>283,<sp/>1048,<sp/>1514,<sp/>1023,<sp/>266,<sp/><sp/>-1,<sp/>}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps8_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>49,<sp/>366,<sp/>977,<sp/>1312,<sp/><sp/>977,<sp/>366,<sp/><sp/>49,<sp/><sp/>0,<sp/>},</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>48,<sp/>357,<sp/>967,<sp/>1312,<sp/><sp/>986,<sp/>374,<sp/><sp/>51,<sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>46,<sp/>349,<sp/>958,<sp/>1311,<sp/><sp/>995,<sp/>382,<sp/><sp/>54,<sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>44,<sp/>342,<sp/>948,<sp/>1311,<sp/>1004,<sp/>390,<sp/><sp/>56,<sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>42,<sp/>334,<sp/>939,<sp/>1310,<sp/>1013,<sp/>399,<sp/><sp/>58,<sp/><sp/>1,<sp/>},</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>40,<sp/>326,<sp/>929,<sp/>1309,<sp/>1021,<sp/>407,<sp/><sp/>60,<sp/><sp/>4,<sp/>},</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>39,<sp/>318,<sp/>919,<sp/>1308,<sp/>1030,<sp/>415,<sp/><sp/>63,<sp/><sp/>4,<sp/>},</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>37,<sp/>311,<sp/>910,<sp/>1307,<sp/>1039,<sp/>424,<sp/><sp/>65,<sp/><sp/>3,<sp/>},</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>36,<sp/>303,<sp/>900,<sp/>1305,<sp/>1047,<sp/>433,<sp/><sp/>68,<sp/><sp/>4,<sp/>},</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>34,<sp/>296,<sp/>890,<sp/>1303,<sp/>1055,<sp/>442,<sp/><sp/>70,<sp/><sp/>6,<sp/>},</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>33,<sp/>289,<sp/>880,<sp/>1301,<sp/>1064,<sp/>450,<sp/><sp/>73,<sp/><sp/>6,<sp/>},</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>32,<sp/>282,<sp/>870,<sp/>1299,<sp/>1072,<sp/>459,<sp/><sp/>76,<sp/><sp/>6,<sp/>},</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>31,<sp/>275,<sp/>861,<sp/>1297,<sp/>1080,<sp/>468,<sp/><sp/>79,<sp/><sp/>5,<sp/>},</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>29,<sp/>268,<sp/>851,<sp/>1295,<sp/>1088,<sp/>477,<sp/><sp/>82,<sp/><sp/>6,<sp/>},</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>28,<sp/>261,<sp/>841,<sp/>1292,<sp/>1096,<sp/>486,<sp/><sp/>85,<sp/><sp/>7,<sp/>},</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>27,<sp/>254,<sp/>831,<sp/>1289,<sp/>1104,<sp/>496,<sp/><sp/>88,<sp/><sp/>7,<sp/>},</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>26,<sp/>248,<sp/>821,<sp/>1287,<sp/>1112,<sp/>505,<sp/><sp/>91,<sp/><sp/>6,<sp/>},</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>25,<sp/>241,<sp/>811,<sp/>1284,<sp/>1119,<sp/>514,<sp/><sp/>94,<sp/><sp/>8,<sp/>},</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>24,<sp/>235,<sp/>800,<sp/>1280,<sp/>1127,<sp/>523,<sp/><sp/>98,<sp/><sp/>9,<sp/>},</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>23,<sp/>228,<sp/>790,<sp/>1277,<sp/>1134,<sp/>533,<sp/>101,<sp/>10,<sp/>},</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>22,<sp/>222,<sp/>780,<sp/>1273,<sp/>1141,<sp/>542,<sp/>105,<sp/>11,<sp/>},</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>22,<sp/>216,<sp/>770,<sp/>1270,<sp/>1148,<sp/>552,<sp/>109,<sp/><sp/>9,<sp/>},</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>21,<sp/>210,<sp/>760,<sp/>1266,<sp/>1155,<sp/>561,<sp/>112,<sp/>11,<sp/>},</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>20,<sp/>204,<sp/>750,<sp/>1262,<sp/>1162,<sp/>571,<sp/>116,<sp/>11,<sp/>},</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>19,<sp/>198,<sp/>740,<sp/>1257,<sp/>1169,<sp/>581,<sp/>120,<sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>19,<sp/>193,<sp/>730,<sp/>1253,<sp/>1175,<sp/>590,<sp/>124,<sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>18,<sp/>187,<sp/>720,<sp/>1248,<sp/>1182,<sp/>600,<sp/>129,<sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>17,<sp/>182,<sp/>710,<sp/>1244,<sp/>1188,<sp/>610,<sp/>133,<sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>17,<sp/>176,<sp/>700,<sp/>1239,<sp/>1194,<sp/>620,<sp/>137,<sp/>13,<sp/>},</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>16,<sp/>171,<sp/>690,<sp/>1234,<sp/>1201,<sp/>630,<sp/>142,<sp/>12,<sp/>},</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>16,<sp/>166,<sp/>680,<sp/>1229,<sp/>1206,<sp/>640,<sp/>146,<sp/>13,<sp/>},</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>15,<sp/>161,<sp/>670,<sp/>1223,<sp/>1212,<sp/>650,<sp/>151,<sp/>14,<sp/>},</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>15,<sp/>156,<sp/>660,<sp/>1218,<sp/>1218,<sp/>660,<sp/>156,<sp/>13,<sp/>},</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>14,<sp/>151,<sp/>650,<sp/>1212,<sp/>1223,<sp/>670,<sp/>161,<sp/>15,<sp/>},</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>14,<sp/>146,<sp/>640,<sp/>1206,<sp/>1229,<sp/>680,<sp/>166,<sp/>15,<sp/>},</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>13,<sp/>142,<sp/>630,<sp/>1201,<sp/>1234,<sp/>690,<sp/>171,<sp/>15,<sp/>},</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>13,<sp/>137,<sp/>620,<sp/>1194,<sp/>1239,<sp/>700,<sp/>176,<sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>12,<sp/>133,<sp/>610,<sp/>1188,<sp/>1244,<sp/>710,<sp/>182,<sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>12,<sp/>129,<sp/>600,<sp/>1182,<sp/>1248,<sp/>720,<sp/>187,<sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>11,<sp/>124,<sp/>590,<sp/>1175,<sp/>1253,<sp/>730,<sp/>193,<sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>11,<sp/>120,<sp/>581,<sp/>1169,<sp/>1257,<sp/>740,<sp/>198,<sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>11,<sp/>116,<sp/>571,<sp/>1162,<sp/>1262,<sp/>750,<sp/>204,<sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>10,<sp/>112,<sp/>561,<sp/>1155,<sp/>1266,<sp/>760,<sp/>210,<sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>10,<sp/>109,<sp/>552,<sp/>1148,<sp/>1270,<sp/>770,<sp/>216,<sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>10,<sp/>105,<sp/>542,<sp/>1141,<sp/>1273,<sp/>780,<sp/>222,<sp/>23,<sp/>},</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>9,<sp/>101,<sp/>533,<sp/>1134,<sp/>1277,<sp/>790,<sp/>228,<sp/>24,<sp/>},</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>9,<sp/><sp/>98,<sp/>523,<sp/>1127,<sp/>1280,<sp/>800,<sp/>235,<sp/>24,<sp/>},</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>8,<sp/><sp/>94,<sp/>514,<sp/>1119,<sp/>1284,<sp/>811,<sp/>241,<sp/>25,<sp/>},</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>8,<sp/><sp/>91,<sp/>505,<sp/>1112,<sp/>1287,<sp/>821,<sp/>248,<sp/>24,<sp/>},</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>8,<sp/><sp/>88,<sp/>496,<sp/>1104,<sp/>1289,<sp/>831,<sp/>254,<sp/>26,<sp/>},</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>7,<sp/><sp/>85,<sp/>486,<sp/>1096,<sp/>1292,<sp/>841,<sp/>261,<sp/>28,<sp/>},</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>7,<sp/><sp/>82,<sp/>477,<sp/>1088,<sp/>1295,<sp/>851,<sp/>268,<sp/>28,<sp/>},</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>6,<sp/><sp/>79,<sp/>468,<sp/>1080,<sp/>1297,<sp/>861,<sp/>275,<sp/>30,<sp/>},</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>6,<sp/><sp/>76,<sp/>459,<sp/>1072,<sp/>1299,<sp/>870,<sp/>282,<sp/>32,<sp/>},</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>5,<sp/><sp/>73,<sp/>450,<sp/>1064,<sp/>1301,<sp/>880,<sp/>289,<sp/>34,<sp/>},</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>5,<sp/><sp/>70,<sp/>442,<sp/>1055,<sp/>1303,<sp/>890,<sp/>296,<sp/>35,<sp/>},</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>4,<sp/><sp/>68,<sp/>433,<sp/>1047,<sp/>1305,<sp/>900,<sp/>303,<sp/>36,<sp/>},</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>4,<sp/><sp/>65,<sp/>424,<sp/>1039,<sp/>1307,<sp/>910,<sp/>311,<sp/>36,<sp/>},</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>3,<sp/><sp/>63,<sp/>415,<sp/>1030,<sp/>1308,<sp/>919,<sp/>318,<sp/>40,<sp/>},</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>3,<sp/><sp/>60,<sp/>407,<sp/>1021,<sp/>1309,<sp/>929,<sp/>326,<sp/>41,<sp/>},</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>2,<sp/><sp/>58,<sp/>399,<sp/>1013,<sp/>1310,<sp/>939,<sp/>334,<sp/>41,<sp/>},</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>2,<sp/><sp/>56,<sp/>390,<sp/>1004,<sp/>1311,<sp/>948,<sp/>342,<sp/>43,<sp/>},</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>1,<sp/><sp/>54,<sp/>382,<sp/><sp/>995,<sp/>1311,<sp/>958,<sp/>349,<sp/>46,<sp/>},</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>1,<sp/><sp/>51,<sp/>374,<sp/><sp/>986,<sp/>1312,<sp/>967,<sp/>357,<sp/>48,<sp/>}</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>3.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps10_ScalingRatio3[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/><sp/><sp/>0,<sp/>359,<sp/>1033,<sp/>1399,<sp/>1033,<sp/><sp/>359,<sp/><sp/><sp/>0,<sp/>-31,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-31,<sp/><sp/>-2,<sp/>350,<sp/>1022,<sp/>1398,<sp/>1043,<sp/><sp/>368,<sp/><sp/><sp/>3,<sp/>-31,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/><sp/>-4,<sp/>341,<sp/>1012,<sp/>1398,<sp/>1053,<sp/><sp/>378,<sp/><sp/><sp/>5,<sp/>-32,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/><sp/>-6,<sp/>333,<sp/>1002,<sp/>1398,<sp/>1062,<sp/><sp/>387,<sp/><sp/><sp/>8,<sp/>-32,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/><sp/>-8,<sp/>324,<sp/><sp/>992,<sp/>1397,<sp/>1072,<sp/><sp/>396,<sp/><sp/>10,<sp/>-32,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-30,<sp/>-10,<sp/>315,<sp/><sp/>981,<sp/>1396,<sp/>1082,<sp/><sp/>406,<sp/><sp/>13,<sp/>-33,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>-12,<sp/>307,<sp/><sp/>971,<sp/>1395,<sp/>1091,<sp/><sp/>415,<sp/><sp/>16,<sp/>-33,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>-13,<sp/>298,<sp/><sp/>960,<sp/>1393,<sp/>1101,<sp/><sp/>425,<sp/><sp/>18,<sp/>-33,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-29,<sp/>-15,<sp/>290,<sp/><sp/>949,<sp/>1392,<sp/>1110,<sp/><sp/>434,<sp/><sp/>21,<sp/>-34,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-17,<sp/>282,<sp/><sp/>939,<sp/>1390,<sp/>1120,<sp/><sp/>444,<sp/><sp/>25,<sp/>-34,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-18,<sp/>274,<sp/><sp/>928,<sp/>1388,<sp/>1129,<sp/><sp/>454,<sp/><sp/>28,<sp/>-34,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-28,<sp/>-20,<sp/>266,<sp/><sp/>917,<sp/>1386,<sp/>1138,<sp/><sp/>464,<sp/><sp/>31,<sp/>-34,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>-21,<sp/>258,<sp/><sp/>906,<sp/>1384,<sp/>1147,<sp/><sp/>474,<sp/><sp/>34,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>-22,<sp/>250,<sp/><sp/>895,<sp/>1381,<sp/>1156,<sp/><sp/>484,<sp/><sp/>38,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>-23,<sp/>242,<sp/><sp/>885,<sp/>1379,<sp/>1164,<sp/><sp/>494,<sp/><sp/>41,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-27,<sp/>-25,<sp/>235,<sp/><sp/>874,<sp/>1376,<sp/>1173,<sp/><sp/>504,<sp/><sp/>45,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>-26,<sp/>227,<sp/><sp/>863,<sp/>1373,<sp/>1181,<sp/><sp/>515,<sp/><sp/>49,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>-27,<sp/>220,<sp/><sp/>852,<sp/>1369,<sp/>1190,<sp/><sp/>525,<sp/><sp/>53,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>-28,<sp/>213,<sp/><sp/>841,<sp/>1366,<sp/>1198,<sp/><sp/>535,<sp/><sp/>56,<sp/>-36,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-26,<sp/>-29,<sp/>206,<sp/><sp/>830,<sp/>1362,<sp/>1206,<sp/><sp/>546,<sp/><sp/>61,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-29,<sp/>199,<sp/><sp/>819,<sp/>1358,<sp/>1214,<sp/><sp/>556,<sp/><sp/>65,<sp/>-36,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-30,<sp/>192,<sp/><sp/>808,<sp/>1354,<sp/>1222,<sp/><sp/>567,<sp/><sp/>69,<sp/>-36,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-31,<sp/>185,<sp/><sp/>797,<sp/>1350,<sp/>1229,<sp/><sp/>577,<sp/><sp/>73,<sp/>-36,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-32,<sp/>178,<sp/><sp/>785,<sp/>1346,<sp/>1237,<sp/><sp/>588,<sp/><sp/>78,<sp/>-36,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-32,<sp/>172,<sp/><sp/>774,<sp/>1341,<sp/>1244,<sp/><sp/>599,<sp/><sp/>83,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-33,<sp/>165,<sp/><sp/>763,<sp/>1336,<sp/>1252,<sp/><sp/>610,<sp/><sp/>87,<sp/>-36,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-33,<sp/>159,<sp/><sp/>752,<sp/>1331,<sp/>1259,<sp/><sp/>620,<sp/><sp/>92,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/>153,<sp/><sp/>741,<sp/>1326,<sp/>1266,<sp/><sp/>631,<sp/><sp/>97,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/>147,<sp/><sp/>730,<sp/>1321,<sp/>1272,<sp/><sp/>642,<sp/>102,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/>141,<sp/><sp/>719,<sp/>1315,<sp/>1279,<sp/><sp/>653,<sp/>107,<sp/>-36,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/>135,<sp/><sp/>708,<sp/>1310,<sp/>1285,<sp/><sp/>664,<sp/>113,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/>129,<sp/><sp/>697,<sp/>1304,<sp/>1292,<sp/><sp/>675,<sp/>118,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/>124,<sp/><sp/>686,<sp/>1298,<sp/>1298,<sp/><sp/>686,<sp/>124,<sp/>-36,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/>118,<sp/><sp/>675,<sp/>1292,<sp/>1304,<sp/><sp/>697,<sp/>129,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/>113,<sp/><sp/>664,<sp/>1285,<sp/>1310,<sp/><sp/>708,<sp/>135,<sp/>-35,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/>107,<sp/><sp/>653,<sp/>1279,<sp/>1315,<sp/><sp/>719,<sp/>141,<sp/>-35,<sp/>-23,<sp/>},</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/>102,<sp/><sp/>642,<sp/>1272,<sp/>1321,<sp/><sp/>730,<sp/>147,<sp/>-34,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>97,<sp/><sp/>631,<sp/>1266,<sp/>1326,<sp/><sp/>741,<sp/>153,<sp/>-34,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>92,<sp/><sp/>620,<sp/>1259,<sp/>1331,<sp/><sp/>752,<sp/>159,<sp/>-33,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>87,<sp/><sp/>610,<sp/>1252,<sp/>1336,<sp/><sp/>763,<sp/>165,<sp/>-33,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>83,<sp/><sp/>599,<sp/>1244,<sp/>1341,<sp/><sp/>774,<sp/>172,<sp/>-32,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>78,<sp/><sp/>588,<sp/>1237,<sp/>1346,<sp/><sp/>785,<sp/>178,<sp/>-32,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>73,<sp/><sp/>577,<sp/>1229,<sp/>1350,<sp/><sp/>797,<sp/>185,<sp/>-31,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>69,<sp/><sp/>567,<sp/>1222,<sp/>1354,<sp/><sp/>808,<sp/>192,<sp/>-30,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-23,<sp/>-36,<sp/><sp/>65,<sp/><sp/>556,<sp/>1214,<sp/>1358,<sp/><sp/>819,<sp/>199,<sp/>-29,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/><sp/>61,<sp/><sp/>546,<sp/>1206,<sp/>1362,<sp/><sp/>830,<sp/>206,<sp/>-29,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/><sp/>56,<sp/><sp/>535,<sp/>1198,<sp/>1366,<sp/><sp/>841,<sp/>213,<sp/>-28,<sp/>-25,<sp/>},</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/><sp/>53,<sp/><sp/>525,<sp/>1190,<sp/>1369,<sp/><sp/>852,<sp/>220,<sp/>-27,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-36,<sp/><sp/>49,<sp/><sp/>515,<sp/>1181,<sp/>1373,<sp/><sp/>863,<sp/>227,<sp/>-26,<sp/>-26,<sp/>},</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/><sp/>45,<sp/><sp/>504,<sp/>1173,<sp/>1376,<sp/><sp/>874,<sp/>235,<sp/>-25,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/><sp/>41,<sp/><sp/>494,<sp/>1164,<sp/>1379,<sp/><sp/>885,<sp/>242,<sp/>-23,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/><sp/>38,<sp/><sp/>484,<sp/>1156,<sp/>1381,<sp/><sp/>895,<sp/>250,<sp/>-22,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-35,<sp/><sp/>34,<sp/><sp/>474,<sp/>1147,<sp/>1384,<sp/><sp/>906,<sp/>258,<sp/>-21,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/><sp/>31,<sp/><sp/>464,<sp/>1138,<sp/>1386,<sp/><sp/>917,<sp/>266,<sp/>-20,<sp/>-28,<sp/>},</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/><sp/>28,<sp/><sp/>454,<sp/>1129,<sp/>1388,<sp/><sp/>928,<sp/>274,<sp/>-18,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/><sp/>25,<sp/><sp/>444,<sp/>1120,<sp/>1390,<sp/><sp/>939,<sp/>282,<sp/>-17,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-34,<sp/><sp/>21,<sp/><sp/>434,<sp/>1110,<sp/>1392,<sp/><sp/>949,<sp/>290,<sp/>-15,<sp/>-27,<sp/>},</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-33,<sp/><sp/>18,<sp/><sp/>425,<sp/>1101,<sp/>1393,<sp/><sp/>960,<sp/>298,<sp/>-13,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-24,<sp/>-33,<sp/><sp/>16,<sp/><sp/>415,<sp/>1091,<sp/>1395,<sp/><sp/>971,<sp/>307,<sp/>-12,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-33,<sp/><sp/>13,<sp/><sp/>406,<sp/>1082,<sp/>1396,<sp/><sp/>981,<sp/>315,<sp/>-10,<sp/>-29,<sp/>},</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-32,<sp/><sp/>10,<sp/><sp/>396,<sp/>1072,<sp/>1397,<sp/><sp/>992,<sp/>324,<sp/><sp/>-8,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-32,<sp/><sp/><sp/>8,<sp/><sp/>387,<sp/>1062,<sp/>1398,<sp/>1002,<sp/>333,<sp/><sp/>-6,<sp/>-31,<sp/>},</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-32,<sp/><sp/><sp/>5,<sp/><sp/>378,<sp/>1053,<sp/>1398,<sp/>1012,<sp/>341,<sp/><sp/>-4,<sp/>-30,<sp/>},</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-25,<sp/>-31,<sp/><sp/><sp/>3,<sp/><sp/>368,<sp/>1043,<sp/>1398,<sp/>1022,<sp/>350,<sp/><sp/>-2,<sp/>-30,<sp/>}</highlight></codeline>
+<codeline lineno="645"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight></codeline>
+<codeline lineno="647"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps10_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/>107,<sp/>454,<sp/>924,<sp/>1150,<sp/><sp/>924,<sp/>454,<sp/>107,<sp/><sp/><sp/>0,<sp/>-24,<sp/>},</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/>104,<sp/>446,<sp/>917,<sp/>1149,<sp/><sp/>930,<sp/>461,<sp/>110,<sp/><sp/><sp/>0,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-1,<sp/>100,<sp/>439,<sp/>910,<sp/>1149,<sp/><sp/>936,<sp/>468,<sp/>114,<sp/><sp/><sp/>1,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-1,<sp/><sp/>97,<sp/>432,<sp/>904,<sp/>1149,<sp/><sp/>942,<sp/>475,<sp/>117,<sp/><sp/><sp/>2,<sp/>-21,<sp/>},</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-2,<sp/><sp/>94,<sp/>425,<sp/>897,<sp/>1148,<sp/><sp/>948,<sp/>482,<sp/>121,<sp/><sp/><sp/>2,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-2,<sp/><sp/>91,<sp/>418,<sp/>890,<sp/>1147,<sp/><sp/>954,<sp/>490,<sp/>125,<sp/><sp/><sp/>3,<sp/>-20,<sp/>},</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/><sp/>88,<sp/>411,<sp/>883,<sp/>1147,<sp/><sp/>960,<sp/>497,<sp/>128,<sp/><sp/><sp/>3,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/><sp/>85,<sp/>404,<sp/>876,<sp/>1146,<sp/><sp/>966,<sp/>504,<sp/>132,<sp/><sp/><sp/>4,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-3,<sp/><sp/>82,<sp/>397,<sp/>869,<sp/>1145,<sp/><sp/>972,<sp/>512,<sp/>136,<sp/><sp/><sp/>5,<sp/>-19,<sp/>},</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/><sp/>79,<sp/>390,<sp/>862,<sp/>1144,<sp/><sp/>978,<sp/>519,<sp/>140,<sp/><sp/><sp/>5,<sp/>-17,<sp/>},</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/><sp/>76,<sp/>384,<sp/>855,<sp/>1142,<sp/><sp/>983,<sp/>526,<sp/>144,<sp/><sp/><sp/>6,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-4,<sp/><sp/>74,<sp/>377,<sp/>848,<sp/>1141,<sp/><sp/>989,<sp/>534,<sp/>148,<sp/><sp/><sp/>7,<sp/>-18,<sp/>},</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/><sp/>71,<sp/>370,<sp/>841,<sp/>1139,<sp/><sp/>995,<sp/>541,<sp/>152,<sp/><sp/><sp/>7,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/><sp/>68,<sp/>364,<sp/>834,<sp/>1138,<sp/>1000,<sp/>549,<sp/>156,<sp/><sp/><sp/>8,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-5,<sp/><sp/>66,<sp/>357,<sp/>827,<sp/>1136,<sp/>1005,<sp/>556,<sp/>160,<sp/><sp/><sp/>9,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/><sp/>63,<sp/>350,<sp/>820,<sp/>1134,<sp/>1011,<sp/>564,<sp/>165,<sp/><sp/>10,<sp/>-15,<sp/>},</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/><sp/>61,<sp/>344,<sp/>812,<sp/>1132,<sp/>1016,<sp/>571,<sp/>169,<sp/><sp/>11,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/><sp/>59,<sp/>338,<sp/>805,<sp/>1130,<sp/>1021,<sp/>579,<sp/>174,<sp/><sp/>12,<sp/>-16,<sp/>},</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-6,<sp/><sp/>56,<sp/>331,<sp/>798,<sp/>1128,<sp/>1026,<sp/>586,<sp/>178,<sp/><sp/>13,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/><sp/>54,<sp/>325,<sp/>790,<sp/>1126,<sp/>1031,<sp/>594,<sp/>183,<sp/><sp/>14,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/><sp/>52,<sp/>319,<sp/>783,<sp/>1124,<sp/>1036,<sp/>601,<sp/>187,<sp/><sp/>15,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/><sp/>50,<sp/>312,<sp/>776,<sp/>1121,<sp/>1041,<sp/>609,<sp/>192,<sp/><sp/>16,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-7,<sp/><sp/>48,<sp/>306,<sp/>768,<sp/>1119,<sp/>1045,<sp/>617,<sp/>197,<sp/><sp/>17,<sp/>-14,<sp/>},</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/><sp/>46,<sp/>300,<sp/>761,<sp/>1116,<sp/>1050,<sp/>624,<sp/>202,<sp/><sp/>18,<sp/>-13,<sp/>},</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/><sp/>44,<sp/>294,<sp/>753,<sp/>1113,<sp/>1054,<sp/>632,<sp/>207,<sp/><sp/>19,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/><sp/>42,<sp/>288,<sp/>746,<sp/>1110,<sp/>1059,<sp/>639,<sp/>212,<sp/><sp/>20,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-8,<sp/><sp/>40,<sp/>282,<sp/>738,<sp/>1107,<sp/>1063,<sp/>647,<sp/>217,<sp/><sp/>22,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/><sp/>38,<sp/>277,<sp/>731,<sp/>1104,<sp/>1067,<sp/>655,<sp/>222,<sp/><sp/>23,<sp/>-12,<sp/>},</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/><sp/>36,<sp/>271,<sp/>723,<sp/>1101,<sp/>1071,<sp/>662,<sp/>227,<sp/><sp/>24,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/><sp/>35,<sp/>265,<sp/>715,<sp/>1097,<sp/>1075,<sp/>670,<sp/>232,<sp/><sp/>26,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>-9,<sp/><sp/>33,<sp/>259,<sp/>708,<sp/>1094,<sp/>1079,<sp/>677,<sp/>238,<sp/><sp/>27,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/><sp/>32,<sp/>254,<sp/>700,<sp/>1091,<sp/>1083,<sp/>685,<sp/>243,<sp/><sp/>28,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/><sp/>30,<sp/>248,<sp/>693,<sp/>1087,<sp/>1087,<sp/>693,<sp/>248,<sp/><sp/>30,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/><sp/>28,<sp/>243,<sp/>685,<sp/>1083,<sp/>1091,<sp/>700,<sp/>254,<sp/><sp/>32,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-10,<sp/><sp/>27,<sp/>238,<sp/>677,<sp/>1079,<sp/>1094,<sp/>708,<sp/>259,<sp/><sp/>33,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/><sp/>26,<sp/>232,<sp/>670,<sp/>1075,<sp/>1097,<sp/>715,<sp/>265,<sp/><sp/>35,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/><sp/>24,<sp/>227,<sp/>662,<sp/>1071,<sp/>1101,<sp/>723,<sp/>271,<sp/><sp/>36,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-11,<sp/><sp/>23,<sp/>222,<sp/>655,<sp/>1067,<sp/>1104,<sp/>731,<sp/>277,<sp/><sp/>38,<sp/>-10,<sp/>},</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/><sp/>22,<sp/>217,<sp/>647,<sp/>1063,<sp/>1107,<sp/>738,<sp/>282,<sp/><sp/>40,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/><sp/>20,<sp/>212,<sp/>639,<sp/>1059,<sp/>1110,<sp/>746,<sp/>288,<sp/><sp/>42,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/><sp/>19,<sp/>207,<sp/>632,<sp/>1054,<sp/>1113,<sp/>753,<sp/>294,<sp/><sp/>44,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-12,<sp/><sp/>18,<sp/>202,<sp/>624,<sp/>1050,<sp/>1116,<sp/>761,<sp/>300,<sp/><sp/>46,<sp/><sp/>-9,<sp/>},</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/><sp/>17,<sp/>197,<sp/>617,<sp/>1045,<sp/>1119,<sp/>768,<sp/>306,<sp/><sp/>48,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/><sp/>16,<sp/>192,<sp/>609,<sp/>1041,<sp/>1121,<sp/>776,<sp/>312,<sp/><sp/>50,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-13,<sp/><sp/>15,<sp/>187,<sp/>601,<sp/>1036,<sp/>1124,<sp/>783,<sp/>319,<sp/><sp/>52,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/><sp/>14,<sp/>183,<sp/>594,<sp/>1031,<sp/>1126,<sp/>790,<sp/>325,<sp/><sp/>54,<sp/><sp/>-7,<sp/>},</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/><sp/>13,<sp/>178,<sp/>586,<sp/>1026,<sp/>1128,<sp/>798,<sp/>331,<sp/><sp/>56,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-14,<sp/><sp/>12,<sp/>174,<sp/>579,<sp/>1021,<sp/>1130,<sp/>805,<sp/>338,<sp/><sp/>59,<sp/><sp/>-8,<sp/>},</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/><sp/>11,<sp/>169,<sp/>571,<sp/>1016,<sp/>1132,<sp/>812,<sp/>344,<sp/><sp/>61,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-15,<sp/><sp/>10,<sp/>165,<sp/>564,<sp/>1011,<sp/>1134,<sp/>820,<sp/>350,<sp/><sp/>63,<sp/><sp/>-6,<sp/>},</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/><sp/>9,<sp/>160,<sp/>556,<sp/>1005,<sp/>1136,<sp/>827,<sp/>357,<sp/><sp/>66,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/><sp/>8,<sp/>156,<sp/>549,<sp/>1000,<sp/>1138,<sp/>834,<sp/>364,<sp/><sp/>68,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-16,<sp/><sp/><sp/>7,<sp/>152,<sp/>541,<sp/><sp/>995,<sp/>1139,<sp/>841,<sp/>370,<sp/><sp/>71,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/><sp/><sp/>7,<sp/>148,<sp/>534,<sp/><sp/>989,<sp/>1141,<sp/>848,<sp/>377,<sp/><sp/>74,<sp/><sp/>-5,<sp/>},</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-17,<sp/><sp/><sp/>6,<sp/>144,<sp/>526,<sp/><sp/>983,<sp/>1142,<sp/>855,<sp/>384,<sp/><sp/>76,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/><sp/>5,<sp/>140,<sp/>519,<sp/><sp/>978,<sp/>1144,<sp/>862,<sp/>390,<sp/><sp/>79,<sp/><sp/>-3,<sp/>},</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/><sp/>5,<sp/>136,<sp/>512,<sp/><sp/>972,<sp/>1145,<sp/>869,<sp/>397,<sp/><sp/>82,<sp/><sp/>-4,<sp/>},</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/><sp/>4,<sp/>132,<sp/>504,<sp/><sp/>966,<sp/>1146,<sp/>876,<sp/>404,<sp/><sp/>85,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/><sp/>3,<sp/>128,<sp/>497,<sp/><sp/>960,<sp/>1147,<sp/>883,<sp/>411,<sp/><sp/>88,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/><sp/><sp/>3,<sp/>125,<sp/>490,<sp/><sp/>954,<sp/>1147,<sp/>890,<sp/>418,<sp/><sp/>91,<sp/><sp/>-2,<sp/>},</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/><sp/><sp/>2,<sp/>121,<sp/>482,<sp/><sp/>948,<sp/>1148,<sp/>897,<sp/>425,<sp/><sp/>94,<sp/><sp/>-1,<sp/>},</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/><sp/><sp/>2,<sp/>117,<sp/>475,<sp/><sp/>942,<sp/>1149,<sp/>904,<sp/>432,<sp/><sp/>97,<sp/><sp/>-1,<sp/>},</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/><sp/><sp/>1,<sp/>114,<sp/>468,<sp/><sp/>936,<sp/>1149,<sp/>910,<sp/>439,<sp/>100,<sp/><sp/><sp/>0,<sp/>},</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/><sp/><sp/>0,<sp/>110,<sp/>461,<sp/><sp/>930,<sp/>1149,<sp/>917,<sp/>446,<sp/>104,<sp/><sp/><sp/>1,<sp/>}</highlight></codeline>
+<codeline lineno="713"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"></highlight></codeline>
+<codeline lineno="715"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ScalingRatio<sp/>=<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="716"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_vscaler_fixedcoeff_taps12_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/><sp/>0,<sp/>152,<sp/>498,<sp/>893,<sp/>1070,<sp/><sp/>893,<sp/>498,<sp/>152,<sp/><sp/><sp/>0,<sp/>-19,<sp/>-22,<sp/>},</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-1,<sp/>147,<sp/>487,<sp/>879,<sp/>1059,<sp/><sp/>889,<sp/>499,<sp/>155,<sp/><sp/><sp/>1,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-2,<sp/>143,<sp/>480,<sp/>874,<sp/>1059,<sp/><sp/>894,<sp/>506,<sp/>159,<sp/><sp/><sp/>2,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-3,<sp/>139,<sp/>474,<sp/>869,<sp/>1059,<sp/><sp/>899,<sp/>512,<sp/>163,<sp/><sp/><sp/>3,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-4,<sp/>136,<sp/>468,<sp/>863,<sp/>1059,<sp/><sp/>904,<sp/>519,<sp/>167,<sp/><sp/><sp/>4,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-5,<sp/>132,<sp/>461,<sp/>858,<sp/>1058,<sp/><sp/>909,<sp/>525,<sp/>171,<sp/><sp/><sp/>5,<sp/>-19,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/><sp/>-5,<sp/>128,<sp/>455,<sp/>853,<sp/>1058,<sp/><sp/>913,<sp/>531,<sp/>175,<sp/><sp/><sp/>7,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>-6,<sp/>125,<sp/>449,<sp/>847,<sp/>1057,<sp/><sp/>918,<sp/>538,<sp/>180,<sp/><sp/><sp/>8,<sp/>-19,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>-7,<sp/>121,<sp/>443,<sp/>842,<sp/>1056,<sp/><sp/>923,<sp/>544,<sp/>184,<sp/><sp/><sp/>9,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>-8,<sp/>118,<sp/>436,<sp/>836,<sp/>1056,<sp/><sp/>927,<sp/>551,<sp/>188,<sp/><sp/>10,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>-8,<sp/>114,<sp/>430,<sp/>831,<sp/>1055,<sp/><sp/>932,<sp/>557,<sp/>193,<sp/><sp/>12,<sp/>-19,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/><sp/>-9,<sp/>111,<sp/>424,<sp/>825,<sp/>1054,<sp/><sp/>936,<sp/>564,<sp/>197,<sp/><sp/>13,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-10,<sp/>107,<sp/>418,<sp/>819,<sp/>1053,<sp/><sp/>941,<sp/>570,<sp/>202,<sp/><sp/>14,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-10,<sp/>104,<sp/>412,<sp/>814,<sp/>1052,<sp/><sp/>945,<sp/>577,<sp/>206,<sp/><sp/>16,<sp/>-19,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-11,<sp/>101,<sp/>406,<sp/>808,<sp/>1050,<sp/><sp/>949,<sp/>583,<sp/>211,<sp/><sp/>17,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-11,<sp/><sp/>98,<sp/>400,<sp/>802,<sp/>1049,<sp/><sp/>954,<sp/>590,<sp/>216,<sp/><sp/>19,<sp/>-19,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-12,<sp/><sp/>95,<sp/>394,<sp/>796,<sp/>1048,<sp/><sp/>958,<sp/>596,<sp/>220,<sp/><sp/>20,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-12,<sp/><sp/>92,<sp/>388,<sp/>791,<sp/>1046,<sp/><sp/>962,<sp/>603,<sp/>225,<sp/><sp/>22,<sp/>-19,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-13,<sp/><sp/>89,<sp/>382,<sp/>785,<sp/>1045,<sp/><sp/>966,<sp/>609,<sp/>230,<sp/><sp/>24,<sp/>-19,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-13,<sp/><sp/>86,<sp/>376,<sp/>779,<sp/>1043,<sp/><sp/>970,<sp/>616,<sp/>235,<sp/><sp/>25,<sp/>-19,<sp/><sp/>16,<sp/>},</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-14,<sp/><sp/>83,<sp/>370,<sp/>773,<sp/>1041,<sp/><sp/>973,<sp/>622,<sp/>240,<sp/><sp/>27,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-14,<sp/><sp/>80,<sp/>364,<sp/>767,<sp/>1039,<sp/><sp/>977,<sp/>629,<sp/>244,<sp/><sp/>29,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-15,<sp/><sp/>77,<sp/>358,<sp/>761,<sp/>1037,<sp/><sp/>981,<sp/>635,<sp/>249,<sp/><sp/>31,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-15,<sp/><sp/>74,<sp/>352,<sp/>755,<sp/>1035,<sp/><sp/>984,<sp/>642,<sp/>255,<sp/><sp/>33,<sp/>-19,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-15,<sp/><sp/>71,<sp/>347,<sp/>749,<sp/>1033,<sp/><sp/>988,<sp/>648,<sp/>260,<sp/><sp/>35,<sp/>-19,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-16,<sp/><sp/>69,<sp/>341,<sp/>743,<sp/>1031,<sp/><sp/>991,<sp/>654,<sp/>265,<sp/><sp/>36,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-16,<sp/><sp/>66,<sp/>335,<sp/>736,<sp/>1029,<sp/><sp/>995,<sp/>661,<sp/>270,<sp/><sp/>38,<sp/>-19,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-16,<sp/><sp/>64,<sp/>330,<sp/>730,<sp/>1026,<sp/><sp/>998,<sp/>667,<sp/>275,<sp/><sp/>41,<sp/>-18,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-17,<sp/><sp/>61,<sp/>324,<sp/>724,<sp/>1024,<sp/>1001,<sp/>674,<sp/>280,<sp/><sp/>43,<sp/>-18,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-17,<sp/><sp/>59,<sp/>318,<sp/>718,<sp/>1021,<sp/>1004,<sp/>680,<sp/>286,<sp/><sp/>45,<sp/>-18,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-17,<sp/><sp/>56,<sp/>313,<sp/>712,<sp/>1019,<sp/>1007,<sp/>686,<sp/>291,<sp/><sp/>47,<sp/>-18,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-17,<sp/><sp/>54,<sp/>307,<sp/>705,<sp/>1016,<sp/>1010,<sp/>693,<sp/>296,<sp/><sp/>49,<sp/>-18,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>51,<sp/>302,<sp/>699,<sp/>1013,<sp/>1013,<sp/>699,<sp/>302,<sp/><sp/>51,<sp/>-18,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>49,<sp/>296,<sp/>693,<sp/>1010,<sp/>1016,<sp/>705,<sp/>307,<sp/><sp/>54,<sp/>-17,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>47,<sp/>291,<sp/>686,<sp/>1007,<sp/>1019,<sp/>712,<sp/>313,<sp/><sp/>56,<sp/>-17,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>45,<sp/>286,<sp/>680,<sp/>1004,<sp/>1021,<sp/>718,<sp/>318,<sp/><sp/>59,<sp/>-17,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>43,<sp/>280,<sp/>674,<sp/>1001,<sp/>1024,<sp/>724,<sp/>324,<sp/><sp/>61,<sp/>-17,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-18,<sp/><sp/>41,<sp/>275,<sp/>667,<sp/><sp/>998,<sp/>1026,<sp/>730,<sp/>330,<sp/><sp/>64,<sp/>-16,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-18,<sp/>-19,<sp/><sp/>38,<sp/>270,<sp/>661,<sp/><sp/>995,<sp/>1029,<sp/>736,<sp/>335,<sp/><sp/>66,<sp/>-16,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>36,<sp/>265,<sp/>654,<sp/><sp/>991,<sp/>1031,<sp/>743,<sp/>341,<sp/><sp/>69,<sp/>-16,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>35,<sp/>260,<sp/>648,<sp/><sp/>988,<sp/>1033,<sp/>749,<sp/>347,<sp/><sp/>71,<sp/>-15,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>33,<sp/>255,<sp/>642,<sp/><sp/>984,<sp/>1035,<sp/>755,<sp/>352,<sp/><sp/>74,<sp/>-15,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>31,<sp/>249,<sp/>635,<sp/><sp/>981,<sp/>1037,<sp/>761,<sp/>358,<sp/><sp/>77,<sp/>-15,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>29,<sp/>244,<sp/>629,<sp/><sp/>977,<sp/>1039,<sp/>767,<sp/>364,<sp/><sp/>80,<sp/>-14,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>27,<sp/>240,<sp/>622,<sp/><sp/>973,<sp/>1041,<sp/>773,<sp/>370,<sp/><sp/>83,<sp/>-14,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>25,<sp/>235,<sp/>616,<sp/><sp/>970,<sp/>1043,<sp/>779,<sp/>376,<sp/><sp/>86,<sp/>-13,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>24,<sp/>230,<sp/>609,<sp/><sp/>966,<sp/>1045,<sp/>785,<sp/>382,<sp/><sp/>89,<sp/>-13,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>22,<sp/>225,<sp/>603,<sp/><sp/>962,<sp/>1046,<sp/>791,<sp/>388,<sp/><sp/>92,<sp/>-12,<sp/><sp/>17,<sp/>},</highlight></codeline>
+<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-19,<sp/>-19,<sp/><sp/>20,<sp/>220,<sp/>596,<sp/><sp/>958,<sp/>1048,<sp/>796,<sp/>394,<sp/><sp/>95,<sp/>-12,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>19,<sp/>216,<sp/>590,<sp/><sp/>954,<sp/>1049,<sp/>802,<sp/>400,<sp/><sp/>98,<sp/>-11,<sp/><sp/>18,<sp/>},</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>17,<sp/>211,<sp/>583,<sp/><sp/>949,<sp/>1050,<sp/>808,<sp/>406,<sp/>101,<sp/>-11,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>16,<sp/>206,<sp/>577,<sp/><sp/>945,<sp/>1052,<sp/>814,<sp/>412,<sp/>104,<sp/>-10,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>14,<sp/>202,<sp/>570,<sp/><sp/>941,<sp/>1053,<sp/>819,<sp/>418,<sp/>107,<sp/>-10,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>13,<sp/>197,<sp/>564,<sp/><sp/>936,<sp/>1054,<sp/>825,<sp/>424,<sp/>111,<sp/><sp/>-9,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-20,<sp/>-19,<sp/><sp/>12,<sp/>193,<sp/>557,<sp/><sp/>932,<sp/>1055,<sp/>831,<sp/>430,<sp/>114,<sp/><sp/>-8,<sp/><sp/>19,<sp/>},</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/>10,<sp/>188,<sp/>551,<sp/><sp/>927,<sp/>1056,<sp/>836,<sp/>436,<sp/>118,<sp/><sp/>-8,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/><sp/>9,<sp/>184,<sp/>544,<sp/><sp/>923,<sp/>1056,<sp/>842,<sp/>443,<sp/>121,<sp/><sp/>-7,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/><sp/>8,<sp/>180,<sp/>538,<sp/><sp/>918,<sp/>1057,<sp/>847,<sp/>449,<sp/>125,<sp/><sp/>-6,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/><sp/>7,<sp/>175,<sp/>531,<sp/><sp/>913,<sp/>1058,<sp/>853,<sp/>455,<sp/>128,<sp/><sp/>-5,<sp/><sp/>21,<sp/>},</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/><sp/>5,<sp/>171,<sp/>525,<sp/><sp/>909,<sp/>1058,<sp/>858,<sp/>461,<sp/>132,<sp/><sp/>-5,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-21,<sp/>-19,<sp/><sp/><sp/>4,<sp/>167,<sp/>519,<sp/><sp/>904,<sp/>1059,<sp/>863,<sp/>468,<sp/>136,<sp/><sp/>-4,<sp/><sp/>20,<sp/>},</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>-19,<sp/><sp/><sp/>3,<sp/>163,<sp/>512,<sp/><sp/>899,<sp/>1059,<sp/>869,<sp/>474,<sp/>139,<sp/><sp/>-3,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>-19,<sp/><sp/><sp/>2,<sp/>159,<sp/>506,<sp/><sp/>894,<sp/>1059,<sp/>874,<sp/>480,<sp/>143,<sp/><sp/>-2,<sp/><sp/>22,<sp/>},</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>-22,<sp/>-19,<sp/><sp/><sp/>1,<sp/>155,<sp/>499,<sp/><sp/>889,<sp/>1059,<sp/>879,<sp/>487,<sp/>147,<sp/><sp/>-1,<sp/><sp/>22,<sp/>}</highlight></codeline>
+<codeline lineno="781"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_coeff.c"/>
+  </compounddef>
+</doxygen>

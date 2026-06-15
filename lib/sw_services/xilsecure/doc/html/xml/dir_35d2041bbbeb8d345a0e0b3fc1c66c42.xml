@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_35d2041bbbeb8d345a0e0b3fc1c66c42" kind="dir">
+    <compoundname>lms_hss</compoundname>
+    <innerfile refid="xsecure__lms_8c">xsecure_lms.c</innerfile>
+    <innerfile refid="xsecure__lms_8h">xsecure_lms.h</innerfile>
+    <innerfile refid="xsecure__lms__core_8c">xsecure_lms_core.c</innerfile>
+    <innerfile refid="xsecure__lms__core_8h">xsecure_lms_core.h</innerfile>
+    <innerfile refid="xsecure__lms__hss_8h">xsecure_lms_hss.h</innerfile>
+    <innerfile refid="xsecure__lms__ipihandler_8c">xsecure_lms_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__lms__ipihandler_8h">xsecure_lms_ipihandler.h</innerfile>
+    <innerfile refid="xsecure__lms__ots_8c">xsecure_lms_ots.c</innerfile>
+    <innerfile refid="xsecure__lms__ots_8h">xsecure_lms_ots.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/"/>
+  </compounddef>
+</doxygen>

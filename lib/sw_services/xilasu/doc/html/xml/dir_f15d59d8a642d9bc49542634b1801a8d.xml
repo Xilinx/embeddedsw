@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f15d59d8a642d9bc49542634b1801a8d" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xasu__aes_8c">xasu_aes.c</innerfile>
+    <innerfile refid="xasu__aes_8h">xasu_aes.h</innerfile>
+    <innerfile refid="xasu__client_8c">xasu_client.c</innerfile>
+    <innerfile refid="xasu__client_8h">xasu_client.h</innerfile>
+    <innerfile refid="xasu__ecc_8c">xasu_ecc.c</innerfile>
+    <innerfile refid="xasu__ecc_8h">xasu_ecc.h</innerfile>
+    <innerfile refid="xasu__ecies_8c">xasu_ecies.c</innerfile>
+    <innerfile refid="xasu__ecies_8h">xasu_ecies.h</innerfile>
+    <innerfile refid="xasu__hmac_8c">xasu_hmac.c</innerfile>
+    <innerfile refid="xasu__hmac_8h">xasu_hmac.h</innerfile>
+    <innerfile refid="xasu__kdf_8c">xasu_kdf.c</innerfile>
+    <innerfile refid="xasu__kdf_8h">xasu_kdf.h</innerfile>
+    <innerfile refid="xasu__keymanager_8c">xasu_keymanager.c</innerfile>
+    <innerfile refid="xasu__keymanager_8h">xasu_keymanager.h</innerfile>
+    <innerfile refid="xasu__keywrap_8c">xasu_keywrap.c</innerfile>
+    <innerfile refid="xasu__keywrap_8h">xasu_keywrap.h</innerfile>
+    <innerfile refid="xasu__lms_8c">xasu_lms.c</innerfile>
+    <innerfile refid="xasu__lms_8h">xasu_lms.h</innerfile>
+    <innerfile refid="xasu__ocp_8c">xasu_ocp.c</innerfile>
+    <innerfile refid="xasu__ocp_8h">xasu_ocp.h</innerfile>
+    <innerfile refid="xasu__perf_8c">xasu_perf.c</innerfile>
+    <innerfile refid="xasu__perf_8h">xasu_perf.h</innerfile>
+    <innerfile refid="xasu__rsa_8c">xasu_rsa.c</innerfile>
+    <innerfile refid="xasu__rsa_8h">xasu_rsa.h</innerfile>
+    <innerfile refid="xasu__sha2_8c">xasu_sha2.c</innerfile>
+    <innerfile refid="xasu__sha2_8h">xasu_sha2.h</innerfile>
+    <innerfile refid="xasu__sha3_8c">xasu_sha3.c</innerfile>
+    <innerfile refid="xasu__sha3_8h">xasu_sha3.h</innerfile>
+    <innerfile refid="xasu__status_8h">xasu_status.h</innerfile>
+    <innerfile refid="xasu__trng_8c">xasu_trng.c</innerfile>
+    <innerfile refid="xasu__trng_8h">xasu_trng.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/"/>
+  </compounddef>
+</doxygen>

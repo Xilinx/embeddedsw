@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps___ecc_config" kind="struct" prot="public">
+    <compoundname>XNandPs_EccConfig</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps___ecc_config_1acd6a685e2cd2ded83e2492f419d2f02d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_EccConfig::NumSteps</definition>
+        <argsstring></argsstring>
+        <name>NumSteps</name>
+        <briefdescription>
+<para>Number of ECC steps for the flash page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___ecc_config_1a888c887728d44586c2c67620630d0573" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_EccConfig::BlockSize</definition>
+        <argsstring></argsstring>
+        <name>BlockSize</name>
+        <briefdescription>
+<para>ECC block size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___ecc_config_1a84c86def067933bad578209c5ee11015" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_EccConfig::BytesPerBlock</definition>
+        <argsstring></argsstring>
+        <name>BytesPerBlock</name>
+        <briefdescription>
+<para>Number of ECC bytes for a block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___ecc_config_1af197dcee444dcc8849dba90b29308559" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_EccConfig::TotalBytes</definition>
+        <argsstring></argsstring>
+        <name>TotalBytes</name>
+        <briefdescription>
+<para>Total number of ECC bytes for Page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___ecc_config_1a82671615fc44f9c211b60ed0755a1cf0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_EccConfig::EccPos[XNANDPS_MAX_SPARE_SIZE]</definition>
+        <argsstring>[XNANDPS_MAX_SPARE_SIZE]</argsstring>
+        <name>EccPos</name>
+        <briefdescription>
+<para>ECC position in the spare area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ECC configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains information related to ECC. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="375" bodyend="382"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps___ecc_config_1a888c887728d44586c2c67620630d0573" prot="public" virt="non-virtual"><scope>XNandPs_EccConfig</scope><name>BlockSize</name></member>
+      <member refid="struct_x_nand_ps___ecc_config_1a84c86def067933bad578209c5ee11015" prot="public" virt="non-virtual"><scope>XNandPs_EccConfig</scope><name>BytesPerBlock</name></member>
+      <member refid="struct_x_nand_ps___ecc_config_1a82671615fc44f9c211b60ed0755a1cf0" prot="public" virt="non-virtual"><scope>XNandPs_EccConfig</scope><name>EccPos</name></member>
+      <member refid="struct_x_nand_ps___ecc_config_1acd6a685e2cd2ded83e2492f419d2f02d" prot="public" virt="non-virtual"><scope>XNandPs_EccConfig</scope><name>NumSteps</name></member>
+      <member refid="struct_x_nand_ps___ecc_config_1af197dcee444dcc8849dba90b29308559" prot="public" virt="non-virtual"><scope>XNandPs_EccConfig</scope><name>TotalBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__aes__ipihandler_8h" kind="file">
+    <compoundname>xsecure_aes_ipihandler.h</compoundname>
+    <includes local="yes">xplmi_cmd.h</includes>
+    <includedby refid="xsecure__aes__ipihandler_8c" local="yes">xsecure_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__plat__aes__ipihandler_8c" local="yes">xsecure_plat_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="2vp_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <incdepgraph>
+      <node id="702">
+        <label>xsecure_aes_ipihandler.h</label>
+        <link refid="xsecure_aes_ipihandler.h"/>
+        <childnode refid="703" relation="include">
+        </childnode>
+      </node>
+      <node id="703">
+        <label>xplmi_cmd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="709">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
+      </node>
+      <node id="706">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="705">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="704">
+        <label>xsecure_aes_ipihandler.h</label>
+        <link refid="xsecure_aes_ipihandler.h"/>
+        <childnode refid="705" relation="include">
+        </childnode>
+        <childnode refid="706" relation="include">
+        </childnode>
+        <childnode refid="707" relation="include">
+        </childnode>
+        <childnode refid="708" relation="include">
+        </childnode>
+        <childnode refid="709" relation="include">
+        </childnode>
+        <childnode refid="710" relation="include">
+        </childnode>
+        <childnode refid="711" relation="include">
+        </childnode>
+      </node>
+      <node id="710">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="711">
+        <label>xsecure_cmd.c</label>
+        <link refid="net_2xsecure__cmd_8c"/>
+      </node>
+      <node id="707">
+        <label>xsecure_cmd.c</label>
+        <link refid="xsecure__cmd_8c"/>
+      </node>
+      <node id="708">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesIpiHandler</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_AesIpiHandler</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function calls respective IPI handler based on the API_ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the handler execution is successful</para></listitem><listitem><para>XST_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_DEVICE_BUSY - If IPI channel is busy </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Handle the present command based on AES core status</para></listitem><listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_AesInit</para></listitem><listitem><para>XSecure_AesOperationInit</para></listitem><listitem><para>XSecure_AesAadUpdate</para></listitem><listitem><para>XSecure_AesEncUpdate</para></listitem><listitem><para>XSecure_AesEncFinal</para></listitem><listitem><para>XSecure_AesDecUpdate</para></listitem><listitem><para>XSecure_AesDecFinal</para></listitem><listitem><para>XSecure_AesKeyZeroize</para></listitem><listitem><para>XSecure_AesKeyWrite</para></listitem><listitem><para>XSecure_AesDecryptKek</para></listitem><listitem><para>XSecure_AesSetDpaCmConfig</para></listitem><listitem><para>XSecure_AesPerformOperation </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" bodystart="107" bodyend="195"/>
+        <references refid="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" compoundref="xsecure__aes__ipihandler_8c" startline="511" endline="535">XSecure_AesKeyWrite</references>
+        <references refid="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" compoundref="xsecure__aes__ipihandler_8c" startline="474" endline="493">XSecure_AesKeyZeroize</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</references>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" compoundref="xsecure__plat__defs_8h" startline="69">XSECURE_API_AES_DECRYPT_FINAL</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" compoundref="xsecure__plat__defs_8h" startline="68">XSECURE_API_AES_DECRYPT_UPDATE</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" compoundref="xsecure__plat__defs_8h" startline="67">XSECURE_API_AES_ENCRYPT_FINAL</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" compoundref="xsecure__plat__defs_8h" startline="66">XSECURE_API_AES_ENCRYPT_UPDATE</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" compoundref="xsecure__plat__defs_8h" startline="63">XSECURE_API_AES_INIT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" compoundref="xsecure__plat__defs_8h" startline="73">XSECURE_API_AES_KEK_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" compoundref="xsecure__plat__defs_8h" startline="70">XSECURE_API_AES_KEY_ZERO</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" compoundref="xsecure__plat__defs_8h" startline="64">XSECURE_API_AES_OP_INIT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" compoundref="xsecure__plat__defs_8h" startline="77">XSECURE_API_AES_PERFORM_OPERATION</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" compoundref="xsecure__plat__defs_8h" startline="74">XSECURE_API_AES_SET_DPA_CM</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" compoundref="xsecure__plat__defs_8h" startline="65">XSECURE_API_AES_UPDATE_AAD</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" compoundref="xsecure__plat__defs_8h" startline="71">XSECURE_API_AES_WRITE_KEY</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</references>
+        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="421" endline="427">XSecure_MakeResFree</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1gaa58a05547f6ae883c23823bf0f3bed7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_AesInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function handler calls XSecure_AesInitialize Server API. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization is successful</para></listitem><listitem><para>XST_FAILURE - If PMCDMA instance is NULL. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize the Aes driver so that it&apos;s ready to use </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" bodystart="206" bodyend="221"/>
+        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="77" endline="88">XSecure_AesInitialize</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__aes__server__apis_1gafb041a8728c54e97cdc310326006af0a" compoundref="xsecure__aes__ipihandler_8c" startline="78">XSECURE_PMCDMA_DEVICEID</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesKeyWrite</definition>
+        <argsstring>(u32 SubsystemId, u8 KeySize, u8 KeySrc, u32 KeyAddrLow, u32 KeyAddrHigh)</argsstring>
+        <name>XSecure_AesKeyWrite</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>KeySize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>KeySrc</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyAddrHigh</declname>
+        </param>
+        <briefdescription>
+<para>This function handler calls XSecure_AesWriteKey server API. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the key to specify 128/256 bit key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>KeySrc to which key has to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the Key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the key write is successful</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM - For invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>User not allowed to write key in boot header</para></listitem><listitem><para>Writes the key provided into the specified AES key registers </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" bodystart="511" bodyend="535"/>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caa6ffd70735b44d0b80f75f344beca566" compoundref="xsecure__aesclient_8h" startline="58">XSECURE_AES_BH_KEY</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cafc412e409ab2538a1971c54f917cbbf1" compoundref="xsecure__aesclient_8h" startline="59">XSECURE_AES_BH_RED_KEY</references>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="87">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" compoundref="versal_2xsecure__error_8h" startline="203">XSECURE_ERR_INVALID_ADDR_RANGE</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga4dac9d051ab1e5fa765badf3b682a642" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesPerformOperation</definition>
+        <argsstring>(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)</argsstring>
+        <name>XSecure_AesPerformOperation</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrHigh</declname>
+        </param>
+        <briefdescription>
+<para>This function handler calls XSecure_AesPerformOperation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the <ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref> structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the <ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization is successful</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate internal address fields in the copied structure</para></listitem><listitem><para>Validate key source and initialise AES to encryption/decryption</para></listitem><listitem><para>Update AAD</para></listitem><listitem><para>Based on user&apos;s choice GCM/GMAC encryption/decryption is performed </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" bodystart="619" bodyend="683"/>
+        <references refid="group__xsecure__aes__client__apis_1ga074dbaf57b453f094f14c6b6c7aca964" compoundref="xsecure__aesclient_8c" startline="795" endline="850">XSecure_AesDecryptData</references>
+        <references refid="group__xsecure__aes__client__apis_1ga49114523757f3b39daf51876ba899e51" compoundref="xsecure__aesclient_8c" startline="483" endline="509">XSecure_AesDecryptFinal</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa65c921632e25a29b33b883d85cf9058" compoundref="xsecure__aesclient_8c" startline="717" endline="772">XSecure_AesEncryptData</references>
+        <references refid="group__xsecure__aes__client__apis_1ga982cb284b765c652355d9f942798211b" compoundref="xsecure__aesclient_8c" startline="371" endline="397">XSecure_AesEncryptFinal</references>
+        <references refid="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091" compoundref="xsecure__defs_8h" startline="225">XSECURE_ENCRYPT</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" compoundref="versal_2xsecure__error_8h" startline="203">XSECURE_ERR_INVALID_ADDR_RANGE</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesKeyZeroize</definition>
+        <argsstring>(u32 KeySrc)</argsstring>
+        <name>XSecure_AesKeyZeroize</name>
+        <param>
+          <type>u32</type>
+          <declname>KeySrc</declname>
+        </param>
+        <briefdescription>
+<para>This function handler calls XSecure_AesKeyZero server API. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key source to be zeroized</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the key zeroize is successful</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate key source to allow clearing of keysources other than device keys </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c" bodystart="474" bodyend="493"/>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cac1b2dfac9fa33633ef8a335b121716ea" compoundref="xsecure__aesclient_8h" startline="76">XSECURE_AES_EXPANDED_KEYS</references>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="87">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="group__xsecure__apis_1gac1d450a8bf29adb33a6855a2d495d00e" compoundref="xsecure_8h" startline="90">XSECURE_AES_KUP_KEY</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca78b79c2fdd517f30458ffbc9364abbdc" compoundref="xsecure__aesclient_8h" startline="67">XSECURE_AES_PUF_KEY</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca2ed303c437d0f865f4c4af8c6ff8fd82" compoundref="xsecure__aesclient_8h" startline="68">XSECURE_AES_USER_KEY_0</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Xilsecure AES IPI handler declaration. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0  kal   03/23/21 Initial release
+5.2  vss         07/15/23 Added prototype for XSecure_MakeAesFree()
+5.4  yog   04/29/24 Fixed doxygen grouping.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XSECURE_AES_IPIHANDLER_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_IPIHANDLER_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" kindref="member">XSecure_AesIpiHandler</ref>(XPlmi_Cmd<sp/>*Cmd);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1gaa58a05547f6ae883c23823bf0f3bed7d" kindref="member">XSecure_AesInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" kindref="member">XSecure_AesKeyWrite</ref>(u32<sp/>SubsystemId,<sp/>u8<sp/>KeySize,<sp/>u8<sp/>KeySrc,<sp/>u32<sp/>KeyAddrLow,<sp/>u32<sp/>KeyAddrHigh);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" kindref="member">XSecure_AesPerformOperation</ref>(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,<sp/>u32<sp/>SrcAddrHigh);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" kindref="member">XSecure_AesKeyZeroize</ref>(u32<sp/>KeySrc);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_AES_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.h"/>
+  </compounddef>
+</doxygen>

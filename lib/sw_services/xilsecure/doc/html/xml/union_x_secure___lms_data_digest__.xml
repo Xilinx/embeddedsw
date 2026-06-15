@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_secure___lms_data_digest__" kind="union" prot="public">
+    <compoundname>XSecure_LmsDataDigest_</compoundname>
+    <includes local="no">xsecure_lms_ots.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest___1a61d0665900c16f142d2ee1a73a8c7c12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigest_::Buff[XSECURE_LMS_DIGEST_CHECKSUM_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_DIGEST_CHECKSUM_SIZE]</argsstring>
+        <name>Buff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest___1a53bdf2944c0551628af472117010709a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigest_::Digest[XSECURE_LMS_DIGEST_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_DIGEST_SIZE]</argsstring>
+        <name>Digest</name>
+        <briefdescription>
+<para>Digest - Digest of data to be authenticated Size - 32 bytes, 0 to 31 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest___1a54f64f39fd053d8cba224409ac9e04f4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigest_::Checksum[XSECURE_LMS_CHECKSUM_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_CHECKSUM_FIELD_SIZE]</argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+<para>Checksum - Checksum on Digest Size - 2 bytes, 32nd &amp; 33rd byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest___1ad244879696c514be72b12112e8587699" prot="public" static="no" mutable="no">
+        <type>struct XSecure_LmsDataDigest_::@6</type>
+        <definition>struct XSecure_LmsDataDigest_::@6  XSecure_LmsDataDigest_::Fields</definition>
+        <argsstring></argsstring>
+        <name>Fields</name>
+        <briefdescription>
+<para>Fields of the digest structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="492" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Digest for message to be authenticated, along with checksum. </para>    </briefdescription>
+    <detaileddescription>
+<para>Size = Digest (32) + Check sum (2) = 34 Bytes </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="479" bodyend="493"/>
+    <listofallmembers>
+      <member refid="union_x_secure___lms_data_digest___1a61d0665900c16f142d2ee1a73a8c7c12" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigest_</scope><name>Buff</name></member>
+      <member refid="union_x_secure___lms_data_digest___1a54f64f39fd053d8cba224409ac9e04f4" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigest_</scope><name>Checksum</name></member>
+      <member refid="union_x_secure___lms_data_digest___1a53bdf2944c0551628af472117010709a" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigest_</scope><name>Digest</name></member>
+      <member refid="union_x_secure___lms_data_digest___1ad244879696c514be72b12112e8587699" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigest_</scope><name>Fields</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

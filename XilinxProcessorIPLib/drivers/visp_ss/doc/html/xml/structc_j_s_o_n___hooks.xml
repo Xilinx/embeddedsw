@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structc_j_s_o_n___hooks" kind="struct" prot="public">
+    <compoundname>cJSON_Hooks</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structc_j_s_o_n___hooks_1a71693d8b277a80a1faf8758b9589d670" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *CJSON_CDECL *</type>
+        <definition>void* CJSON_CDECL* cJSON_Hooks::malloc_fn</definition>
+        <argsstring>(size_t sz)</argsstring>
+        <name>malloc_fn</name>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structc_j_s_o_n___hooks_1a42c96b388103ffb466e7335b9fc710c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cJSON_Hooks::void</definition>
+        <argsstring>(CJSON_CDECL *free_fn)(void *ptr)</argsstring>
+        <name>void</name>
+        <param>
+          <type>CJSON_CDECL *</type>
+          <declname>free_fn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="127" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="124" bodyend="128"/>
+    <listofallmembers>
+      <member refid="structc_j_s_o_n___hooks_1a71693d8b277a80a1faf8758b9589d670" prot="public" virt="non-virtual"><scope>cJSON_Hooks</scope><name>malloc_fn</name></member>
+      <member refid="structc_j_s_o_n___hooks_1a42c96b388103ffb466e7335b9fc710c3" prot="public" virt="non-virtual"><scope>cJSON_Hooks</scope><name>void</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

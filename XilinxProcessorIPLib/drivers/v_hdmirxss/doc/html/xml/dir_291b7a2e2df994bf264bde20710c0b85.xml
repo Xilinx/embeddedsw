@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_291b7a2e2df994bf264bde20710c0b85" kind="dir">
+    <compoundname>Repeater</compoundname>
+    <innerfile refid="_repeater_2xhdcp_8c">Repeater/xhdcp.c</innerfile>
+    <innerfile refid="_repeater_2xhdcp_8h">Repeater/xhdcp.h</innerfile>
+    <innerfile refid="_repeater_2xhdmi__example_8c">Repeater/xhdmi_example.c</innerfile>
+    <innerfile refid="_repeater_2xhdmi__example_8h">Repeater/xhdmi_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/Repeater/"/>
+  </compounddef>
+</doxygen>

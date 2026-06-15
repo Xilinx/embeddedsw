@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_z_dma___data_config" kind="struct" prot="public">
+    <compoundname>XZDma_DataConfig</compoundname>
+    <includes local="no">xzdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1af6657e43d38da393e1676477d81449b7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::OverFetch</definition>
+        <argsstring></argsstring>
+        <name>OverFetch</name>
+        <briefdescription>
+<para>Enable Over fetch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a5072d085f2cbdc54f1e12f943dc2ee14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::SrcIssue</definition>
+        <argsstring></argsstring>
+        <name>SrcIssue</name>
+        <briefdescription>
+<para>Outstanding transactions for Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a946a5d7a1367df277236f3aa5941ac02" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1ac33d08476ea20e18a5faa8db3799f7c9" kindref="member">XZDma_BurstType</ref></type>
+        <definition>XZDma_BurstType XZDma_DataConfig::SrcBurstType</definition>
+        <argsstring></argsstring>
+        <name>SrcBurstType</name>
+        <briefdescription>
+<para>Burst type for SRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a3c1367c6570b09c6fb40b870f07fd792" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::SrcBurstLen</definition>
+        <argsstring></argsstring>
+        <name>SrcBurstLen</name>
+        <briefdescription>
+<para>AXI length for data read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a539b42c423c5275626455a5ec02b9b86" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1ac33d08476ea20e18a5faa8db3799f7c9" kindref="member">XZDma_BurstType</ref></type>
+        <definition>XZDma_BurstType XZDma_DataConfig::DstBurstType</definition>
+        <argsstring></argsstring>
+        <name>DstBurstType</name>
+        <briefdescription>
+<para>Burst type for DST. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="252" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a7510617151cb03fbefdc1ae1701e0263" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::DstBurstLen</definition>
+        <argsstring></argsstring>
+        <name>DstBurstLen</name>
+        <briefdescription>
+<para>AXI length for data write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1aad59bcf9b6125e7b663e4c824a0d5349" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::SrcCache</definition>
+        <argsstring></argsstring>
+        <name>SrcCache</name>
+        <briefdescription>
+<para>AXI cache bits for data read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1ac5dc5f4360b7b593e3e946ad05af5e8f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::SrcQos</definition>
+        <argsstring></argsstring>
+        <name>SrcQos</name>
+        <briefdescription>
+<para>AXI QOS bits for data read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1af222d9922f6197ac0cd076e9c7dbc31a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::DstCache</definition>
+        <argsstring></argsstring>
+        <name>DstCache</name>
+        <briefdescription>
+<para>AXI cache bits for data write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___data_config_1a40c90389c27c6d94de05e39e5cee64e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DataConfig::DstQos</definition>
+        <argsstring></argsstring>
+        <name>DstQos</name>
+        <briefdescription>
+<para>AXI QOS bits for data write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the data configurations of ZDMA core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="246" bodyend="259"/>
+    <listofallmembers>
+      <member refid="struct_x_z_dma___data_config_1a7510617151cb03fbefdc1ae1701e0263" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>DstBurstLen</name></member>
+      <member refid="struct_x_z_dma___data_config_1a539b42c423c5275626455a5ec02b9b86" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>DstBurstType</name></member>
+      <member refid="struct_x_z_dma___data_config_1af222d9922f6197ac0cd076e9c7dbc31a" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>DstCache</name></member>
+      <member refid="struct_x_z_dma___data_config_1a40c90389c27c6d94de05e39e5cee64e7" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>DstQos</name></member>
+      <member refid="struct_x_z_dma___data_config_1af6657e43d38da393e1676477d81449b7" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>OverFetch</name></member>
+      <member refid="struct_x_z_dma___data_config_1a3c1367c6570b09c6fb40b870f07fd792" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>SrcBurstLen</name></member>
+      <member refid="struct_x_z_dma___data_config_1a946a5d7a1367df277236f3aa5941ac02" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>SrcBurstType</name></member>
+      <member refid="struct_x_z_dma___data_config_1aad59bcf9b6125e7b663e4c824a0d5349" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>SrcCache</name></member>
+      <member refid="struct_x_z_dma___data_config_1a5072d085f2cbdc54f1e12f943dc2ee14" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>SrcIssue</name></member>
+      <member refid="struct_x_z_dma___data_config_1ac5dc5f4360b7b593e3e946ad05af5e8f" prot="public" virt="non-virtual"><scope>XZDma_DataConfig</scope><name>SrcQos</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

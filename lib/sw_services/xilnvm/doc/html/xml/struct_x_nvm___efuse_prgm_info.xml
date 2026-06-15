@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_prgm_info" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePrgmInfo</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1abc08be527304a3abd02f49e411c2dee9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::StartRow</definition>
+        <argsstring></argsstring>
+        <name>StartRow</name>
+        <briefdescription>
+<para>Start row number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1afc6cc9c3e733a22e50aef708dca1607b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::ColStart</definition>
+        <argsstring></argsstring>
+        <name>ColStart</name>
+        <briefdescription>
+<para>Start column number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1ab4af75acb4eb6ea72944e7a099adf4bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::ColEnd</definition>
+        <argsstring></argsstring>
+        <name>ColEnd</name>
+        <briefdescription>
+<para>End column number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1a257cabf7f1cf9b214c71857d8c7cc62b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::NumOfRows</definition>
+        <argsstring></argsstring>
+        <name>NumOfRows</name>
+        <briefdescription>
+<para>Number of rows of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1aedd98d5cf2455d9977bf91b949486f5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::SkipVerify</definition>
+        <argsstring></argsstring>
+        <name>SkipVerify</name>
+        <briefdescription>
+<para>Flag to check if eFuse bit should be verified after programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1a984eb1f8a2c7387d35fc43cd47d37f78" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" kindref="member">XNvm_EfuseType</ref></type>
+        <definition>XNvm_EfuseType XNvm_EfusePrgmInfo::EfuseType</definition>
+        <argsstring></argsstring>
+        <name>EfuseType</name>
+        <briefdescription>
+<para>Efuse page number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse.c" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse programming information </para>    </briefdescription>
+    <detaileddescription>
+<para>Structure to hold eFuse programming information. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="187" bodyend="193"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_prgm_info_1ab4af75acb4eb6ea72944e7a099adf4bf" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>ColEnd</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1afc6cc9c3e733a22e50aef708dca1607b" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>ColStart</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1a984eb1f8a2c7387d35fc43cd47d37f78" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>EfuseType</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1a257cabf7f1cf9b214c71857d8c7cc62b" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>NumOfRows</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1aedd98d5cf2455d9977bf91b949486f5d" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>SkipVerify</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1abc08be527304a3abd02f49e411c2dee9" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>StartRow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

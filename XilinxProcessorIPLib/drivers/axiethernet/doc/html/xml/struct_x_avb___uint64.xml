@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___uint64" kind="struct" prot="public">
+    <compoundname>XAvb_Uint64</compoundname>
+    <includes local="no">xavb_hw.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_Uint64::Upper</definition>
+        <argsstring></argsstring>
+        <name>Upper</name>
+        <briefdescription>
+<para>Upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="xavb__hw_8h_1a18111ab5a605391b7a45186761ef671b" compoundref="xavb__hw_8c" startline="70" endline="76">XAvbMac_ReadStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_Uint64::Lower</definition>
+        <argsstring></argsstring>
+        <name>Lower</name>
+        <briefdescription>
+<para>Lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="xavb__hw_8h_1a18111ab5a605391b7a45186761ef671b" compoundref="xavb__hw_8c" startline="70" endline="76">XAvbMac_ReadStats</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a 64-bit un-signed integer in terms of 2 u32s. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="305" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" prot="public" virt="non-virtual"><scope>XAvb_Uint64</scope><name>Lower</name></member>
+      <member refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" prot="public" virt="non-virtual"><scope>XAvb_Uint64</scope><name>Upper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

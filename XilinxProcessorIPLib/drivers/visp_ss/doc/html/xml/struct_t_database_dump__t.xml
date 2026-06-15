@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_t_database_dump__t" kind="struct" prot="public">
+    <compoundname>TDatabaseDump_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_t_database_dump__t_1a877692e99e65f745d1f0da2e359e1a3a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* TDatabaseDump_t::pRegisters</definition>
+        <argsstring></argsstring>
+        <name>pRegisters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database_dump__t_1ae5c3d92944d6503385780d915827e838" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TDatabaseDump_t::registerNumber</definition>
+        <argsstring></argsstring>
+        <name>registerNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="72" bodyend="75"/>
+    <listofallmembers>
+      <member refid="struct_t_database_dump__t_1a877692e99e65f745d1f0da2e359e1a3a" prot="public" virt="non-virtual"><scope>TDatabaseDump_t</scope><name>pRegisters</name></member>
+      <member refid="struct_t_database_dump__t_1ae5c3d92944d6503385780d915827e838" prot="public" virt="non-virtual"><scope>TDatabaseDump_t</scope><name>registerNumber</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

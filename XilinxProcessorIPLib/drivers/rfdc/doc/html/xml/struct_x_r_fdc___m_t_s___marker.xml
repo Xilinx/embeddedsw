@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___m_t_s___marker" kind="struct" prot="public">
+    <compoundname>XRFdc_MTS_Marker</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___marker_1a498968ad6d6130e8a6556967d4e3796f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_MTS_Marker::Count[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___marker_1a7a1b9e0520fac6c162b5bdcde8bfef45" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_MTS_Marker::Loc[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Loc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MTS Marker Struct. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="450" bodyend="453"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___m_t_s___marker_1a498968ad6d6130e8a6556967d4e3796f" prot="public" virt="non-virtual"><scope>XRFdc_MTS_Marker</scope><name>Count</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___marker_1a7a1b9e0520fac6c162b5bdcde8bfef45" prot="public" virt="non-virtual"><scope>XRFdc_MTS_Marker</scope><name>Loc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

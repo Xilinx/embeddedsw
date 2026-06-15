@@ -1,0 +1,384 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2srx__chsts_8c" kind="file">
+    <compoundname>xi2srx_chsts.c</compoundname>
+    <includes refid="xi2srx__chsts_8h" local="yes">xi2srx_chsts.h</includes>
+    <includes refid="xi2srx_8h" local="yes">xi2srx.h</includes>
+    <includes refid="xi2srx__hw_8h" local="yes">xi2srx_hw.h</includes>
+    <includes refid="xi2srx__debug_8h" local="yes">xi2srx_debug.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="38">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="36">
+        <label>xil_io.h</label>
+      </node>
+      <node id="32">
+        <label>xi2srx_chsts.c</label>
+        <link refid="xi2srx_chsts.c"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx__hw_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xstatus.h</label>
+      </node>
+      <node id="34">
+        <label>xi2srx.h</label>
+        <link refid="xi2srx_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="37">
+        <label>xi2srx_debug.h</label>
+        <link refid="xi2srx__debug_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i2srx_1ga43cf5550c0ab230211f2fec6a77f46d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_SetAesChStat</definition>
+        <argsstring>(u32 I2srx_SrcBuf[], u8 I2srx_DstBuf[])</argsstring>
+        <name>XI2s_Rx_SetAesChStat</name>
+        <param>
+          <type>u32</type>
+          <declname>I2srx_SrcBuf</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2srx_DstBuf</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function reads the source buffer and writes to a destination buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before calling this API user application should write 192 bits i.e. 24 bytes to the array I2srx_SrcBuf. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2srx_SrcBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source buffer which has 192 channel status bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2srx_DstBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the destination buffer to store the 24 bytes. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" bodystart="59" bodyend="243"/>
+        <references refid="group__i2srx_1gad6529e8f84165c7b8199aa117bbd4c2d" compoundref="xi2srx__chsts_8h" startline="118">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_MASK</references>
+        <references refid="group__i2srx_1gafb8a702e39048d0d35dd23f610a946ec" compoundref="xi2srx__chsts_8h" startline="121">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_SHIFT</references>
+        <references refid="group__i2srx_1ga27e985a3f61ec3346e34bd796a1436f2" compoundref="xi2srx__chsts_8h" startline="124">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE2_MASK</references>
+        <references refid="group__i2srx_1gaacf37ecf6105875b9366ce067fd886ea" compoundref="xi2srx__chsts_8h" startline="127">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE2_SHIFT</references>
+        <references refid="group__i2srx_1gad288ebc2f97a44f9b6eaef2b3a4fffc3" compoundref="xi2srx__chsts_8h" startline="130">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE3_MASK</references>
+        <references refid="group__i2srx_1ga4dce38f6af8b332496389506d1e40072" compoundref="xi2srx__chsts_8h" startline="133">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE3_SHIFT</references>
+        <references refid="group__i2srx_1gacafcf9ac172dbdc5f80b90880d73a2d1" compoundref="xi2srx__chsts_8h" startline="115">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTEO_MASK</references>
+        <references refid="group__i2srx_1ga2d52c8bc20d20e2f57fa3924edc5438b" compoundref="xi2srx__chsts_8h" startline="97">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE1_MASK</references>
+        <references refid="group__i2srx_1ga1364a299a2578f4a282045775834313a" compoundref="xi2srx__chsts_8h" startline="100">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE1_SHIFT</references>
+        <references refid="group__i2srx_1gaf848ac17440a4d8a5653069830647f47" compoundref="xi2srx__chsts_8h" startline="103">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE2_MASK</references>
+        <references refid="group__i2srx_1gaef086b0ea64eb9ffd5f594b2fdbad519" compoundref="xi2srx__chsts_8h" startline="106">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE2_SHIFT</references>
+        <references refid="group__i2srx_1ga061b3fbb34792c1d51294b40c28475e5" compoundref="xi2srx__chsts_8h" startline="109">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE3_MASK</references>
+        <references refid="group__i2srx_1ga1eabba941875a898935195adfa72fca3" compoundref="xi2srx__chsts_8h" startline="112">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE3_SHIFT</references>
+        <references refid="group__i2srx_1ga26e2ccc157a34af5fd7e9d60ae73cb52" compoundref="xi2srx__chsts_8h" startline="94">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTEO_MASK</references>
+        <references refid="group__i2srx_1ga80a499c6431b30b9f93c662f1603f6ce" compoundref="xi2srx__chsts_8h" startline="46">XI2S_RX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
+        <references refid="group__i2srx_1gae59bcfba454f18b54ba728816dfab26a" compoundref="xi2srx__chsts_8h" startline="67">XI2S_RX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</references>
+        <references refid="group__i2srx_1gac67e04580c02588460647ca49a29b5a2" compoundref="xi2srx__chsts_8h" startline="43">XI2S_RX_AES_STS_LINEAR_PCM_ID_SHIFT</references>
+        <references refid="group__i2srx_1gad0142f1eb207e7a2cd302537fc6d5cd2" compoundref="xi2srx__chsts_8h" startline="139">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE1_MASK</references>
+        <references refid="group__i2srx_1ga1c3e940aee2cb1667627c68c6c3cca68" compoundref="xi2srx__chsts_8h" startline="142">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE1_SHIFT</references>
+        <references refid="group__i2srx_1ga39f718a1cf9b6486baf915dbb1174fad" compoundref="xi2srx__chsts_8h" startline="145">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE2_MASK</references>
+        <references refid="group__i2srx_1gae3f4831d3635bbf743ba6d2c142ba493" compoundref="xi2srx__chsts_8h" startline="148">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE2_SHIFT</references>
+        <references refid="group__i2srx_1ga2218adcd26be8952d2bf2751ae021c44" compoundref="xi2srx__chsts_8h" startline="151">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE3_MASK</references>
+        <references refid="group__i2srx_1ga4e12152141175d6ed4da816ed06aea30" compoundref="xi2srx__chsts_8h" startline="154">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE3_SHIFT</references>
+        <references refid="group__i2srx_1ga29a30f0b6cb6a8044f07cc8d1c98bc27" compoundref="xi2srx__chsts_8h" startline="136">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTEO_MASK</references>
+        <references refid="group__i2srx_1gaa09ec66ac22ace2f12027366c6ff1a8d" compoundref="xi2srx__chsts_8h" startline="49">XI2S_RX_AES_STS_LOCK_INDICATION_SHIFT</references>
+        <references refid="group__i2srx_1gaae1141cd6fd15f508775afc5da4ee2d8" compoundref="xi2srx__chsts_8h" startline="79">XI2S_RX_AES_STS_MC_CH_MODE_NUM_SHIFT</references>
+        <references refid="group__i2srx_1gaa9872ac668afde86aca6472ed8dfc4cf" compoundref="xi2srx__chsts_8h" startline="73">XI2S_RX_AES_STS_MC_CH_MODE_SHIFT</references>
+        <references refid="group__i2srx_1gabeef40d9d0ac35c67a6d02e4909e0b31" compoundref="xi2srx__chsts_8h" startline="82">XI2S_RX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</references>
+        <references refid="group__i2srx_1ga1aa68b4eb727fce4854e866e30f3ce71" compoundref="xi2srx__chsts_8h" startline="52">XI2S_RX_AES_STS_SAMPLING_FREQ_E_SHIFT</references>
+        <references refid="group__i2srx_1ga3b9edd77788d49e835dd5730acc5eaf7" compoundref="xi2srx__chsts_8h" startline="85">XI2S_RX_AES_STS_SAMPLING_FREQ_Q_SHIFT</references>
+        <references refid="group__i2srx_1ga251cf1d9bfef9ff78a7f95af9faef2b6" compoundref="xi2srx__chsts_8h" startline="88">XI2S_RX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</references>
+        <references refid="group__i2srx_1ga50f5d6ee3094fe95de92ce45f0f9dcd6" compoundref="xi2srx__chsts_8h" startline="64">XI2S_RX_AES_STS_SRC_WORD_LENGTH_SHIFT</references>
+        <references refid="group__i2srx_1ga645e9b1eb0c42b5d97be59a08dd4a496" compoundref="xi2srx__chsts_8h" startline="160">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE1_MASK</references>
+        <references refid="group__i2srx_1ga48bdff0ce3be2f1f5fb5737f22a5006f" compoundref="xi2srx__chsts_8h" startline="163">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE1_SHIFT</references>
+        <references refid="group__i2srx_1ga417fe23ce282f27f4aab53672d234d2d" compoundref="xi2srx__chsts_8h" startline="166">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE2_MASK</references>
+        <references refid="group__i2srx_1gaf900b98ab5f21b356b34785272fac765" compoundref="xi2srx__chsts_8h" startline="169">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE2_SHIFT</references>
+        <references refid="group__i2srx_1gaf8fb31e0ac937929892d8f6a4aea2ece" compoundref="xi2srx__chsts_8h" startline="172">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE3_MASK</references>
+        <references refid="group__i2srx_1ga2810ecdf0bf7e2e2e4629f31e0db44a7" compoundref="xi2srx__chsts_8h" startline="175">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE3_SHIFT</references>
+        <references refid="group__i2srx_1ga448cd39f51f47a4ea1b9073f38344ea0" compoundref="xi2srx__chsts_8h" startline="157">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTEO_MASK</references>
+        <references refid="group__i2srx_1gac143490d29c525ad054dbde5a1a9d6a5" compoundref="xi2srx__chsts_8h" startline="58">XI2S_RX_AES_STS_USR_BITS_MGMT_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi2srx_chsts.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx_8h" kindref="compound">xi2srx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx__hw_8h" kindref="compound">xi2srx_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx__debug_8h" kindref="compound">xi2srx_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__i2srx_1ga43cf5550c0ab230211f2fec6a77f46d5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga43cf5550c0ab230211f2fec6a77f46d5" kindref="member">XI2s_Rx_SetAesChStat</ref>(u32<sp/>I2srx_SrcBuf[],<sp/>u8<sp/>I2srx_DstBuf[])</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_useOf_ch_sts_blk;<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_linear_pcm_id;<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_audio_sig_pre_emph;<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_lock_indication;<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_sampling_freq_e;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_usr_bits_mgmt;<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_useOf_aux_smpl_bits;<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_src_word_length;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_indicate_align_level;<sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_mc_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_byte3_mc0_ch_num;<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_byte3_mc1_ch_num;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_byte3_mc1_ch_mode_num;<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_digital_audio_ref_sig;<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_rsvd_but_undef0;<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_sampling_freq_q;<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_sampling_freq_scale_flag;<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_rsvd_but_undef1;<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2srx_alphanum_ch_org_data;<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2srx_alphanum_ch_dest_data;<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2srx_local_sample_addrcode;<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2srx_timeOfDay_sample_addrcode;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_reliable_flags;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2srx_crc_char;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(I2srx_SrcBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_useOf_ch_sts_blk<sp/>=<sp/>I2srx_SrcBuf[0];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_linear_pcm_id<sp/>=<sp/>I2srx_SrcBuf[1];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_audio_sig_pre_emph<sp/>=<sp/>I2srx_SrcBuf[2];</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_lock_indication<sp/>=<sp/>I2srx_SrcBuf[3];</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_sampling_freq_e<sp/>=<sp/>I2srx_SrcBuf[4];</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_ch_mode<sp/>=<sp/>I2srx_SrcBuf[5];</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_usr_bits_mgmt<sp/>=<sp/>I2srx_SrcBuf[6];</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_useOf_aux_smpl_bits<sp/>=<sp/>I2srx_SrcBuf[7];</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_src_word_length=<sp/>I2srx_SrcBuf[8];</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_indicate_align_level=<sp/>I2srx_SrcBuf[9];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_mc_ch_mode<sp/>=0<sp/>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_byte3_mc0_ch_num=<sp/>I2srx_SrcBuf[10];</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_byte3_mc1_ch_num=<sp/>I2srx_SrcBuf[11];</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_byte3_mc1_ch_mode_num=<sp/>I2srx_SrcBuf[12];</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_digital_audio_ref_sig=<sp/>I2srx_SrcBuf[13];</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_rsvd_but_undef0=<sp/>I2srx_SrcBuf[14];</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_sampling_freq_q=<sp/>I2srx_SrcBuf[15];</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_sampling_freq_scale_flag=<sp/>I2srx_SrcBuf[16];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_rsvd_but_undef1=<sp/>I2srx_SrcBuf[17];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_alphanum_ch_org_data=<sp/>I2srx_SrcBuf[18];</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_alphanum_ch_dest_data=<sp/>I2srx_SrcBuf[19];</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_local_sample_addrcode=<sp/>I2srx_SrcBuf[20];</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_timeOfDay_sample_addrcode=<sp/>I2srx_SrcBuf[21];</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_reliable_flags=<sp/>I2srx_SrcBuf[22];</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_crc_char=<sp/>I2srx_SrcBuf[23];</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_useOf_ch_sts_blk)|</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_linear_pcm_id)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac67e04580c02588460647ca49a29b5a2" kindref="member">XI2S_RX_AES_STS_LINEAR_PCM_ID_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_audio_sig_pre_emph)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga80a499c6431b30b9f93c662f1603f6ce" kindref="member">XI2S_RX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_lock_indication)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa09ec66ac22ace2f12027366c6ff1a8d" kindref="member">XI2S_RX_AES_STS_LOCK_INDICATION_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_sampling_freq_e)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga1aa68b4eb727fce4854e866e30f3ce71" kindref="member">XI2S_RX_AES_STS_SAMPLING_FREQ_E_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[0]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_ch_mode)|</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_usr_bits_mgmt)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac143490d29c525ad054dbde5a1a9d6a5" kindref="member">XI2S_RX_AES_STS_USR_BITS_MGMT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[1]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_useOf_aux_smpl_bits)|</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_src_word_length)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga50f5d6ee3094fe95de92ce45f0f9dcd6" kindref="member">XI2S_RX_AES_STS_SRC_WORD_LENGTH_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_indicate_align_level)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gae59bcfba454f18b54ba728816dfab26a" kindref="member">XI2S_RX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[2]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(I2srx_mc_ch_mode<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_byte3_mc0_ch_num);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[3]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(I2srx_mc_ch_mode<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_mc_ch_mode<sp/>&lt;&lt;<sp/>(<ref refid="group__i2srx_1gaa9872ac668afde86aca6472ed8dfc4cf" kindref="member">XI2S_RX_AES_STS_MC_CH_MODE_SHIFT</ref>))</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(I2srx_byte3_mc1_ch_num)<sp/>|</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_byte3_mc1_ch_mode_num)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaae1141cd6fd15f508775afc5da4ee2d8" kindref="member">XI2S_RX_AES_STS_MC_CH_MODE_NUM_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[3]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_digital_audio_ref_sig)<sp/>|</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_rsvd_but_undef0)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gabeef40d9d0ac35c67a6d02e4909e0b31" kindref="member">XI2S_RX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_sampling_freq_q)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga3b9edd77788d49e835dd5730acc5eaf7" kindref="member">XI2S_RX_AES_STS_SAMPLING_FREQ_Q_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((I2srx_sampling_freq_scale_flag)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga251cf1d9bfef9ff78a7f95af9faef2b6" kindref="member">XI2S_RX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[4]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><sp/>(I2srx_rsvd_but_undef1);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[5]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_alphanum_ch_org_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga26e2ccc157a34af5fd7e9d60ae73cb52" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTEO_MASK</ref>);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[6]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_alphanum_ch_org_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga2d52c8bc20d20e2f57fa3924edc5438b" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE1_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga1364a299a2578f4a282045775834313a" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE1_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[7]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><sp/>((I2srx_alphanum_ch_org_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaf848ac17440a4d8a5653069830647f47" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE2_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaef086b0ea64eb9ffd5f594b2fdbad519" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE2_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[8]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_alphanum_ch_org_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga061b3fbb34792c1d51294b40c28475e5" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE3_MASK</ref>))&gt;&gt;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga1eabba941875a898935195adfa72fca3" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE3_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[9]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(I2srx_alphanum_ch_dest_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gacafcf9ac172dbdc5f80b90880d73a2d1" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTEO_MASK</ref>);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[10]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_alphanum_ch_dest_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gad6529e8f84165c7b8199aa117bbd4c2d" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gafb8a702e39048d0d35dd23f610a946ec" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[11]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_alphanum_ch_dest_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga27e985a3f61ec3346e34bd796a1436f2" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE2_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaacf37ecf6105875b9366ce067fd886ea" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[12]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_alphanum_ch_dest_data)<sp/>&amp;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gad288ebc2f97a44f9b6eaef2b3a4fffc3" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE3_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga4dce38f6af8b332496389506d1e40072" kindref="member">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE3_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[13]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_local_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga29a30f0b6cb6a8044f07cc8d1c98bc27" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTEO_MASK</ref>));</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[14]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_local_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gad0142f1eb207e7a2cd302537fc6d5cd2" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE1_MASK</ref>))</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/>(<ref refid="group__i2srx_1ga1c3e940aee2cb1667627c68c6c3cca68" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE1_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[15]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_local_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga39f718a1cf9b6486baf915dbb1174fad" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE2_MASK</ref>))</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/>(<ref refid="group__i2srx_1gae3f4831d3635bbf743ba6d2c142ba493" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[16]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_local_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga2218adcd26be8952d2bf2751ae021c44" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE3_MASK</ref>))</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/>(<ref refid="group__i2srx_1ga4e12152141175d6ed4da816ed06aea30" kindref="member">XI2S_RX_AES_STS_LOCAL_SAMPLE_ADDRESS_CODE_BYTE3_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[17]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_timeOfDay_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga448cd39f51f47a4ea1b9073f38344ea0" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTEO_MASK</ref>));</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[18]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_timeOfDay_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga645e9b1eb0c42b5d97be59a08dd4a496" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE1_MASK</ref>))&gt;&gt;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga48bdff0ce3be2f1f5fb5737f22a5006f" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE1_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[19]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_timeOfDay_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga417fe23ce282f27f4aab53672d234d2d" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE2_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaf900b98ab5f21b356b34785272fac765" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[20]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>((I2srx_timeOfDay_sample_addrcode)<sp/>&amp;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaf8fb31e0ac937929892d8f6a4aea2ece" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE3_MASK</ref>))<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga2810ecdf0bf7e2e2e4629f31e0db44a7" kindref="member">XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE3_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[21]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2srx_reliable_flags;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[22]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2srx_crc_char;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[23]<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c"/>
+  </compounddef>
+</doxygen>

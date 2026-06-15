@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_keystone__params__fl" kind="struct" prot="public">
+    <compoundname>Keystone_params_fl</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_keystone__params__fl_1ac07fafdda9d9211d49ef855eacec22ad" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::left_top_x</definition>
+        <argsstring></argsstring>
+        <name>left_top_x</name>
+        <briefdescription>
+<para>X coordinate of left top corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1a6be474c50e4920ac368b0a50e97adf72" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::left_top_y</definition>
+        <argsstring></argsstring>
+        <name>left_top_y</name>
+        <briefdescription>
+<para>Y coordinate of left top corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1aef08be7f52d4d7aefc374ceeb46e5306" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::right_top_x</definition>
+        <argsstring></argsstring>
+        <name>right_top_x</name>
+        <briefdescription>
+<para>X coordinate of right top corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1ad1b245d21cebf23426dce3b1a3a9ab6f" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::right_top_y</definition>
+        <argsstring></argsstring>
+        <name>right_top_y</name>
+        <briefdescription>
+<para>Y coordinate of right top corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1ae3d6f4cbcbfc70f5235da5f96b313f4d" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::left_bottom_x</definition>
+        <argsstring></argsstring>
+        <name>left_bottom_x</name>
+        <briefdescription>
+<para>X coordinate of left bottom corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1a81ab38acc935aa47ebab0d71e04da7f8" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::left_bottom_y</definition>
+        <argsstring></argsstring>
+        <name>left_bottom_y</name>
+        <briefdescription>
+<para>Y coordinate of left bottom corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1a11302f58b2dabd5410f0bb3faebc687e" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::right_bottom_x</definition>
+        <argsstring></argsstring>
+        <name>right_bottom_x</name>
+        <briefdescription>
+<para>X coordinate of right bottom corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keystone__params__fl_1a4b005166ada22b122aca7dff2fa6e96e" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Keystone_params_fl::right_bottom_y</definition>
+        <argsstring></argsstring>
+        <name>right_bottom_y</name>
+        <briefdescription>
+<para>Y coordinate of right bottom corner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Keystone correction parameters in floating-point format. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the four corner points for keystone/trapezoidal correction defining the quadrilateral transformation. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="96" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_keystone__params__fl_1ae3d6f4cbcbfc70f5235da5f96b313f4d" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>left_bottom_x</name></member>
+      <member refid="struct_keystone__params__fl_1a81ab38acc935aa47ebab0d71e04da7f8" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>left_bottom_y</name></member>
+      <member refid="struct_keystone__params__fl_1ac07fafdda9d9211d49ef855eacec22ad" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>left_top_x</name></member>
+      <member refid="struct_keystone__params__fl_1a6be474c50e4920ac368b0a50e97adf72" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>left_top_y</name></member>
+      <member refid="struct_keystone__params__fl_1a11302f58b2dabd5410f0bb3faebc687e" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>right_bottom_x</name></member>
+      <member refid="struct_keystone__params__fl_1a4b005166ada22b122aca7dff2fa6e96e" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>right_bottom_y</name></member>
+      <member refid="struct_keystone__params__fl_1aef08be7f52d4d7aefc374ceeb46e5306" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>right_top_x</name></member>
+      <member refid="struct_keystone__params__fl_1ad1b245d21cebf23426dce3b1a3a9ab6f" prot="public" virt="non-virtual"><scope>Keystone_params_fl</scope><name>right_top_y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

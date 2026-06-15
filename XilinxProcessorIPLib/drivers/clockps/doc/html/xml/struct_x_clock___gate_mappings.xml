@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___gate_mappings" kind="struct" prot="public">
+    <compoundname>XClock_GateMappings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___gate_mappings_1ac81c7caa972e5c6715584e94d570392f" prot="public" static="no" mutable="no">
+        <type>XClock_OutputClks</type>
+        <definition>XClock_OutputClks XClock_GateMappings::ClockId</definition>
+        <argsstring></argsstring>
+        <name>ClockId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___gate_mappings_1a4948066f2f9c87d3965e76a2681b26f7" prot="public" static="no" mutable="no">
+        <type>XClock_GateIndices</type>
+        <definition>XClock_GateIndices XClock_GateMappings::GateIndex</definition>
+        <argsstring></argsstring>
+        <name>GateIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="52" bodyend="55"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___gate_mappings_1ac81c7caa972e5c6715584e94d570392f" prot="public" virt="non-virtual"><scope>XClock_GateMappings</scope><name>ClockId</name></member>
+      <member refid="struct_x_clock___gate_mappings_1a4948066f2f9c87d3965e76a2681b26f7" prot="public" virt="non-virtual"><scope>XClock_GateMappings</scope><name>GateIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

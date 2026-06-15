@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsudma__intr_8c" kind="file">
+    <compoundname>xcsudma_intr.c</compoundname>
+    <includes refid="xcsudma_8h" local="yes">xcsudma.h</includes>
+    <incdepgraph>
+      <node id="80">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
+      </node>
+      <node id="83">
+        <label>sleep.h</label>
+      </node>
+      <node id="82">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="84">
+        <label>xil_util.h</label>
+      </node>
+      <node id="75">
+        <label>xcsudma_intr.c</label>
+        <link refid="xcsudma_intr.c"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>xcsudma_hw.h</label>
+        <link refid="xcsudma__hw_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xstatus.h</label>
+      </node>
+      <node id="79">
+        <label>xil_types.h</label>
+      </node>
+      <node id="76">
+        <label>xcsudma.h</label>
+        <link refid="xcsudma_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_IntrGetStatus</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_IntrGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns interrupt status read from Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The pending interrupts of the CSU_DMA. Use th following masks to interpret the returned value. XCSUDMA_IXR_SRC_MASK - For Source channel XCSUDMA_IXR_DST_MASK - For Destination channel</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="60" bodyend="76"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" compoundref="xcsudma__hw_8h" startline="60">XCSUDMA_I_STS_OFFSET</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_IntrClear</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Every bit set in Interrupt Status Register indicates that a specific type of interrupt is occurring, and this function clears one or more interrupts by writing a bit mask to Interrupt Clear Register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to clear. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR&apos;ing XCSUDMA_IXR_* bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="98" bodyend="118"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" compoundref="xcsudma__hw_8h" startline="60">XCSUDMA_I_STS_OFFSET</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_EnableIntr</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_EnableIntr</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to create the bit-mask to enable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains interrupts to be enabled.<itemizedlist>
+<listitem><para>Bit positions of 1 will be enabled. This mask is formed by OR&apos;ing XCSUDMA_IXR_*_MASK bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="140" bodyend="163"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_DisableIntr</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_DisableIntr</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to create the bit-mask to disable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains interrupts to be disabled.<itemizedlist>
+<listitem><para>Bit positions of 1 will be disabled. This mask is formed by OR&apos;ing XCSUDMA_IXR_*_MASK bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="185" bodyend="209"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_GetIntrMask</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_GetIntrMask</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the interrupt mask to know which interrupts are enabled and which of them were disabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current interrupt mask. The mask indicates which interrupts are enabled/disabled.<itemizedlist>
+<listitem><para>0 bit represents that the corresponding interrupt is enabled.</para></listitem><listitem><para>1 bit represents that the Corresponding interrupt is disabled. To interpret returned mask use</para></listitem><listitem><para>XCSUDMA_IXR_SRC_MASK that the For source channel</para></listitem><listitem><para>XCSUDMA_IXR_DST_MASK that the For destination channel</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="233" bodyend="247"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsudma_8h" kindref="compound">xcsudma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" kindref="member">XCsuDma_IntrGetStatus</ref>(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kindref="member">XCSUDMA_DST_CHANNEL</ref>)));</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" kindref="member">XCsuDma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(<ref refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" kindref="member">XCSUDMA_I_STS_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>*<sp/>(u32)(XCSUDMA_OFFSET_DIFF)));</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>interrupt<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" kindref="member">XCsuDma_IntrClear</ref>(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kindref="member">XCSUDMA_DST_CHANNEL</ref>)));</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clears<sp/>Interrupt<sp/>in<sp/>SRC/DST<sp/>channels<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kindref="member">XCsuDma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(<ref refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" kindref="member">XCSUDMA_I_STS_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" kindref="member">XCSUDMA_IXR_SRC_MASK</ref>)));</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kindref="member">XCsuDma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(<ref refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" kindref="member">XCSUDMA_I_STS_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>*<sp/>(u32)(XCSUDMA_OFFSET_DIFF))),</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" kindref="member">XCSUDMA_IXR_DST_MASK</ref>)));</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140" refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" kindref="member">XCsuDma_EnableIntr</ref>(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kindref="member">XCSUDMA_DST_CHANNEL</ref>)));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Mask<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" kindref="member">XCSUDMA_IXR_SRC_MASK</ref>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Mask<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" kindref="member">XCSUDMA_IXR_DST_MASK</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>mask<sp/>to<sp/>the<sp/>IER<sp/>Register</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kindref="member">XCsuDma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(XCSUDMA_I_EN_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>*<sp/>(u32)(XCSUDMA_OFFSET_DIFF))),<sp/>Data);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="185" refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" kindref="member">XCsuDma_DisableIntr</ref>(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kindref="member">XCSUDMA_DST_CHANNEL</ref>)));</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel<sp/>==<sp/><ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(Mask)<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" kindref="member">XCSUDMA_IXR_SRC_MASK</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(Mask)<sp/>&amp;<sp/>(u32)(<ref refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" kindref="member">XCSUDMA_IXR_DST_MASK</ref>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>mask<sp/>to<sp/>the<sp/>IDR<sp/>Register</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kindref="member">XCsuDma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(XCSUDMA_I_DIS_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>*<sp/>(u32)(XCSUDMA_OFFSET_DIFF))),<sp/>Data);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="233" refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" kindref="member">XCsuDma_GetIntrMask</ref>(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel)</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kindref="member">XCSUDMA_SRC_CHANNEL</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Channel<sp/>==<sp/>(<ref refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kindref="member">XCSUDMA_DST_CHANNEL</ref>)));</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="242"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Interrupt<sp/>Mask<sp/>register</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" kindref="member">XCsuDma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kindref="member">Config</ref>.<ref refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(XCSUDMA_I_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>*<sp/>(u32)(XCSUDMA_OFFSET_DIFF)))));</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c"/>
+  </compounddef>
+</doxygen>

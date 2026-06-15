@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___decimator_status_overrun" kind="struct" prot="public">
+    <compoundname>XDfePrach_DecimatorStatusOverrun</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overrun_1ae13d2834a22971b2b120f04fcaceef64" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverrun::DecimatorOverrun</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverrun</name>
+        <briefdescription>
+<para><verbatim>               [0-1] DecimatorOverrun=1 when an overrun
+</verbatim> has occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="607" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overrun_1ae6fca0ff1c617b085568d65cb9ff01b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverrun::FirstAntennaOverruning</definition>
+        <argsstring></argsstring>
+        <name>FirstAntennaOverruning</name>
+        <briefdescription>
+<para><verbatim>                     [0-7] Lowest antenna number on which
+</verbatim> first overrun occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="609" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overrun_1a0cba97078432612d315ae77e16e06c67" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverrun::FirstRCIdOverruning</definition>
+        <argsstring></argsstring>
+        <name>FirstRCIdOverruning</name>
+        <briefdescription>
+<para><verbatim>                  [0-15] Lowest RACH channel RCId on which
+</verbatim> first overrun occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="611" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH decimator overrun status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="606" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="606" bodyend="613"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___decimator_status_overrun_1ae13d2834a22971b2b120f04fcaceef64" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverrun</scope><name>DecimatorOverrun</name></member>
+      <member refid="struct_x_dfe_prach___decimator_status_overrun_1ae6fca0ff1c617b085568d65cb9ff01b9" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverrun</scope><name>FirstAntennaOverruning</name></member>
+      <member refid="struct_x_dfe_prach___decimator_status_overrun_1a0cba97078432612d315ae77e16e06c67" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverrun</scope><name>FirstRCIdOverruning</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

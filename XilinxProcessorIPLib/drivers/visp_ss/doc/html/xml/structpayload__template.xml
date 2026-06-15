@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structpayload__template" kind="struct" prot="public">
+    <compoundname>payload_template</compoundname>
+    <includes local="no">mbox_fifo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpayload__template_1ad5b14ae4c8381b7453150f58f96efaa8" prot="public" static="no" mutable="no">
+        <type><ref refid="mbox__fifo_8h_1a8141f32907282c4a05f59980c78389bc" kindref="member">Payload_type</ref></type>
+        <definition>Payload_type payload_template::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpayload__template_1ab1c014fc84e65fa124b18c778bab8285" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t payload_template::cookie</definition>
+        <argsstring></argsstring>
+        <name>cookie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpayload__template_1a4a710a2c009c601696c53aae16ad1a8b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t payload_template::payload_size</definition>
+        <argsstring></argsstring>
+        <name>payload_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpayload__template_1aa5024e097bdf4be78c083fc507fd327b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t payload_template::reserved[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpayload__template_1ac3d5712a2c530763a62038b53a6a670a" prot="public" static="no" mutable="no">
+        <type><ref refid="mbox__fifo_8h_1a6c7681b111a56f096f9e84529cf69b3d" kindref="member">response_field_t</ref></type>
+        <definition>response_field_t payload_template::resp_field</definition>
+        <argsstring></argsstring>
+        <name>resp_field</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpayload__template_1aa76e695e0401f4130bb7daa8f98e64d5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t payload_template::payload_data[MAX_ITEM]</definition>
+        <argsstring>[MAX_ITEM]</argsstring>
+        <name>payload_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Payload packet structure - must match NEW_RPU binary layout. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="952">
+        <label>payload_template</label>
+        <link refid="structpayload__template"/>
+        <childnode refid="953" relation="usage">
+          <edgelabel>resp_field</edgelabel>
+        </childnode>
+      </node>
+      <node id="953">
+        <label>response_field</label>
+        <link refid="structresponse__field"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="44" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structpayload__template_1ab1c014fc84e65fa124b18c778bab8285" prot="public" virt="non-virtual"><scope>payload_template</scope><name>cookie</name></member>
+      <member refid="structpayload__template_1aa76e695e0401f4130bb7daa8f98e64d5" prot="public" virt="non-virtual"><scope>payload_template</scope><name>payload_data</name></member>
+      <member refid="structpayload__template_1a4a710a2c009c601696c53aae16ad1a8b" prot="public" virt="non-virtual"><scope>payload_template</scope><name>payload_size</name></member>
+      <member refid="structpayload__template_1aa5024e097bdf4be78c083fc507fd327b" prot="public" virt="non-virtual"><scope>payload_template</scope><name>reserved</name></member>
+      <member refid="structpayload__template_1ac3d5712a2c530763a62038b53a6a670a" prot="public" virt="non-virtual"><scope>payload_template</scope><name>resp_field</name></member>
+      <member refid="structpayload__template_1ad5b14ae4c8381b7453150f58f96efaa8" prot="public" virt="non-virtual"><scope>payload_template</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

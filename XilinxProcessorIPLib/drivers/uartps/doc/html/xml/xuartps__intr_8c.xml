@@ -1,0 +1,748 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartps__intr_8c" kind="file">
+    <compoundname>xuartps_intr.c</compoundname>
+    <includes refid="xuartps_8h" local="yes">xuartps.h</includes>
+    <incdepgraph>
+      <node id="87">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="90">
+        <label>xil_io.h</label>
+      </node>
+      <node id="85">
+        <label>xuartps.h</label>
+        <link refid="xuartps_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="91">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="92">
+        <label>xil_util.h</label>
+      </node>
+      <node id="89">
+        <label>xuartps_hw.h</label>
+        <link refid="xuartps__hw_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xstatus.h</label>
+      </node>
+      <node id="86">
+        <label>xil_types.h</label>
+      </node>
+      <node id="84">
+        <label>xuartps_intr.c</label>
+        <link refid="xuartps_intr.c"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__uartps_1ga969a172d07d93e0e25851bd35e50ed09" prot="public" static="no">
+        <type>void(*</type>
+        <definition>void Handler</definition>
+        <argsstring>)(XUartPs *InstancePtr)</argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>This function is the handler which performs processing to handle data events from the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context. so the amount of processing should be minimal.</para><para>This handler provides an example of how to handle data for the device and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a callback reference from the driver, in this case it is the instance pointer for the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specific kind of event that has occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes sent or received for sent and receive events.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartps_1ga1b4524755c739f220751ecc01edbe780" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveDataHandler</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>ReceiveDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data is in RX FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="324" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga87b5a3f65f8d1f6d70b57e49552a38a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SendDataHandler</definition>
+        <argsstring>(XUartPs *InstancePtr, u32 IsrStatus)</argsstring>
+        <name>SendDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsrStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data has been sent, the transmit FIFO is empty (transmitter holding register). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register value for channel status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="363" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga88321f8192c5e3f50aa9f0ef754b790d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveErrorHandler</definition>
+        <argsstring>(XUartPs *InstancePtr, u32 IsrStatus)</argsstring>
+        <name>ReceiveErrorHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsrStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="226" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga91e37f70e2599816d0fb9893a1f388c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveTimeoutHandler</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>ReceiveTimeoutHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the receive timeout interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This interrupt occurs whenever a number of bytes have been present in the RX FIFO and the receive data line has been idle for at lease 4 or more character times, (the timeout is set using XUartPs_SetrecvTimeout() function).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="277" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1gae1cb4775558a9efa38814b6d344a448e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ModemHandler</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>ModemHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles modem interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does not do any processing except to call the application handler to indicate a modem event.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="406" bodyend="425"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga183d2a2ce37a822b72dc8123c276cc39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUartPs_ReceiveBuffer</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>XUartPs_ReceiveBuffer</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.c" bodystart="441" bodyend="500"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga155e8e81ea00cad7734697093376c2fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUartPs_SendBuffer</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>XUartPs_SendBuffer</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.c" bodystart="365" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1gae5cf497a416bc210c4f1dbe99cacc961" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUartPs_GetInterruptMask</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>XUartPs_GetInterruptMask</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current interrupt mask. The mask indicates which interrupts are enabled.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="70" bodyend="78"/>
+        <references refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" compoundref="xuartps_8h" startline="284">XUartPs_Config::BaseAddress</references>
+        <references refid="group__uartps_1ga0cfdb73d2795d7cc3b849fe1622fa029" compoundref="xuartps__hw_8h" startline="66">XUARTPS_IMR_OFFSET</references>
+        <references refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" compoundref="xuartps__hw_8h" startline="359">XUartPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1gab3b65e926f6f4ac7ab41a70801ba12c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_SetInterruptMask</definition>
+        <argsstring>(XUartPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XUartPs_SetInterruptMask</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the interrupts to be enabled or disabled. A &apos;1&apos; enables an interrupt, and a &apos;0&apos; disables.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="94" bodyend="110"/>
+        <references refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" compoundref="xuartps_8h" startline="284">XUartPs_Config::BaseAddress</references>
+        <references refid="group__uartps_1ga7e39d2ae49038a4ce4087bbee2bfdab7" compoundref="xuartps__hw_8h" startline="65">XUARTPS_IDR_OFFSET</references>
+        <references refid="group__uartps_1ga50985f0d8e60110fbbc63b1e100beb68" compoundref="xuartps__hw_8h" startline="64">XUARTPS_IER_OFFSET</references>
+        <references refid="group__uartps_1ga73b78b2490f8a0aa402867987c765df0" compoundref="xuartps__hw_8h" startline="166">XUARTPS_IXR_MASK</references>
+        <references refid="group__uartps_1gab541297d822b163193a2e47305987ab6" compoundref="xuartps__hw_8h" startline="378">XUartPs_WriteReg</references>
+        <referencedby refid="xuartps__intr__example_8c_1a9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="204" endline="354">UartPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga9528098e589491997c7805592a4b5a7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_SetHandler</definition>
+        <argsstring>(XUartPs *InstancePtr, XUartPs_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XUartPs_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__uartps_1ga5bb8d1f316dacd471a6cd3c976c7b1ca" kindref="member">XUartPs_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs that needs application&apos;s attention. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="131" bodyend="144"/>
+        <referencedby refid="xuartps__intr__example_8c_1a9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="204" endline="354">UartPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1gabf86fb20a58e4a7fbd73afa49f8eb604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_InterruptHandler</definition>
+        <argsstring>(XUartPs *InstancePtr)</argsstring>
+        <name>XUartPs_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to an interrupt system by the application such that it can be called when an interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c" bodystart="160" bodyend="211"/>
+        <references refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" compoundref="xuartps_8h" startline="284">XUartPs_Config::BaseAddress</references>
+        <references refid="group__uartps_1ga0cfdb73d2795d7cc3b849fe1622fa029" compoundref="xuartps__hw_8h" startline="66">XUARTPS_IMR_OFFSET</references>
+        <references refid="group__uartps_1ga7e96d23606d96a7d9816bc2ff777cbf8" compoundref="xuartps__hw_8h" startline="67">XUARTPS_ISR_OFFSET</references>
+        <references refid="group__uartps_1gadf1dabb7547f5b16748e8c6307cfc7a1" compoundref="xuartps__hw_8h" startline="156">XUARTPS_IXR_DMS</references>
+        <references refid="group__uartps_1gaa6048212fde48f7188efd90c83c4822d" compoundref="xuartps__hw_8h" startline="159">XUARTPS_IXR_FRAMING</references>
+        <references refid="group__uartps_1gafd4a37077bddeeefcc39d58b4f08fb23" compoundref="xuartps__hw_8h" startline="160">XUARTPS_IXR_OVER</references>
+        <references refid="group__uartps_1ga2a11620ed0dd465adf0de24f6d7ad418" compoundref="xuartps__hw_8h" startline="158">XUARTPS_IXR_PARITY</references>
+        <references refid="group__uartps_1gab5df3d1fd00008bd7cc177abd02f07e5" compoundref="xuartps__hw_8h" startline="152">XUARTPS_IXR_RBRK</references>
+        <references refid="group__uartps_1ga541b132695e333571fd8c6b2eeaa23bd" compoundref="xuartps__hw_8h" startline="164">XUARTPS_IXR_RXEMPTY</references>
+        <references refid="group__uartps_1gae374cc3c085d3cac795d95b657b03d5e" compoundref="xuartps__hw_8h" startline="163">XUARTPS_IXR_RXFULL</references>
+        <references refid="group__uartps_1gaad5de1c646049d7ced8841e316a34892" compoundref="xuartps__hw_8h" startline="165">XUARTPS_IXR_RXOVR</references>
+        <references refid="group__uartps_1ga7194f5e99a1a98178f6bf1462791aaac" compoundref="xuartps__hw_8h" startline="157">XUARTPS_IXR_TOUT</references>
+        <references refid="group__uartps_1ga9a4207349f3980046ba4ea9e4379007a" compoundref="xuartps__hw_8h" startline="162">XUARTPS_IXR_TXEMPTY</references>
+        <references refid="group__uartps_1ga9abc091be0a0e2cc18bbc540db6e513b" compoundref="xuartps__hw_8h" startline="161">XUARTPS_IXR_TXFULL</references>
+        <references refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" compoundref="xuartps__hw_8h" startline="359">XUartPs_ReadReg</references>
+        <references refid="group__uartps_1gab541297d822b163193a2e47305987ab6" compoundref="xuartps__hw_8h" startline="378">XUartPs_WriteReg</references>
+        <referencedby refid="xuartps__intr__example_8c_1a9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="204" endline="354">UartPsIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartps_8h" kindref="compound">xuartps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveErrorHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveTimeoutHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ModemHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Internal<sp/>function<sp/>prototypes<sp/>implemented<sp/>in<sp/>xuartps.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XUartPs_ReceiveBuffer(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XUartPs_SendBuffer(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="group__uartps_1ga969a172d07d93e0e25851bd35e50ed09" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__uartps_1ga969a172d07d93e0e25851bd35e50ed09" kindref="member">Handler</ref>)(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__uartps_1gae5cf497a416bc210c4f1dbe99cacc961" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__uartps_1gae5cf497a416bc210c4f1dbe99cacc961" kindref="member">XUartPs_GetInterruptMask</ref>(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Interrupt<sp/>Mask<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kindref="member">XUartPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga0cfdb73d2795d7cc3b849fe1622fa029" kindref="member">XUARTPS_IMR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group__uartps_1gab3b65e926f6f4ac7ab41a70801ba12c3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1gab3b65e926f6f4ac7ab41a70801ba12c3" kindref="member">XUartPs_SetInterruptMask</ref>(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempMask<sp/>=<sp/>Mask;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempMask<sp/>&amp;=<sp/>(u32)<ref refid="group__uartps_1ga73b78b2490f8a0aa402867987c765df0" kindref="member">XUARTPS_IXR_MASK</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>mask<sp/>to<sp/>the<sp/>IER<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga50985f0d8e60110fbbc63b1e100beb68" kindref="member">XUARTPS_IER_OFFSET</ref>,<sp/>TempMask);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>inverse<sp/>of<sp/>the<sp/>Mask<sp/>to<sp/>the<sp/>IDR<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga7e39d2ae49038a4ce4087bbee2bfdab7" kindref="member">XUARTPS_IDR_OFFSET</ref>,<sp/>(~TempMask));</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="131" refid="group__uartps_1ga9528098e589491997c7805592a4b5a7b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1ga9528098e589491997c7805592a4b5a7b" kindref="member">XUartPs_SetHandler</ref>(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/><ref refid="group__uartps_1ga5bb8d1f316dacd471a6cd3c976c7b1ca" kindref="member">XUartPs_Handler</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Asserts<sp/>validate<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler<sp/>=<sp/>(<ref refid="group__uartps_1ga5bb8d1f316dacd471a6cd3c976c7b1ca" kindref="member">XUartPs_Handler</ref>)FuncPtr;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;CallBackRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="160" refid="group__uartps_1gabf86fb20a58e4a7fbd73afa49f8eb604" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1gabf86fb20a58e4a7fbd73afa49f8eb604" kindref="member">XUartPs_InterruptHandler</ref>(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsrStatus;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>ID<sp/>register<sp/>to<sp/>determine<sp/>which</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>is<sp/>active</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>=<sp/><ref refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kindref="member">XUartPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga0cfdb73d2795d7cc3b849fe1622fa029" kindref="member">XUARTPS_IMR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>&amp;=<sp/><ref refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kindref="member">XUartPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga7e96d23606d96a7d9816bc2ff777cbf8" kindref="member">XUARTPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dispatch<sp/>an<sp/>appropriate<sp/>handler.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1gaad5de1c646049d7ced8841e316a34892" kindref="member">XUARTPS_IXR_RXOVR</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1ga541b132695e333571fd8c6b2eeaa23bd" kindref="member">XUARTPS_IXR_RXEMPTY</ref><sp/>|</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartps_1gae374cc3c085d3cac795d95b657b03d5e" kindref="member">XUARTPS_IXR_RXFULL</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Received<sp/>data<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveDataHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1ga9a4207349f3980046ba4ea9e4379007a" kindref="member">XUARTPS_IXR_TXEMPTY</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1ga9abc091be0a0e2cc18bbc540db6e513b" kindref="member">XUARTPS_IXR_TXFULL</ref>))</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>data<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SendDataHandler(InstancePtr,<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XUARTPS_IXR_RBRK<sp/>is<sp/>applicable<sp/>only<sp/>for<sp/>Zynq<sp/>Ultrascale+<sp/>MP<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1gafd4a37077bddeeefcc39d58b4f08fb23" kindref="member">XUARTPS_IXR_OVER</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1gaa6048212fde48f7188efd90c83c4822d" kindref="member">XUARTPS_IXR_FRAMING</ref><sp/>|</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartps_1ga2a11620ed0dd465adf0de24f6d7ad418" kindref="member">XUARTPS_IXR_PARITY</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1gab5df3d1fd00008bd7cc177abd02f07e5" kindref="member">XUARTPS_IXR_RBRK</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Received<sp/>Error<sp/>Status<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveErrorHandler(InstancePtr,<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1ga7194f5e99a1a98178f6bf1462791aaac" kindref="member">XUARTPS_IXR_TOUT</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Received<sp/>Timeout<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveTimeoutHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1gadf1dabb7547f5b16748e8c6307cfc7a1" kindref="member">XUARTPS_IXR_DMS</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Modem<sp/>status<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModemHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__uartps_1ga7e96d23606d96a7d9816bc2ff777cbf8" kindref="member">XUARTPS_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="215"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="216"><highlight class="comment">*<sp/>This<sp/>function<sp/>handles<sp/>interrupts<sp/>for<sp/>receive<sp/>errors<sp/>which<sp/>include</highlight></codeline>
+<codeline lineno="217"><highlight class="comment">*<sp/>overrun<sp/>errors,<sp/>framing<sp/>errors,<sp/>parity<sp/>errors,<sp/>and<sp/>the<sp/>break<sp/>interrupt.</highlight></codeline>
+<codeline lineno="218"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="219"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XUartPs<sp/>instance.</highlight></codeline>
+<codeline lineno="220"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="221"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="222"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="223"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="224"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="225"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveErrorHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>IsrStatus)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EventData;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Event;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;is_rxbs_error<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;Platform<sp/>==<sp/>XPLAT_ZYNQ_ULTRA_MP)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1ga2a11620ed0dd465adf0de24f6d7ad418" kindref="member">XUARTPS_IXR_PARITY</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1gab5df3d1fd00008bd7cc177abd02f07e5" kindref="member">XUARTPS_IXR_RBRK</ref></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__uartps_1gaa6048212fde48f7188efd90c83c4822d" kindref="member">XUARTPS_IXR_FRAMING</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;is_rxbs_error<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them.<sp/>Removing<sp/>bytes<sp/>from<sp/>the<sp/>RX<sp/>FIFO<sp/>will</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clear<sp/>the<sp/>interrupt.</highlight></codeline>
+<codeline lineno="242"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XUartPs_ReceiveBuffer(InstancePtr);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(InstancePtr-&gt;is_rxbs_error))<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartps_1ga4664232aba4f5873439dd72b68cea266" kindref="member">XUARTPS_EVENT_RECV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventData<sp/>=<sp/>InstancePtr-&gt;ReceiveBuffer.RequestedBytes<sp/>-</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ReceiveBuffer.RemainingBytes;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>that<sp/>there<sp/>is<sp/>a<sp/>receive</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>or<sp/>a<sp/>break<sp/>interrupt,<sp/>if<sp/>the<sp/>application<sp/>cares<sp/>about<sp/>the</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>it<sp/>call<sp/>a<sp/>function<sp/>to<sp/>get<sp/>the<sp/>last<sp/>errors.</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler(InstancePtr-&gt;CallBackRef,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventData);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="277"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveTimeoutHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Event;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="282"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them.<sp/>Removing<sp/>bytes<sp/>from<sp/>the<sp/>RX<sp/>FIFO<sp/>will</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clear<sp/>the<sp/>interrupt.</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;ReceiveBuffer.RemainingBytes<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XUartPs_ReceiveBuffer(InstancePtr);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>no<sp/>more<sp/>bytes<sp/>to<sp/>receive<sp/>then<sp/>indicate<sp/>that<sp/>this<sp/>is</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>not<sp/>a<sp/>receive<sp/>timeout<sp/>but<sp/>the<sp/>end<sp/>of<sp/>the<sp/>buffer<sp/>reached,<sp/>a<sp/>timeout</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>normally<sp/>occurs<sp/>if<sp/>#<sp/>of<sp/>bytes<sp/>is<sp/>not<sp/>divisible<sp/>by<sp/>FIFO<sp/>threshold,</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>don&apos;t<sp/>rely<sp/>on<sp/>previous<sp/>test<sp/>of<sp/>remaining<sp/>bytes<sp/>since<sp/>receive</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>function<sp/>updates<sp/>it</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;ReceiveBuffer.RemainingBytes<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartps_1ga60c5fbf323a23405b48de1eaebb69876" kindref="member">XUARTPS_EVENT_RECV_TOUT</ref>;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartps_1ga5df58daf8b254add987548848166a4ea" kindref="member">XUARTPS_EVENT_RECV_DATA</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="304"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>that<sp/>there<sp/>is<sp/>a<sp/>receive</highlight></codeline>
+<codeline lineno="305"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>timeout<sp/>or<sp/>data<sp/>event</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler(InstancePtr-&gt;CallBackRef,<sp/>Event,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ReceiveBuffer.RequestedBytes<sp/>-</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ReceiveBuffer.RemainingBytes);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them.<sp/>Removing<sp/>bytes<sp/>from<sp/>the<sp/>RX<sp/>FIFO<sp/>will</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clear<sp/>the<sp/>interrupt.</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;ReceiveBuffer.RemainingBytes<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XUartPs_ReceiveBuffer(InstancePtr);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>last<sp/>byte<sp/>of<sp/>a<sp/>message<sp/>was<sp/>received<sp/>then<sp/>call<sp/>the<sp/>application</highlight></codeline>
+<codeline lineno="336"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handler,<sp/>this<sp/>code<sp/>should<sp/>not<sp/>use<sp/>an<sp/>else<sp/>from<sp/>the<sp/>previous<sp/>check<sp/>of</highlight></codeline>
+<codeline lineno="337"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>receive<sp/>because<sp/>the<sp/>call<sp/>to<sp/>receive<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="338"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>updates<sp/>the<sp/>bytes<sp/>ramained</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;ReceiveBuffer.RemainingBytes<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler(InstancePtr-&gt;CallBackRef,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga5df58daf8b254add987548848166a4ea" kindref="member">XUARTPS_EVENT_RECV_DATA</ref>,</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;ReceiveBuffer.RequestedBytes<sp/>-</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ReceiveBuffer.RemainingBytes));</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="363"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>IsrStatus)</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="367"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>not<sp/>bytes<sp/>to<sp/>be<sp/>sent<sp/>from<sp/>the<sp/>specified<sp/>buffer<sp/>then<sp/>disable</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>transmit<sp/>interrupt<sp/>so<sp/>it<sp/>will<sp/>stop<sp/>interrupting<sp/>as<sp/>it<sp/>interrupts</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>any<sp/>time<sp/>the<sp/>FIFO<sp/>is<sp/>empty</highlight></codeline>
+<codeline lineno="370"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;SendBuffer.RemainingBytes<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga7e39d2ae49038a4ce4087bbee2bfdab7" kindref="member">XUARTPS_IDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__uartps_1ga9a4207349f3980046ba4ea9e4379007a" kindref="member">XUARTPS_IXR_TXEMPTY</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1ga9abc091be0a0e2cc18bbc540db6e513b" kindref="member">XUARTPS_IXR_TXFULL</ref>));</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>sending<sp/>is<sp/>done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler(InstancePtr-&gt;CallBackRef,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga83784b7f23f91b771059aac0125b20a6" kindref="member">XUARTPS_EVENT_SENT_DATA</ref>,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendBuffer.RequestedBytes<sp/>-</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendBuffer.RemainingBytes);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>TX<sp/>FIFO<sp/>is<sp/>empty,<sp/>send<sp/>more.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartps_1ga9a4207349f3980046ba4ea9e4379007a" kindref="member">XUARTPS_IXR_TXEMPTY</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XUartPs_SendBuffer(InstancePtr);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Else<sp/>with<sp/>dummy<sp/>entry<sp/>for<sp/>MISRA-C<sp/>Compliance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="406"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ModemHandler(<ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsrRegister;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="411"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>modem<sp/>status<sp/>register<sp/>so<sp/>that<sp/>the<sp/>interrupt<sp/>is<sp/>acknowledged</highlight></codeline>
+<codeline lineno="412"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>it<sp/>can<sp/>be<sp/>passed<sp/>to<sp/>the<sp/>callback<sp/>handler<sp/>with<sp/>the<sp/>event</highlight></codeline>
+<codeline lineno="413"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsrRegister<sp/>=<sp/><ref refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kindref="member">XUartPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga36a307fcdb77eba28c8029f92d4db1b9" kindref="member">XUARTPS_MODEMSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="418"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>modem<sp/>status<sp/>changed,</highlight></codeline>
+<codeline lineno="419"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>passing<sp/>the<sp/>modem<sp/>status<sp/>and<sp/>the<sp/>event<sp/>data<sp/>in<sp/>the<sp/>call</highlight></codeline>
+<codeline lineno="420"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler(InstancePtr-&gt;CallBackRef,</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga9cd187ec1b79c1ec7daf4c7293d2bdd0" kindref="member">XUARTPS_EVENT_MODEM</ref>,</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsrRegister);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_intr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_puf___puf_data" kind="struct" prot="public">
+    <compoundname>XPuf_PufData</compoundname>
+    <includes local="no">xpuf_client.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_puf___puf_data_1acd59f5a328d694c8e9604a6b33c00e4a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_PufData::SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS]</definition>
+        <argsstring>[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS]</argsstring>
+        <name>SyndromeData</name>
+        <briefdescription>
+<para>PUF syndrome data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___puf_data_1ac822de162635f1a3fe9511a278de4839" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_PufData::Chash</definition>
+        <argsstring></argsstring>
+        <name>Chash</name>
+        <briefdescription>
+<para>PUF Chash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___puf_data_1a0d672671ce938e22fb6eeb7ad17d304b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_PufData::Aux</definition>
+        <argsstring></argsstring>
+        <name>Aux</name>
+        <briefdescription>
+<para>PUF AUX data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___puf_data_1a100970e88224119cde1aae05a66883cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_PufData::PufID[XPUF_ID_LEN_IN_WORDS]</definition>
+        <argsstring>[XPUF_ID_LEN_IN_WORDS]</argsstring>
+        <name>PufID</name>
+        <briefdescription>
+<para>PUF ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___puf_data_1acb4c45af90ae580aff73f8176cd2b075" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_PufData::EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS]</definition>
+        <argsstring>[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS]</argsstring>
+        <name>EfuseSynData</name>
+        <briefdescription>
+<para>Trimmed data to be written in efuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains PUF syndrome data, hash value, auxiliary data, PUF ID, and eFuse trimmed data used during PUF registration and regeneration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" bodystart="51" bodyend="61"/>
+    <listofallmembers>
+      <member refid="struct_x_puf___puf_data_1a0d672671ce938e22fb6eeb7ad17d304b" prot="public" virt="non-virtual"><scope>XPuf_PufData</scope><name>Aux</name></member>
+      <member refid="struct_x_puf___puf_data_1ac822de162635f1a3fe9511a278de4839" prot="public" virt="non-virtual"><scope>XPuf_PufData</scope><name>Chash</name></member>
+      <member refid="struct_x_puf___puf_data_1acb4c45af90ae580aff73f8176cd2b075" prot="public" virt="non-virtual"><scope>XPuf_PufData</scope><name>EfuseSynData</name></member>
+      <member refid="struct_x_puf___puf_data_1a100970e88224119cde1aae05a66883cf" prot="public" virt="non-virtual"><scope>XPuf_PufData</scope><name>PufID</name></member>
+      <member refid="struct_x_puf___puf_data_1acd59f5a328d694c8e9604a6b33c00e4a" prot="public" virt="non-virtual"><scope>XPuf_PufData</scope><name>SyndromeData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

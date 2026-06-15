@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___b_l_u_n_info" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_BLUNInfo</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1ab9bbddee0c254d7cce80cc8d6b065970" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BLUNInfo::LunID</definition>
+        <argsstring></argsstring>
+        <name>LunID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aae576d96342db24d238263d3dc697bc4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BLUNInfo::BootLunID</definition>
+        <argsstring></argsstring>
+        <name>BootLunID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1a15f183a60e0d7bfa0a434ed758afc455" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BLUNInfo::BlockSize</definition>
+        <argsstring></argsstring>
+        <name>BlockSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aaab714ed4e93338a1be37c70df5c7f13" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BLUNInfo::MemoryType</definition>
+        <argsstring></argsstring>
+        <name>MemoryType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1a6b35809464b475570c04c116221d70ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BLUNInfo::NumAllocUnits</definition>
+        <argsstring></argsstring>
+        <name>NumAllocUnits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aa25dda08ce27077d9d76162ae22af298" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XUfsPsxc_BLUNInfo::LUNSize</definition>
+        <argsstring></argsstring>
+        <name>LUNSize</name>
+        <briefdescription>
+<para>Size is in MB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>BootLU information structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="214" bodyend="221"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1a15f183a60e0d7bfa0a434ed758afc455" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>BlockSize</name></member>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1aae576d96342db24d238263d3dc697bc4" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>BootLunID</name></member>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1ab9bbddee0c254d7cce80cc8d6b065970" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>LunID</name></member>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1aa25dda08ce27077d9d76162ae22af298" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>LUNSize</name></member>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1aaab714ed4e93338a1be37c70df5c7f13" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>MemoryType</name></member>
+      <member refid="struct_x_ufs_psxc___b_l_u_n_info_1a6b35809464b475570c04c116221d70ab" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>NumAllocUnits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

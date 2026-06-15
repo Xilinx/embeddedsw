@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_ps___config" kind="struct" prot="public">
+    <compoundname>XUsbPs_Config</compoundname>
+    <includes local="no">xusbps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_ps___config_1a9cf19fcb77e08bd244e06ca2de9d70a1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUsbPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique Name of controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="545" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac79e39dc62c743463e360c400f33d194" compoundref="xusbps__sinit_8c" startline="87" endline="102">XUsbPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___config_1a0fc8018ea01456a111464cf7d9f7ed04" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Core register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="547" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1ga1a3417695facf9eff86ce6a1e14a9bbc" compoundref="xusbps_8c" startline="77" endline="99">XUsbPs_CfgInitialize</referencedby>
+        <referencedby refid="group__usbps_1ga6daace32113a806a6822a6d5943a93f4" compoundref="xusbps__endpoint_8c" startline="96" endline="155">XUsbPs_ConfigureDevice</referencedby>
+        <referencedby refid="group__usbps_1ga69b214c21727c4b1f641d84414f397df" compoundref="xusbps_8c" startline="113" endline="162">XUsbPs_DeviceReset</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <referencedby refid="group__usbps_1gaba0ae2eac9c6b402e32e401333a5b105" compoundref="xusbps__endpoint_8c" startline="766" endline="793">XUsbPs_EpPrime</referencedby>
+        <referencedby refid="group__usbps_1ga60e2b0f6fabc24cdf785d704ab2585d1" compoundref="xusbps__intr_8c" startline="71" endline="168">XUsbPs_IntrHandler</referencedby>
+        <referencedby refid="group__usbps_1ga2c583a4c515653fd70c111fe0d2ddb37" compoundref="xusbps_8c" startline="180" endline="216">XUsbPs_Reset</referencedby>
+        <referencedby refid="group__usbps_1ga8c700bcf9ba08271914145803776d265" compoundref="xusbps_8c" startline="319" endline="351">XUsbPs_SetDeviceAddress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___config_1adaa27f8890d2b2b4cbae8adaf2b0094a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="549" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___config_1a921451bc39dd190d4f756f7e90b962be" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUsbPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type. </para>        </briefdescription>
+        <detaileddescription>
+<para>level flags </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="551" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_usb_ps___config" kindref="compound">XUsbPs_Config</ref> structure contains configuration information for the USB controller. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure only contains the basic configuration for the controller. The caller also needs to initialize the controller for the DEVICE mode using the <ref refid="struct_x_usb_ps___device_config" kindref="compound">XUsbPs_DeviceConfig</ref> data structures with the <ref refid="group__usbps_1ga6daace32113a806a6822a6d5943a93f4" kindref="member">XUsbPs_ConfigureDevice()</ref> function call </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="541" bodyend="553"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_ps___config_1a0fc8018ea01456a111464cf7d9f7ed04" prot="public" virt="non-virtual"><scope>XUsbPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_usb_ps___config_1adaa27f8890d2b2b4cbae8adaf2b0094a" prot="public" virt="non-virtual"><scope>XUsbPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_usb_ps___config_1a921451bc39dd190d4f756f7e90b962be" prot="public" virt="non-virtual"><scope>XUsbPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_usb_ps___config_1a9cf19fcb77e08bd244e06ca2de9d70a1" prot="public" virt="non-virtual"><scope>XUsbPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

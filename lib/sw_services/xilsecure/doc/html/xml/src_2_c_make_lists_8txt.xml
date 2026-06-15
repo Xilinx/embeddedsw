@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1afa522350b1c1279f3636d1bcfecef666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SET</definition>
+        <argsstring>(CMAKE_ ${lang}_CREATE_STATIC_LIBRARY&quot;&lt;CMAKE_AR&gt; rc &lt;TARGET&gt; &lt;LINK_FLAGS&gt; &lt;OBJECTS&gt;&quot;) if((&quot;$</argsstring>
+        <name>SET</name>
+        <param>
+          <type>CMAKE_ ${lang}_CREATE_STATIC_LIBRARY&quot;&lt;CMAKE_AR&gt; rc &lt;TARGET&gt; &lt;LINK_FLAGS&gt; &lt;OBJECTS&gt;&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" bodystart="16" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1a322ed58cfb2e8da299d0099450615467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL server</type>
+        <definition>STREQUAL server AND</definition>
+        <argsstring>(((&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblaze&quot;) AND(NOT(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;spartanuplus&quot;) AND NOT(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;))) OR((&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;) AND(NOT(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;plm_microblaze&quot;))))) if((&quot;$</argsstring>
+        <name>AND</name>
+        <param>
+          <type>((&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblaze&quot;) AND(NOT(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;spartanuplus&quot;) AND NOT(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;))) OR((&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;) AND(NOT(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;plm_microblaze&quot;)))</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" bodystart="23" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1a0a210f5063947cfecc6a7776faf7c471" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL client</type>
+        <definition>STREQUAL client AND</definition>
+        <argsstring>(NOT(&quot;xilmailbox&quot;IN_LIST BSP_LIBSRC_SUBDIRS))) if(((&quot;$</argsstring>
+        <name>AND</name>
+        <param>
+          <type>NOT(&quot;xilmailbox&quot;IN_LIST BSP_LIBSRC_SUBDIRS)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" bodystart="30" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1ab794d3634ddcad68572a0998e24f8546" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL Versal</type>
+        <definition>STREQUAL Versal OR</definition>
+        <argsstring>(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;)) AND(&quot;$</argsstring>
+        <name>OR</name>
+        <param>
+          <type>&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" bodystart="37" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1adf066a287e16a99b12dc6a0cbcad8d06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL client</type>
+        <definition>STREQUAL client elseif</definition>
+        <argsstring>(((&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;) OR(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;)) AND(&quot;${XILSECURE_mode}&quot;STREQUAL&quot;server&quot;)) elseif((&quot;$</argsstring>
+        <name>elseif</name>
+        <param>
+          <type>((&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;) OR(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;)) AND(&quot;${XILSECURE_mode}&quot;STREQUAL&quot;server&quot;)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt" bodystart="41" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(xilsecure)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">include(${CMAKE_CURRENT_SOURCE_DIR}/xilsecure.cmake<sp/>NO_POLICY_SCOPE)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_SOURCES<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_CURRENT_SOURCE_DIR}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">foreach(lang<sp/>ASM<sp/>C<sp/>CXX)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/>#<sp/>GNU<sp/>ar<sp/>always<sp/>updates<sp/>the<sp/>index:<sp/>no<sp/>need<sp/>for<sp/>CMAKE_RANLIB</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/>SET(CMAKE_${lang}_CREATE_STATIC_LIBRARY</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">&lt;CMAKE_AR&gt;<sp/>rc<sp/>&lt;TARGET&gt;<sp/>&lt;LINK_FLAGS&gt;<sp/>&lt;OBJECTS&gt;</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">endforeach()</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${XILSECURE_mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">server</highlight><highlight class="stringliteral">&quot;)<sp/>AND</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/>(((&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze</highlight><highlight class="stringliteral">&quot;)<sp/>AND<sp/>(NOT(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;)<sp/>AND<sp/>NOT(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;)))<sp/>OR</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/>((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">VersalNet</highlight><highlight class="stringliteral">&quot;)<sp/>AND<sp/>(NOT<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">plm_microblaze</highlight><highlight class="stringliteral">&quot;))))</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">XilSecure<sp/>library<sp/>is<sp/>not<sp/>supported<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>selected<sp/>${CMAKE_SYSTEM_PROCESSOR}<sp/>processor<sp/>in<sp/>${XILSECURE_mode}<sp/>mode</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${XILSECURE_mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">client</highlight><highlight class="stringliteral">&quot;)<sp/>AND</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NOT<sp/>(&quot;</highlight><highlight class="normal">xilmailbox</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>BSP_LIBSRC_SUBDIRS)))</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>message(WARNING<sp/>&quot;</highlight><highlight class="normal">XilSecure<sp/>library<sp/>requires<sp/>xilmailbox<sp/>library<sp/>in<sp/>client<sp/>mode.</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_ver.h)</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral">if(((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">VersalNet</highlight><highlight class="stringliteral">&quot;))<sp/>AND</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${XILSECURE_mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">client</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(client)</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(common)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral">elseif<sp/>(((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">VersalNet</highlight><highlight class="stringliteral">&quot;))<sp/>AND</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${XILSECURE_mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">server</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/>add_subdirectory(server)</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/>add_subdirectory(common)</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral">elseif((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">ZynqMP</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/>add_subdirectory(server)</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral">collector_list<sp/>(_sources<sp/>PROJECT_LIB_SOURCES)</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral">if(NOT<sp/>${YOCTO})</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/>file(COPY<sp/>${CMAKE_BINARY_DIR}/include/xsecure_config.h<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH}/)</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral">add_library(xilsecure<sp/>STATIC<sp/>${_sources})</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral">if(CMAKE_C_COMPILER_ID<sp/>MATCHES<sp/>&quot;</highlight><highlight class="normal">GNU|Clang</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral">target_compile_options(xilsecure<sp/>PRIVATE<sp/>-iquote<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral">get_headers(${_headers})</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral">set_target_properties(xilsecure<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral">set_target_properties(xilsecure<sp/>PROPERTIES<sp/>ADDITIONAL_CLEAN_FILES<sp/>&quot;</highlight><highlight class="normal">${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${clean_headers}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral">install(TARGETS<sp/>xilsecure<sp/>LIBRARY<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH}<sp/>ARCHIVE<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH})</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral">install(DIRECTORY<sp/>${CMAKE_BINARY_DIR}/include/<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH})</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

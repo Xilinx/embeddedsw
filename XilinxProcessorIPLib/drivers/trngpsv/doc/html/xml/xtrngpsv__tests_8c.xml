@@ -1,0 +1,404 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsv__tests_8c" kind="file">
+    <compoundname>xtrngpsv_tests.c</compoundname>
+    <includes refid="xtrngpsv_8h" local="yes">xtrngpsv.h</includes>
+    <incdepgraph>
+      <node id="189">
+        <label>xil_io.h</label>
+      </node>
+      <node id="186">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="187">
+        <label>sleep.h</label>
+      </node>
+      <node id="188">
+        <label>xtrngpsv_hw.h</label>
+        <link refid="xtrngpsv__hw_8h"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+      </node>
+      <node id="183">
+        <label>xtrngpsv.h</label>
+        <link refid="xtrngpsv_8h"/>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="187" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
+      <node id="182">
+        <label>xtrngpsv_tests.c</label>
+        <link refid="xtrngpsv_tests.c"/>
+        <childnode refid="183" relation="include">
+        </childnode>
+      </node>
+      <node id="191">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="185">
+        <label>xstatus.h</label>
+      </node>
+      <node id="184">
+        <label>xil_types.h</label>
+      </node>
+      <node id="190">
+        <label>xtrngpsv_alginfo.h</label>
+        <link refid="xtrngpsv__alginfo_8h"/>
+        <childnode refid="191" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Constant definitions for parameters used for Health and KAT tests</header>
+      <memberdef kind="define" id="group__trngpsv__api_1gaa4efc7233a8b20aff8654f7c79fc1abb" prot="public" static="no">
+        <name>HEALTH_TEST_SEEDLIFE</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>Constant definitions for Health and KAT tests. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" compoundref="xtrngpsv__tests_8c" startline="74" endline="124">XTrngpsv_RunHealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsv__api_1ga9c7a8b296734fb4aeb07646373a2439e" prot="public" static="no">
+        <name>HEALTH_TEST_DFLENMUL</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsv__api_1ga88f3194e13581bd1f26e2eed9fdd6776" prot="public" static="no">
+        <name>KAT_SEEDLIFE</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsv__api_1ga0174f0e5dcb447dd0375f27eec85e3b6" prot="public" static="no">
+        <name>KAT_DFLENMUL</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTrngpsv_RunHealthTest</definition>
+        <argsstring>(XTrngpsv *InstancePtr)</argsstring>
+        <name>XTrngpsv_RunHealthTest</name>
+        <param>
+          <type><ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Health tests are entropy tests and hence should be run when the configured mode is of PTRNG or HRNG mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>1024 bits of entropy data to be generated and the CTF flag to be monitored. TRNG configured in HRNG + DF serves this purpose ((7+1)*128 = 1024 bits). Since this flag is monitored for every reseed, no need to monitor CTF explicitly in this test. This API is to be called at startup, after instantiation (and reseeding). Even for PTRNG mode, for this test, mode to be configured as HRNG (as there is no reseed operation involved in PTRNG mode).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XTRNGPSV_SUCCESS if Health tests are successfully run.</para></listitem><listitem><para>XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter passed to this function (OR) other error codes from the called functions as defined in XTrngpsv_ErrorCodes. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Populate user config parameters of TRNGPSV driver</para></listitem><listitem><para>Invoke Instantiate (which includes reseed) operation</para></listitem><listitem><para>Status Reset</para></listitem><listitem><para>CTF is not being monitored explicitly here since that is done as part of Reseeding during Instantiation</para></listitem><listitem><para>Uninstantiate driver instance after Health Tests </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="74" bodyend="124"/>
+        <references refid="struct_x_trngpsv___usr_cfg_1aaf2aa94fe52f4ac0be8436118d700568" compoundref="xtrngpsv_8h" startline="227">XTrngpsv_UsrCfg::DFDisable</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a158cb06f85834f47dd28147011131764" compoundref="xtrngpsv_8h" startline="229">XTrngpsv_UsrCfg::DFLenMul</references>
+        <references refid="group__trngpsv__api_1gaa4efc7233a8b20aff8654f7c79fc1abb" compoundref="xtrngpsv__tests_8c" startline="41">HEALTH_TEST_SEEDLIFE</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a7ccd7e3075702239feb6cf366134ee34" compoundref="xtrngpsv_8h" startline="223">XTrngpsv_UsrCfg::InitSeedPresent</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a7970ff0bb38692cb8ede1dbe8c81dedb" compoundref="xtrngpsv_8h" startline="217">XTrngpsv_UsrCfg::Mode</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a112feffa23c80a38f9b4e97046c9aac8" compoundref="xtrngpsv_8h" startline="220">XTrngpsv_UsrCfg::PersStrPresent</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a07277b581fc8a0c74ab86b58c066f7f3" compoundref="xtrngpsv_8h" startline="219">XTrngpsv_UsrCfg::PredResistanceEn</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1ada119815609fa34434b8d5b28bbaf527" compoundref="xtrngpsv_8h" startline="218">XTrngpsv_UsrCfg::SeedLife</references>
+        <references refid="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" compoundref="xtrngpsv_8h" startline="264">XTrngpsv::State</references>
+        <references refid="group__trngpsv__api_1gga09343136ce617c1b5f78773c5c76a65ca496a2db26a91d4702ca899c18fdad767" compoundref="xtrngpsv_8h" startline="187">XTRNGPSV_ERROR</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aca3cf3a52adbdbb2d5827102e1c51db0" compoundref="xtrngpsv_8h" startline="130">XTRNGPSV_ERROR_INVALID_PARAM</references>
+        <references refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" compoundref="xtrngpsv_8h" startline="121">XTRNGPSV_FAILURE</references>
+        <references refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" compoundref="xtrngpsv_8h" startline="124">XTRNGPSV_FALSE</references>
+        <references refid="group__trngpsv__api_1gga700b9f07a7bacf41dad856461d65b412ad387c3dbacea0bfd30a6c60b88e15b35" compoundref="xtrngpsv_8h" startline="193">XTRNGPSV_HRNG</references>
+        <references refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" compoundref="xtrngpsv_8c" startline="183" endline="326">XTrngpsv_Instantiate</references>
+        <references refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" compoundref="xtrngpsv_8h" startline="120">XTRNGPSV_SUCCESS</references>
+        <references refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" compoundref="xtrngpsv_8c" startline="644" endline="692">XTrngpsv_Uninstantiate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsv__api_1ga4db54d9685d0ac834bf95023fe659a0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTrngpsv_RunKAT</definition>
+        <argsstring>(XTrngpsv *InstancePtr)</argsstring>
+        <name>XTrngpsv_RunKAT</name>
+        <param>
+          <type><ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>KAT can be run at startup and on demand. </para>        </briefdescription>
+        <detaileddescription>
+<para>256 bits are generated and ignored. This test can be run when the TRNG is configured in DRNG and HRNG modes. For HRNG mode too, tests should be run in DRNG mode. If KAT fails, driver has to be put in Error state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XTRNGPSV_SUCCESS if KAT is successful.</para></listitem><listitem><para>XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter passed to this function.</para></listitem><listitem><para>XTRNGPSV_ERROR_USRCFG_CPY_KAT if copy of seed/personalization string failed.</para></listitem><listitem><para>XTRNGPSV_ERROR_KAT_MISMATCH if KAT result doesn&apos;t match with expected output (OR) other error codes from the called functions as defined in XTrngpsv_ErrorCodes. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Populate user config parameters of TRNGPSV driver</para></listitem><listitem><para>Invoke Instantiate (which includes reseed), (explicit) Reseed and Generate operations</para></listitem><listitem><para>If the generated Random data doesn&apos;t match with reference, error out.</para></listitem><listitem><para>Uninstantiate driver instance after KAT </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c" bodystart="143" bodyend="263"/>
+        <references refid="group__trngpsv__api_1ga05c28f2a4b49e991e1fa97892e60e25f" compoundref="xtrngpsv_8h" startline="117">BYTES_PER_BLOCK</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1aaf2aa94fe52f4ac0be8436118d700568" compoundref="xtrngpsv_8h" startline="227">XTrngpsv_UsrCfg::DFDisable</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a158cb06f85834f47dd28147011131764" compoundref="xtrngpsv_8h" startline="229">XTrngpsv_UsrCfg::DFLenMul</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a3fb5d8f69c067285789c4b64228beb9e" compoundref="xtrngpsv_8h" startline="225">XTrngpsv_UsrCfg::InitSeed</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a7ccd7e3075702239feb6cf366134ee34" compoundref="xtrngpsv_8h" startline="223">XTrngpsv_UsrCfg::InitSeedPresent</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a7970ff0bb38692cb8ede1dbe8c81dedb" compoundref="xtrngpsv_8h" startline="217">XTrngpsv_UsrCfg::Mode</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1ae88501cb925d7374f3387bc9c3c9ed19" compoundref="xtrngpsv_8h" startline="222">XTrngpsv_UsrCfg::PersString</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a112feffa23c80a38f9b4e97046c9aac8" compoundref="xtrngpsv_8h" startline="220">XTrngpsv_UsrCfg::PersStrPresent</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1a07277b581fc8a0c74ab86b58c066f7f3" compoundref="xtrngpsv_8h" startline="219">XTrngpsv_UsrCfg::PredResistanceEn</references>
+        <references refid="struct_x_trngpsv___usr_cfg_1ada119815609fa34434b8d5b28bbaf527" compoundref="xtrngpsv_8h" startline="218">XTrngpsv_UsrCfg::SeedLife</references>
+        <references refid="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" compoundref="xtrngpsv_8h" startline="264">XTrngpsv::State</references>
+        <references refid="group__trngpsv__api_1gga700b9f07a7bacf41dad856461d65b412a8089d4a7ae40115f3d1bb0b09c3521b0" compoundref="xtrngpsv_8h" startline="194">XTRNGPSV_DRNG</references>
+        <references refid="group__trngpsv__api_1gga09343136ce617c1b5f78773c5c76a65ca496a2db26a91d4702ca899c18fdad767" compoundref="xtrngpsv_8h" startline="187">XTRNGPSV_ERROR</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aca3cf3a52adbdbb2d5827102e1c51db0" compoundref="xtrngpsv_8h" startline="130">XTRNGPSV_ERROR_INVALID_PARAM</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56af5ddb9c12755bee6731676ee834956c8" compoundref="xtrngpsv_8h" startline="177">XTRNGPSV_ERROR_KAT_MISMATCH</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a6f3e935a71ffe247d551eb75964b3d0c" compoundref="xtrngpsv_8h" startline="178">XTRNGPSV_ERROR_USRCFG_CPY_KAT</references>
+        <references refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" compoundref="xtrngpsv_8h" startline="121">XTRNGPSV_FAILURE</references>
+        <references refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" compoundref="xtrngpsv_8h" startline="124">XTRNGPSV_FALSE</references>
+        <references refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" compoundref="xtrngpsv_8h" startline="107">XTRNGPSV_GEN_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</references>
+        <references refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" compoundref="xtrngpsv_8c" startline="183" endline="326">XTrngpsv_Instantiate</references>
+        <references refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" compoundref="xtrngpsv_8h" startline="103">XTRNGPSV_PERS_STR_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1ga7740e9622a48052d5ebb9ddf10165138" compoundref="xtrngpsv_8c" startline="354" endline="419">XTrngpsv_Reseed</references>
+        <references refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" compoundref="xtrngpsv_8h" startline="105">XTRNGPSV_SEED_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" compoundref="xtrngpsv_8h" startline="120">XTRNGPSV_SUCCESS</references>
+        <references refid="group__trngpsv__api_1gad1f07fdd73a4afb2c861bade6e4c87a7" compoundref="xtrngpsv_8h" startline="123">XTRNGPSV_TRUE</references>
+        <references refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" compoundref="xtrngpsv_8c" startline="644" endline="692">XTrngpsv_Uninstantiate</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtrngpsv_8h" kindref="compound">xtrngpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight></codeline>
+<codeline lineno="41" refid="group__trngpsv__api_1gaa4efc7233a8b20aff8654f7c79fc1abb" refkind="member"><highlight class="preprocessor">#define<sp/>HEALTH_TEST_SEEDLIFE<sp/><sp/><sp/><sp/>10U</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HEALTH_TEST_DFLENMUL<sp/><sp/><sp/><sp/>7U</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KAT_SEEDLIFE<sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KAT_DFLENMUL<sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" kindref="member">XTrngpsv_RunHealthTest</ref>(<ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_trngpsv___usr_cfg" kindref="compound">XTrngpsv_UsrCfg</ref><sp/>UsrCfgTests;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aca3cf3a52adbdbb2d5827102e1c51db0" kindref="member">XTRNGPSV_ERROR_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet((u8*)&amp;UsrCfgTests,<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(UsrCfgTests),<sp/>0U,<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(UsrCfgTests));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a7970ff0bb38692cb8ede1dbe8c81dedb" kindref="member">Mode</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gga700b9f07a7bacf41dad856461d65b412ad387c3dbacea0bfd30a6c60b88e15b35" kindref="member">XTRNGPSV_HRNG</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1ada119815609fa34434b8d5b28bbaf527" kindref="member">SeedLife</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gaa4efc7233a8b20aff8654f7c79fc1abb" kindref="member">HEALTH_TEST_SEEDLIFE</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a07277b581fc8a0c74ab86b58c066f7f3" kindref="member">PredResistanceEn</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1aaf2aa94fe52f4ac0be8436118d700568" kindref="member">DFDisable</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a158cb06f85834f47dd28147011131764" kindref="member">DFLenMul</ref><sp/>=<sp/>HEALTH_TEST_DFLENMUL;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a112feffa23c80a38f9b4e97046c9aac8" kindref="member">PersStrPresent</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a7ccd7e3075702239feb6cf366134ee34" kindref="member">InitSeedPresent</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" kindref="member">XTrngpsv_Instantiate</ref>(InstancePtr,<sp/>&amp;UsrCfgTests);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" kindref="member">XTrngpsv_Uninstantiate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">SET_ERR:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" kindref="member">State</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gga09343136ce617c1b5f78773c5c76a65ca496a2db26a91d4702ca899c18fdad767" kindref="member">XTRNGPSV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__trngpsv__api_1ga4db54d9685d0ac834bf95023fe659a0d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__trngpsv__api_1ga4db54d9685d0ac834bf95023fe659a0d" kindref="member">XTrngpsv_RunKAT</ref>(<ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Result<sp/>=<sp/><sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_trngpsv___usr_cfg" kindref="compound">XTrngpsv_UsrCfg</ref><sp/>UsrCfgTests;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExtSeed[<ref refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" kindref="member">XTRNGPSV_SEED_LEN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3BU,<sp/>0xC3U,<sp/>0xEDU,<sp/>0x64U,<sp/>0xF4U,<sp/>0x80U,<sp/>0x1CU,<sp/>0xC7U,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14U,<sp/>0xCCU,<sp/>0x35U,<sp/>0xEDU,<sp/>0x57U,<sp/>0x01U,<sp/>0x2AU,<sp/>0xE4U,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBCU,<sp/>0xEFU,<sp/>0xDEU,<sp/>0xF6U,<sp/>0x7CU,<sp/>0x46U,<sp/>0xA6U,<sp/>0x34U,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC6U,<sp/>0x79U,<sp/>0xE8U,<sp/>0x91U,<sp/>0x5DU,<sp/>0xB1U,<sp/>0xDBU,<sp/>0xA7U,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x49U,<sp/>0xA5U,<sp/>0xBBU,<sp/>0x4FU,<sp/>0xEDU,<sp/>0x30U,<sp/>0xB3U,<sp/>0x7BU,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA9U,<sp/>0x8BU,<sp/>0xF5U,<sp/>0x56U,<sp/>0x4DU,<sp/>0x40U,<sp/>0x18U,<sp/>0x9FU,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExtReSeed[<ref refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" kindref="member">XTRNGPSV_SEED_LEN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFDU,<sp/>0x85U,<sp/>0xA8U,<sp/>0x36U,<sp/>0xBBU,<sp/>0xA8U,<sp/>0x50U,<sp/>0x19U,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x88U,<sp/>0x1EU,<sp/>0x8CU,<sp/>0x6BU,<sp/>0xADU,<sp/>0x23U,<sp/>0xC9U,<sp/>0x06U,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1AU,<sp/>0xDCU,<sp/>0x75U,<sp/>0x47U,<sp/>0x76U,<sp/>0x59U,<sp/>0xACU,<sp/>0xAEU,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA8U,<sp/>0xE4U,<sp/>0xA0U,<sp/>0x1DU,<sp/>0xFEU,<sp/>0x07U,<sp/>0xA1U,<sp/>0x83U,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2DU,<sp/>0xADU,<sp/>0x1CU,<sp/>0x13U,<sp/>0x6FU,<sp/>0x59U,<sp/>0xD7U,<sp/>0x0FU,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x86U,<sp/>0x53U,<sp/>0xA5U,<sp/>0xDCU,<sp/>0x11U,<sp/>0x86U,<sp/>0x63U,<sp/>0xD6U,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>PersString[<ref refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" kindref="member">XTRNGPSV_PERS_STR_LEN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2U,<sp/>0x80U,<sp/>0x7EU,<sp/>0x4CU,<sp/>0xD0U,<sp/>0xE4U,<sp/>0xE2U,<sp/>0xA9U,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2FU,<sp/>0x1FU,<sp/>0x5DU,<sp/>0xC1U,<sp/>0xA2U,<sp/>0x1FU,<sp/>0x40U,<sp/>0xFCU,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FU,<sp/>0x24U,<sp/>0x5DU,<sp/>0x42U,<sp/>0x61U,<sp/>0x80U,<sp/>0xE6U,<sp/>0xE9U,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71U,<sp/>0x05U,<sp/>0x17U,<sp/>0x5BU,<sp/>0xAFU,<sp/>0x70U,<sp/>0x30U,<sp/>0x18U,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBCU,<sp/>0x23U,<sp/>0x18U,<sp/>0x15U,<sp/>0xCBU,<sp/>0xB8U,<sp/>0xA6U,<sp/>0x3EU,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x83U,<sp/>0xB8U,<sp/>0x4AU,<sp/>0xFEU,<sp/>0x38U,<sp/>0xFCU,<sp/>0x25U,<sp/>0x87U,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExpectedOutput[<ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEBU,<sp/>0xF6U,<sp/>0x97U,<sp/>0x6EU,<sp/>0x7EU,<sp/>0xF0U,<sp/>0x4AU,<sp/>0x34U,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEEU,<sp/>0xF6U,<sp/>0xA8U,<sp/>0x1AU,<sp/>0x67U,<sp/>0x33U,<sp/>0xF2U,<sp/>0x3CU,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x27U,<sp/>0x24U,<sp/>0x7AU,<sp/>0x6DU,<sp/>0x0EU,<sp/>0x12U,<sp/>0xD7U,<sp/>0x42U,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x73U,<sp/>0xEDU,<sp/>0xDDU,<sp/>0x3FU,<sp/>0x07U,<sp/>0x23U,<sp/>0xD8U,<sp/>0x52U,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RandBufOut[<ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aca3cf3a52adbdbb2d5827102e1c51db0" kindref="member">XTRNGPSV_ERROR_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet((u8*)&amp;UsrCfgTests,<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(UsrCfgTests),<sp/>0U,<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(UsrCfgTests));</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a7970ff0bb38692cb8ede1dbe8c81dedb" kindref="member">Mode</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gga700b9f07a7bacf41dad856461d65b412a8089d4a7ae40115f3d1bb0b09c3521b0" kindref="member">XTRNGPSV_DRNG</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1ada119815609fa34434b8d5b28bbaf527" kindref="member">SeedLife</ref><sp/>=<sp/>KAT_SEEDLIFE;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a07277b581fc8a0c74ab86b58c066f7f3" kindref="member">PredResistanceEn</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1aaf2aa94fe52f4ac0be8436118d700568" kindref="member">DFDisable</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a158cb06f85834f47dd28147011131764" kindref="member">DFLenMul</ref><sp/>=<sp/>KAT_DFLENMUL;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a112feffa23c80a38f9b4e97046c9aac8" kindref="member">PersStrPresent</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gad1f07fdd73a4afb2c861bade6e4c87a7" kindref="member">XTRNGPSV_TRUE</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a7ccd7e3075702239feb6cf366134ee34" kindref="member">InitSeedPresent</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gad1f07fdd73a4afb2c861bade6e4c87a7" kindref="member">XTRNGPSV_TRUE</ref>;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy(&amp;UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a3fb5d8f69c067285789c4b64228beb9e" kindref="member">InitSeed</ref>,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a158cb06f85834f47dd28147011131764" kindref="member">DFLenMul</ref><sp/>+<sp/>1U)<sp/>*<sp/><ref refid="group__trngpsv__api_1ga05c28f2a4b49e991e1fa97892e60e25f" kindref="member">BYTES_PER_BLOCK</ref>,<sp/>ExtSeed,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ExtSeed),<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ExtSeed));</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a6f3e935a71ffe247d551eb75964b3d0c" kindref="member">XTRNGPSV_ERROR_USRCFG_CPY_KAT</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1a112feffa23c80a38f9b4e97046c9aac8" kindref="member">PersStrPresent</ref><sp/>==<sp/><ref refid="group__trngpsv__api_1gad1f07fdd73a4afb2c861bade6e4c87a7" kindref="member">XTRNGPSV_TRUE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy(UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1ae88501cb925d7374f3387bc9c3c9ed19" kindref="member">PersString</ref>,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(UsrCfgTests.<ref refid="struct_x_trngpsv___usr_cfg_1ae88501cb925d7374f3387bc9c3c9ed19" kindref="member">PersString</ref>),<sp/>PersString,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(PersString),<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(PersString));</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a6f3e935a71ffe247d551eb75964b3d0c" kindref="member">XTRNGPSV_ERROR_USRCFG_CPY_KAT</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" kindref="member">XTrngpsv_Instantiate</ref>(InstancePtr,<sp/>&amp;UsrCfgTests);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga7740e9622a48052d5ebb9ddf10165138" kindref="member">XTrngpsv_Reseed</ref>(InstancePtr,<sp/>ExtReSeed,<sp/>KAT_DFLENMUL);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" kindref="member">XTrngpsv_Generate</ref>(InstancePtr,<sp/>RandBufOut,<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(RandBufOut),</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1gab7f8c9e37494766a7cbbb6c1e5a7447c" kindref="member">XTRNGPSV_FALSE</ref>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>Xil_SMemCmp(RandBufOut,<sp/><ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>,<sp/>ExpectedOutput,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>,<sp/><ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56af5ddb9c12755bee6731676ee834956c8" kindref="member">XTRNGPSV_ERROR_KAT_MISMATCH</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" kindref="member">XTrngpsv_Uninstantiate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal">SET_ERR:</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" kindref="member">State</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gga09343136ce617c1b5f78773c5c76a65ca496a2db26a91d4702ca899c18fdad767" kindref="member">XTRNGPSV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_tests.c"/>
+  </compounddef>
+</doxygen>

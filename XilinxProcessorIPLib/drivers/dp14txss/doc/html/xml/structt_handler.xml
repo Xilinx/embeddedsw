@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structt_handler" kind="struct" prot="public">
+    <compoundname>tHandler</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structt_handler_1ab3c76c0fbc533b99071e9f564b6671ed" prot="public" static="no" mutable="no">
+        <type>const uint8_t *</type>
+        <definition>const uint8_t * tHandler::fBuf</definition>
+        <argsstring></argsstring>
+        <name>fBuf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_handler_1a50b08a4959f5ef74cda4ed33e8460f0e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t tHandler::fBufSize</definition>
+        <argsstring></argsstring>
+        <name>fBufSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_handler_1ac355913716af300a0c79bf5b0f9ee982" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t tHandler::fReadIdx</definition>
+        <argsstring></argsstring>
+        <name>fReadIdx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_handler_1afb3930844c58ff114c6a9e53ce0439cc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t tHandler::fFlags</definition>
+        <argsstring></argsstring>
+        <name>fFlags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_handler_1a0cac29cb7eed4aa084532e1caa53f874" prot="public" static="no" mutable="no">
+        <type>aes256_context</type>
+        <definition>aes256_context tHandler::fContext</definition>
+        <argsstring></argsstring>
+        <name>fContext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_handler_1a3516ff208bdca5534ca7b2deec2a7dd7" prot="public" static="no" mutable="no">
+        <type>KEYMGMT_tDevID</type>
+        <definition>KEYMGMT_tDevID tHandler::fDevID</definition>
+        <argsstring></argsstring>
+        <name>fDevID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_loader.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_loader.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_keyfile.c" bodystart="41" bodyend="49"/>
+    <listofallmembers>
+      <member refid="structt_handler_1ab3c76c0fbc533b99071e9f564b6671ed" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fBuf</name></member>
+      <member refid="structt_handler_1a50b08a4959f5ef74cda4ed33e8460f0e" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fBufSize</name></member>
+      <member refid="structt_handler_1a0cac29cb7eed4aa084532e1caa53f874" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fContext</name></member>
+      <member refid="structt_handler_1a3516ff208bdca5534ca7b2deec2a7dd7" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fDevID</name></member>
+      <member refid="structt_handler_1afb3930844c58ff114c6a9e53ce0439cc" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fFlags</name></member>
+      <member refid="structt_handler_1ac355913716af300a0c79bf5b0f9ee982" prot="public" virt="non-virtual"><scope>tHandler</scope><name>fReadIdx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

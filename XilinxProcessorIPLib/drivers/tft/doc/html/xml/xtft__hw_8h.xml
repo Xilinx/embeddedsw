@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtft__hw_8h" kind="file">
+    <compoundname>xtft_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xtft_8h" local="yes">xtft.h</includedby>
+    <incdepgraph>
+      <node id="52">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="53">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>xil_types.h</label>
+      </node>
+      <node id="50">
+        <label>xtft_hw.h</label>
+        <link refid="xtft_hw.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="59">
+        <label>xtft_example.c</label>
+        <link refid="xtft__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xtft.c</label>
+        <link refid="xtft_8c"/>
+      </node>
+      <node id="55">
+        <label>xtft.h</label>
+        <link refid="xtft_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xtft_g.c</label>
+        <link refid="xtft__g_8c"/>
+      </node>
+      <node id="54">
+        <label>xtft_hw.h</label>
+        <link refid="xtft_hw.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xtft_sinit.c</label>
+        <link refid="xtft__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>TFT Register offsets</header>
+      <description><para>The following definitions provide access to each of the registers of the TFT device. </para></description>
+      <memberdef kind="define" id="group__tft_1ga3f2dda8ffdcd2d04e9307cc7f3edaa11" prot="public" static="no">
+        <name>XTFT_AR_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Address Reg (Video memory) Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" prot="public" static="no">
+        <name>XTFT_CR_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Control Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="615" endline="640">XTft_DisableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="575" endline="600">XTft_EnableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="697" endline="722">XTft_ScanNormal</referencedby>
+        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="657" endline="682">XTft_ScanReverse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga6fec872a11e74e007882df480ef9d951" prot="public" static="no">
+        <name>XTFT_IESR_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Interrupt Enable and Status Reg Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" compoundref="xtft_8c" startline="991" endline="1004">XTft_GetVsyncStatus</referencedby>
+        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="953" endline="970">XTft_IntrDisable</referencedby>
+        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="922" endline="939">XTft_IntrEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1gad0b65c05fe82f1493e865d70878d5773" prot="public" static="no">
+        <name>XTFT_AR_LSB_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Address Reg LSB (Video memory) Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga585665d41b80da57013a246faaf7869e" prot="public" static="no">
+        <name>XTFT_AR_MSB_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Address Reg MSB (Video memory) Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TFT Control Register (CR) mask(s)</header>
+      <memberdef kind="define" id="group__tft_1ga3069ee03357025e835743cbe81b7fd94" prot="public" static="no">
+        <name>XTFT_CR_TDE_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>TFT Display Enable Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="615" endline="640">XTft_DisableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="575" endline="600">XTft_EnableDisplay</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" prot="public" static="no">
+        <name>XTFT_CR_DPS_MASK</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>TFT Display Scan Control Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="697" endline="722">XTft_ScanNormal</referencedby>
+        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="657" endline="682">XTft_ScanReverse</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TFT Interrupt Enable and Status Register (IESR) mask(s)</header>
+      <memberdef kind="define" id="group__tft_1gafcc9028848f7ab88a9461c53a5c64bf0" prot="public" static="no">
+        <name>XTFT_IESR_VADDRLATCH_STATUS_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>TFT Video Address Latch Status Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+        <referencedby refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" compoundref="xtft_8c" startline="991" endline="1004">XTft_GetVsyncStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga9e75abb8c7b5263ebabb683ce1ee2b8f" prot="public" static="no">
+        <name>XTFT_IESR_IE_MASK</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>TFT Interrupt Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="953" endline="970">XTft_IntrDisable</referencedby>
+        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="922" endline="939">XTft_IntrEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__tft_1gaf3371d83ad1d9fdc8506a555782d9e3c" prot="public" static="no">
+        <name>XTFT_HW_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" prot="public" static="no">
+        <name>XTFT_CHAR_WIDTH</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Dimension Definitions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Character width </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga1e190b26de7e75aa55a59319c573a227" prot="public" static="no">
+        <name>XTFT_CHAR_HEIGHT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Character height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" prot="public" static="no">
+        <name>XTFT_DISPLAY_WIDTH</name>
+        <initializer>640</initializer>
+        <briefdescription>
+<para>Width of the screen. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</referencedby>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
+        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga3d391c05df971dfe77189be6daf57521" prot="public" static="no">
+        <name>XTFT_DISPLAY_HEIGHT</name>
+        <initializer>480</initializer>
+        <briefdescription>
+<para>Height of the screen. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</referencedby>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
+        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga4d27aca52ce921aee61dab5870700c5b" prot="public" static="no">
+        <name>XTFT_DISPLAY_BUFFER_WIDTH</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Buffer width of a line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga2d988ed9da8b7e1ff66b120a13772d82" prot="public" static="no">
+        <name>XTFT_DCR_REG_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Reg Shift for DCR Access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XTFT_HW_H<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTFT_HW_H<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__tft_1ga3f2dda8ffdcd2d04e9307cc7f3edaa11" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_AR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_IESR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__tft_1gad0b65c05fe82f1493e865d70878d5773" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_AR_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__tft_1ga585665d41b80da57013a246faaf7869e" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_AR_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__tft_1ga3069ee03357025e835743cbe81b7fd94" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_CR_TDE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_CR_DPS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="group__tft_1gafcc9028848f7ab88a9461c53a5c64bf0" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_IESR_VADDRLATCH_STATUS_MASK<sp/>0x01<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XTFT_IESR_IE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XTFT_CHAR_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_CHAR_HEIGHT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DISPLAY_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>640<sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DISPLAY_HEIGHT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>480<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DISPLAY_BUFFER_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>This<sp/>shift<sp/>is<sp/>used<sp/>for<sp/>accessing<sp/>the<sp/>TFT<sp/>registers<sp/>through<sp/>DCR<sp/>bus.</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTFT_DCR_REG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XTFT_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_hw.h"/>
+  </compounddef>
+</doxygen>

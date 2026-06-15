@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>axis_switch</title>
+    <detaileddescription>
+<para>This is the main header file for Xilinx AXI4-Stream Switch Control Router core. It is used for routing streams where masters in the system do not know final destination address.</para><para><bold>Core Features </bold></para><para>For a full description of AXI4-Stream Switch Control Router, please see the hardware specification.</para><para><bold>Software Initialization &amp; Configuration</bold></para><para>The application needs to do following steps in order for preparing the AXI4-Stream Switch Control Router core to be ready.</para><para><itemizedlist>
+<listitem><para>Call XAxisScr_LookupConfig using a device ID to find the core configuration.</para></listitem><listitem><para>Call XAxisScr_CfgInitialize to initialize the device and the driver instance associated with it.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts </bold></para><para>This driver does not have interrupt mechanism.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The XAXI4-Stream Switch driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 01/28/15 Initial release.
+1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+                   adding 64 bit support. CR# 867425.
+                   Changed the prototype of XAxisScr_CfgInitialize API.
+1.2   ms  02/20/17 Fixed compilation warning in _sinit.c file. This is a
+                   fix for CR-969126.
+      ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                   generation.
+1.4   sd   02/09/20 Updated makefile for parallel execution.
+1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

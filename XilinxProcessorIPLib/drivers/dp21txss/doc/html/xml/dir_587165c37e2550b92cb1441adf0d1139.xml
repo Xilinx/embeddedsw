@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_587165c37e2550b92cb1441adf0d1139" kind="dir">
+    <compoundname>dp21_tx_only</compoundname>
+    <innerfile refid="clk__set_8c">clk_set.c</innerfile>
+    <innerfile refid="clk__set_8h">clk_set.h</innerfile>
+    <innerfile refid="menus_8c">menus.c</innerfile>
+    <innerfile refid="si5344drv_8c">si5344drv.c</innerfile>
+    <innerfile refid="si5344drv_8h">si5344drv.h</innerfile>
+    <innerfile refid="si570_8c">si570.c</innerfile>
+    <innerfile refid="videofmc__defs_8h">videofmc_defs.h</innerfile>
+    <innerfile refid="xdptxss__dp21__tx_8c">xdptxss_dp21_tx.c</innerfile>
+    <innerfile refid="xdptxss__dp21__tx_8h">xdptxss_dp21_tx.h</innerfile>
+    <innerfile refid="xvid__clk__gen_8c">xvid_clk_gen.c</innerfile>
+    <innerfile refid="xvid__pat__gen_8c">xvid_pat_gen.c</innerfile>
+    <innerfile refid="xvidframe__crc_8c">xvidframe_crc.c</innerfile>
+    <innerfile refid="xvidframe__crc_8h">xvidframe_crc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/"/>
+  </compounddef>
+</doxygen>

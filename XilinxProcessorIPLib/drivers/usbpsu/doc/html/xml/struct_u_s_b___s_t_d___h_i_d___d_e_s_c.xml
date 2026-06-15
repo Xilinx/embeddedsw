@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_STD_HID_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a97a87ebeaa6b7827174b9a3a3b3b3a65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_HID_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1ab3a9da175ae9390452411b09baf393e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_HID_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1aa46dacb67b57bcf3d9e9356c4af54b72" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_STD_HID_DESC::bcdHID</definition>
+        <argsstring></argsstring>
+        <name>bcdHID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a4b8435e028225d6f2b8f8709e1723152" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_HID_DESC::bCountryCode</definition>
+        <argsstring></argsstring>
+        <name>bCountryCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1ac0bc7e6c5f1ab54a264894f5596b9aed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_HID_DESC::bNumDescriptors</definition>
+        <argsstring></argsstring>
+        <name>bNumDescriptors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a5302e8ced101f163cfdd594e94a1cf94" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_HID_DESC::bReportDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bReportDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a6babea12cd10639942415f0f57a5c4c4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_STD_HID_DESC::wDescriptorLength</definition>
+        <argsstring></argsstring>
+        <name>wDescriptorLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="378" bodyend="390"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1aa46dacb67b57bcf3d9e9356c4af54b72" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bcdHID</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a4b8435e028225d6f2b8f8709e1723152" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bCountryCode</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1ab3a9da175ae9390452411b09baf393e7" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a97a87ebeaa6b7827174b9a3a3b3b3a65" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1ac0bc7e6c5f1ab54a264894f5596b9aed" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bNumDescriptors</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a5302e8ced101f163cfdd594e94a1cf94" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>bReportDescriptorType</name></member>
+      <member refid="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_1a6babea12cd10639942415f0f57a5c4c4" prot="public" virt="non-virtual"><scope>USB_STD_HID_DESC</scope><name>wDescriptorLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xavbuf__v2__5" kind="group">
+    <compoundname>xavbuf_v2_5</compoundname>
+    <title>Xavbuf_v2_5</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xavbuf__v2__5_1gac655e28ee8f40b84927f4ed0062f6ad1" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref></type>
+        <definition>const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED]</definition>
+        <argsstring>[XAVBUF_NUM_SUPPORTED]</argsstring>
+        <name>XAVBuf_SupportedFormats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains attributes of the video formats mapped to the hardware. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  03/10/17 Initial release.
+2.0   aad  02/22/18 Fixed scaling factors and bits per pixel
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

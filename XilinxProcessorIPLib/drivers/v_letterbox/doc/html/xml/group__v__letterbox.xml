@@ -1,0 +1,398 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__letterbox" kind="group">
+    <compoundname>v_letterbox</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_v___lbox__l2" prot="public">XV_Lbox_l2</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__v__letterbox_1ga33b25a82f306f08a98a30e43d89d8962" prot="public" static="no">
+        <name>XLboxColorId</name>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962a4b159fe5ccee728413c8e36c2490c13d" prot="public">
+          <name>XLBOX_BKGND_BLACK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962ac4af74bf469af8d8288fb38649bcf4d7" prot="public">
+          <name>XLBOX_BKGND_WHITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962af7f0bb0de05482b7ee1d90453170a68e" prot="public">
+          <name>XLBOX_BKGND_RED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962a04d1114c56d74b0eb974a83da7e2f1d8" prot="public">
+          <name>XLBOX_BKGND_GREEN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962a0d2639418d6aef9408adaab5ccbe4e32" prot="public">
+          <name>XLBOX_BKGND_BLUE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__letterbox_1gga33b25a82f306f08a98a30e43d89d8962a304faa2eca2dd4c78c81a109deddcdfc" prot="public">
+          <name>XLBOX_BKGND_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains the different background colors available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" bodystart="90" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__letterbox_1ga2a647845ecfd3801fac68f233f4a9135" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 bkgndColorYUV[XLBOX_BKGND_LAST][3]</definition>
+        <argsstring>[XLBOX_BKGND_LAST][3]</argsstring>
+        <name>bkgndColorYUV</name>
+        <initializer>=
+{
+  {  0, 128, 128},
+  {255, 128, 128},
+  { 76,  85, 255},
+  {149,  43,  21},
+  { 29, 255, 107}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__letterbox_1gad65dddfa2cba8a3c67be56ba72f8ee0b" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 bkgndColorRGB[XLBOX_BKGND_LAST][3]</definition>
+        <argsstring>[XLBOX_BKGND_LAST][3]</argsstring>
+        <name>bkgndColorRGB</name>
+        <initializer>=
+{
+  {0, 0, 0},
+  {1, 1, 1},
+  {1, 0, 0},
+  {0, 1, 0},
+  {0, 0, 1}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__letterbox_1gab67b61c440e54ca045781ebc6a1ea4d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_LBoxInitialize</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_LBoxInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="74" bodyend="84"/>
+        <references refid="xv__letterbox_8h_1a18d22578bd68d9c519f54cd7df10a1df" compoundref="xv__letterbox__sinit_8c" startline="137" endline="151">XV_letterbox_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__letterbox_1ga030b5db3e6b42aa3c357b211b20c3892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_LBoxStart</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr)</argsstring>
+        <name>XV_LBoxStart</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the letter box core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="95" bodyend="101"/>
+        <references refid="xv__letterbox_8c_1a60212c81ee1171a7832b3500782e23a1" compoundref="xv__letterbox_8c" startline="155" endline="161">XV_letterbox_EnableAutoRestart</references>
+        <references refid="xv__letterbox_8c_1a46560a31b2edeaad22b4e88f198626e6" compoundref="xv__letterbox_8c" startline="61" endline="69">XV_letterbox_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__letterbox_1ga96dee5cf9bb0613427718fc6290f5a9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_LBoxStop</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr)</argsstring>
+        <name>XV_LBoxStop</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the letter box core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="112" bodyend="117"/>
+        <references refid="xv__letterbox_8c_1af047334689f19e5909714ee69481815b" compoundref="xv__letterbox_8c" startline="176" endline="181">XV_letterbox_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__letterbox_1ga361ab0bafe3ff60db1597d56be1175e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_LBoxSetActiveWin</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow, u32 FrameWidth, u32 FrameHeight)</argsstring>
+        <name>XV_LBoxSetActiveWin</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_VideoWindow *</type>
+          <declname>ActiveWindow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FrameWidth</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FrameHeight</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the letterbox active window. </para>        </briefdescription>
+        <detaileddescription>
+<para>All pixels within the window are passed to the output as-is. Any pixel outside the defined window will be clamped to the programmed background color</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActiveWindow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is structure that contains window coordinates and size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameHeight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="133" bodyend="149"/>
+        <references refid="xv__letterbox_8c_1a012923c4f6e62de7d3065d6335e1c1a8" compoundref="xv__letterbox_8c" startline="385" endline="390">XV_letterbox_Set_HwReg_col_end</references>
+        <references refid="xv__letterbox_8c_1a5a64dcc9cea2dc8245cc0682b011c616" compoundref="xv__letterbox_8c" startline="335" endline="341">XV_letterbox_Set_HwReg_col_start</references>
+        <references refid="xv__letterbox_8c_1a215f1e4216a65793d84d136a449d0cf6" compoundref="xv__letterbox_8c" startline="242" endline="248">XV_letterbox_Set_HwReg_height</references>
+        <references refid="xv__letterbox_8c_1aa0473b9c219724eb533140254f29464e" compoundref="xv__letterbox_8c" startline="480" endline="486">XV_letterbox_Set_HwReg_row_end</references>
+        <references refid="xv__letterbox_8c_1ae6d8b7dd70698a8f23f4b1ea09a0e584" compoundref="xv__letterbox_8c" startline="430" endline="436">XV_letterbox_Set_HwReg_row_start</references>
+        <references refid="xv__letterbox_8c_1ad739a7723582fe90dd2861451ae1b26d" compoundref="xv__letterbox_8c" startline="196" endline="201">XV_letterbox_Set_HwReg_width</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__letterbox_1gaee1542cd7bab3fd77a0c2bc9cad721cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_LboxSetBackgroundColor</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr, XLboxColorId ColorId, XVidC_ColorFormat cfmt, XVidC_ColorDepth bpc)</argsstring>
+        <name>XV_LboxSetBackgroundColor</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__v__letterbox_1ga33b25a82f306f08a98a30e43d89d8962" kindref="member">XLboxColorId</ref></type>
+          <declname>ColorId</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmt</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorDepth</type>
+          <declname>bpc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the background color to be painted outside active window. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColorId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the background color requested </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color format of the input stream </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bpc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color depth (bits per channel)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="164" bodyend="201"/>
+        <references refid="xv__letterbox_8c_1ac07de8babc5ac0a0f76a03e87e13b225" compoundref="xv__letterbox_8c" startline="576" endline="582">XV_letterbox_Set_HwReg_Cb_G_value</references>
+        <references refid="xv__letterbox_8c_1a550a29a0ef5bc006a613cfbf227e12d7" compoundref="xv__letterbox_8c" startline="623" endline="628">XV_letterbox_Set_HwReg_Cr_B_value</references>
+        <references refid="xv__letterbox_8c_1a94214f6cfb6bbce911f46e3b2693115b" compoundref="xv__letterbox_8c" startline="293" endline="298">XV_letterbox_Set_HwReg_video_format</references>
+        <references refid="xv__letterbox_8c_1a16ff5fcaddd19aaea905e88166407fbc" compoundref="xv__letterbox_8c" startline="527" endline="532">XV_letterbox_Set_HwReg_Y_R_value</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__letterbox_1gabe5aadfb6c0a89a900d85917f0c6fc2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_LBoxDbgReportStatus</definition>
+        <argsstring>(XV_Lbox_l2 *InstancePtr)</argsstring>
+        <name>XV_LBoxDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___lbox__l2" kindref="compound">XV_Lbox_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints LBox IP status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.c" bodystart="214" bodyend="260"/>
+        <references refid="struct_x_v__letterbox___config_1a41ec1d7ad33727a7a3004cda8782f124" compoundref="xv__letterbox_8h" startline="54">XV_letterbox_Config::BaseAddress</references>
+        <references refid="struct_x_v__letterbox_1a892b5dc48c3aff2ea82743e407acbd64" compoundref="xv__letterbox_8h" startline="67">XV_letterbox::Config</references>
+        <references refid="xv__letterbox__hw_8h_1a86ce508af8ddbfc252271c55c40d4bc3" compoundref="xv__letterbox__hw_8h" startline="83">XV_LETTERBOX_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__letterbox_8c_1a44e45c0bb107ef7bf48ea938832aeab9" compoundref="xv__letterbox_8c" startline="597" endline="605">XV_letterbox_Get_HwReg_Cb_G_value</references>
+        <references refid="xv__letterbox_8c_1a83bf617c2f83b9b527837d1d8b731332" compoundref="xv__letterbox_8c" startline="405" endline="413">XV_letterbox_Get_HwReg_col_end</references>
+        <references refid="xv__letterbox_8c_1a74876f5e692f40f253f8a29b430483ab" compoundref="xv__letterbox_8c" startline="360" endline="369">XV_letterbox_Get_HwReg_col_start</references>
+        <references refid="xv__letterbox_8c_1a702bc1ecd7861e6ab66bca626e22c902" compoundref="xv__letterbox_8c" startline="645" endline="654">XV_letterbox_Get_HwReg_Cr_B_value</references>
+        <references refid="xv__letterbox_8c_1aff1802493b11889316b3513e0784d92f" compoundref="xv__letterbox_8c" startline="268" endline="277">XV_letterbox_Get_HwReg_height</references>
+        <references refid="xv__letterbox_8c_1ab8f1f754bac0106f1bc27ae695eb49af" compoundref="xv__letterbox_8c" startline="504" endline="513">XV_letterbox_Get_HwReg_row_end</references>
+        <references refid="xv__letterbox_8c_1ab8d868fc1fe01df3c1a6bad95cd969e0" compoundref="xv__letterbox_8c" startline="455" endline="464">XV_letterbox_Get_HwReg_row_start</references>
+        <references refid="xv__letterbox_8c_1a053efb7198027e35a1dcdd7088a52b56" compoundref="xv__letterbox_8c" startline="311" endline="319">XV_letterbox_Get_HwReg_video_format</references>
+        <references refid="xv__letterbox_8c_1a691e8e13e6fc4e1d8c6b6ad3eb40533c" compoundref="xv__letterbox_8c" startline="219" endline="227">XV_letterbox_Get_HwReg_width</references>
+        <references refid="xv__letterbox_8c_1ac12440f3ba7694b93abaa3f336852722" compoundref="xv__letterbox_8c" startline="550" endline="559">XV_letterbox_Get_HwReg_Y_R_value</references>
+        <references refid="xv__letterbox_8c_1abf62d08d12612651e052d0d5b63e6ea9" compoundref="xv__letterbox_8c" startline="83" endline="92">XV_letterbox_IsDone</references>
+        <references refid="xv__letterbox_8c_1a3206257dc8b97170d5e7627f10cf9890" compoundref="xv__letterbox_8c" startline="107" endline="115">XV_letterbox_IsIdle</references>
+        <references refid="xv__letterbox_8c_1a214d956e9085fa27f5bb81b3b5297231" compoundref="xv__letterbox_8c" startline="130" endline="139">XV_letterbox_IsReady</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__letterbox_1ga791164cd245ad810007481b2f78eb2db" prot="public" static="no">
+        <name>XV_LETTERBOX_L2_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This header file contains layer 2 API&apos;s of the letter box sub-core driver.</para><para>The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user</para><para><bold>Letter Box IP Features </bold></para><para>This Letterbox IP supports following features<itemizedlist>
+<listitem><para>Apply black bars (horizontal or vertical) on input stream</para></listitem><listitem><para>Programmable background colors</para></listitem><listitem><para>up to 16bits color depth</para></listitem></itemizedlist>
+</para><para>1, 2 or 4 pixel per clock processing<itemizedlist>
+<listitem><para>Input stream up to 4k2k 60Hz</para></listitem></itemizedlist>
+</para><para><bold>Dependency</bold></para><para>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the lbox core.</para><para>Before using the layer-2 API&apos;s user must initialize the core by calling Layer-1 API <ref refid="xv__letterbox_8h_1a18d22578bd68d9c519f54cd7df10a1df" kindref="member">XV_letterbox_Initialize()</ref>. This function will look for a configuration structure for the device and initialize it to defined HW settings. After initialization Layer-2 API&apos;s can be used to configure the core. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API&apos;s that perform low level register peek/poke.</para><para><bold> Interrupts </bold></para><para>This driver does not have any interrupts</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

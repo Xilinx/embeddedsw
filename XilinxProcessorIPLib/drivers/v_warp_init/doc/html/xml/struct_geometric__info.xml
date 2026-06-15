@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_geometric__info" kind="struct" prot="public">
+    <compoundname>Geometric_info</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_geometric__info_1addf6fc0c6c323956c8e420dd606506eb" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_geo__trans__param" kindref="compound">Geo_trans_param</ref></type>
+        <definition>struct Geo_trans_param Geometric_info::geo_trans_params</definition>
+        <argsstring></argsstring>
+        <name>geo_trans_params</name>
+        <briefdescription>
+<para>Geometric transformation parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1a66b1dfd1b40d9d6fd7043d25302bcb32" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_warp_init___arb_param" kindref="compound">XVWarpInit_ArbParam</ref></type>
+        <definition>XVWarpInit_ArbParam Geometric_info::arbitrary_param</definition>
+        <argsstring></argsstring>
+        <name>arbitrary_param</name>
+        <briefdescription>
+<para>Arbitrary warp parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1a13f86f659cd42b54ff1cd19a600f1d80" prot="public" static="no" mutable="no">
+        <type>unsigned short</type>
+        <definition>unsigned short Geometric_info::fr_width</definition>
+        <argsstring></argsstring>
+        <name>fr_width</name>
+        <briefdescription>
+<para>Frame width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1a61e9e7ac943052b02e955ee0ee82808b" prot="public" static="no" mutable="no">
+        <type>unsigned short</type>
+        <definition>unsigned short Geometric_info::fr_height</definition>
+        <argsstring></argsstring>
+        <name>fr_height</name>
+        <briefdescription>
+<para>Frame height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1aa886a44da8ab09eea848265bd4d4fd88" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Geometric_info::remap_xy</definition>
+        <argsstring></argsstring>
+        <name>remap_xy</name>
+        <briefdescription>
+<para>Remap coordinate array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1ab9d6a5ef30da1a187fece3870df459fa" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Geometric_info::remap_xy_sort</definition>
+        <argsstring></argsstring>
+        <name>remap_xy_sort</name>
+        <briefdescription>
+<para>Sorted remap coordinate array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geometric__info_1a393a99d0cd326f8f18a56a3d8fb84379" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short Geometric_info::warp_type</definition>
+        <argsstring></argsstring>
+        <name>warp_type</name>
+        <briefdescription>
+<para>Warp type selector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Complete geometric transformation information in fixed-point format. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains all geometric transformation parameters in fixed-point representation suitable for hardware implementation. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XVWarpInit_ArbParam</label>
+        <link refid="struct_x_v_warp_init___arb_param"/>
+      </node>
+      <node id="9">
+        <label>Geo_trans_param</label>
+        <link refid="struct_geo__trans__param"/>
+      </node>
+      <node id="7">
+        <label>Geometric_info</label>
+        <link refid="struct_geometric__info"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>arbitrary_param</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>geo_trans_params</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="186" bodyend="194"/>
+    <listofallmembers>
+      <member refid="struct_geometric__info_1a66b1dfd1b40d9d6fd7043d25302bcb32" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>arbitrary_param</name></member>
+      <member refid="struct_geometric__info_1a61e9e7ac943052b02e955ee0ee82808b" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>fr_height</name></member>
+      <member refid="struct_geometric__info_1a13f86f659cd42b54ff1cd19a600f1d80" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>fr_width</name></member>
+      <member refid="struct_geometric__info_1addf6fc0c6c323956c8e420dd606506eb" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>geo_trans_params</name></member>
+      <member refid="struct_geometric__info_1aa886a44da8ab09eea848265bd4d4fd88" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>remap_xy</name></member>
+      <member refid="struct_geometric__info_1ab9d6a5ef30da1a187fece3870df459fa" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>remap_xy_sort</name></member>
+      <member refid="struct_geometric__info_1a393a99d0cd326f8f18a56a3d8fb84379" prot="public" virt="non-virtual"><scope>Geometric_info</scope><name>warp_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

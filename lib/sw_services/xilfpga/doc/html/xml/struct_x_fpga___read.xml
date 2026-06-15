@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_fpga___read" kind="struct" prot="public">
+    <compoundname>XFpga_Read</compoundname>
+    <includes local="no">xilfpga_pcap_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_fpga___read_1a0e110b519fc49ce6808e4c5980677417" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XFpga_Read::ReadbackAddr</definition>
+        <argsstring></argsstring>
+        <name>ReadbackAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpga___read_1a22e9adb2868545f4c309e8eefacd0673" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFpga_Read::ConfigReg_NumFrames</definition>
+        <argsstring></argsstring>
+        <name>ConfigReg_NumFrames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the PL Image details. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ReadbackAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is used to store the PL readback data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration register value to be returned (or) The number of Fpga configuration frames to read </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap_common.h" bodystart="120" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_x_fpga___read_1a22e9adb2868545f4c309e8eefacd0673" prot="public" virt="non-virtual"><scope>XFpga_Read</scope><name>ConfigReg_NumFrames</name></member>
+      <member refid="struct_x_fpga___read_1a0e110b519fc49ce6808e4c5980677417" prot="public" virt="non-virtual"><scope>XFpga_Read</scope><name>ReadbackAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

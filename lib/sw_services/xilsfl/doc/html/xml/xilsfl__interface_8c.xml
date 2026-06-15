@@ -1,0 +1,473 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsfl__interface_8c" kind="file">
+    <compoundname>xilsfl_interface.c</compoundname>
+    <includes refid="xilsfl__control_8h" local="yes">xilsfl_control.h</includes>
+    <incdepgraph>
+      <node id="74">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="70">
+        <label>xilsfl_flashconfig.h</label>
+        <link refid="xilsfl__flashconfig_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xilsfl.h</label>
+        <link refid="xilsfl_8h"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="68">
+        <label>xilsfl_interface.c</label>
+        <link refid="xilsfl_interface.c"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>xparameters.h</label>
+      </node>
+      <node id="69">
+        <label>xilsfl_control.h</label>
+        <link refid="xilsfl__control_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_FlashRegisterReadWrite</definition>
+        <argsstring>(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr, u8 *TxBfrPtr, u32 *CmdBufferPtr, u8 Addrvalid)</argsstring>
+        <name>XSfl_FlashRegisterReadWrite</name>
+        <param>
+          <type><ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref> *</type>
+          <declname>SflInstnacePtr</declname>
+          <defname>SflInstancePtr</defname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxBfrPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CmdBufferPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Addrvalid</declname>
+        </param>
+        <briefdescription>
+<para>This API can be used to Read/write to a flash register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SflInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interface driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RxBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to store the read value from flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TxBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to value to be written into flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer that holds command, address and dummy. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addrvalid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>defines the specific read/write requires address or not.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else error code.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_interface.c" bodystart="58" bodyend="94"/>
+        <references refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" compoundref="xilsfl_8h" startline="265">XSfl_Msg::Addr</references>
+        <references refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" compoundref="xilsfl_8h" startline="274">XSfl_Msg::Addrsize</references>
+        <references refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" compoundref="xilsfl_8h" startline="275">XSfl_Msg::Addrvalid</references>
+        <references refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" compoundref="xilsfl_8h" startline="264">XSfl_Msg::ByteCount</references>
+        <references refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" compoundref="xilsfl_8h" startline="335">XSfl_Interface::CntrlInfo</references>
+        <references refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" compoundref="xilsfl_8h" startline="313">XSfl_CntrlInfo::DeviceId</references>
+        <references refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" compoundref="xilsfl_8h" startline="273">XSfl_Msg::DualByteOpCode</references>
+        <references refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" compoundref="xilsfl_8h" startline="270">XSfl_Msg::Dummy</references>
+        <references refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" compoundref="xilsfl_8h" startline="283">XSfl_FlashInfo::FlashIndex</references>
+        <references refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" compoundref="xilsfl_8h" startline="269">XSfl_Msg::Opcode</references>
+        <references refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" compoundref="xilsfl_8h" startline="276">XSfl_Msg::Proto</references>
+        <references refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" compoundref="xilsfl_8h" startline="268">XSfl_Msg::RxBfrPtr</references>
+        <references refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" compoundref="xilsfl_8h" startline="315">XSfl_CntrlInfo::SdrDdrMode</references>
+        <references refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" compoundref="xilsfl_8h" startline="336">XSfl_Interface::SflFlashInfo</references>
+        <references refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" compoundref="xilsfl_8h" startline="321">XSfl_CntrlInfo::Transfer</references>
+        <references refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" compoundref="xilsfl_8h" startline="267">XSfl_Msg::TxBfrPtr</references>
+        <referencedby refid="group__xilsfl_1ga2e882d98094018d1a45d549c6e9ef119" compoundref="xilsfl__control_8c" startline="811" endline="901">XSfl_FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xilsfl_1ga34e14f3a74f1e2cf6f8b659449453522" compoundref="xilsfl__control_8c" startline="671" endline="797">XSfl_FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_FlashCmdTransfer</definition>
+        <argsstring>(XSfl_Interface *SflInstancePtr, u8 Cmd)</argsstring>
+        <name>XSfl_FlashCmdTransfer</name>
+        <param>
+          <type><ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref> *</type>
+          <declname>SflInstnacePtr</declname>
+          <defname>SflInstancePtr</defname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This API can be used to transfer the command to the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SflInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interface driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the command to be transferred to the flash.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else error code.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_interface.c" bodystart="109" bodyend="140"/>
+        <references refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" compoundref="xilsfl_8h" startline="265">XSfl_Msg::Addr</references>
+        <references refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" compoundref="xilsfl_8h" startline="274">XSfl_Msg::Addrsize</references>
+        <references refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" compoundref="xilsfl_8h" startline="275">XSfl_Msg::Addrvalid</references>
+        <references refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" compoundref="xilsfl_8h" startline="264">XSfl_Msg::ByteCount</references>
+        <references refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" compoundref="xilsfl_8h" startline="335">XSfl_Interface::CntrlInfo</references>
+        <references refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" compoundref="xilsfl_8h" startline="313">XSfl_CntrlInfo::DeviceId</references>
+        <references refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" compoundref="xilsfl_8h" startline="273">XSfl_Msg::DualByteOpCode</references>
+        <references refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" compoundref="xilsfl_8h" startline="270">XSfl_Msg::Dummy</references>
+        <references refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" compoundref="xilsfl_8h" startline="283">XSfl_FlashInfo::FlashIndex</references>
+        <references refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" compoundref="xilsfl_8h" startline="269">XSfl_Msg::Opcode</references>
+        <references refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" compoundref="xilsfl_8h" startline="276">XSfl_Msg::Proto</references>
+        <references refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" compoundref="xilsfl_8h" startline="268">XSfl_Msg::RxBfrPtr</references>
+        <references refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" compoundref="xilsfl_8h" startline="315">XSfl_CntrlInfo::SdrDdrMode</references>
+        <references refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" compoundref="xilsfl_8h" startline="336">XSfl_Interface::SflFlashInfo</references>
+        <references refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" compoundref="xilsfl_8h" startline="321">XSfl_CntrlInfo::Transfer</references>
+        <references refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" compoundref="xilsfl_8h" startline="267">XSfl_Msg::TxBfrPtr</references>
+        <referencedby refid="group__xilsfl_1ga2e882d98094018d1a45d549c6e9ef119" compoundref="xilsfl__control_8c" startline="811" endline="901">XSfl_FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xilsfl_1gab1ba16e9c7b118d9436d779c254916ca" compoundref="xilsfl__control_8c" startline="118" endline="210">XSfl_FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga34e14f3a74f1e2cf6f8b659449453522" compoundref="xilsfl__control_8c" startline="671" endline="797">XSfl_FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_WaitforStatusDone</definition>
+        <argsstring>(XSfl_Interface *SflInstancePtr)</argsstring>
+        <name>XSfl_WaitforStatusDone</name>
+        <param>
+          <type><ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref> *</type>
+          <declname>SflInstnacePtr</declname>
+          <defname>SflInstancePtr</defname>
+        </param>
+        <briefdescription>
+<para>This API can be used to read status of the flash status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SflInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interface driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else error code.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_interface.c" bodystart="154" bodyend="206"/>
+        <references refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" compoundref="xilsfl_8h" startline="265">XSfl_Msg::Addr</references>
+        <references refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" compoundref="xilsfl_8h" startline="274">XSfl_Msg::Addrsize</references>
+        <references refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" compoundref="xilsfl_8h" startline="275">XSfl_Msg::Addrvalid</references>
+        <references refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" compoundref="xilsfl_8h" startline="264">XSfl_Msg::ByteCount</references>
+        <references refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" compoundref="xilsfl_8h" startline="335">XSfl_Interface::CntrlInfo</references>
+        <references refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" compoundref="xilsfl_8h" startline="313">XSfl_CntrlInfo::DeviceId</references>
+        <references refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" compoundref="xilsfl_8h" startline="273">XSfl_Msg::DualByteOpCode</references>
+        <references refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" compoundref="xilsfl_8h" startline="270">XSfl_Msg::Dummy</references>
+        <references refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" compoundref="xilsfl_8h" startline="283">XSfl_FlashInfo::FlashIndex</references>
+        <references refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" compoundref="xilsfl_8h" startline="269">XSfl_Msg::Opcode</references>
+        <references refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" compoundref="xilsfl_8h" startline="276">XSfl_Msg::Proto</references>
+        <references refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" compoundref="xilsfl_8h" startline="268">XSfl_Msg::RxBfrPtr</references>
+        <references refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" compoundref="xilsfl_8h" startline="315">XSfl_CntrlInfo::SdrDdrMode</references>
+        <references refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" compoundref="xilsfl_8h" startline="336">XSfl_Interface::SflFlashInfo</references>
+        <references refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" compoundref="xilsfl_8h" startline="321">XSfl_CntrlInfo::Transfer</references>
+        <references refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" compoundref="xilsfl_8h" startline="267">XSfl_Msg::TxBfrPtr</references>
+        <referencedby refid="group__xilsfl_1ga2e882d98094018d1a45d549c6e9ef119" compoundref="xilsfl__control_8c" startline="811" endline="901">XSfl_FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xilsfl_1gab1ba16e9c7b118d9436d779c254916ca" compoundref="xilsfl__control_8c" startline="118" endline="210">XSfl_FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilsfl_1ga5db7bb11b2fc937b06a37b5e0e4b29a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_GetRealAddr</definition>
+        <argsstring>(XSfl_Interface *SflInstancePtr, u32 Address)</argsstring>
+        <name>XSfl_GetRealAddr</name>
+        <param>
+          <type><ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref> *</type>
+          <declname>SflInstnacePtr</declname>
+          <defname>SflInstancePtr</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>This functions translates the address based on the type of interconnection. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of stacked, this function asserts the corresponding slave select.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SflInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interface driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which is to be accessed (for erase, write or read)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted;</para></simplesect>
+<simplesect kind="note"><para>In addition to get the actual address to work on flash this function also selects the CS based on the configuration detected. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_interface.c" bodystart="224" bodyend="240"/>
+        <references refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" compoundref="xilsfl_8h" startline="335">XSfl_Interface::CntrlInfo</references>
+        <references refid="group__xilsfl_1ga2b1fed97e76cc47f847b4474c16bed1d" compoundref="xilsfl_8h" startline="300">XSfl_FlashInfo::ConnectionMode</references>
+        <references refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" compoundref="xilsfl_8h" startline="283">XSfl_FlashInfo::FlashIndex</references>
+        <references refid="group__xilsfl_1ga3653d9517685c0f1dc44381e7aa838d4" compoundref="xilsfl_8h" startline="320">XSfl_CntrlInfo::SelectFlash</references>
+        <references refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" compoundref="xilsfl_8h" startline="336">XSfl_Interface::SflFlashInfo</references>
+        <references refid="group__xilsfl_1gabcd3734ba03a8f4d7088acb931bd46cd" compoundref="xilsfl_8h" startline="195">XSFL_SELECT_FLASH_CS0</references>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilsfl__control_8h" kindref="compound">xilsfl_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" kindref="member">XSfl_FlashRegisterReadWrite</ref>(<ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref><sp/>*SflInstancePtr,<sp/>u8<sp/>*RxBfrPtr,u8<sp/>*TxBfrPtr,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*CmdBufferPtr,u8<sp/>Addrvalid)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sfl___msg" kindref="compound">XSfl_Msg</ref><sp/>SflMsg<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FCTIndex<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" kindref="member">SflFlashInfo</ref>.<ref refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" kindref="member">FlashIndex</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref><sp/>=<sp/>(u8)CmdBufferPtr[XSFL_COMMAND_OFFSET];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" kindref="member">TxBfrPtr</ref><sp/>=<sp/>TxBfrPtr;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" kindref="member">RxBfrPtr</ref><sp/>=<sp/>RxBfrPtr;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" kindref="member">ByteCount</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" kindref="member">Addrvalid</ref><sp/>=<sp/>Addrvalid;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/>(u8)Flash_Config_Table[FCTIndex].Proto;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" kindref="member">Addr</ref><sp/>=<sp/>CmdBufferPtr[XSFL_ADDRESS_OFFSET];</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" kindref="member">Addrsize</ref><sp/>=<sp/>(u8)CmdBufferPtr[XSFL_ADDRESS_SIZE_OFFSET];</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" kindref="member">Dummy</ref><sp/>=<sp/>(u8)CmdBufferPtr[XSFL_DUMMY_OFFSET];</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XSFL_EDGE_MODE_DDR_PHY){</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/>(u8)Flash_Config_Table[FCTIndex].Proto<sp/>&gt;&gt;<sp/>8;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" kindref="member">Addrsize</ref><sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" kindref="member">ByteCount</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_INVERT){</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(~SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_SAME){</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" kindref="member">Dummy</ref><sp/>+=<sp/>8;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" kindref="member">Transfer</ref>(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" kindref="member">DeviceId</ref>,<sp/>&amp;SflMsg);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" kindref="member">XSfl_FlashCmdTransfer</ref>(<ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref><sp/>*SflInstancePtr,u8<sp/>Cmd){</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FCTIndex<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" kindref="member">SflFlashInfo</ref>.<ref refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" kindref="member">FlashIndex</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sfl___msg" kindref="compound">XSfl_Msg</ref><sp/>SflMsg<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref><sp/>=<sp/>Cmd;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" kindref="member">TxBfrPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" kindref="member">RxBfrPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" kindref="member">ByteCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" kindref="member">Dummy</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" kindref="member">Addr</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" kindref="member">Addrsize</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" kindref="member">Addrvalid</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/>(u8)Flash_Config_Table[FCTIndex].Proto;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XSFL_EDGE_MODE_DDR_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/>(u8)(Flash_Config_Table[FCTIndex].Proto<sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_INVERT){</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(~SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_SAME){</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" kindref="member">Transfer</ref>(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" kindref="member">DeviceId</ref>,<sp/>&amp;SflMsg);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="154" refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" kindref="member">XSfl_WaitforStatusDone</ref>(<ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref><sp/>*SflInstancePtr){</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sfl___msg" kindref="compound">XSfl_Msg</ref><sp/>SflMsg<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FCTIndex<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" kindref="member">SflFlashInfo</ref>.<ref refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" kindref="member">FlashIndex</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FlashStatus[2];</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FlashStatus[2]<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref><sp/>=<sp/>Flash_Config_Table[FCTIndex].StatusCmd;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" kindref="member">TxBfrPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" kindref="member">RxBfrPtr</ref><sp/>=<sp/>FlashStatus;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" kindref="member">ByteCount</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" kindref="member">Dummy</ref><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" kindref="member">Addrsize</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" kindref="member">Addrvalid</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" kindref="member">Addr</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/><sp/>(u8)Flash_Config_Table[0].Proto;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga5d0c450d24cd4a45386ee599c73b041b" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XSFL_EDGE_MODE_DDR_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" kindref="member">Proto</ref><sp/>=<sp/>(u8)(Flash_Config_Table[0].Proto<sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" kindref="member">ByteCount</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" kindref="member">Dummy</ref><sp/>+=<sp/>8;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_INVERT){</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(~SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].ExtOpCodeType<sp/>==<sp/>XSFL_DUAL_BYTE_OP_SAME){</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SflMsg.<ref refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" kindref="member">DualByteOpCode</ref><sp/>=<sp/>(u8)(SflMsg.<ref refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" kindref="member">Opcode</ref>);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga9bd49b340366873d2eab07540b3fdb24" kindref="member">Transfer</ref>(SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1gaca9d4c05b1c7cd749f4b3c36f444e721" kindref="member">DeviceId</ref>,<sp/>&amp;SflMsg);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flash_Config_Table[FCTIndex].FSRFlag)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((FlashStatus[0]<sp/>&amp;<sp/>0x80)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((FlashStatus[0]<sp/>&amp;<sp/>0x01)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="group__xilsfl_1ga5db7bb11b2fc937b06a37b5e0e4b29a7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1ga5db7bb11b2fc937b06a37b5e0e4b29a7" kindref="member">XSfl_GetRealAddr</ref>(<ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref><sp/>*SflInstancePtr,<sp/>u32<sp/>Address)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RealAddr<sp/>=<sp/>Address;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Chip_Sel<sp/>=<sp/><ref refid="group__xilsfl_1gabcd3734ba03a8f4d7088acb931bd46cd" kindref="member">XSFL_SELECT_FLASH_CS0</ref>;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FCTIndex<sp/>=<sp/>SflInstancePtr-&gt;<ref refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" kindref="member">SflFlashInfo</ref>.<ref refid="group__xilsfl_1ga65accbdd9e7b1d41ddfeffdd7e530079" kindref="member">FlashIndex</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SflInstancePtr-&gt;<ref refid="group__xilsfl_1gaf6fcc947f54fa33e7d30718c13e3fef8" kindref="member">SflFlashInfo</ref>.<ref refid="group__xilsfl_1ga2b1fed97e76cc47f847b4474c16bed1d" kindref="member">ConnectionMode</ref><sp/>==<sp/>XSFL_CONNECTION_MODE_STACKED)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Address<sp/>&amp;<sp/>Flash_Config_Table[FCTIndex].FlashDeviceSize))<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Chip_Sel<sp/>=<sp/>XSFL_SELECT_FLASH_CS1;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RealAddr<sp/>=<sp/>Address<sp/>&amp;<sp/>(~Flash_Config_Table[FCTIndex].FlashDeviceSize);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Select<sp/>Flash<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)SflInstancePtr-&gt;<ref refid="group__xilsfl_1gac82ef8bb1b4d6639ed17518cdfc6e395" kindref="member">CntrlInfo</ref>.<ref refid="group__xilsfl_1ga3653d9517685c0f1dc44381e7aa838d4" kindref="member">SelectFlash</ref>(Chip_Sel);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RealAddr;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_interface.c"/>
+  </compounddef>
+</doxygen>

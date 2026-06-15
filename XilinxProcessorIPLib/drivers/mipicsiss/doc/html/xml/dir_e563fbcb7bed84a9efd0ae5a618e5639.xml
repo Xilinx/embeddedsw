@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e563fbcb7bed84a9efd0ae5a618e5639" kind="dir">
+    <compoundname>xmipi_vek385_dphy_example</compoundname>
+    <innerfile refid="xmipi__vek385__dphy__example_2idt__8t49n24x_8c">xmipi_vek385_dphy_example/idt_8t49n24x.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2idt__8t49n24x_8h">xmipi_vek385_dphy_example/idt_8t49n24x.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2mipi__cfg_8c">xmipi_vek385_dphy_example/mipi_cfg.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2onsemi__nb7nq621m_8c">xmipi_vek385_dphy_example/onsemi_nb7nq621m.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2onsemi__nb7nq621m_8h">xmipi_vek385_dphy_example/onsemi_nb7nq621m.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2platform_8c">xmipi_vek385_dphy_example/platform.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2platform_8h">xmipi_vek385_dphy_example/platform.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2platform__config_8h">xmipi_vek385_dphy_example/platform_config.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2rc21008adrv_8c">xmipi_vek385_dphy_example/rc21008adrv.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2rc21008adrv_8h">xmipi_vek385_dphy_example/rc21008adrv.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2sensor__cfgs_8c">xmipi_vek385_dphy_example/sensor_cfgs.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2sensor__cfgs_8h">xmipi_vek385_dphy_example/sensor_cfgs.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2sha256_8c">xmipi_vek385_dphy_example/sha256.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2sha256_8h">xmipi_vek385_dphy_example/sha256.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2si5344drv_8c">xmipi_vek385_dphy_example/si5344drv.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2si5344drv_8h">xmipi_vek385_dphy_example/si5344drv.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2ti__lmk03318_8c">xmipi_vek385_dphy_example/ti_lmk03318.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2ti__lmk03318_8h">xmipi_vek385_dphy_example/ti_lmk03318.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2ti__tmds1204_8c">xmipi_vek385_dphy_example/ti_tmds1204.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2ti__tmds1204_8h">xmipi_vek385_dphy_example/ti_tmds1204.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2video__fmc_8c">xmipi_vek385_dphy_example/video_fmc.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2video__fmc_8h">xmipi_vek385_dphy_example/video_fmc.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__edid_8c">xmipi_vek385_dphy_example/xhdmi_edid.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__edid_8h">xmipi_vek385_dphy_example/xhdmi_edid.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__example_8c">xmipi_vek385_dphy_example/xhdmi_example.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__example_8h">xmipi_vek385_dphy_example/xhdmi_example.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__exdes__sm__tx_8c">xmipi_vek385_dphy_example/xhdmi_exdes_sm_tx.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__exdes__sm__tx_8h">xmipi_vek385_dphy_example/xhdmi_exdes_sm_tx.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__menu_8c">xmipi_vek385_dphy_example/xhdmi_menu.c</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_2xhdmi__menu_8h">xmipi_vek385_dphy_example/xhdmi_menu.h</innerfile>
+    <innerfile refid="xmipi__vek385__dphy__example_8c">xmipi_vek385_dphy_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/"/>
+  </compounddef>
+</doxygen>

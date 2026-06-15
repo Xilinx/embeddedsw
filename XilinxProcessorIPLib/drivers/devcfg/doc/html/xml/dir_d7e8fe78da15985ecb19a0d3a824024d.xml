@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d7e8fe78da15985ecb19a0d3a824024d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdevcfg_8c">xdevcfg.c</innerfile>
+    <innerfile refid="xdevcfg_8h">xdevcfg.h</innerfile>
+    <innerfile refid="xdevcfg__g_8c">xdevcfg_g.c</innerfile>
+    <innerfile refid="xdevcfg__hw_8c">xdevcfg_hw.c</innerfile>
+    <innerfile refid="xdevcfg__hw_8h">xdevcfg_hw.h</innerfile>
+    <innerfile refid="xdevcfg__intr_8c">xdevcfg_intr.c</innerfile>
+    <innerfile refid="xdevcfg__selftest_8c">xdevcfg_selftest.c</innerfile>
+    <innerfile refid="xdevcfg__sinit_8c">xdevcfg_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/"/>
+  </compounddef>
+</doxygen>

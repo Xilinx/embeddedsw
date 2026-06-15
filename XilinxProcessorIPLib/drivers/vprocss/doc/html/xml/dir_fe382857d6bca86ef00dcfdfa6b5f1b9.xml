@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fe382857d6bca86ef00dcfdfa6b5f1b9" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_b81635f835fec00100740d5a619f5815">vdma</innerdir>
+    <innerfile refid="xvprocss_8c">xvprocss.c</innerfile>
+    <innerfile refid="xvprocss_8h">xvprocss.h</innerfile>
+    <innerfile refid="xvprocss__coreinit_8c">xvprocss_coreinit.c</innerfile>
+    <innerfile refid="xvprocss__coreinit_8h">xvprocss_coreinit.h</innerfile>
+    <innerfile refid="xvprocss__g_8c">xvprocss_g.c</innerfile>
+    <innerfile refid="xvprocss__log_8c">xvprocss_log.c</innerfile>
+    <innerfile refid="xvprocss__log_8h">xvprocss_log.h</innerfile>
+    <innerfile refid="xvprocss__router_8c">xvprocss_router.c</innerfile>
+    <innerfile refid="xvprocss__router_8h">xvprocss_router.h</innerfile>
+    <innerfile refid="xvprocss__sinit_8c">xvprocss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/"/>
+  </compounddef>
+</doxygen>

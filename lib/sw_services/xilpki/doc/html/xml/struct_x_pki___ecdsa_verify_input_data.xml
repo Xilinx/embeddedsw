@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pki___ecdsa_verify_input_data" kind="struct" prot="public">
+    <compoundname>XPki_EcdsaVerifyInputData</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_verify_input_data_1ad0fd8168f14208b273c6bee19c705756" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref></type>
+        <definition>XPki_EcdsaCrvType XPki_EcdsaVerifyInputData::CrvType</definition>
+        <argsstring></argsstring>
+        <name>CrvType</name>
+        <briefdescription>
+<para>ECC Curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_verify_input_data_1a44ee361e205ab002b082409c0c2821e5" prot="public" static="no" mutable="no">
+        <type>XPki_EcdsaKey</type>
+        <definition>XPki_EcdsaKey XPki_EcdsaVerifyInputData::PubKey</definition>
+        <argsstring></argsstring>
+        <name>PubKey</name>
+        <briefdescription>
+<para>Structure to the ECC public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_verify_input_data_1a4c0549ad91ff6d51be70a78ed88656f5" prot="public" static="no" mutable="no">
+        <type>XPki_EcdsaSign</type>
+        <definition>XPki_EcdsaSign XPki_EcdsaVerifyInputData::Sign</definition>
+        <argsstring></argsstring>
+        <name>Sign</name>
+        <briefdescription>
+<para>Structure to the ECC signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_verify_input_data_1a5ecdd74b802fc5ab6e31f78d8877580c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaVerifyInputData::Hashlen</definition>
+        <argsstring></argsstring>
+        <name>Hashlen</name>
+        <briefdescription>
+<para>Data hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_verify_input_data_1a834c86997be82baa723dfb6201c58119" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaVerifyInputData::Hash</definition>
+        <argsstring></argsstring>
+        <name>Hash</name>
+        <briefdescription>
+<para>Pointer to the Data Hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="102" bodyend="108"/>
+    <listofallmembers>
+      <member refid="struct_x_pki___ecdsa_verify_input_data_1ad0fd8168f14208b273c6bee19c705756" prot="public" virt="non-virtual"><scope>XPki_EcdsaVerifyInputData</scope><name>CrvType</name></member>
+      <member refid="struct_x_pki___ecdsa_verify_input_data_1a834c86997be82baa723dfb6201c58119" prot="public" virt="non-virtual"><scope>XPki_EcdsaVerifyInputData</scope><name>Hash</name></member>
+      <member refid="struct_x_pki___ecdsa_verify_input_data_1a5ecdd74b802fc5ab6e31f78d8877580c" prot="public" virt="non-virtual"><scope>XPki_EcdsaVerifyInputData</scope><name>Hashlen</name></member>
+      <member refid="struct_x_pki___ecdsa_verify_input_data_1a44ee361e205ab002b082409c0c2821e5" prot="public" virt="non-virtual"><scope>XPki_EcdsaVerifyInputData</scope><name>PubKey</name></member>
+      <member refid="struct_x_pki___ecdsa_verify_input_data_1a4c0549ad91ff6d51be70a78ed88656f5" prot="public" virt="non-virtual"><scope>XPki_EcdsaVerifyInputData</scope><name>Sign</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

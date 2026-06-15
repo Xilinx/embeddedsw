@@ -1,0 +1,645 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b30___c_o_n_f_i_g" kind="struct" prot="public">
+    <compoundname>USB30_CONFIG</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a473efcd2a3c5473cc602aceb3cccd3b4" prot="public" static="no" mutable="no">
+        <type>USB_STD_CFG_DESC</type>
+        <definition>USB_STD_CFG_DESC USB30_CONFIG::stdCfg</definition>
+        <argsstring></argsstring>
+        <name>stdCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a4d18c46fe4127043f5bc807ed5c2cf3e" prot="public" static="no" mutable="no">
+        <type>USB_IF_ASSOC_DESC</type>
+        <definition>USB_IF_ASSOC_DESC USB30_CONFIG::iadDesc</definition>
+        <argsstring></argsstring>
+        <name>iadDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a318b19603515bf1befad4561fa051295" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::stdAcIfdesc</definition>
+        <argsstring></argsstring>
+        <name>stdAcIfdesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a5eafd5a368b1daf77ca7e872c273ecd1" prot="public" static="no" mutable="no">
+        <type>UAC2_AC_HEADER_DESC</type>
+        <definition>UAC2_AC_HEADER_DESC USB30_CONFIG::acHdrDesc</definition>
+        <argsstring></argsstring>
+        <name>acHdrDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a331256b567c594cab9647b28b8fb7098" prot="public" static="no" mutable="no">
+        <type>UAC2_CLOCK_SOURCE_DESC</type>
+        <definition>UAC2_CLOCK_SOURCE_DESC USB30_CONFIG::ClkSrcDesc</definition>
+        <argsstring></argsstring>
+        <name>ClkSrcDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a3f09eb79efdb1294400ee0b65c06bc8e" prot="public" static="no" mutable="no">
+        <type>UAC2_CLOCK_SELECTOR_DESC</type>
+        <definition>UAC2_CLOCK_SELECTOR_DESC USB30_CONFIG::ClkSltrDesc</definition>
+        <argsstring></argsstring>
+        <name>ClkSltrDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a7920cc47b020ff438eb34ff982c397b8" prot="public" static="no" mutable="no">
+        <type>UAC2_INPUT_TERMINAL_DESC</type>
+        <definition>UAC2_INPUT_TERMINAL_DESC USB30_CONFIG::usbOutItDesc</definition>
+        <argsstring></argsstring>
+        <name>usbOutItDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a5f8014da94ee7c7dce3b53dba8745228" prot="public" static="no" mutable="no">
+        <type>UAC2_FEATURE_UNIT_DESC</type>
+        <definition>UAC2_FEATURE_UNIT_DESC USB30_CONFIG::OutfeatureUnitDesc</definition>
+        <argsstring></argsstring>
+        <name>OutfeatureUnitDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a72a266db337ddd382c2a30e8a70defd4" prot="public" static="no" mutable="no">
+        <type>UAC2_OUTPUT_TERMINAL_DESC</type>
+        <definition>UAC2_OUTPUT_TERMINAL_DESC USB30_CONFIG::usbOutOtDesc</definition>
+        <argsstring></argsstring>
+        <name>usbOutOtDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a0247b8b4349ea93249637e3cbc470f52" prot="public" static="no" mutable="no">
+        <type>UAC2_INPUT_TERMINAL_DESC</type>
+        <definition>UAC2_INPUT_TERMINAL_DESC USB30_CONFIG::usbInItDesc</definition>
+        <argsstring></argsstring>
+        <name>usbInItDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ac4e96df228588d3f1d24ec03e475edd1" prot="public" static="no" mutable="no">
+        <type>UAC2_FEATURE_UNIT_DESC</type>
+        <definition>UAC2_FEATURE_UNIT_DESC USB30_CONFIG::InfeatureUnitDesc</definition>
+        <argsstring></argsstring>
+        <name>InfeatureUnitDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1adb793624601eb764034bf7dcbc31b6a9" prot="public" static="no" mutable="no">
+        <type>UAC2_OUTPUT_TERMINAL_DESC</type>
+        <definition>UAC2_OUTPUT_TERMINAL_DESC USB30_CONFIG::usbInOtDesc</definition>
+        <argsstring></argsstring>
+        <name>usbInOtDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ab2abb37af250263aefe652ca07010f69" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::stdAsOutIf0Desc</definition>
+        <argsstring></argsstring>
+        <name>stdAsOutIf0Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a352ef5dfedd3647c3c5c73b35e87985d" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::stdAsOutIf1Desc</definition>
+        <argsstring></argsstring>
+        <name>stdAsOutIf1Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a9829ddf3976dcef7f78deca787e03240" prot="public" static="no" mutable="no">
+        <type>UAC2_AS_HEADER_DESC</type>
+        <definition>UAC2_AS_HEADER_DESC USB30_CONFIG::asOutHdrDesc</definition>
+        <argsstring></argsstring>
+        <name>asOutHdrDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a4bde5bd438c23a50c986495aaa4e3ae1" prot="public" static="no" mutable="no">
+        <type>UAC2_FORMAT_TYPE_I_DESC</type>
+        <definition>UAC2_FORMAT_TYPE_I_DESC USB30_CONFIG::asOutFmt1Desc</definition>
+        <argsstring></argsstring>
+        <name>asOutFmt1Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a9d2fec5d7796e8bfd56aedbd895568d1" prot="public" static="no" mutable="no">
+        <type>USB_EP_DESC</type>
+        <definition>USB_EP_DESC USB30_CONFIG::asEpOutDesc</definition>
+        <argsstring></argsstring>
+        <name>asEpOutDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a5ab1c53d8dfe71d48c419cb0c5d8da6b" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::asEpOutCompDesc</definition>
+        <argsstring></argsstring>
+        <name>asEpOutCompDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ad522edd1d1ff28958691114c404e52c8" prot="public" static="no" mutable="no">
+        <type>UAC2_ISO_EP_DESC</type>
+        <definition>UAC2_ISO_EP_DESC USB30_CONFIG::asIsoEpOutDesc</definition>
+        <argsstring></argsstring>
+        <name>asIsoEpOutDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ac961586fadd238fb550a636fe6bc70e7" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::stdAsInIf0Desc</definition>
+        <argsstring></argsstring>
+        <name>stdAsInIf0Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a703546928cfca2efe662efe03c343b76" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::stdAsInIf1Desc</definition>
+        <argsstring></argsstring>
+        <name>stdAsInIf1Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ad89bc1e00c5cdf8e3071055504cb3803" prot="public" static="no" mutable="no">
+        <type>UAC2_AS_HEADER_DESC</type>
+        <definition>UAC2_AS_HEADER_DESC USB30_CONFIG::asInHdrDesc</definition>
+        <argsstring></argsstring>
+        <name>asInHdrDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a068652edb9143412170cc48eab90a14b" prot="public" static="no" mutable="no">
+        <type>UAC2_FORMAT_TYPE_I_DESC</type>
+        <definition>UAC2_FORMAT_TYPE_I_DESC USB30_CONFIG::asInFmt1Desc</definition>
+        <argsstring></argsstring>
+        <name>asInFmt1Desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a271ab371a7a6d79616d9016af6bd5f13" prot="public" static="no" mutable="no">
+        <type>USB_EP_DESC</type>
+        <definition>USB_EP_DESC USB30_CONFIG::asEpInDesc</definition>
+        <argsstring></argsstring>
+        <name>asEpInDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a3692b709ce00cefa96c92bed13a9bbef" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::asEpInCompDesc</definition>
+        <argsstring></argsstring>
+        <name>asEpInCompDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a4b0c8e7e87f8054444f55f1c8ad10d3d" prot="public" static="no" mutable="no">
+        <type>UAC2_ISO_EP_DESC</type>
+        <definition>UAC2_ISO_EP_DESC USB30_CONFIG::asIsoEpInDesc</definition>
+        <argsstring></argsstring>
+        <name>asIsoEpInDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a8d93da42110421d6c17f648abca27e06" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::ifCfg</definition>
+        <argsstring></argsstring>
+        <name>ifCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ac7ac1c98a990fa819fe7f4cd6a7ba924" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::epin</definition>
+        <argsstring></argsstring>
+        <name>epin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ad38cbc8f8383d0ed97f5c925a27e37ae" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epssin</definition>
+        <argsstring></argsstring>
+        <name>epssin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a65f298b2924f4b0b56bd72bc9d9c0279" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::epout</definition>
+        <argsstring></argsstring>
+        <name>epout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ae696769d99edd575bc634f5af6dbbfb8" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epssout</definition>
+        <argsstring></argsstring>
+        <name>epssout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a2c458f305ddb867f04f52aafa6025562" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::ifCfg_alt_dfu</definition>
+        <argsstring></argsstring>
+        <name>ifCfg_alt_dfu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a3b108d41fdafa5848054d86d0413a337" prot="public" static="no" mutable="no">
+        <type>USB_DFU_FUNC_DESC</type>
+        <definition>USB_DFU_FUNC_DESC USB30_CONFIG::dfu_func_desc</definition>
+        <argsstring></argsstring>
+        <name>dfu_func_desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a9b4a2a6bfd21c5f248e54a51306ac0fd" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::ifStorageCfg</definition>
+        <argsstring></argsstring>
+        <name>ifStorageCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a61ad562999e6ed08b336ac1a50642ce7" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::epStoragein</definition>
+        <argsstring></argsstring>
+        <name>epStoragein</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1af5e3ad6a70515bd7bb9b68d80d45e439" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epssStoragein</definition>
+        <argsstring></argsstring>
+        <name>epssStoragein</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a856884fcfd71a314c64e9c1fa431f859" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::epStorageout</definition>
+        <argsstring></argsstring>
+        <name>epStorageout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a0b76fe9dbf078c8fec6bfd5470f262a9" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epssStorageout</definition>
+        <argsstring></argsstring>
+        <name>epssStorageout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a38cdb1fc7390d0e62999bc8d9020fcd3" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC USB30_CONFIG::ifKeyboardCfg</definition>
+        <argsstring></argsstring>
+        <name>ifKeyboardCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a4f4e3c775ad9272a3b8d1181e09c533c" prot="public" static="no" mutable="no">
+        <type>USB_STD_HID_DESC</type>
+        <definition>USB_STD_HID_DESC USB30_CONFIG::Keyboardhiddesc</definition>
+        <argsstring></argsstring>
+        <name>Keyboardhiddesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a1216b1a9e513e9881802e378c22a1c78" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::Keyboardep</definition>
+        <argsstring></argsstring>
+        <name>Keyboardep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1a5fae6a8380799a12dfebc913460b6f5a" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epssiKeyboardcomp</definition>
+        <argsstring></argsstring>
+        <name>epssiKeyboardcomp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1afe61fa73f0b769d6a254fa7130bf4fe8" prot="public" static="no" mutable="no">
+        <type>USB_STD_HID_DESC</type>
+        <definition>USB_STD_HID_DESC USB30_CONFIG::hiddesc</definition>
+        <argsstring></argsstring>
+        <name>hiddesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1adbb1bd428f227688f2b8b5305c0b5e70" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC USB30_CONFIG::intep</definition>
+        <argsstring></argsstring>
+        <name>intep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b30___c_o_n_f_i_g_1ad6089be104f1a8eaf6bf8853cd29997f" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_SS_COMP_DESC</type>
+        <definition>USB_STD_EP_SS_COMP_DESC USB30_CONFIG::epsscomp</definition>
+        <argsstring></argsstring>
+        <name>epsscomp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_keyboard.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="455" bodyend="515"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a5eafd5a368b1daf77ca7e872c273ecd1" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>acHdrDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a3692b709ce00cefa96c92bed13a9bbef" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asEpInCompDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a271ab371a7a6d79616d9016af6bd5f13" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asEpInDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a5ab1c53d8dfe71d48c419cb0c5d8da6b" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asEpOutCompDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a9d2fec5d7796e8bfd56aedbd895568d1" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asEpOutDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a068652edb9143412170cc48eab90a14b" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asInFmt1Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ad89bc1e00c5cdf8e3071055504cb3803" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asInHdrDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a4b0c8e7e87f8054444f55f1c8ad10d3d" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asIsoEpInDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ad522edd1d1ff28958691114c404e52c8" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asIsoEpOutDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a4bde5bd438c23a50c986495aaa4e3ae1" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asOutFmt1Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a9829ddf3976dcef7f78deca787e03240" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>asOutHdrDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a3f09eb79efdb1294400ee0b65c06bc8e" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ClkSltrDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a331256b567c594cab9647b28b8fb7098" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ClkSrcDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a3b108d41fdafa5848054d86d0413a337" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>dfu_func_desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ac7ac1c98a990fa819fe7f4cd6a7ba924" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epin</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a65f298b2924f4b0b56bd72bc9d9c0279" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epout</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ad6089be104f1a8eaf6bf8853cd29997f" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epsscomp</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a5fae6a8380799a12dfebc913460b6f5a" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epssiKeyboardcomp</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ad38cbc8f8383d0ed97f5c925a27e37ae" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epssin</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ae696769d99edd575bc634f5af6dbbfb8" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epssout</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1af5e3ad6a70515bd7bb9b68d80d45e439" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epssStoragein</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a0b76fe9dbf078c8fec6bfd5470f262a9" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epssStorageout</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a61ad562999e6ed08b336ac1a50642ce7" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epStoragein</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a856884fcfd71a314c64e9c1fa431f859" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>epStorageout</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1afe61fa73f0b769d6a254fa7130bf4fe8" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>hiddesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a4d18c46fe4127043f5bc807ed5c2cf3e" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>iadDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a8d93da42110421d6c17f648abca27e06" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ifCfg</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a2c458f305ddb867f04f52aafa6025562" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ifCfg_alt_dfu</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a38cdb1fc7390d0e62999bc8d9020fcd3" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ifKeyboardCfg</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a9b4a2a6bfd21c5f248e54a51306ac0fd" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>ifStorageCfg</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ac4e96df228588d3f1d24ec03e475edd1" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>InfeatureUnitDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1adbb1bd428f227688f2b8b5305c0b5e70" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>intep</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a1216b1a9e513e9881802e378c22a1c78" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>Keyboardep</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a4f4e3c775ad9272a3b8d1181e09c533c" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>Keyboardhiddesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a5f8014da94ee7c7dce3b53dba8745228" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>OutfeatureUnitDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a318b19603515bf1befad4561fa051295" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdAcIfdesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ac961586fadd238fb550a636fe6bc70e7" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdAsInIf0Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a703546928cfca2efe662efe03c343b76" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdAsInIf1Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1ab2abb37af250263aefe652ca07010f69" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdAsOutIf0Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a352ef5dfedd3647c3c5c73b35e87985d" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdAsOutIf1Desc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a473efcd2a3c5473cc602aceb3cccd3b4" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>stdCfg</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a0247b8b4349ea93249637e3cbc470f52" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>usbInItDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1adb793624601eb764034bf7dcbc31b6a9" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>usbInOtDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a7920cc47b020ff438eb34ff982c397b8" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>usbOutItDesc</name></member>
+      <member refid="struct_u_s_b30___c_o_n_f_i_g_1a72a266db337ddd382c2a30e8a70defd4" prot="public" virt="non-virtual"><scope>USB30_CONFIG</scope><name>usbOutOtDesc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

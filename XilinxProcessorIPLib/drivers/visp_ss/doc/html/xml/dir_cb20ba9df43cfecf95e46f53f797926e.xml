@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_cb20ba9df43cfecf95e46f53f797926e" kind="dir">
+    <compoundname>ebase</compoundname>
+    <innerdir refid="dir_1452619baec69a67c068deb3e52912d9">include</innerdir>
+    <innerdir refid="dir_c20edd54c9dc483b83de04638f2ff3c3">source</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/"/>
+  </compounddef>
+</doxygen>

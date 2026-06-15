@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_pmon" kind="struct" prot="public">
+    <compoundname>XAxiPmon</compoundname>
+    <includes local="no">xaxipmon.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_pmon_1af9bf3cba69040d94bd28ec0fbefbe310" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_pmon___config" kindref="compound">XAxiPmon_Config</ref></type>
+        <definition>XAxiPmon_Config XAxiPmon::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para><ref refid="struct_x_axi_pmon___config" kindref="compound">XAxiPmon_Config</ref> of current device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="xaxipmon__intr__example_8c_1a09802d0ef0597cec23b941db2278abc2" compoundref="xaxipmon__intr__example_8c" startline="204" endline="320">AxiPmonInterruptExample</referencedby>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga2baaab02251ef05f8702a5cf208a1a31" compoundref="xaxipmon_8c" startline="1368" endline="1384">XAxiPmon_DisableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gaa9254b523e9bd235a399b25bd357884e" compoundref="xaxipmon_8c" startline="1307" endline="1323">XAxiPmon_DisableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga66a4533d4fa95ed53bd99c6112f27537" compoundref="xaxipmon_8c" startline="1245" endline="1262">XAxiPmon_EnableEventLog</referencedby>
+        <referencedby refid="group__axipmon_1gaf2e621c00a8df721ca64ae370648d07a" compoundref="xaxipmon_8c" startline="1338" endline="1353">XAxiPmon_EnableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gabb60d4a3d4bb6085fe90717879ebba8c" compoundref="xaxipmon_8c" startline="1277" endline="1292">XAxiPmon_EnableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga833edad9f6bdc75777eca3247940931f" compoundref="xaxipmon_8c" startline="641" endline="667">XAxiPmon_GetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1gae2541fcba5770808bfce1bf006e62a11" compoundref="xaxipmon_8c" startline="785" endline="802">XAxiPmon_GetIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" compoundref="xaxipmon_8c" startline="410" endline="428">XAxiPmon_GetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga4dea38a6a1a6f00e9a62e92b9fafc3c2" compoundref="xaxipmon_8c" startline="1212" endline="1231">XAxiPmon_GetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" compoundref="xaxipmon_8c" startline="684" endline="715">XAxiPmon_GetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga343be016daf2c353c95c66fa5d4f3869" compoundref="xaxipmon_8c" startline="591" endline="623">XAxiPmon_GetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1gab07171f0bdc3e88155dd354889d269e4" compoundref="xaxipmon_8c" startline="1893" endline="1912">XAxiPmon_GetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gad3fc8333fb0a3e594a77da7483d7261b" compoundref="xaxipmon_8c" startline="1859" endline="1878">XAxiPmon_GetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga2864d8855faca3dbb48f3ec703d3cc02" compoundref="xaxipmon_8c" startline="1605" endline="1627">XAxiPmon_GetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga626c97b8b159047052b6ca6308c43c7a" compoundref="xaxipmon_8c" startline="2045" endline="2067">XAxiPmon_GetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga0e28b087aa82e6744dbfc7c5a6da6303" compoundref="xaxipmon_8c" startline="733" endline="766">XAxiPmon_GetSampledMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gaaa5f655100b693586e08eed5aa01ecf9" compoundref="xaxipmon_8c" startline="475" endline="490">XAxiPmon_GetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1gabc734c192a6eb5cf8ae1d76322a84d2e" compoundref="xaxipmon_8c" startline="880" endline="896">XAxiPmon_GetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1ga1c271dbbf7f4149f6b5e6156a49462a6" compoundref="xaxipmon_8c" startline="1567" endline="1588">XAxiPmon_GetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga4e79500a048a04d8fda8fcdcb4798d37" compoundref="xaxipmon_8c" startline="2006" endline="2027">XAxiPmon_GetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga81175e1827d1ae0b95742638f19f0347" compoundref="xaxipmon_8c" startline="1826" endline="1844">XAxiPmon_GetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga5d7d29017bfc83bfe141657c924788cd" compoundref="xaxipmon_8c" startline="1793" endline="1811">XAxiPmon_GetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga8da3b49d3fc16437858d5a61905981ae" compoundref="xaxipmon_8c" startline="316" endline="350">XAxiPmon_ResetFifo</referencedby>
+        <referencedby refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" compoundref="xaxipmon_8c" startline="368" endline="390">XAxiPmon_SetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga25951731ad41378f658e67a9f13c8f65" compoundref="xaxipmon_8c" startline="1164" endline="1187">XAxiPmon_SetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" compoundref="xaxipmon_8c" startline="512" endline="570">XAxiPmon_SetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1ga46ab2d475ae5c53bfefa0988de38c768" compoundref="xaxipmon_8c" startline="1757" endline="1778">XAxiPmon_SetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga89b245a99d7e28e5f580ea5598e9b9ee" compoundref="xaxipmon_8c" startline="1719" endline="1740">XAxiPmon_SetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga6635143a2756fb62e690a10bf5a009d2" compoundref="xaxipmon_8c" startline="1530" endline="1550">XAxiPmon_SetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga65ee407db0c82828a01ed5c1b9eb8590" compoundref="xaxipmon_8c" startline="1968" endline="1988">XAxiPmon_SetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1gaf3c20b8c69cc5ba64b78f8bae9eb34d8" compoundref="xaxipmon_8c" startline="443" endline="459">XAxiPmon_SetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1ga0de2a5e1665cf6c5e58e12d5e337058b" compoundref="xaxipmon_8c" startline="853" endline="866">XAxiPmon_SetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1gabb328badebe7340a658d6e70e09870a4" compoundref="xaxipmon_8c" startline="1492" endline="1512">XAxiPmon_SetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga3de9a6a45d022e8a996b10c275b1ec55" compoundref="xaxipmon_8c" startline="1930" endline="1950">XAxiPmon_SetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1f146b7a32bcb5b00ffeae5b66fd49bd" compoundref="xaxipmon_8c" startline="1681" endline="1702">XAxiPmon_SetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gada26dab07f2fece5d9f2bbaa2b663f06" compoundref="xaxipmon_8c" startline="1643" endline="1664">XAxiPmon_SetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga76a82f8825aabafd3f154f991a75d9e1" compoundref="xaxipmon_8c" startline="916" endline="945">XAxiPmon_StartEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga8b84005bda937d328475b648d94ae258" compoundref="xaxipmon_8c" startline="960" endline="983">XAxiPmon_StopEventLog</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon_1ac1850f54d71babaa6ae9c2fa19ede701" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPmon::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="471" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga2baaab02251ef05f8702a5cf208a1a31" compoundref="xaxipmon_8c" startline="1368" endline="1384">XAxiPmon_DisableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gaa9254b523e9bd235a399b25bd357884e" compoundref="xaxipmon_8c" startline="1307" endline="1323">XAxiPmon_DisableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga66a4533d4fa95ed53bd99c6112f27537" compoundref="xaxipmon_8c" startline="1245" endline="1262">XAxiPmon_EnableEventLog</referencedby>
+        <referencedby refid="group__axipmon_1gaf2e621c00a8df721ca64ae370648d07a" compoundref="xaxipmon_8c" startline="1338" endline="1353">XAxiPmon_EnableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gabb60d4a3d4bb6085fe90717879ebba8c" compoundref="xaxipmon_8c" startline="1277" endline="1292">XAxiPmon_EnableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga833edad9f6bdc75777eca3247940931f" compoundref="xaxipmon_8c" startline="641" endline="667">XAxiPmon_GetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1gae2541fcba5770808bfce1bf006e62a11" compoundref="xaxipmon_8c" startline="785" endline="802">XAxiPmon_GetIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" compoundref="xaxipmon_8c" startline="410" endline="428">XAxiPmon_GetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga4dea38a6a1a6f00e9a62e92b9fafc3c2" compoundref="xaxipmon_8c" startline="1212" endline="1231">XAxiPmon_GetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" compoundref="xaxipmon_8c" startline="684" endline="715">XAxiPmon_GetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga343be016daf2c353c95c66fa5d4f3869" compoundref="xaxipmon_8c" startline="591" endline="623">XAxiPmon_GetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1gab07171f0bdc3e88155dd354889d269e4" compoundref="xaxipmon_8c" startline="1893" endline="1912">XAxiPmon_GetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gad3fc8333fb0a3e594a77da7483d7261b" compoundref="xaxipmon_8c" startline="1859" endline="1878">XAxiPmon_GetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga2864d8855faca3dbb48f3ec703d3cc02" compoundref="xaxipmon_8c" startline="1605" endline="1627">XAxiPmon_GetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga626c97b8b159047052b6ca6308c43c7a" compoundref="xaxipmon_8c" startline="2045" endline="2067">XAxiPmon_GetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga0e28b087aa82e6744dbfc7c5a6da6303" compoundref="xaxipmon_8c" startline="733" endline="766">XAxiPmon_GetSampledMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gaaa5f655100b693586e08eed5aa01ecf9" compoundref="xaxipmon_8c" startline="475" endline="490">XAxiPmon_GetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1gabc734c192a6eb5cf8ae1d76322a84d2e" compoundref="xaxipmon_8c" startline="880" endline="896">XAxiPmon_GetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1ga1c271dbbf7f4149f6b5e6156a49462a6" compoundref="xaxipmon_8c" startline="1567" endline="1588">XAxiPmon_GetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga4e79500a048a04d8fda8fcdcb4798d37" compoundref="xaxipmon_8c" startline="2006" endline="2027">XAxiPmon_GetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga81175e1827d1ae0b95742638f19f0347" compoundref="xaxipmon_8c" startline="1826" endline="1844">XAxiPmon_GetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga5d7d29017bfc83bfe141657c924788cd" compoundref="xaxipmon_8c" startline="1793" endline="1811">XAxiPmon_GetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga8da3b49d3fc16437858d5a61905981ae" compoundref="xaxipmon_8c" startline="316" endline="350">XAxiPmon_ResetFifo</referencedby>
+        <referencedby refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" compoundref="xaxipmon__selftest_8c" startline="79" endline="126">XAxiPmon_SelfTest</referencedby>
+        <referencedby refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" compoundref="xaxipmon_8c" startline="368" endline="390">XAxiPmon_SetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga25951731ad41378f658e67a9f13c8f65" compoundref="xaxipmon_8c" startline="1164" endline="1187">XAxiPmon_SetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" compoundref="xaxipmon_8c" startline="512" endline="570">XAxiPmon_SetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1ga46ab2d475ae5c53bfefa0988de38c768" compoundref="xaxipmon_8c" startline="1757" endline="1778">XAxiPmon_SetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga89b245a99d7e28e5f580ea5598e9b9ee" compoundref="xaxipmon_8c" startline="1719" endline="1740">XAxiPmon_SetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga6635143a2756fb62e690a10bf5a009d2" compoundref="xaxipmon_8c" startline="1530" endline="1550">XAxiPmon_SetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga65ee407db0c82828a01ed5c1b9eb8590" compoundref="xaxipmon_8c" startline="1968" endline="1988">XAxiPmon_SetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1gaf3c20b8c69cc5ba64b78f8bae9eb34d8" compoundref="xaxipmon_8c" startline="443" endline="459">XAxiPmon_SetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1ga0de2a5e1665cf6c5e58e12d5e337058b" compoundref="xaxipmon_8c" startline="853" endline="866">XAxiPmon_SetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1gabb328badebe7340a658d6e70e09870a4" compoundref="xaxipmon_8c" startline="1492" endline="1512">XAxiPmon_SetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga3de9a6a45d022e8a996b10c275b1ec55" compoundref="xaxipmon_8c" startline="1930" endline="1950">XAxiPmon_SetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1f146b7a32bcb5b00ffeae5b66fd49bd" compoundref="xaxipmon_8c" startline="1681" endline="1702">XAxiPmon_SetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gada26dab07f2fece5d9f2bbaa2b663f06" compoundref="xaxipmon_8c" startline="1643" endline="1664">XAxiPmon_SetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga76a82f8825aabafd3f154f991a75d9e1" compoundref="xaxipmon_8c" startline="916" endline="945">XAxiPmon_StartEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga8b84005bda937d328475b648d94ae258" compoundref="xaxipmon_8c" startline="960" endline="983">XAxiPmon_StopEventLog</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon_1ae650476223ceb6eb14458e9e28df80bf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>APM Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="472" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga2baaab02251ef05f8702a5cf208a1a31" compoundref="xaxipmon_8c" startline="1368" endline="1384">XAxiPmon_DisableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gaa9254b523e9bd235a399b25bd357884e" compoundref="xaxipmon_8c" startline="1307" endline="1323">XAxiPmon_DisableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga66a4533d4fa95ed53bd99c6112f27537" compoundref="xaxipmon_8c" startline="1245" endline="1262">XAxiPmon_EnableEventLog</referencedby>
+        <referencedby refid="group__axipmon_1gaf2e621c00a8df721ca64ae370648d07a" compoundref="xaxipmon_8c" startline="1338" endline="1353">XAxiPmon_EnableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gabb60d4a3d4bb6085fe90717879ebba8c" compoundref="xaxipmon_8c" startline="1277" endline="1292">XAxiPmon_EnableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga833edad9f6bdc75777eca3247940931f" compoundref="xaxipmon_8c" startline="641" endline="667">XAxiPmon_GetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1gae2541fcba5770808bfce1bf006e62a11" compoundref="xaxipmon_8c" startline="785" endline="802">XAxiPmon_GetIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" compoundref="xaxipmon_8c" startline="410" endline="428">XAxiPmon_GetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga4dea38a6a1a6f00e9a62e92b9fafc3c2" compoundref="xaxipmon_8c" startline="1212" endline="1231">XAxiPmon_GetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" compoundref="xaxipmon_8c" startline="684" endline="715">XAxiPmon_GetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga343be016daf2c353c95c66fa5d4f3869" compoundref="xaxipmon_8c" startline="591" endline="623">XAxiPmon_GetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga0e28b087aa82e6744dbfc7c5a6da6303" compoundref="xaxipmon_8c" startline="733" endline="766">XAxiPmon_GetSampledMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gaaa5f655100b693586e08eed5aa01ecf9" compoundref="xaxipmon_8c" startline="475" endline="490">XAxiPmon_GetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1ga8da3b49d3fc16437858d5a61905981ae" compoundref="xaxipmon_8c" startline="316" endline="350">XAxiPmon_ResetFifo</referencedby>
+        <referencedby refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" compoundref="xaxipmon_8c" startline="368" endline="390">XAxiPmon_SetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga25951731ad41378f658e67a9f13c8f65" compoundref="xaxipmon_8c" startline="1164" endline="1187">XAxiPmon_SetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" compoundref="xaxipmon_8c" startline="512" endline="570">XAxiPmon_SetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1gaf3c20b8c69cc5ba64b78f8bae9eb34d8" compoundref="xaxipmon_8c" startline="443" endline="459">XAxiPmon_SetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga76a82f8825aabafd3f154f991a75d9e1" compoundref="xaxipmon_8c" startline="916" endline="945">XAxiPmon_StartEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga8b84005bda937d328475b648d94ae258" compoundref="xaxipmon_8c" startline="960" endline="983">XAxiPmon_StopEventLog</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The driver&apos;s instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every AXI Performance Monitor device in system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XAxiPmon</label>
+        <link refid="struct_x_axi_pmon"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XAxiPmon_Config</label>
+        <link refid="struct_x_axi_pmon___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="469" bodyend="473"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_pmon_1af9bf3cba69040d94bd28ec0fbefbe310" prot="public" virt="non-virtual"><scope>XAxiPmon</scope><name>Config</name></member>
+      <member refid="struct_x_axi_pmon_1ac1850f54d71babaa6ae9c2fa19ede701" prot="public" virt="non-virtual"><scope>XAxiPmon</scope><name>IsReady</name></member>
+      <member refid="struct_x_axi_pmon_1ae650476223ceb6eb14458e9e28df80bf" prot="public" virt="non-virtual"><scope>XAxiPmon</scope><name>Mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

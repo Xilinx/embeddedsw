@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ecdh_params" kind="struct" prot="public">
+    <compoundname>XAsu_EcdhParams</compoundname>
+    <includes local="no">xasu_eccinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1acd73d8515295ec4480c20ccadd3252cd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref></type>
+        <definition>XAsu_EccKeyObject XAsu_EcdhParams::PvtKey</definition>
+        <argsstring></argsstring>
+        <name>PvtKey</name>
+        <briefdescription>
+<para>Private key object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1aa448e9b41c1b225d1951926c50c80d72" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref></type>
+        <definition>XAsu_EccKeyObject XAsu_EcdhParams::PubKey</definition>
+        <argsstring></argsstring>
+        <name>PubKey</name>
+        <briefdescription>
+<para>Peer&apos;s public key object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1a77b25cca0a3a21a3eec0468331f5e535" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EcdhParams::SharedSecretAddr</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretAddr</name>
+        <briefdescription>
+<para>Address where shared secret will be written (size = PvtKey.KeyLen) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1a59d424489b7387dcdedb2c5d3eeb9ea3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EcdhParams::SharedSecretObjIdAddr</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretObjIdAddr</name>
+        <briefdescription>
+<para>Optional object ID for shared secret storage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1a99cc5660e701198963c8dbbc85105728" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EcdhParams::CurveType</definition>
+        <argsstring></argsstring>
+        <name>CurveType</name>
+        <briefdescription>
+<para>Type of curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecdh_params_1aea60b613a9fc7b0e8cd17aad8c359f04" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EcdhParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ECDH params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="58">
+        <label>XAsu_EccKeyObject</label>
+        <link refid="struct_x_asu___ecc_key_object"/>
+      </node>
+      <node id="57">
+        <label>XAsu_EcdhParams</label>
+        <link refid="struct_x_asu___ecdh_params"/>
+        <childnode refid="58" relation="usage">
+          <edgelabel>PubKey</edgelabel>
+          <edgelabel>PvtKey</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="137" bodyend="144"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ecdh_params_1a99cc5660e701198963c8dbbc85105728" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>CurveType</name></member>
+      <member refid="struct_x_asu___ecdh_params_1aa448e9b41c1b225d1951926c50c80d72" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>PubKey</name></member>
+      <member refid="struct_x_asu___ecdh_params_1acd73d8515295ec4480c20ccadd3252cd" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>PvtKey</name></member>
+      <member refid="struct_x_asu___ecdh_params_1aea60b613a9fc7b0e8cd17aad8c359f04" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___ecdh_params_1a77b25cca0a3a21a3eec0468331f5e535" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>SharedSecretAddr</name></member>
+      <member refid="struct_x_asu___ecdh_params_1a59d424489b7387dcdedb2c5d3eeb9ea3" prot="public" virt="non-virtual"><scope>XAsu_EcdhParams</scope><name>SharedSecretObjIdAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

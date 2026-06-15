@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___model_parameters" kind="struct" prot="public">
+    <compoundname>XDfeCcf_ModelParameters</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___model_parameters_1aab8818a9342abd0c618f8f779d0ac6ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_ModelParameters::NumAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumAntenna</name>
+        <briefdescription>
+<para>[1-8] Number of antennas </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="278" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___model_parameters_1a4f8b8cf85413a38c22a91495a33d80c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_ModelParameters::NumCCPerAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumCCPerAntenna</name>
+        <briefdescription>
+<para>[1-16] Number of CCs per antenna </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___model_parameters_1acfe1535f58ea0b70a19ec5dbe42568fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_ModelParameters::AntennaInterleave</definition>
+        <argsstring></argsstring>
+        <name>AntennaInterleave</name>
+        <briefdescription>
+<para>[1-8] Number of Antenna slots </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___model_parameters_1a8d8e0aa6f826e7fa60bca195ea5ce82a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_ModelParameters::Switchable</definition>
+        <argsstring></argsstring>
+        <name>Switchable</name>
+        <briefdescription>
+<para>[0,1] If true DL/UL switching is supported </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Channel Filter model parameters structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Data defined in Device tree/xparameters.h. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="277" bodyend="282"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___model_parameters_1acfe1535f58ea0b70a19ec5dbe42568fe" prot="public" virt="non-virtual"><scope>XDfeCcf_ModelParameters</scope><name>AntennaInterleave</name></member>
+      <member refid="struct_x_dfe_ccf___model_parameters_1aab8818a9342abd0c618f8f779d0ac6ba" prot="public" virt="non-virtual"><scope>XDfeCcf_ModelParameters</scope><name>NumAntenna</name></member>
+      <member refid="struct_x_dfe_ccf___model_parameters_1a4f8b8cf85413a38c22a91495a33d80c0" prot="public" virt="non-virtual"><scope>XDfeCcf_ModelParameters</scope><name>NumCCPerAntenna</name></member>
+      <member refid="struct_x_dfe_ccf___model_parameters_1a8d8e0aa6f826e7fa60bca195ea5ce82a" prot="public" virt="non-virtual"><scope>XDfeCcf_ModelParameters</scope><name>Switchable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

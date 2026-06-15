@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_onsemi___register_field" kind="struct" prot="public">
+    <compoundname>Onsemi_RegisterField</compoundname>
+    <includes local="no">onsemi_nb7nq621m.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Onsemi_RegisterField::DeviceType</definition>
+        <argsstring></argsstring>
+        <name>DeviceType</name>
+        <briefdescription>
+<para>Device Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Onsemi_RegisterField::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Line Rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onsemi___register_field_1a94121a777652ec21a71800cb88c63dcb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Onsemi_RegisterField::Values</definition>
+        <argsstring></argsstring>
+        <name>Values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains translations of FRL_Rate to Lanes and Line Rates. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="110" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" prot="public" virt="non-virtual"><scope>Onsemi_RegisterField</scope><name>Address</name></member>
+      <member refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" prot="public" virt="non-virtual"><scope>Onsemi_RegisterField</scope><name>DeviceType</name></member>
+      <member refid="struct_onsemi___register_field_1a94121a777652ec21a71800cb88c63dcb" prot="public" virt="non-virtual"><scope>Onsemi_RegisterField</scope><name>Values</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

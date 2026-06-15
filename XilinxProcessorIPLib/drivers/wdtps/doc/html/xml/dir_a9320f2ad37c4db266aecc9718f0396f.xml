@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a9320f2ad37c4db266aecc9718f0396f" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xwdtps__intr__example_8c">xwdtps_intr_example.c</innerfile>
+    <innerfile refid="xwdtps__polled__example_8c">xwdtps_polled_example.c</innerfile>
+    <innerfile refid="xwdtps__selftest__example_8c">xwdtps_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/examples/"/>
+  </compounddef>
+</doxygen>

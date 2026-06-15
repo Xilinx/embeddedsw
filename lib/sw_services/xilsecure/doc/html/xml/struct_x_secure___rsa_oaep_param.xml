@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_oaep_param" kind="struct" prot="public">
+    <compoundname>XSecure_RsaOaepParam</compoundname>
+    <includes local="no">xsecure_plat_rsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaOaepParam::InputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InputDataAddr</name>
+        <briefdescription>
+<para>Input data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaOaepParam::OutputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputDataAddr</name>
+        <briefdescription>
+<para>Output data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" compoundref="xsecure__plat__rsa_8c" startline="310" endline="331">XSecure_RsaOaepEncrypt</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1a8ab8492d15282d35d4dc00b0ba02fdaa" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaOaepParam::OptionalLabelAddr</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelAddr</name>
+        <briefdescription>
+<para>Optional label address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaOaepParam::InputDataSize</definition>
+        <argsstring></argsstring>
+        <name>InputDataSize</name>
+        <briefdescription>
+<para>Input data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaOaepParam::OutputDataSize</definition>
+        <argsstring></argsstring>
+        <name>OutputDataSize</name>
+        <briefdescription>
+<para>Output data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1ad9041bb24d56ea51df16c9b4046ae310" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaOaepParam::OptionalLabelSize</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelSize</name>
+        <briefdescription>
+<para>Optional label size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSecure_RsaOaepParam::ShaInstancePtr</definition>
+        <argsstring></argsstring>
+        <name>ShaInstancePtr</name>
+        <briefdescription>
+<para>SHA instance for MGF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" prot="public" static="no" mutable="no">
+        <type>XSecure_ShaMode</type>
+        <definition>XSecure_ShaMode XSecure_RsaOaepParam::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>SHA type for MGF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Input and output parameters for RSA Optimal Asymmetric Encryption Padding scheme. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="108" bodyend="117"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>InputDataAddr</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>InputDataSize</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1a8ab8492d15282d35d4dc00b0ba02fdaa" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>OptionalLabelAddr</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1ad9041bb24d56ea51df16c9b4046ae310" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>OptionalLabelSize</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>OutputDataAddr</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>OutputDataSize</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>ShaInstancePtr</name></member>
+      <member refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" prot="public" virt="non-virtual"><scope>XSecure_RsaOaepParam</scope><name>ShaType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

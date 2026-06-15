@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa__xmss_8h" kind="file">
+    <compoundname>xsecure_slhdsa_xmss.h</compoundname>
+    <includes refid="xsecure__slhdsa__instance_8h" local="yes">xsecure_slhdsa_instance.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xsecure__slhdsa__ht_8c" local="yes">xsecure_slhdsa_ht.c</includedby>
+    <includedby refid="xsecure__slhdsa__xmss_8c" local="yes">xsecure_slhdsa_xmss.c</includedby>
+    <incdepgraph>
+      <node id="4566">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4567" relation="include">
+        </childnode>
+        <childnode refid="4568" relation="include">
+        </childnode>
+        <childnode refid="4569" relation="include">
+        </childnode>
+      </node>
+      <node id="4568">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4565">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4566" relation="include">
+        </childnode>
+        <childnode refid="4567" relation="include">
+        </childnode>
+        <childnode refid="4570" relation="include">
+        </childnode>
+      </node>
+      <node id="4570">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4569">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4567">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4564">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure_slhdsa_xmss.h"/>
+        <childnode refid="4565" relation="include">
+        </childnode>
+        <childnode refid="4567" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4572">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="4573">
+        <label>xsecure_slhdsa_xmss.c</label>
+        <link refid="xsecure__slhdsa__xmss_8c"/>
+      </node>
+      <node id="4571">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure_slhdsa_xmss.h"/>
+        <childnode refid="4572" relation="include">
+        </childnode>
+        <childnode refid="4573" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SlhdsaXmssPkFromSign</definition>
+        <argsstring>(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr, u64 PublicKeyAddr, u8 *Node)</argsstring>
+        <name>XSecure_SlhdsaXmssPkFromSign</name>
+        <param>
+          <type>u64</type>
+          <declname>IdxLeaf</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SignTmpAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PublicKeyAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+<para>This function reconstructs the XMSS public key (tree root) using the provided XMSS signature, message, public seed, and address structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>It first computes the WOTS+ public key from the WOTS+ signature, then uses the authentication path to compute the tree root.</para><para><simplesect kind="par"><title>Algorithm Flow for SHAKE-256s (len=67, h&apos;=8, n=32):</title><para></para></simplesect>
+Given: IdxLeaf=58, M=FORS_PK (32 bytes), SignTmp=XMSS_signature (2400 bytes) Binary: IdxLeaf=58 = 0b00111010</para><para>=== XMSS SIGNATURE STRUCTURE === SignTmp layout (2400 bytes total): ┌─────────────────┬──────────────────────────────────────────────────┐ │ WOTS+ Signature │ XMSS Authentication Path │ │ (len × n bytes) │ (h&apos; × n bytes) │ │ (67 × 32 = 2144)│ (8 × 32 = 256 bytes) │ └─────────────────┴──────────────────────────────────────────────────┘</para><para>WOTS+ Sig: SignTmp[0:2143] - Used to compute leaf node AUTH Path: SignTmp[2144:2399] - Used to compute tree root</para><para>=== INITIAL SETUP === Input indices: IdxLeaf = 58 (decimal) = 0b00111010 (binary)</para><para>ADRS initialization:<itemizedlist>
+<listitem><para>setTypeAndClear(WOTS_HASH) for WOTS+ computation</para></listitem><listitem><para>setKeyPairAddress(58) for leaf identification</para></listitem></itemizedlist>
+</para><para>=== WOTS+ PUBLIC KEY COMPUTATION === Step 5: node[0] = wots_pkFromSig(SignTmp[0:2143], M, PK.seed, ADRS) Result: 32-byte WOTS+ public key representing leaf 58</para><para>=== TREE TRAVERSAL SETUP === Switch ADRS to TREE type for authentication path processing SignXmssOffset = &amp;SignTmp[2144] (points to AUTH[0])</para><para>=== XMSS TREE TRAVERSAL TABLE === +<mdash/>+<mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | k | TreeHeight | TreeIndex | Bit | Position | Hash Operation | AUTH Usage | +<mdash/>+<mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | 0 | 1 | 29 | 0 EVEN | LEFT | node || AUTH[0] | SignXmssOffset[0] | | 1 | 2 | 14 | 1 ODD | RIGHT | AUTH[1] || node | SignXmssOffset[32] | | 2 | 3 | 7 | 0 EVEN | LEFT | node || AUTH[2] | SignXmssOffset[64] | | 3 | 4 | 3 | 1 ODD | RIGHT | AUTH[3] || node | SignXmssOffset[96] | | 4 | 5 | 1 | 1 ODD | RIGHT | AUTH[4] || node | SignXmssOffset[128]| | 5 | 6 | 0 | 1 ODD | RIGHT | AUTH[5] || node | SignXmssOffset[160]| | 6 | 7 | 0 | 0 EVEN | LEFT | node || AUTH[6] | SignXmssOffset[192]| | 7 | 8 | 0 | 0 EVEN | LEFT | node || AUTH[7] | SignXmssOffset[224]| +<mdash/>+<mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== CALCULATION FORMULAS === TreeHeight = k + 1 TreeIndex = IdxLeaf &gt;&gt; (k + 1) = 58 &gt;&gt; (k + 1) Bit = (IdxLeaf &gt;&gt; k) &amp; 1 = (58 &gt;&gt; k) &amp; 1</para><para>=== DETAILED BIT ANALYSIS === IdxLeaf = 58 = 0b00111010</para><para>k=0: (58 &gt;&gt; 0) &amp; 1 = 0 (EVEN) → node is LEFT child, AUTH[0] is RIGHT sibling → node || AUTH[0] k=1: (58 &gt;&gt; 1) &amp; 1 = 1 (ODD) → node is RIGHT child, AUTH[1] is LEFT sibling → AUTH[1] || node k=2: (58 &gt;&gt; 2) &amp; 1 = 0 (EVEN) → node is LEFT child, AUTH[2] is RIGHT sibling → node || AUTH[2] k=3: (58 &gt;&gt; 3) &amp; 1 = 1 (ODD) → node is RIGHT child, AUTH[3] is LEFT sibling → AUTH[3] || node k=4: (58 &gt;&gt; 4) &amp; 1 = 1 (ODD) → node is RIGHT child, AUTH[4] is LEFT sibling → AUTH[4] || node k=5: (58 &gt;&gt; 5) &amp; 1 = 1 (ODD) → node is RIGHT child, AUTH[5] is LEFT sibling → AUTH[5] || node k=6: (58 &gt;&gt; 6) &amp; 1 = 0 (EVEN) → node is LEFT child, AUTH[6] is RIGHT sibling → node || AUTH[6] k=7: (58 &gt;&gt; 7) &amp; 1 = 0 (EVEN) → node is LEFT child, AUTH[7] is RIGHT sibling → node || AUTH[7]</para><para>=== TREE STRUCTURE VISUALIZATION ===</para><para>Height 8: [ROOT] / \ Height 7: node_7 AUTH[7] / \ Height 6: node_6 AUTH[6] / \ Height 5: node_5 AUTH[5] / \ Height 4: AUTH[4] node_4 / \ Height 3: AUTH[3] node_3 / \ Height 2: AUTH[2] node_2 / \ Height 1: AUTH[1] node_1 / \ Height 0: WOTS+[58] AUTH[0] &lt;- Leaf level (IdxLeaf=58)</para><para>Key:<itemizedlist>
+<listitem><para>WOTS+[58] is at position 58 (EVEN), so it&apos;s the LEFT child</para></listitem><listitem><para>AUTH[0] is the RIGHT sibling of WOTS+[58]</para></listitem><listitem><para>Hash: WOTS+[58] || AUTH[0] (left || right)</para></listitem></itemizedlist>
+</para><para>=== ADDRESS PROGRESSION === Each iteration updates ADRS fields: +<mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | k | TreeHeight(k+1) | TreeIndex(IdxLeaf&gt;&gt;(k+1)) | +<mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | 0 | 1 | 29 (58&gt;&gt;1) | | 1 | 2 | 14 (58&gt;&gt;2) | | 2 | 3 | 7 (58&gt;&gt;3) | | 3 | 4 | 3 (58&gt;&gt;4) | | 4 | 5 | 1 (58&gt;&gt;5) | | 5 | 6 | 0 (58&gt;&gt;6) | | 6 | 7 | 0 (58&gt;&gt;7) | | 7 | 8 | 0 (58&gt;&gt;8) | +<mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== MEMORY MANAGEMENT === Node buffer usage (in-place updates):<itemizedlist>
+<listitem><para>Initial: Contains WOTS+ public key (leaf value)</para></listitem><listitem><para>k=0: Contains parent of leaf 58</para></listitem><listitem><para>k=1: Contains grandparent</para></listitem><listitem><para>...</para></listitem><listitem><para>k=7: Contains final XMSS root (32 bytes)</para></listitem></itemizedlist>
+</para><para>SignXmssOffset progression:<itemizedlist>
+<listitem><para>k=0: &amp;SignTmp[2144] → AUTH[0]</para></listitem><listitem><para>k=1: &amp;SignTmp[2176] → AUTH[1]</para></listitem><listitem><para>k=2: &amp;SignTmp[2208] → AUTH[2]</para></listitem><listitem><para>...</para></listitem><listitem><para>k=7: &amp;SignTmp[2368] → AUTH[7]</para></listitem></itemizedlist>
+</para><para>=== PERFORMANCE CHARACTERISTICS === Computational Complexity:<itemizedlist>
+<listitem><para>Tree traversal: h&apos; hash operations = 8 hashes</para></listitem><listitem><para>Time complexity: O(h&apos; × n) = O(8 × 32) = O(256) per XMSS verification</para></listitem></itemizedlist>
+</para><para>Memory Usage:<itemizedlist>
+<listitem><para>Input XMSS signature: 2400 bytes total<itemizedlist>
+<listitem><para>WOTS+ signature portion: 2144 bytes</para></listitem><listitem><para>Authentication path: 256 bytes (8 × 32)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Working node buffer: 32 bytes (reused in-place)</para></listitem><listitem><para>Authentication path access: Sequential, 32 bytes per iteration</para></listitem><listitem><para>Total XMSS memory: O(signature_size + n)</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IdxLeaf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf index within the XMSS tree (0 to 2^h&apos;-1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignTmpAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of XMSS signature (2400 bytes for SHAKE-256s). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of message to verify (typically FORS public key, 32 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PublicKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of public key seed for hash computations. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store computed XMSS root (32 bytes).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if XMSS public key computation succeeds.</para></listitem><listitem><para>ErrorCode if failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Step 1: ADRS.setTypeAndClear(WOTS_HASH) -&gt; compute WOTS+ pk from WOTS+ sig</para></listitem><listitem><para>Step 2: ADRS.setKeyPairAddress(idx)</para></listitem><listitem><para>Step 3: sig &lt;- SIG_XMSS.getWOTSSig() (implicit: SignTmp points to WOTS+ sig)</para></listitem><listitem><para>Step 4: AUTH &lt;- SIG_XMSS.getXMSSAUTH() (implicit: SignXmssOffset points to AUTH)</para></listitem><listitem><para>Step 5: node[0] &lt;- wots_pkFromSig(sig, M, PK.seed, ADRS)</para></listitem><listitem><para>Step 6: ADRS.setTypeAndClear(TREE) -&gt; compute root from WOTS+ pk and AUTH</para></listitem><listitem><para>Step 8: for k from 0 to h&apos; - 1 do</para></listitem><listitem><para>Step 9: ADRS.setTreeHeight(k + 1)</para></listitem><listitem><para>Step 10: if floor(idx/2^k) is odd then</para></listitem><listitem><para>Step 14: ADRS.setTreeIndex((ADRS.getTreeIndex() - 1)/2) (implicit)</para></listitem><listitem><para>Step 15: node[1] &lt;- H(PK.seed, ADRS, AUTH[k] || node[0])</para></listitem><listitem><para>Step 11: ADRS.setTreeIndex(ADRS.getTreeIndex()/2) (implicit in logic)</para></listitem><listitem><para>Step 12: node[1] &lt;- H(PK.seed, ADRS, node[0] || AUTH[k])</para></listitem><listitem><para>Step 17: node[0] &lt;- node[1] (Node already updated in-place)</para></listitem><listitem><para>Step 18: end for</para></listitem><listitem><para>Step 19: return node[0] </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" bodystart="189" bodyend="287"/>
+        <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
+        <references refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" compoundref="xsecure__slhdsa__instance_8h" startline="177">XSecure_ChecksumParam::ChecksumLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" compoundref="xsecure__slhdsa__instance_8h" startline="210">XSecure_SlhdsaParam::ChecksumParams</references>
+        <references refid="struct_x_secure___slhdsa_param_1a5cd115f94eae4b500cef0f81eb6b0b5f" compoundref="xsecure__slhdsa__instance_8h" startline="194">XSecure_SlhdsaParam::hprime</references>
+        <references refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" compoundref="xsecure__slhdsa__instance_8h" startline="176">XSecure_ChecksumParam::InputLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gae8d8240f98a33ee9d0f751ccb14aae42" compoundref="xsecure__lms_8h" startline="36">XSECURE_IS_ODD</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</references>
+        <references refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" compoundref="core_2util_2xsecure__utils_8h" startline="59">XSECURE_VALUE_ONE</references>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains structures, constants and declarations used in SLH-DSA XMSS and provides interface to SLH-DSA XMSS operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SLH_DSA_XMSS_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_XMSS_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__instance_8h" kindref="compound">xsecure_slhdsa_instance.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Function<sp/>Prototypes<sp/>*************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" kindref="member">XSecure_SlhdsaXmssPkFromSign</ref>(u64<sp/>IdxLeaf,<sp/>u64<sp/>SignTmpAddr,<sp/>u64<sp/>MAddr,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PublicKeyAddr,<sp/>u8*<sp/>Node);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLH_DSA_XMSS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,498 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ocpinfo_8h" kind="file">
+    <compoundname>xasu_ocpinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__ocp_8h" local="yes">xasu_ocp.h</includedby>
+    <includedby refid="xasu__ocp_8c" local="yes">xasu_ocp.c</includedby>
+    <includedby refid="xasu__ocp__common_8h" local="yes">xasu_ocp_common.h</includedby>
+    <incdepgraph>
+      <node id="890">
+        <label>xil_util.h</label>
+      </node>
+      <node id="891">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="888">
+        <label>xasu_ocpinfo.h</label>
+        <link refid="xasu_ocpinfo.h"/>
+        <childnode refid="889" relation="include">
+        </childnode>
+        <childnode refid="890" relation="include">
+        </childnode>
+        <childnode refid="891" relation="include">
+        </childnode>
+      </node>
+      <node id="889">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="892">
+        <label>xasu_ocpinfo.h</label>
+        <link refid="xasu_ocpinfo.h"/>
+        <childnode refid="893" relation="include">
+        </childnode>
+        <childnode refid="894" relation="include">
+        </childnode>
+        <childnode refid="898" relation="include">
+        </childnode>
+      </node>
+      <node id="897">
+        <label>xasu_ude_keys_enc_example.c</label>
+        <link refid="xasu__ude__keys__enc__example_8c"/>
+      </node>
+      <node id="899">
+        <label>xasu_ocp_common.c</label>
+        <link refid="xasu__ocp__common_8c"/>
+      </node>
+      <node id="898">
+        <label>xasu_ocp_common.h</label>
+        <link refid="xasu__ocp__common_8h"/>
+        <childnode refid="894" relation="include">
+        </childnode>
+        <childnode refid="899" relation="include">
+        </childnode>
+      </node>
+      <node id="896">
+        <label>xasu_ocp_ude_example.c</label>
+        <link refid="xasu__ocp__ude__example_8c"/>
+      </node>
+      <node id="894">
+        <label>xasu_ocp.c</label>
+        <link refid="xasu__ocp_8c"/>
+      </node>
+      <node id="893">
+        <label>xasu_ocp.h</label>
+        <link refid="xasu__ocp_8h"/>
+        <childnode refid="894" relation="include">
+        </childnode>
+        <childnode refid="895" relation="include">
+        </childnode>
+        <childnode refid="896" relation="include">
+        </childnode>
+        <childnode refid="897" relation="include">
+        </childnode>
+      </node>
+      <node id="895">
+        <label>xasu_ocp_example.c</label>
+        <link refid="xasu__ocp__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___ocp_cert_params" prot="public">XAsu_OcpCertParams</innerclass>
+    <innerclass refid="struct_x_asu___ocp_dev_ak_attest" prot="public">XAsu_OcpDevAkAttest</innerclass>
+    <innerclass refid="struct_x_asu___ocp_ude" prot="public">XAsu_OcpUde</innerclass>
+    <innerclass refid="struct_x_asu___ocp_ude_response" prot="public">XAsu_OcpUdeResponse</innerclass>
+    <innerclass refid="struct_x_asu___ocp_ude_params" prot="public">XAsu_OcpUdeParams</innerclass>
+    <innerclass refid="struct_x_asu___ocp_ude_key_encrypt" prot="public">XAsu_OcpUdeKeyEncrypt</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga6c15d8e4380c6e2e5b69488f9e13e29f" prot="public" static="no">
+        <name>XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for DevIk x509 certificate generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga75a2fbdb2ea2b018cfc332f53db0cee9" compoundref="xasu__ocp_8c" startline="60" endline="104">XAsu_OcpGetDevIkX509Certificate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga89ca56a0a284a6e111c65b06bf64006b" prot="public" static="no">
+        <name>XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for DevAk x509 certificate generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa09f38e166d54e624013584714c334dd" compoundref="xasu__ocp_8c" startline="121" endline="165">XAsu_OcpGetDevAkX509Certificate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gafd3de6d620f6f39a948e274349f33ff2" prot="public" static="no">
+        <name>XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for DevIk CSR x509 certificate generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga5ea47b4f5a36aace5a9f471042173fa3" compoundref="xasu__ocp_8c" startline="182" endline="226">XAsu_OcpGetDevIkCsr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga016ff10e1279fe16c9007cdd3eca19aa" prot="public" static="no">
+        <name>XASU_OCP_DEVAK_ATTESTATION_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for DevAk attestation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga9ac4646205a525765f9b6fac4b030875" compoundref="xasu__ocp_8c" startline="242" endline="286">XAsu_OcpDevAkAttestation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac5d62e631dcbe2c388a5d3c913a8ea2b" prot="public" static="no">
+        <name>XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for UDE challenge request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga68a46fe8a839c20f661cf42486bbbfd0" prot="public" static="no">
+        <name>XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Command ID for UDE private keys encryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9849535a85851d241f7bdc65ba8eb56c" prot="public" static="no">
+        <name>XASU_OCP_GET_HUK_CMD_ID</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Command ID for Hardware Unique Key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa4e266d168a74b841012e6884d281486" compoundref="xasu__ocp_8c" startline="439" endline="473">XAsu_OcpGetHuk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga260e2f4d7d6a6d06bfa8b9330b7091af" prot="public" static="no">
+        <name>XASU_OCP_MAX_CMDS</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by OCP module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaddb5cc4e20fc0021f99270ca605e476b" prot="public" static="no">
+        <name>XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Device ID size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga60967a20ba75abad434d21fdb3eccf65" prot="public" static="no">
+        <name>XASU_OCP_UDE_NONCE_SIZE_IN_WORDS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Nonce size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf2bc10ca23bcddf5479a127bddd0ce6b" prot="public" static="no">
+        <name>XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Measurement size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga657360278708933e927586d2656b0db6" prot="public" static="no">
+        <name>XASU_OCP_UDE_DEVICE_ID_SIZE_IN_BYTES</name>
+        <initializer>((<ref refid="group__xasu__common__defs_1gaddb5cc4e20fc0021f99270ca605e476b" kindref="member">XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS</ref>) &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Device ID size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga28aceb2c4710123b9d78e04221c1ec9a" prot="public" static="no">
+        <name>XASU_OCP_UDE_NONCE_SIZE_IN_BYTES</name>
+        <initializer>((<ref refid="group__xasu__common__defs_1ga60967a20ba75abad434d21fdb3eccf65" kindref="member">XASU_OCP_UDE_NONCE_SIZE_IN_WORDS</ref>) &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Nonce size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad2d0554a1cbd33e61a398409b12fd18b" prot="public" static="no">
+        <name>XASU_OCP_UDE_MEASUREMENT_SIZE_IN_BYTES</name>
+        <initializer>((<ref refid="group__xasu__common__defs_1gaf2bc10ca23bcddf5479a127bddd0ce6b" kindref="member">XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS</ref>) &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Measurement size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" prot="public" static="no">
+        <name>XASU_OCP_ECC_P384_SIZE_IN_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>P-384 size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae049cbd7e740a4b90e8df1942ea75d3e" prot="public" static="no">
+        <name>XASU_OCP_UDE_KEY_SIZE_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>UDE key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga46ab5ed1257f16ca15cec42f508c8151" prot="public" static="no">
+        <name>XASU_OCP_UDE_IV_SIZE_IN_BYTES</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>UDE Iv size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad880d89ca1a89bc2c2ff4fac497c3265" prot="public" static="no">
+        <name>XASU_OCP_UDE_USER_KEY_0_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>UDE User Key 0 ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga470f236563fb84db2eaef155ccded4d7" prot="public" static="no">
+        <name>XASU_OCP_UDE_USER_KEY_1_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>UDE User Key 1 ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad14e623466c119d4d421f9bf9f7d0b71" prot="public" static="no">
+        <name>XASU_OCP_UDE_USER_KEY_2_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>UDE User Key 2 ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga08c9eebd9e9ac6065e63dd0cd9c6222e" prot="public" static="no">
+        <name>XASU_OCP_HUK_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Hardware Unique Key size in bytes (256-bit AES key) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa4e266d168a74b841012e6884d281486" compoundref="xasu__ocp_8c" startline="439" endline="473">XAsu_OcpGetHuk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac0dea74bfba3eb9d27b04dbf1b487317" prot="public" static="no">
+        <name>XASU_X509_MAX_SIZE_IN_BYTES</name>
+        <initializer>(2000U)</initializer>
+        <briefdescription>
+<para>X.509 certificate max size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xasu__common__defs_1ga99fb83031ce9923c84392b4e92f956b5" prot="public" static="no">
+        <name>@2</name>
+        <enumvalue id="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5abfd834914b2b4a643f6e2754b3796c58" prot="public">
+          <name>XOCP_DEVIK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Device identity key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5a1f5d8bd26ea07de888d516faf2b16538" prot="public">
+          <name>XOCP_DEVAK</name>
+          <briefdescription>
+<para>Device attestation key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5ab8d8418b3a51861026942a8008b6304a" prot="public">
+          <name>XOCP_MAX_DEVICE_KEY</name>
+          <briefdescription>
+<para>Maximum support device key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enum contains list of device key types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="84" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the OCP definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rmv  07/16/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_OCPINFO_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_OCPINFO_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OCP<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__xasu__common__defs_1ga6c15d8e4380c6e2e5b69488f9e13e29f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID<sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID<sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#define<sp/>XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID<sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1gafd3de6d620f6f39a948e274349f33ff2" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_DEVAK_ATTESTATION_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID<sp/><sp/><sp/><sp/>(5U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1ga016ff10e1279fe16c9007cdd3eca19aa" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_GET_HUK_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1gac5d62e631dcbe2c388a5d3c913a8ea2b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xasu__common__defs_1ga260e2f4d7d6a6d06bfa8b9330b7091af" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS<sp/><sp/><sp/><sp/>(12U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_NONCE_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS<sp/><sp/>(12U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_DEVICE_ID_SIZE_IN_BYTES<sp/><sp/><sp/><sp/>((XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS)<sp/>&lt;&lt;<sp/>2U)</highlight></codeline>
+<codeline lineno="61" refid="group__xasu__common__defs_1gaddb5cc4e20fc0021f99270ca605e476b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="group__xasu__common__defs_1ga60967a20ba75abad434d21fdb3eccf65" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_NONCE_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XASU_OCP_UDE_NONCE_SIZE_IN_WORDS)<sp/>&lt;&lt;<sp/>2U)</highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1gaf2bc10ca23bcddf5479a127bddd0ce6b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="group__xasu__common__defs_1ga657360278708933e927586d2656b0db6" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_MEASUREMENT_SIZE_IN_BYTES<sp/><sp/>((XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS)<sp/>&lt;&lt;<sp/>2U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1ga28aceb2c4710123b9d78e04221c1ec9a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_ECC_P384_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xasu__common__defs_1gad2d0554a1cbd33e61a398409b12fd18b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_IV_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_USER_KEY_0_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_USER_KEY_1_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xasu__common__defs_1gae049cbd7e740a4b90e8df1942ea75d3e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_UDE_USER_KEY_2_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xasu__common__defs_1gad880d89ca1a89bc2c2ff4fac497c3265" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_OCP_HUK_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__common__defs_1ga470f236563fb84db2eaef155ccded4d7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_X509_MAX_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2000U)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77" refid="group__xasu__common__defs_1ga08c9eebd9e9ac6065e63dd0cd9c6222e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5abfd834914b2b4a643f6e2754b3796c58" kindref="member">XOCP_DEVIK</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5a1f5d8bd26ea07de888d516faf2b16538" kindref="member">XOCP_DEVAK</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5ab8d8418b3a51861026942a8008b6304a" kindref="member">XOCP_MAX_DEVICE_KEY</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="85" refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5abfd834914b2b4a643f6e2754b3796c58" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CertBufAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CertBufLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CertActualSize;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_x_asu___ocp_cert_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DevKeySel;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_x_asu___ocp_cert_params_1a51c1c6fa4113b532ca44fff879eab74e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_x_asu___ocp_cert_params_1a92f93e1c17fe3d3844afda84fb033303" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref>;</highlight></codeline>
+<codeline lineno="96" refid="struct_x_asu___ocp_cert_params_1a7da40094426fa29654155aa00a764e85" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignatureAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_asu___ocp_dev_ak_attest" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureBufLen;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_asu___ocp_dev_ak_attest_1a7610ca5ca3389ced84161ca74c19fda3" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref>;</highlight></codeline>
+<codeline lineno="106" refid="struct_x_asu___ocp_dev_ak_attest_1a0c6a9b091fb7bd03f6dc55cff845ecb9" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId[<ref refid="group__xasu__common__defs_1gaddb5cc4e20fc0021f99270ca605e476b" kindref="member">XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Nonce[<ref refid="group__xasu__common__defs_1ga60967a20ba75abad434d21fdb3eccf65" kindref="member">XASU_OCP_UDE_NONCE_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Measurement[<ref refid="group__xasu__common__defs_1gaf2bc10ca23bcddf5479a127bddd0ce6b" kindref="member">XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_asu___ocp_ude" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_ude" kindref="compound">XAsu_OcpUde</ref>;</highlight></codeline>
+<codeline lineno="115" refid="struct_x_asu___ocp_ude_1a785a05913a018d1d3c6bc320b1c26d20" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="struct_x_asu___ocp_ude_1a6ed0a4129c5f7977e023d38aa49cd31e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ocp_ude" kindref="compound">XAsu_OcpUde</ref><sp/>Ude;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UdeSignatureR[<ref refid="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" kindref="member">XASU_OCP_ECC_P384_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UdeSignatureS[<ref refid="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" kindref="member">XASU_OCP_ECC_P384_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_asu___ocp_ude_response" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UdePublicKeyX[<ref refid="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" kindref="member">XASU_OCP_ECC_P384_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_asu___ocp_ude_response_1ade3e058960bc3c89aa09033d4fb9bd7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UdePublicKeyY[<ref refid="group__xasu__common__defs_1gacabc2ff38a0e2bbae3a609fab73e643a" kindref="member">XASU_OCP_ECC_P384_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_asu___ocp_ude_response_1a99ce0202d6dcbd5541cb99a6c81a4bc7" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_ude_response" kindref="compound">XAsu_OcpUdeResponse</ref>;</highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___ocp_ude_response_1ac448bae7a3d392d845121a4a3457a43c" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="struct_x_asu___ocp_ude_response_1aa56614a3c4e19d4c0b8384b4dcef2a20" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>NonceAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OcpUdeResponseAddr;<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_ude_params" kindref="compound">XAsu_OcpUdeParams</ref>;</highlight></codeline>
+<codeline lineno="130" refid="struct_x_asu___ocp_ude_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>UdeEncPvtKeyAddr;<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UdeKeyId;<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_asu___ocp_ude_key_encrypt" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ocp_ude_key_encrypt" kindref="compound">XAsu_OcpUdeKeyEncrypt</ref>;</highlight></codeline>
+<codeline lineno="139" refid="struct_x_asu___ocp_ude_key_encrypt_1aefc8f560af9956ce96269c0671904a55" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="struct_x_asu___ocp_ude_key_encrypt_1af51069cc503e1ada4c3ed809c44052b1" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="struct_x_asu___ocp_ude_key_encrypt_1ad46fef59567ae55e511965f1762251f8" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_OCPINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,756 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__asu__update_8c" kind="file">
+    <compoundname>xplmi_asu_update.c</compoundname>
+    <includes refid="xplmi__asu__update_8h" local="yes">xplmi_asu_update.h</includes>
+    <includes refid="xplmi__scheduler_8h" local="yes">xplmi_scheduler.h</includes>
+    <includes local="yes">xil_error_node.h</includes>
+    <includes refid="xplmi__err__common_8h" local="yes">xplmi_err_common.h</includes>
+    <incdepgraph>
+      <node id="252">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="264">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="265" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+      </node>
+      <node id="250">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi__scheduler_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="272">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="243">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi_asu_update.c"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="259" relation="include">
+        </childnode>
+      </node>
+      <node id="244">
+        <label>xplmi_asu_update.h</label>
+        <link refid="xplmi__asu__update_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+      </node>
+      <node id="273">
+        <label>xplmi_error_node.h</label>
+      </node>
+      <node id="256">
+        <label>stdlib.h</label>
+      </node>
+      <node id="262">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+      </node>
+      <node id="268">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+      </node>
+      <node id="260">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="264" relation="include">
+        </childnode>
+      </node>
+      <node id="263">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+      </node>
+      <node id="259">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+      <node id="249">
+        <label>xplmi_update.h</label>
+        <link refid="xplmi__update_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+      <node id="253">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="270">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+      </node>
+      <node id="254">
+        <label>xstatus.h</label>
+      </node>
+      <node id="247">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="266">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="258">
+        <label>xil_error_node.h</label>
+      </node>
+      <node id="248">
+        <label>xil_types.h</label>
+      </node>
+      <node id="245">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="269">
+        <label>xparameters.h</label>
+      </node>
+      <node id="261">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="255">
+        <label>list.h</label>
+        <childnode refid="256" relation="include">
+        </childnode>
+      </node>
+      <node id="257">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="267">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
+      <node id="265">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="271">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="246">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" prot="public" static="no">
+        <name>XPLMI_ASU_UPDATE_TASK_ID</name>
+        <initializer>(0x122U)</initializer>
+        <briefdescription>
+<para>Task Id for ASU update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="37" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga52698f2cbe4f9754ce0bdb5640989ef9" compoundref="xplmi__asu__update_8c" startline="114" endline="141">XPlmi_AsuUpdateInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" prot="public" static="no">
+        <name>XPLMI_INVALID_UPDATE_ADDR</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Invalid update address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga0fdfcb05849b7dcb8ceb18a447eb9eec" prot="public" static="no">
+        <name>XPLMI_ASU_MAX_RETRY_COUNT</name>
+        <initializer>(600U)</initializer>
+        <briefdescription>
+<para>Max retry count: 600 * 100ms = 60 sec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gae4441b5900dbb33635d43d528b4ca2ec" prot="public" static="no">
+        <name>XPLMI_US_TO_MS_DIV_FACTOR</name>
+        <initializer>(1000U)</initializer>
+        <briefdescription>
+<para>Microseconds to milliseconds conversion factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga32cec6dd11d4266295cd047827ee1dd6" prot="public" static="no">
+        <name>XPLMI_UPDATE_FLAG_MASK</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>In-Place Update flag Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gafdc39d7004910c3941cbe0a1ff250b96" prot="public" static="no">
+        <name>XPLMI_UPDATE_PAYLOAD_LEN</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>In-Place Update payload len. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga311c57a6f571551d95fb2ee30c801e93" prot="public" static="no">
+        <name>XPLMI_UPDATE_USING_IMAGE_STORE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>In-Place Update using PDI in Image Store, 1-DDR Location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga12b1799821e1abafa6669164c67cdeb0" prot="public" static="yes" mutable="no">
+        <type>XPlmi_IsPdiAddrLookup_t</type>
+        <definition>XPlmi_IsPdiAddrLookup_t XPlmi_IsPdiAddrLookup</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_IsPdiAddrLookup</name>
+        <briefdescription>
+<para>Function pointer for PDI address lookup. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1gadcfcf4a3033565354fc0221fd3829424" prot="public" static="yes" mutable="no">
+        <type>XPlmi_CheckAsuPresenceInPdi_t</type>
+        <definition>XPlmi_CheckAsuPresenceInPdi_t XPlmi_IsAsuPresenceInPdi</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_IsAsuPresenceInPdi</name>
+        <briefdescription>
+<para>Function pointer for ASU presence check. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga9324372a78631e3c3bdf91ac480f8b99" prot="public" static="yes" mutable="no">
+        <type>XPlmi_LoadAsuImage_t</type>
+        <definition>XPlmi_LoadAsuImage_t XLoader_LoadAsu</definition>
+        <argsstring></argsstring>
+        <name>XLoader_LoadAsu</name>
+        <briefdescription>
+<para>Function pointer for ASU image loading. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga25c315473fa38d165fa7eb5ad644d1a5" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 UpdateAsuPdiAddr</definition>
+        <argsstring></argsstring>
+        <name>UpdateAsuPdiAddr</name>
+        <initializer>= <ref refid="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" kindref="member">XPLMI_INVALID_UPDATE_ADDR</ref></initializer>
+        <briefdescription>
+<para>Update PDI address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaab72b3b179866c533fa36018bcf5b59f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_AsuUpdateTask</definition>
+        <argsstring>(void *Arg)</argsstring>
+        <name>XPlmi_AsuUpdateTask</name>
+        <param>
+          <type>void *</type>
+          <declname>Arg</declname>
+        </param>
+        <briefdescription>
+<para>This function is the task handler for ASU in-place update. </para>        </briefdescription>
+        <detaileddescription>
+<para>It polls for ASU shutdown completion, loads the new firmware image, resets ASU, and waits for the new firmware to initialize.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is unused parameter.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if ASU update completed successfully.</para></listitem><listitem><para>XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT if ASU shutdown exceeds 60 seconds.</para></listitem><listitem><para>XPLMI_ERR_ASU_FW_NOT_RUNNING if ASU firmware fails to restart after update.</para></listitem><listitem><para>Error code from XLoader_LoadAsu() if firmware loading fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check ASU shutdown state</para><para>Retry if shutdown is not complete</para><para>Reschedule task to retry later</para><para>Shutdown complete - reset retry counter for next update cycle</para><para>Load new ASU firmware image</para><para>Reset ASU to start new firmware</para><para>Wait for ASU firmware to initialize </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="261" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gada5ec38b0449f8bac6748a4b2a2a0677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_GetAsuUpdatePdiAddr</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetAsuUpdatePdiAddr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function gets UpdateAsuPdiAddr variable value. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>UpdateAsuPdiAddr value. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPlmi_AsuFwIsPresent</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_AsuFwIsPresent</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if ASU firmware is present and running. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if ASU firmware is present (FW_IS_PRESENT bit set).</para></listitem><listitem><para>FALSE if ASU firmware is not running. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check ASU firmware presence by verifying FW_IS_PRESENT bit in RTCA exec status register.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="84" bodyend="99"/>
+        <references refid="xplmi__asu__update_8h_1aa410bbc0ff615a9000efc440c128b8ff" compoundref="xplmi__asu__update_8h" startline="68">XPLMI_ASU_RTCA_EXEC_STATUS</references>
+        <references refid="xplmi__asu__update_8h_1a69cd98a78bb429e9f855d5953ea98b7e" compoundref="xplmi__asu__update_8h" startline="70">XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga52698f2cbe4f9754ce0bdb5640989ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_AsuUpdateInit</definition>
+        <argsstring>(XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_CheckAsuPresenceInPdi_t CheckAsuPresenceHandler, XPlmi_LoadAsuImage_t LoadAsuImageHandler)</argsstring>
+        <name>XPlmi_AsuUpdateInit</name>
+        <param>
+          <type>XPlmi_IsPdiAddrLookup_t</type>
+          <declname>IsPdiAddrLookupHandler</declname>
+        </param>
+        <param>
+          <type>XPlmi_CheckAsuPresenceInPdi_t</type>
+          <declname>CheckAsuPresenceHandler</declname>
+        </param>
+        <param>
+          <type>XPlmi_LoadAsuImage_t</type>
+          <declname>LoadAsuImageHandler</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes ASU in-place update subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IsPdiAddrLookupHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PDI address look-up handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CheckAsuPresenceHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback to check ASU presence in PDI. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LoadAsuImageHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback to load ASU image from PDI.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization successful.</para></listitem><listitem><para>XPLM_ERR_TASK_CREATE if failed to create ASU update task. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Store the handler function pointers</para><para>Create ASU update task which will be triggered by IPI command</para><para>Assign task ID for identification </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="114" bodyend="141"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="240">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" compoundref="xplmi__asu__update_8c" startline="37">XPLMI_ASU_UPDATE_TASK_ID</references>
+        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="90" endline="114">XPlmi_TaskCreate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_AsuUpdate</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_AsuUpdate</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function handles In-Place ASU Update. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the command structure with payload containing DDR address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if ASU update successful.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check if the command structure is valid</para><para>Validate payload length</para><para>Get DDR reserved address for ASU update</para><para>Check if DDR reserved area is valid</para><para>Check update flag</para><para>Check if update is from image store or DDR</para><para>Check if ASU image is present in the specified PDI</para><para>Check if ASU firmware is currently running</para><para>Retrieve the pre-created ASU update task</para><para>Send event notification to trigger ASU shutdown</para><para>Trigger the async task to monitor shutdown and load new firmware </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c" bodystart="154" bodyend="244"/>
+        <references refid="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" compoundref="xplmi__asu__update_8c" startline="37">XPLMI_ASU_UPDATE_TASK_ID</references>
+        <references refid="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" compoundref="xplmi__asu__update_8c" startline="84" endline="99">XPlmi_AsuFwIsPresent</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04abaca30e22ce0bbc9c28fb7d24e2f94da" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="489">XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a132ddadf4baf2833d8403251540b093b" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="492">XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04acd4e963d18ff8bf916512430b30cc009" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="507">XPLMI_ERR_INPLACE_UPDATE_TASK_NOT_FOUND</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a93ab94741c638b0862654ee27fe1e7b1" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="516">XPLMI_ERR_INVALID_PAYLOAD_LEN</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04af13324827d387edae032b7771fae70b3" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="479">XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE</references>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="128" endline="154">XPlmi_GetTaskInstance</references>
+        <references refid="group__xilplmi__server__apis_1ga355b1a73bad0db21a33d23de83e3dd79" compoundref="xplmi__err__common_8c" startline="437" endline="495">XPlmi_HandleSwError</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1ab7c4eb8b41dcb7a7477da561718fa332" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="307">XPLMI_INVALID_PLM_RSVD_DDR_ADDR</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1a795b02eeab9d282e3bfb38ad55adaf9b" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="308">XPLMI_INVALID_PLM_RSVD_DDR_SIZE</references>
+        <references refid="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" compoundref="xplmi__asu__update_8c" startline="38">XPLMI_INVALID_UPDATE_ADDR</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1aff5df410700f7a25f282d6908e3cb27e" compoundref="2vp_2server_2xplmi__plat_8h" startline="87">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1a24900f87d7c6b9cc91cdc79d7c4b53f5" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="93">XPLMI_RTCFG_PLM_RSVD_DDR_ADDR</references>
+        <references refid="2vp__p_2server_2xplmi__plat_8h_1a6f43e4296a3fc6dc3f8c2a7661c7830a" compoundref="2vp__p_2server_2xplmi__plat_8h" startline="96">XPLMI_RTCFG_PLM_RSVD_DDR_SIZE</references>
+        <references refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" compoundref="xplmi__task_8c" startline="164" endline="171">XPlmi_TaskTriggerNow</references>
+        <references refid="group__xilplmi__server__apis_1ga32cec6dd11d4266295cd047827ee1dd6" compoundref="xplmi__asu__update_8c" startline="41">XPLMI_UPDATE_FLAG_MASK</references>
+        <references refid="group__xilplmi__server__apis_1gafdc39d7004910c3941cbe0a1ff250b96" compoundref="xplmi__asu__update_8c" startline="42">XPLMI_UPDATE_PAYLOAD_LEN</references>
+        <references refid="group__xilplmi__server__apis_1ga311c57a6f571551d95fb2ee30c801e93" compoundref="xplmi__asu__update_8c" startline="43">XPLMI_UPDATE_USING_IMAGE_STORE</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains ASU in-place update implementation for versal_2ve_2vm platforms. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+====  ==== ======== ==============================================================================
+1.0   vm   03/16/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__asu__update_8h" kindref="compound">xplmi_asu_update.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__scheduler_8h" kindref="compound">xplmi_scheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_error_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__err__common_8h" kindref="compound">xplmi_err_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASU_UPDATE_TASK_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x122U)<sp/></highlight></codeline>
+<codeline lineno="38" refid="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_INVALID_UPDATE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="39" refid="group__xilplmi__server__apis_1ga0fdfcb05849b7dcb8ceb18a447eb9eec" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASU_MAX_RETRY_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(600U)<sp/></highlight></codeline>
+<codeline lineno="40" refid="group__xilplmi__server__apis_1gae4441b5900dbb33635d43d528b4ca2ec" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_US_TO_MS_DIV_FACTOR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000U)<sp/></highlight></codeline>
+<codeline lineno="41" refid="group__xilplmi__server__apis_1ga32cec6dd11d4266295cd047827ee1dd6" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_UPDATE_FLAG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="42" refid="group__xilplmi__server__apis_1gafdc39d7004910c3941cbe0a1ff250b96" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_UPDATE_PAYLOAD_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="43" refid="group__xilplmi__server__apis_1ga311c57a6f571551d95fb2ee30c801e93" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_UPDATE_USING_IMAGE_STORE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_AsuUpdateTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_IsPdiAddrLookup_t<sp/>XPlmi_IsPdiAddrLookup;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_CheckAsuPresenceInPdi_t<sp/>XPlmi_IsAsuPresenceInPdi;<sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_LoadAsuImage_t<sp/>XLoader_LoadAsu;<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>UpdateAsuPdiAddr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" kindref="member">XPLMI_INVALID_UPDATE_ADDR</ref>;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1gada5ec38b0449f8bac6748a4b2a2a0677" kindref="member">XPlmi_GetAsuUpdatePdiAddr</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="70" refid="group__xilplmi__server__apis_1gada5ec38b0449f8bac6748a4b2a2a0677" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>UpdateAsuPdiAddr;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">u8<sp/><ref refid="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" kindref="member">XPlmi_AsuFwIsPresent</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="84" refid="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsAsuFwPresent<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RtcaVal;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RtcaVal<sp/>=<sp/>XPlmi_In32(<ref refid="xplmi__asu__update_8h_1aa410bbc0ff615a9000efc440c128b8ff" kindref="member">XPLMI_ASU_RTCA_EXEC_STATUS</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RtcaVal<sp/>&amp;<sp/><ref refid="xplmi__asu__update_8h_1a69cd98a78bb429e9f855d5953ea98b7e" kindref="member">XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK</ref>)<sp/>==<sp/>XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsAsuFwPresent<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>IsAsuFwPresent;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="113"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga52698f2cbe4f9754ce0bdb5640989ef9" kindref="member">XPlmi_AsuUpdateInit</ref>(XPlmi_IsPdiAddrLookup_t<sp/>IsPdiAddrLookupHandler,</highlight></codeline>
+<codeline lineno="114" refid="group__xilplmi__server__apis_1ga52698f2cbe4f9754ce0bdb5640989ef9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_CheckAsuPresenceInPdi_t<sp/>CheckAsuPresenceHandler,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_LoadAsuImage_t<sp/>LoadAsuImageHandler)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_IsPdiAddrLookup<sp/>=<sp/>IsPdiAddrLookupHandler;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_IsAsuPresenceInPdi<sp/>=<sp/>CheckAsuPresenceHandler;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLoader_LoadAsu<sp/>=<sp/>LoadAsuImageHandler;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" kindref="member">XPlmi_TaskCreate</ref>(XPLM_TASK_PRIORITY_1,<sp/>XPlmi_AsuUpdateTask,<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" kindref="member">XPLM_ERR_TASK_CREATE</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>update<sp/>task<sp/>creation<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;IntrId<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" kindref="member">XPLMI_ASU_UPDATE_TASK_ID</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="153"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" kindref="member">XPlmi_AsuUpdate</ref>(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="154" refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DdrRsvdAddr;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DdrRsvdSize;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiId;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flag;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PdiAddr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gaf70f6ddbd6c9b8fab73387831745dac4" kindref="member">XPLMI_INVALID_UPDATE_ADDR</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AsuFwPresent;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a93ab94741c638b0862654ee27fe1e7b1" kindref="member">XPLMI_ERR_INVALID_PAYLOAD_LEN</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd-&gt;Len<sp/>&lt;<sp/><ref refid="group__xilplmi__server__apis_1gafdc39d7004910c3941cbe0a1ff250b96" kindref="member">XPLMI_UPDATE_PAYLOAD_LEN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a132ddadf4baf2833d8403251540b093b" kindref="member">XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DdrRsvdAddr<sp/>=<sp/>XPlmi_In32(<ref refid="2vp__p_2server_2xplmi__plat_8h_1a24900f87d7c6b9cc91cdc79d7c4b53f5" kindref="member">XPLMI_RTCFG_PLM_RSVD_DDR_ADDR</ref>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DdrRsvdSize<sp/>=<sp/>XPlmi_In32(<ref refid="2vp__p_2server_2xplmi__plat_8h_1a6f43e4296a3fc6dc3f8c2a7661c7830a" kindref="member">XPLMI_RTCFG_PLM_RSVD_DDR_SIZE</ref>);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DdrRsvdAddr<sp/>==<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1ab7c4eb8b41dcb7a7477da561718fa332" kindref="member">XPLMI_INVALID_PLM_RSVD_DDR_ADDR</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DdrRsvdSize<sp/>==<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1a795b02eeab9d282e3bfb38ad55adaf9b" kindref="member">XPLMI_INVALID_PLM_RSVD_DDR_SIZE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u64)DdrRsvdAddr<sp/>+<sp/>DdrRsvdSize)<sp/>&gt;<sp/>(u64)XPLMI_2GB_END_ADDR))<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04af13324827d387edae032b7771fae70b3" kindref="member">XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>(Cmd-&gt;Payload[INDEX_ZERO]<sp/>&amp;<sp/><ref refid="group__xilplmi__server__apis_1ga32cec6dd11d4266295cd047827ee1dd6" kindref="member">XPLMI_UPDATE_FLAG_MASK</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__xilplmi__server__apis_1ga311c57a6f571551d95fb2ee30c801e93" kindref="member">XPLMI_UPDATE_USING_IMAGE_STORE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_In32(<ref refid="2vp_2server_2xplmi__plat_8h_1aff5df410700f7a25f282d6908e3cb27e" kindref="member">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04abaca30e22ce0bbc9c28fb7d24e2f94da" kindref="member">XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE</ref>;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Image<sp/>Store<sp/>not<sp/>in<sp/>lower<sp/>2GB<sp/>range\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiId<sp/>=<sp/>Cmd-&gt;Payload[INDEX_ONE];</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_IsPdiAddrLookup(PdiId,<sp/>(u64*)&amp;PdiAddr);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04abaca30e22ce0bbc9c28fb7d24e2f94da" kindref="member">XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UpdateAsuPdiAddr<sp/>=<sp/>(u32)PdiAddr;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UpdateAsuPdiAddr<sp/>=<sp/>Cmd-&gt;Payload[INDEX_ONE];</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_IsAsuPresenceInPdi(UpdateAsuPdiAddr);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>image<sp/>not<sp/>found<sp/>in<sp/>PDI\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuFwPresent<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" kindref="member">XPlmi_AsuFwIsPresent</ref>();</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AsuFwPresent<sp/>==<sp/>FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>firmware<sp/>is<sp/>not<sp/>running\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPLMI_ERR_ASU_FW_NOT_RUNNING;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(NULL,<sp/>NULL,<sp/><ref refid="group__xilplmi__server__apis_1gac8109e13fb20427859e75e199b612eac" kindref="member">XPLMI_ASU_UPDATE_TASK_ID</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp__p_2server_2xplmi__plat_8h_1abc6126af1d45847bc59afa0aa3216b04acd4e963d18ff8bf916512430b30cc009" kindref="member">XPLMI_ERR_INPLACE_UPDATE_TASK_NOT_FOUND</ref>;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga355b1a73bad0db21a33d23de83e3dd79" kindref="member">XPlmi_HandleSwError</ref>(XIL_NODETYPE_EVENT_ERROR_SW_ERR,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIL_EVENT_ERROR_MASK_ASU_UPDATE);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" kindref="member">XPlmi_TaskTriggerNow</ref>(Task);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="260"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_AsuUpdateTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg)</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrentState;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>RetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Arg;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentState<sp/>=<sp/>XPlmi_In32(<ref refid="xplmi__asu__update_8h_1a402dedee332854b6cff2f6d82e1b2556" kindref="member">XPLMI_ASU_UPDATE_STATE_REG</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CurrentState<sp/>!=<sp/><ref refid="xplmi__asu__update_8h_1a2dde0647423a9c7951a1ad696dedcd0f" kindref="member">XPLMI_UPDATE_STATE_SHUTDOWN_DONE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetryCount++;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RetryCount<sp/>&gt;=<sp/><ref refid="group__xilplmi__server__apis_1ga0fdfcb05849b7dcb8ceb18a447eb9eec" kindref="member">XPLMI_ASU_MAX_RETRY_COUNT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>shutdown<sp/>timeout\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" kindref="member">XPlmi_SchedulerAddTask</ref>(XPLMI_MODULE_GENERIC_ID,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_AsuUpdateTask,<sp/>NULL,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xplmi__asu__update_8h_1a91c92a84f8d22170c82957c0a456ea0f" kindref="member">XPLMI_ASU_SHUTDOWN_POLL_INTERVAL_US</ref><sp/>/<sp/><ref refid="group__xilplmi__server__apis_1gae4441b5900dbb33635d43d528b4ca2ec" kindref="member">XPLMI_US_TO_MS_DIV_FACTOR</ref>,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLM_TASK_PRIORITY_1,<sp/>NULL,<sp/>XPLMI_NON_PERIODIC_TASK);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>shutdown<sp/>complete\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XLoader_LoadAsu();</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>load<sp/>ASU<sp/>image:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(<ref refid="xplmi__asu__update_8h_1a5027524ffb7d4806ce0d35a808a0ab4b" kindref="member">XPLMI_ASU_MB_SOFT_RST</ref>,<sp/><ref refid="xplmi__asu__update_8h_1a5cc1e708be804d04a00849d37ffd4420" kindref="member">XPLMI_ASU_MB_SOFT_RST_ASSERT_MASK</ref>);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(<ref refid="xplmi__asu__update_8h_1a76890313317aa37f7306428e533a61a5" kindref="member">XPLMI_ASU_RESET_SETTLE_TIME_US</ref>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(<ref refid="xplmi__asu__update_8h_1a5027524ffb7d4806ce0d35a808a0ab4b" kindref="member">XPLMI_ASU_MB_SOFT_RST</ref>,<sp/><ref refid="xplmi__asu__update_8h_1a19d64c6e4cbc61174f4df2e16ead1eec" kindref="member">XPLMI_ASU_MB_SOFT_RST_DEASSERT_MASK</ref>);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga37b89dae983863fe5532461884763916" kindref="member">XPlmi_UtilPollForMask</ref>(<ref refid="xplmi__asu__update_8h_1aa410bbc0ff615a9000efc440c128b8ff" kindref="member">XPLMI_ASU_RTCA_EXEC_STATUS</ref>,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xplmi__asu__update_8h_1a69cd98a78bb429e9f855d5953ea98b7e" kindref="member">XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK</ref>,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xplmi__asu__update_8h_1a3fda4fe863002aaac2a9e19d06d99a86" kindref="member">XPLMI_ASU_RST_TIMEOUT</ref>);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>failed<sp/>to<sp/>restart<sp/>after<sp/>update\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPLMI_ERR_ASU_FW_NOT_RUNNING;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;ASU<sp/>update<sp/>completed<sp/>successfully\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_update.c"/>
+  </compounddef>
+</doxygen>

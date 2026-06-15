@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_sensor_drv_config__s" kind="struct" prot="public">
+    <compoundname>SensorDrvConfig_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sensor_drv_config__s_1a4729fca42a4b5348a69ed75d12cfb09a" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* SensorDrvConfig_s::pSensorName</definition>
+        <argsstring></argsstring>
+        <name>pSensorName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config__s_1afad14ec14a273658351fea31567eac26" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref> *</type>
+        <definition>IsiCamDrvConfig_t* SensorDrvConfig_s::pSensorConfig</definition>
+        <argsstring></argsstring>
+        <name>pSensorConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1003">
+        <label>IsiCamDrvConfig_s</label>
+        <link refid="struct_isi_cam_drv_config__s"/>
+      </node>
+      <node id="1002">
+        <label>SensorDrvConfig_s</label>
+        <childnode refid="1003" relation="usage">
+          <edgelabel>pSensorConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="43" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_sensor_drv_config__s_1afad14ec14a273658351fea31567eac26" prot="public" virt="non-virtual"><scope>SensorDrvConfig_s</scope><name>pSensorConfig</name></member>
+      <member refid="struct_sensor_drv_config__s_1a4729fca42a4b5348a69ed75d12cfb09a" prot="public" virt="non-virtual"><scope>SensorDrvConfig_s</scope><name>pSensorName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

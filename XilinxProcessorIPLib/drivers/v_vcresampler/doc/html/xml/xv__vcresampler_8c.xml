@@ -1,0 +1,1130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vcresampler_8c" kind="file">
+    <compoundname>xv_vcresampler.c</compoundname>
+    <includes refid="xv__vcresampler_8h" local="yes">xv_vcresampler.h</includes>
+    <incdepgraph>
+      <node id="5">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="7">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2">
+        <label>xv_vcresampler.c</label>
+        <link refid="xv_vcresampler.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xv_vcresampler.h</label>
+        <link refid="xv__vcresampler_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8">
+        <label>xv_vcresampler_hw.h</label>
+        <link refid="xv__vcresampler__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__vcresampler_8c_1acf9c225585cfa2ab8800a5463c00e208" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_vcresampler_CfgInitialize</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, XV_vcresampler_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XV_vcresampler_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler___config" kindref="compound">XV_vcresampler_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance with the provided configuration and base address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure for the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address for the hardware instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization is successful. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="28" bodyend="43"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="xv__vcresampler__sinit_8c_1a4e513f7ffd2e841e9b7ef5f589568781" compoundref="xv__vcresampler__sinit_8c" startline="130" endline="144">XV_vcresampler_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a87dde33eb2551ab05c02ee4e6df75c7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Start</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the VC resampler hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function asserts the validity of the instance pointer and its readiness, then writes to the control register to start the hardware operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="57" bodyend="65"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga4cac68c29c6fd1d5be671e9b943708eb" compoundref="xv__vcresampler__l2_8c" startline="84" endline="90">XV_VCrsmplStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1aba0027e29d9fcbd6c1ab016000a99dfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_IsDone</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the VC Resampler core has completed its operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the operation is done.</para></listitem><listitem><para>0 if the operation is not done. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="78" bodyend="86"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1aa09f70e6c9ab6416836f49b84ac087f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_IsIdle</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> core is idle. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if the core is idle, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="97" bodyend="105"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1ad1eda8d670141d925646d219074054e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_IsReady</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance is ready for the next input. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the core is ready for the next input, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="116" bodyend="125"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1afcfcebe5b588b8a1dfb8761d817c0fc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_EnableAutoRestart</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables auto-restart for the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="132" bodyend="138"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga4cac68c29c6fd1d5be671e9b943708eb" compoundref="xv__vcresampler__l2_8c" startline="84" endline="90">XV_VCrsmplStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a5e2713e1e927461583ef9e0b82f672e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_DisableAutoRestart</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables auto-restart for the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="145" bodyend="151"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__vcresampler_1ga622560c87045beb2bef22e0f220faacb" compoundref="xv__vcresampler__l2_8c" startline="101" endline="106">XV_VCrsmplStop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a4cf12d7ba9ed07002b192d6393b809c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Set_HwReg_width</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_vcresampler_Set_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the hardware register width. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Width data to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="159" bodyend="165"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga2492dbe762f82a9a4ef46d5027f20ef6" compoundref="xv__vcresampler__l2_8c" startline="250" endline="258">XV_VCrsmplSetActiveSize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a6a8682f6648b031b94cc4d0bb4e788e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_Get_HwReg_width</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Get_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the hardware register width. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Width data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="172" bodyend="181"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a072495c5efe846ce5f19f990f5eb8825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Set_HwReg_height</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_vcresampler_Set_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the hardware register height. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height data to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="189" bodyend="195"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga2492dbe762f82a9a4ef46d5027f20ef6" compoundref="xv__vcresampler__l2_8c" startline="250" endline="258">XV_VCrsmplSetActiveSize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a2556a5a207d9d47b84133d8aaa7e81e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_Get_HwReg_height</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Get_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the hardware register height. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Height data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="202" bodyend="211"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a5741ce40dc98ea86a3a6d7ca752108f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Set_HwReg_input_video_format</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_vcresampler_Set_HwReg_input_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the input video format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input video format data to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="219" bodyend="225"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga51999e4a3525d76ae247012128e8de80" compoundref="xv__vcresampler__l2_8c" startline="272" endline="304">XV_VCrsmplSetFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a66b92c787146f6151e0267a20faf37be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_Get_HwReg_input_video_format</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Get_HwReg_input_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the input video format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Input video format data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="232" bodyend="241"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1acbc8c85cc8ce7852a8eed88191cecf48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Set_HwReg_output_video_format</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_vcresampler_Set_HwReg_output_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the output video format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output video format data to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="249" bodyend="255"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga51999e4a3525d76ae247012128e8de80" compoundref="xv__vcresampler__l2_8c" startline="272" endline="304">XV_VCrsmplSetFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1ad90ffa0e7003659e0230f1a7ab435356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_Get_HwReg_output_video_format</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Get_HwReg_output_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the output video format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Output video format data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="262" bodyend="271"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+        <referencedby refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" compoundref="xv__vcresampler__l2_8c" startline="352" endline="420">XV_VCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a027c311ca2e9d3d2fd7fa4a1d647d6a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_Set_HwReg_coefs_0_0</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_vcresampler_Set_HwReg_coefs_0_0</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the coefficients for the resampler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coefficients data to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="279" bodyend="285"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1af2ca57aec971092e7ad860e927284039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_Get_HwReg_coefs_0_0</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_Get_HwReg_coefs_0_0</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the coefficients for the resampler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Coefficients data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="292" bodyend="301"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1afc2f103c0173f6238614971cc43b0113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_InterruptGlobalEnable</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="308" bodyend="314"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1ac08213358922858432c0d0db2fbd1bf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_InterruptGlobalDisable</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="321" bodyend="327"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a5ddf84a4aa2a43a8e37e722a3537351d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_InterruptEnable</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_vcresampler_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask to enable. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="335" bodyend="345"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a2b23b213f26452cef35f57e65e738e67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_InterruptDisable</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_vcresampler_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts for the VC Resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the interrupts specified by the Mask parameter for the given VC Resampler instance. It reads the current interrupt enable register, clears the bits specified by Mask, and writes the updated value back to the register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupts to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="366" bodyend="374"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a70ad8a9201effb14e50319e9c28ea900" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_vcresampler_InterruptClear</definition>
+        <argsstring>(XV_vcresampler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_vcresampler_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears specific interrupt(s) for the VC resampler hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified interrupt mask to the Interrupt Status Register (ISR) to clear the corresponding interrupt(s) for the VC resampler instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask indicating which interrupt(s) to clear.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="388" bodyend="393"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a596fe770a2385452fce657a3a74de180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_InterruptGetEnabled</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the interrupt enable register value for the VC resampler instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks that the provided instance pointer is valid and that the instance is ready. It then reads and returns the value of the interrupt enable register (IER) from the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current value of the interrupt enable register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="408" bodyend="413"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__vcresampler_8c_1a9e15d8f0ec0dcacb919ba6ac74953997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_vcresampler_InterruptGetStatus</definition>
+        <argsstring>(XV_vcresampler *InstancePtr)</argsstring>
+        <name>XV_vcresampler_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_vcresampler_InterruptGetStatus - Retrieves the interrupt status of the VC resampler instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref> instance. Must not be NULL and must be initialized.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current value of the Interrupt Status Register (ISR) for the VC resampler.</para></simplesect>
+This function asserts the validity of the instance pointer and its readiness, then reads and returns the interrupt status register value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c" bodystart="428" bodyend="433"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" compoundref="xv__vcresampler_8h" startline="71">XV_vcresampler::IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__vcresampler_8h" kindref="compound">xv_vcresampler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Implementation<sp/>*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="xv__vcresampler_8h_1acf9c225585cfa2ab8800a5463c00e208" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1acf9c225585cfa2ab8800a5463c00e208" kindref="member">XV_vcresampler_CfgInitialize</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__vcresampler___config" kindref="compound">XV_vcresampler_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>(UINTPTR)NULL);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref><sp/>=<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>flag<sp/>to<sp/>indicate<sp/>the<sp/>driver<sp/>is<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="xv__vcresampler_8h_1a87dde33eb2551ab05c02ee4e6df75c7e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a87dde33eb2551ab05c02ee4e6df75c7e" kindref="member">XV_vcresampler_Start</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>)<sp/>&amp;<sp/>0x80;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>,<sp/>Data<sp/>|<sp/>0x01);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="xv__vcresampler_8h_1aba0027e29d9fcbd6c1ab016000a99dfa" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1aba0027e29d9fcbd6c1ab016000a99dfa" kindref="member">XV_vcresampler_IsDone</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Data<sp/>&gt;&gt;<sp/>1)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="xv__vcresampler_8h_1aa09f70e6c9ab6416836f49b84ac087f3" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1aa09f70e6c9ab6416836f49b84ac087f3" kindref="member">XV_vcresampler_IsIdle</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Data<sp/>&gt;&gt;<sp/>2)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="xv__vcresampler_8h_1ad1eda8d670141d925646d219074054e7" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1ad1eda8d670141d925646d219074054e7" kindref="member">XV_vcresampler_IsReady</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>ap_start<sp/>to<sp/>see<sp/>if<sp/>the<sp/>pcore<sp/>is<sp/>ready<sp/>for<sp/>next<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(Data<sp/>&amp;<sp/>0x1);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="xv__vcresampler_8h_1afcfcebe5b588b8a1dfb8761d817c0fc9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1afcfcebe5b588b8a1dfb8761d817c0fc9" kindref="member">XV_vcresampler_EnableAutoRestart</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>,<sp/>0x80);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="xv__vcresampler_8h_1a5e2713e1e927461583ef9e0b82f672e4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a5e2713e1e927461583ef9e0b82f672e4" kindref="member">XV_vcresampler_DisableAutoRestart</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" kindref="member">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="xv__vcresampler_8h_1a4cf12d7ba9ed07002b192d6393b809c7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a4cf12d7ba9ed07002b192d6393b809c7" kindref="member">XV_vcresampler_Set_HwReg_width</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA,<sp/>Data);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="xv__vcresampler_8h_1a6a8682f6648b031b94cc4d0bb4e788e5" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1a6a8682f6648b031b94cc4d0bb4e788e5" kindref="member">XV_vcresampler_Get_HwReg_width</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189" refid="xv__vcresampler_8h_1a072495c5efe846ce5f19f990f5eb8825" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a072495c5efe846ce5f19f990f5eb8825" kindref="member">XV_vcresampler_Set_HwReg_height</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA,<sp/>Data);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202" refid="xv__vcresampler_8h_1a2556a5a207d9d47b84133d8aaa7e81e8" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1a2556a5a207d9d47b84133d8aaa7e81e8" kindref="member">XV_vcresampler_Get_HwReg_height</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219" refid="xv__vcresampler_8h_1a5741ce40dc98ea86a3a6d7ca752108f5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a5741ce40dc98ea86a3a6d7ca752108f5" kindref="member">XV_vcresampler_Set_HwReg_input_video_format</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA,<sp/>Data);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="xv__vcresampler_8h_1a66b92c787146f6151e0267a20faf37be" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1a66b92c787146f6151e0267a20faf37be" kindref="member">XV_vcresampler_Get_HwReg_input_video_format</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="xv__vcresampler_8h_1acbc8c85cc8ce7852a8eed88191cecf48" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1acbc8c85cc8ce7852a8eed88191cecf48" kindref="member">XV_vcresampler_Set_HwReg_output_video_format</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA,<sp/>Data);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262" refid="xv__vcresampler_8h_1ad90ffa0e7003659e0230f1a7ab435356" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1ad90ffa0e7003659e0230f1a7ab435356" kindref="member">XV_vcresampler_Get_HwReg_output_video_format</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279" refid="xv__vcresampler_8h_1a027c311ca2e9d3d2fd7fa4a1d647d6a6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a027c311ca2e9d3d2fd7fa4a1d647d6a6" kindref="member">XV_vcresampler_Set_HwReg_coefs_0_0</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA,<sp/>Data);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="xv__vcresampler_8h_1af2ca57aec971092e7ad860e927284039" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1af2ca57aec971092e7ad860e927284039" kindref="member">XV_vcresampler_Get_HwReg_coefs_0_0</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308" refid="xv__vcresampler_8h_1afc2f103c0173f6238614971cc43b0113" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1afc2f103c0173f6238614971cc43b0113" kindref="member">XV_vcresampler_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_GIE,<sp/>1);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321" refid="xv__vcresampler_8h_1ac08213358922858432c0d0db2fbd1bf4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1ac08213358922858432c0d0db2fbd1bf4" kindref="member">XV_vcresampler_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_GIE,<sp/>0);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335" refid="xv__vcresampler_8h_1a5ddf84a4aa2a43a8e37e722a3537351d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a5ddf84a4aa2a43a8e37e722a3537351d" kindref="member">XV_vcresampler_InterruptEnable</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>Register<sp/>=<sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_IER);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCRESAMPLER_CTRL_ADDR_IER,<sp/>Register<sp/>|<sp/>Mask);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366" refid="xv__vcresampler_8h_1a2b23b213f26452cef35f57e65e738e67" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a2b23b213f26452cef35f57e65e738e67" kindref="member">XV_vcresampler_InterruptDisable</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/>XV_VCRESAMPLER_CTRL_ADDR_IER);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/>XV_VCRESAMPLER_CTRL_ADDR_IER,<sp/>Register<sp/>&amp;<sp/>(~Mask));</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388" refid="xv__vcresampler_8h_1a70ad8a9201effb14e50319e9c28ea900" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__vcresampler_8c_1a70ad8a9201effb14e50319e9c28ea900" kindref="member">XV_vcresampler_InterruptClear</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_vcresampler_WriteReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/>XV_VCRESAMPLER_CTRL_ADDR_ISR,<sp/>Mask);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408" refid="xv__vcresampler_8h_1a596fe770a2385452fce657a3a74de180" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1a596fe770a2385452fce657a3a74de180" kindref="member">XV_vcresampler_InterruptGetEnabled</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/>XV_VCRESAMPLER_CTRL_ADDR_IER);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428" refid="xv__vcresampler_8h_1a9e15d8f0ec0dcacb919ba6ac74953997" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__vcresampler_8c_1a9e15d8f0ec0dcacb919ba6ac74953997" kindref="member">XV_vcresampler_InterruptGetStatus</ref>(<ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XV_vcresampler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" kindref="member">Config</ref>.<ref refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" kindref="member">BaseAddress</ref>,<sp/>XV_VCRESAMPLER_CTRL_ADDR_ISR);</highlight></codeline>
+<codeline lineno="433"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.c"/>
+  </compounddef>
+</doxygen>

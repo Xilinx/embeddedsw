@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structregval__list" kind="struct" prot="public">
+    <compoundname>regval_list</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structregval__list_1a9704c46d00faf9de452b4f09dbeeb7cb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 regval_list::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregval__list_1a68fe7d0c0b37ee8af438234425005d25" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u8 regval_list::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structregval__list_1a68fe7d0c0b37ee8af438234425005d25" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 regval_list::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/sensor_cfgs.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/sensor_cfgs.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" bodystart="22" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structregval__list_1a9704c46d00faf9de452b4f09dbeeb7cb" prot="public" virt="non-virtual"><scope>regval_list</scope><name>Address</name></member>
+      <member refid="structregval__list_1a68fe7d0c0b37ee8af438234425005d25" prot="public" virt="non-virtual"><scope>regval_list</scope><name>Data</name></member>
+      <member refid="structregval__list_1a68fe7d0c0b37ee8af438234425005d25" prot="public" virt="non-virtual"><scope>regval_list</scope><name>Data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

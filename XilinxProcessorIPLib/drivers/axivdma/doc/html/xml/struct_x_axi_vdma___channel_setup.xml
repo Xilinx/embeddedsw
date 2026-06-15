@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_vdma___channel_setup" kind="struct" prot="public">
+    <compoundname>XAxiVdma_ChannelSetup</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ab3112a8195c671caa26de7ac620c441a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::VertSizeInput</definition>
+        <argsstring></argsstring>
+        <name>VertSizeInput</name>
+        <briefdescription>
+<para>Vertical size input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ac1c66772edae9f1e7c8371d3f0a0ef3e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::HoriSizeInput</definition>
+        <argsstring></argsstring>
+        <name>HoriSizeInput</name>
+        <briefdescription>
+<para>Horizontal size input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1a3fb37cc075c2c85082c92cd25d2e2eae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+<para>Stride. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1a6eca40df21c81851ab2d7c242d697a18" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::FrameDelay</definition>
+        <argsstring></argsstring>
+        <name>FrameDelay</name>
+        <briefdescription>
+<para>Frame Delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1af730830373253483e064017fe5973713" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::EnableCircularBuf</definition>
+        <argsstring></argsstring>
+        <name>EnableCircularBuf</name>
+        <briefdescription>
+<para>Circular Buffer Mode? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ac99c7fc203ec614fa19b3a8e3002992e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::EnableSync</definition>
+        <argsstring></argsstring>
+        <name>EnableSync</name>
+        <briefdescription>
+<para>Gen-Lock Mode? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1add404ea384b9655d5614b8e23e1b7a41" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::PointNum</definition>
+        <argsstring></argsstring>
+        <name>PointNum</name>
+        <briefdescription>
+<para>Master we synchronize with. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ae2a252cfd2c5c7f56e5109f9790b06a2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::EnableFrameCounter</definition>
+        <argsstring></argsstring>
+        <name>EnableFrameCounter</name>
+        <briefdescription>
+<para>Frame Counter Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ac10a101bc623ff8c347c2fe33fe502f0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiVdma_ChannelSetup::FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE]</definition>
+        <argsstring>[XAXIVDMA_MAX_FRAMESTORE]</argsstring>
+        <name>FrameStoreStartAddr</name>
+        <briefdescription>
+<para>Start Addresses of Frame Store Buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1a927bc1903e5fa03e40e90bc581b6a64e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::FixedFrameStoreAddr</definition>
+        <argsstring></argsstring>
+        <name>FixedFrameStoreAddr</name>
+        <briefdescription>
+<para>Fixed Frame Store Address index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1ad89a4621d76119621fdb3c338a6f6961" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma_ChannelSetup::GenLockRepeat</definition>
+        <argsstring></argsstring>
+        <name>GenLockRepeat</name>
+        <briefdescription>
+<para>Gen-Lock Repeat? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___channel_setup_1afe07048ec275f7ebdbc6ed30e185cb73" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiVdma_ChannelSetup::EnableVFlip</definition>
+        <argsstring></argsstring>
+        <name>EnableVFlip</name>
+        <briefdescription>
+<para>Vertical Flip state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_i.h" bodystart="103" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_vdma___channel_setup_1af730830373253483e064017fe5973713" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>EnableCircularBuf</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ae2a252cfd2c5c7f56e5109f9790b06a2" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>EnableFrameCounter</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ac99c7fc203ec614fa19b3a8e3002992e" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>EnableSync</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1afe07048ec275f7ebdbc6ed30e185cb73" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>EnableVFlip</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1a927bc1903e5fa03e40e90bc581b6a64e" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>FixedFrameStoreAddr</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1a6eca40df21c81851ab2d7c242d697a18" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>FrameDelay</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ac10a101bc623ff8c347c2fe33fe502f0" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>FrameStoreStartAddr</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ad89a4621d76119621fdb3c338a6f6961" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>GenLockRepeat</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ac1c66772edae9f1e7c8371d3f0a0ef3e" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>HoriSizeInput</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1add404ea384b9655d5614b8e23e1b7a41" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>PointNum</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1a3fb37cc075c2c85082c92cd25d2e2eae" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>Stride</name></member>
+      <member refid="struct_x_axi_vdma___channel_setup_1ab3112a8195c671caa26de7ac620c441a" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelSetup</scope><name>VertSizeInput</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

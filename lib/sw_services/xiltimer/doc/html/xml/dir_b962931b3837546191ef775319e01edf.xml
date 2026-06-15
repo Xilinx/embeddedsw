@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b962931b3837546191ef775319e01edf" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_ef42a25df4dfceecfc4ab455590d928e">core</innerdir>
+    <innerfile refid="sleep_8h">sleep.h</innerfile>
+    <innerfile refid="xiltimer_8c">xiltimer.c</innerfile>
+    <innerfile refid="xiltimer_8h">xiltimer.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/"/>
+  </compounddef>
+</doxygen>

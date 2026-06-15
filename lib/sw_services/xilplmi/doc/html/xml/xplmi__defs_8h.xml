@@ -1,0 +1,906 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__defs_8h" kind="file">
+    <compoundname>xplmi_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xplmi__client_8h" local="yes">xplmi_client.h</includedby>
+    <includedby refid="xplmi__ssit_8c" local="yes">xplmi_ssit.c</includedby>
+    <includedby refid="xplmi__plat__client_8h" local="yes">xplmi_plat_client.h</includedby>
+    <includedby refid="xplmi__plat__cmd__client_8h" local="yes">xplmi_plat_cmd_client.h</includedby>
+    <includedby refid="xilplmi__in__place__asu__update__client__example_8c" local="yes">xilplmi_in_place_asu_update_client_example.c</includedby>
+    <includedby refid="xilplmi__in__place__plm__update__client__example_8c" local="yes">xilplmi_in_place_plm_update_client_example.c</includedby>
+    <includedby refid="xplmi__configure__secure__comm__example_8c" local="yes">xplmi_configure_secure_comm_example.c</includedby>
+    <includedby refid="xplmi__event__logging__client__example_8c" local="yes">xplmi_event_logging_client_example.c</includedby>
+    <includedby refid="xplmi__get__board__client__example_8c" local="yes">xplmi_get_board_client_example.c</includedby>
+    <includedby refid="xplmi__get__device__id__client__example_8c" local="yes">xplmi_get_device_id_client_example.c</includedby>
+    <includedby refid="xplmi__tamper__trigger__client__example_8c" local="yes">xplmi_tamper_trigger_client_example.c</includedby>
+    <incdepgraph>
+      <node id="680">
+        <label>xil_types.h</label>
+      </node>
+      <node id="679">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="678">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi_defs.h"/>
+        <childnode refid="679" relation="include">
+        </childnode>
+        <childnode refid="680" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="684">
+        <label>xplmi_configure_secure_comm_example.c</label>
+        <link refid="xplmi__configure__secure__comm__example_8c"/>
+      </node>
+      <node id="686">
+        <label>xplmi_get_board_client_example.c</label>
+        <link refid="xplmi__get__board__client__example_8c"/>
+      </node>
+      <node id="683">
+        <label>xplmi_client.c</label>
+        <link refid="xplmi__client_8c"/>
+      </node>
+      <node id="682">
+        <label>xplmi_client.h</label>
+        <link refid="xplmi__client_8h"/>
+        <childnode refid="683" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+        <childnode refid="687" relation="include">
+        </childnode>
+        <childnode refid="688" relation="include">
+        </childnode>
+      </node>
+      <node id="688">
+        <label>xplmi_tamper_trigger_client_example.c</label>
+        <link refid="xplmi__tamper__trigger__client__example_8c"/>
+      </node>
+      <node id="685">
+        <label>xplmi_event_logging_client_example.c</label>
+        <link refid="xplmi__event__logging__client__example_8c"/>
+      </node>
+      <node id="692">
+        <label>xilplmi_in_place_asu_update_client_example.c</label>
+        <link refid="xilplmi__in__place__asu__update__client__example_8c"/>
+      </node>
+      <node id="694">
+        <label>xplmi_plat_cmd_client.c</label>
+        <link refid="xplmi__plat__cmd__client_8c"/>
+      </node>
+      <node id="689">
+        <label>xplmi_ssit.c</label>
+      </node>
+      <node id="693">
+        <label>xplmi_plat_cmd_client.h</label>
+        <link refid="xplmi__plat__cmd__client_8h"/>
+        <childnode refid="694" relation="include">
+        </childnode>
+        <childnode refid="695" relation="include">
+        </childnode>
+      </node>
+      <node id="695">
+        <label>xilplmi_in_place_plm_update_client_example.c</label>
+        <link refid="xilplmi__in__place__plm__update__client__example_8c"/>
+      </node>
+      <node id="681">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi_defs.h"/>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="689" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="692" relation="include">
+        </childnode>
+        <childnode refid="695" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+        <childnode refid="687" relation="include">
+        </childnode>
+        <childnode refid="688" relation="include">
+        </childnode>
+      </node>
+      <node id="687">
+        <label>xplmi_get_device_id_client_example.c</label>
+        <link refid="xplmi__get__device__id__client__example_8c"/>
+      </node>
+      <node id="691">
+        <label>xplmi_plat_client.c</label>
+        <link refid="xplmi__plat__client_8c"/>
+      </node>
+      <node id="690">
+        <label>xplmi_plat_client.h</label>
+        <link refid="xplmi__plat__client_8h"/>
+        <childnode refid="691" relation="include">
+        </childnode>
+        <childnode refid="692" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_plmi___i_vsand_key" prot="public">XPlmi_IVsandKey</innerclass>
+    <innerclass refid="struct_x_plmi___ssit_sec_comm" prot="public">XPlmi_SsitSecComm</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xplmi__defs_8h_1a2a31f081fcf6b563ebce474c0c5252e9" prot="public" static="no">
+        <name>XPLMI_FEATURES_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>command id for features </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1afc8ee9084e875e13be8e0fb324ad061e" prot="public" static="no">
+        <name>XPLMI_MASK_POLL_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>command id for mask poll </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a19452ad528a31601ce7fc6e5c9a66365" prot="public" static="no">
+        <name>XPLMI_MASK_WRITE_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>command id for mask write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a85bc10db73f5ef8b75d64a74f6251a90" prot="public" static="no">
+        <name>XPLMI_WRITE_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>command id for write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a01cdbda43ef4a88c0f64b14881332b3d" prot="public" static="no">
+        <name>XPLMI_DELAY_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>command id for delay </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a6b65f54ed6e5974888c34418c307ca30" prot="public" static="no">
+        <name>XPLMI_DMA_WRITE_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>command id for DMA write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1af6cff8cc8c1a9c431d8146add0bc9534" prot="public" static="no">
+        <name>XPLMI_MASK_POLL64_CMD_ID</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>command id for mask poll 64 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a96906cf12ad5a2e54ece617c7227769d" prot="public" static="no">
+        <name>XPLMI_MASK_WRITE64_CMD_ID</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>command id for mask write 64 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a957584de53dfdfdcdcfd9253642bcc99" prot="public" static="no">
+        <name>XPLMI_WRITE64_CMD_ID</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>command id for write 64 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a46e292da1cd548ad0d83f2770d41c2f1" prot="public" static="no">
+        <name>XPLMI_DMA_XFER_CMD_ID</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>command id for DMA transfer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a4b46659fc94be74ac2773db7f310ff4c" prot="public" static="no">
+        <name>XPLMI_INIT_SEQ_CMD_ID</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>command id for Init sequence </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a99323ae484933a6886e340713e4c1eda" prot="public" static="no">
+        <name>XPLMI_CFI_READ_CMD_ID</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>command id for CFI read </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1aa78df06744f831d799f1a1f20b8ba276" prot="public" static="no">
+        <name>XPLMI_SET_CMD_ID</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>command id for set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a57314b17a30b6a0bb69209abadca6567" prot="public" static="no">
+        <name>XPLMI_WRITE_KEYHOLE_CMD_ID</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>command id for write keyhole </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ae8fb58230b573f14f434ce48e7957300" prot="public" static="no">
+        <name>XPLMI_SSIT_SYNC_SLAVES_CMD_ID</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>command id for SSIT slaves sync </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gad6d0e16deb820f98b18689dc9966f3ff" compoundref="xplmi__ssit_8c" startline="1903" endline="1986">XPlmi_SsitSyncSlaves</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a87db74c2941db56d04925ceea68ad5b5" prot="public" static="no">
+        <name>XPLMI_SSIT_SYNC_MASTER_CMD_ID</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>command id for SSIT master sync </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf24bb1ce85073deed1339422ee5d915f" compoundref="xplmi__ssit_8c" startline="1836" endline="1887">XPlmi_SsitSyncMaster</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a708063660b8e1d38b4ccf40af1ba21fc" prot="public" static="no">
+        <name>XPLMI_SSIT_WAIT_SLAVES_CMD_ID</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>command id for SSIT slaves wait </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga5cb88dc15cd3354f65b346c3e92c2d88" compoundref="xplmi__ssit_8c" startline="2002" endline="2055">XPlmi_SsitWaitSlaves</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a614bb0d14a88126aa6b07ed6bc7fae43" prot="public" static="no">
+        <name>XPLMI_NOP_CMD_ID</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>command id for NOP </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a651b24db1c69490f069924b96d005c94" prot="public" static="no">
+        <name>XPLMI_GET_DEVICE_CMD_ID</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>command id for get device </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="67" endline="91">XPlmi_GetDeviceID</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ae448e478d11a32abe990938860aa3be6" prot="public" static="no">
+        <name>XPLMI_EVENT_LOGGING_CMD_ID</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>command id for event logging </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ac2c44cf78420129b1d93afe95671fe2a" prot="public" static="no">
+        <name>XPLMI_SET_BOARD_CMD_ID</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>command id for set board </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1aac351fba6246ff9f83fbf368f345e202" prot="public" static="no">
+        <name>XPLMI_GET_BOARD_CMD_ID</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>command id for get board </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="107" endline="130">XPlmi_GetBoard</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a024b2c5b5d566697c235a9e8a358b01c" prot="public" static="no">
+        <name>XPLMI_SET_WDT_PARAM_CMD_ID</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>command id for set WDT param </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a82af5bd6991b40f9311f7eda2780f59c" prot="public" static="no">
+        <name>XPLMI_LOG_STR_CMD_ID</name>
+        <initializer>(23U)</initializer>
+        <briefdescription>
+<para>command id for Log str </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a0d44ec1b5ec1aabcabdce79d57579e4c" prot="public" static="no">
+        <name>XPLMI_LOG_ADDR_CMD_ID</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>command id for Log address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ad4c8062a6ff596adfbdb92cb357c0f98" prot="public" static="no">
+        <name>XPLMI_MARKER_CMD_ID</name>
+        <initializer>(25U)</initializer>
+        <briefdescription>
+<para>command id for marker </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a5d6672ad00517c00f3f63480d05ee82d" prot="public" static="no">
+        <name>XPLMI_PROC_CMD_ID</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>command id for proc </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a2f60f75f262179fc0656a3db3fa4e4a8" prot="public" static="no">
+        <name>XPLMI_BEGIN_CMD_ID</name>
+        <initializer>(27U)</initializer>
+        <briefdescription>
+<para>command id for begin </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1acca9cd2c526663688c7d44b0afcc3e9d" prot="public" static="no">
+        <name>XPLMI_END_CMD_ID</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>command id for end </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a0d387c2f9ba11ae593ae7a8a97cb1c7c" prot="public" static="no">
+        <name>XPLMI_BREAK_CMD_ID</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>command id for break </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a56ee62b3e68e410e75e176258ed218b3" prot="public" static="no">
+        <name>XPLMI_OT_CHECK_CMD_ID</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>command id for OT check </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ae424b112a6de4a0b30aea99b25fd4345" prot="public" static="no">
+        <name>XPLMI_PSM_SEQUENCE_CMD_ID</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>command id for PSM sequence </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="214" endline="270">XPlmi_PsmSequence</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a537ed8bd3003f8211a4f8b41071154a6" prot="public" static="no">
+        <name>XPLMI_INPLACE_PLM_UPDATE_CMD_ID</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>command id for inplace plm update </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a9a62b1be30daf41bfbb0c13d2394bb23" prot="public" static="no">
+        <name>XPLMI_SCATTER_WRITE_CMD_ID</name>
+        <initializer>(33U)</initializer>
+        <briefdescription>
+<para>command id for scatter write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga2c8aea8817f7523f8e19f5b8f2712234" compoundref="xplmi__plat__cmd_8c" startline="287" endline="325">XPlmi_ScatterWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a1b69d39533e875e27c25e802b159f134" prot="public" static="no">
+        <name>XPLMI_SCATTER_WRITE2_CMD_ID</name>
+        <initializer>(34U)</initializer>
+        <briefdescription>
+<para>command id for scatter write 2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga1e1cdb534edb8282728567c27ed02bc1" compoundref="xplmi__plat__cmd_8c" startline="345" endline="385">XPlmi_ScatterWrite2</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a592ed4f8a2aba9571489d28755f7ba1a" prot="public" static="no">
+        <name>XPLMI_TAMPER_TRIGGER_CMD_ID</name>
+        <initializer>(35U)</initializer>
+        <briefdescription>
+<para>command id for tamper trigger </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" compoundref="xplmi__client_8c" startline="144" endline="156">XPlmi_TamperTrigger</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a852fc43c9b0d4f787b762e31e836f351" prot="public" static="no">
+        <name>XPLMI_SET_FIPS_MASK_CMD_ID</name>
+        <initializer>(36U)</initializer>
+        <briefdescription>
+<para>command id for FIPS mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga30cbe0eeabc180d930a709179f8a2801" compoundref="xplmi__plat__cmd_8c" startline="400" endline="433">XPlmi_SetFipsKatMask</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a5791311d483d076339bff2e1e731c27b" prot="public" static="no">
+        <name>XPLMI_SET_IPI_ACCESS_CMD_ID</name>
+        <initializer>(37U)</initializer>
+        <briefdescription>
+<para>command id for set ipi access </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a37b21c52c2fc4af79e292c0969d08460" prot="public" static="no">
+        <name>XPLMI_RUN_PROC_CMD_ID</name>
+        <initializer>(38U)</initializer>
+        <briefdescription>
+<para>command id for run proc </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga33944fe65566c1e9c670b92e0a81cb45" compoundref="xplmi__plat__cmd_8c" startline="445" endline="456">XPlmi_RunProc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a6ed68cfcd284b1a70e97a05eb9f2a6ca" prot="public" static="no">
+        <name>XPLMI_LIST_SET_CMD_ID</name>
+        <initializer>(39U)</initializer>
+        <briefdescription>
+<para>command id for list set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabb8d3172415620ee255937c2e59d7bc5" compoundref="xplmi__plat__cmd_8c" startline="468" endline="489">XPlmi_ListSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a7558a121dfa07048499ffc22f424ce4b" prot="public" static="no">
+        <name>XPLMI_LIST_WRITE_CMD_ID</name>
+        <initializer>(40U)</initializer>
+        <briefdescription>
+<para>command id for list write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga960e7873648bb37337846741eefeb65a" compoundref="xplmi__plat__cmd_8c" startline="502" endline="531">XPlmi_ListWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a1c5aff0a2a9accba49a579e3ce397da6" prot="public" static="no">
+        <name>XPLMI_LIST_MASK_WRITE_CMD_ID</name>
+        <initializer>(41U)</initializer>
+        <briefdescription>
+<para>command id for list mask write </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga56176f353fffc84c3c49f2eecd640371" compoundref="xplmi__plat__cmd_8c" startline="544" endline="574">XPlmi_ListMaskWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a5fa7a6d0e7f12318c63276a028470b69" prot="public" static="no">
+        <name>XPLMI_LIST_MASK_POLL_CMD_ID</name>
+        <initializer>(42U)</initializer>
+        <briefdescription>
+<para>command id for list mask poll </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga144de214d05887af042163488da5ef01" compoundref="xplmi__plat__cmd_8c" startline="587" endline="617">XPlmi_ListMaskPoll</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ac95cc36b490cf20f84746f656e3a7d83" prot="public" static="no">
+        <name>XPLMI_CONFIG_SECCOMM_CMD_ID</name>
+        <initializer>(43U)</initializer>
+        <briefdescription>
+<para>command id for secure communication configuration </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="259" endline="279">XPlmi_ConfigSecureComm</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1aac083acfe6fc852913aab86fb2ae5fcc" prot="public" static="no">
+        <name>XPLMI_GETSECCOMM_STATUS_CMD_ID</name>
+        <initializer>(45U)</initializer>
+        <briefdescription>
+<para>command id to get secure communication status </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" compoundref="xplmi__client_8c" startline="294" endline="317">XPlmi_GetSecureCommStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a4dd9e69cf7522e4aa5b1a56726ec5481" prot="public" static="no">
+        <name>XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID</name>
+        <initializer>(46U)</initializer>
+        <briefdescription>
+<para>command id to get secure communication status </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" compoundref="xplmi__client_8c" startline="332" endline="344">XPlmi_SetDDRMCMainRegSts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a5142233df47b0d231c8dd124eed82ef2" prot="public" static="no">
+        <name>XPLMI_INPLACE_ASU_UPDATE_CMD_ID</name>
+        <initializer>(49U)</initializer>
+        <briefdescription>
+<para>command id for In-Place ASU firmware update </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1aff4210d141a92042195077b139fb22e7" prot="public" static="no">
+        <name>XPLMI_CDO_END_CMD_ID</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>command id for CDO end </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a46424716b1566f702669fbb35ae2c9e7" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_0</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Header Length 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a933c7ef25b0a10e53adef63013284acc" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Header Length 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1acc2ec018c08bc542927da5d538b8de3a" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Header Length 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a5cdce3a896940495898454b13f2176c1" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_3</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Header Length 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a390a530c727590c215c32297099e991d" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_4</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Header Length 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a24cf08d5101f65f7aaa25c0fa212c997" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_5</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Header Length 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a2538235acffeea574d388eaa8908b345" prot="public" static="no">
+        <name>XPLMI_HEADER_LEN_6</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Header Length 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1ad73f9eba36a0cf0d9e933080619a1594" prot="public" static="no">
+        <name>XPLMI_KEY_SIZE_WORDS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Key size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__defs_8h_1a6bbdb2c218058fd0c103dc237d18ab72" prot="public" static="no">
+        <name>XPLMI_KEY_SIZE_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga55386f16ba285aad19581e39570e17e7" compoundref="xplmi__ssit_8c" startline="2215" endline="2328">XPlmi_SsitCfgSecComm</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xilplmi API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   01/09/24 Initial release
+      pre  07/10/24 Added support for configure secure communication command
+      pre  09/30/24 Added support for get secure communication status command
+      pre  10/19/24 Added XPLMI_HEADER_LEN_5 and XPLMI_HEADER_LEN_6 macros
+      pre  01/13/25 Added command to set access status of DDRMC main registers
+      vm   03/16/26 Added XPLMI_INPLACE_ASU_UPDATE_CMD_ID command
+      vm   04/16/26 Update In-Place ASUFW update command ID</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XPLMI_DEFS_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_DEFS_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macros<sp/>for<sp/>command<sp/>ids<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="xplmi__defs_8h_1a2a31f081fcf6b563ebce474c0c5252e9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_FEATURES_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="xplmi__defs_8h_1afc8ee9084e875e13be8e0fb324ad061e" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MASK_POLL_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="47" refid="xplmi__defs_8h_1a19452ad528a31601ce7fc6e5c9a66365" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MASK_WRITE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="xplmi__defs_8h_1a85bc10db73f5ef8b75d64a74f6251a90" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_WRITE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="xplmi__defs_8h_1a01cdbda43ef4a88c0f64b14881332b3d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DELAY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="xplmi__defs_8h_1a6b65f54ed6e5974888c34418c307ca30" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DMA_WRITE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="xplmi__defs_8h_1af6cff8cc8c1a9c431d8146add0bc9534" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MASK_POLL64_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="xplmi__defs_8h_1a96906cf12ad5a2e54ece617c7227769d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MASK_WRITE64_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="xplmi__defs_8h_1a957584de53dfdfdcdcfd9253642bcc99" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_WRITE64_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="xplmi__defs_8h_1a46e292da1cd548ad0d83f2770d41c2f1" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DMA_XFER_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="xplmi__defs_8h_1a4b46659fc94be74ac2773db7f310ff4c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_INIT_SEQ_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="xplmi__defs_8h_1a99323ae484933a6886e340713e4c1eda" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CFI_READ_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="xplmi__defs_8h_1aa78df06744f831d799f1a1f20b8ba276" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SET_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="xplmi__defs_8h_1a57314b17a30b6a0bb69209abadca6567" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_WRITE_KEYHOLE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="xplmi__defs_8h_1ae8fb58230b573f14f434ce48e7957300" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SSIT_SYNC_SLAVES_CMD_ID<sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="xplmi__defs_8h_1a87db74c2941db56d04925ceea68ad5b5" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SSIT_SYNC_MASTER_CMD_ID<sp/><sp/><sp/>(15U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="xplmi__defs_8h_1a708063660b8e1d38b4ccf40af1ba21fc" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SSIT_WAIT_SLAVES_CMD_ID<sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="xplmi__defs_8h_1a614bb0d14a88126aa6b07ed6bc7fae43" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_NOP_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="xplmi__defs_8h_1a651b24db1c69490f069924b96d005c94" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_GET_DEVICE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="xplmi__defs_8h_1ae448e478d11a32abe990938860aa3be6" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_EVENT_LOGGING_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(19U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="xplmi__defs_8h_1ac2c44cf78420129b1d93afe95671fe2a" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SET_BOARD_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="xplmi__defs_8h_1aac351fba6246ff9f83fbf368f345e202" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_GET_BOARD_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="xplmi__defs_8h_1a024b2c5b5d566697c235a9e8a358b01c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SET_WDT_PARAM_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(22U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="xplmi__defs_8h_1a82af5bd6991b40f9311f7eda2780f59c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LOG_STR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(23U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="xplmi__defs_8h_1a0d44ec1b5ec1aabcabdce79d57579e4c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LOG_ADDR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="xplmi__defs_8h_1ad4c8062a6ff596adfbdb92cb357c0f98" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MARKER_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="xplmi__defs_8h_1a5d6672ad00517c00f3f63480d05ee82d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PROC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="xplmi__defs_8h_1a2f60f75f262179fc0656a3db3fa4e4a8" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_BEGIN_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(27U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="xplmi__defs_8h_1acca9cd2c526663688c7d44b0afcc3e9d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_END_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="xplmi__defs_8h_1a0d387c2f9ba11ae593ae7a8a97cb1c7c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_BREAK_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="xplmi__defs_8h_1a56ee62b3e68e410e75e176258ed218b3" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_OT_CHECK_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="xplmi__defs_8h_1ae424b112a6de4a0b30aea99b25fd4345" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PSM_SEQUENCE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="xplmi__defs_8h_1a537ed8bd3003f8211a4f8b41071154a6" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_INPLACE_PLM_UPDATE_CMD_ID<sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="78" refid="xplmi__defs_8h_1a9a62b1be30daf41bfbb0c13d2394bb23" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SCATTER_WRITE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(33U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="xplmi__defs_8h_1a1b69d39533e875e27c25e802b159f134" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SCATTER_WRITE2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(34U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="xplmi__defs_8h_1a592ed4f8a2aba9571489d28755f7ba1a" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_TAMPER_TRIGGER_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(35U)<sp/></highlight></codeline>
+<codeline lineno="81" refid="xplmi__defs_8h_1a852fc43c9b0d4f787b762e31e836f351" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SET_FIPS_MASK_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(36U)<sp/></highlight></codeline>
+<codeline lineno="82" refid="xplmi__defs_8h_1a5791311d483d076339bff2e1e731c27b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SET_IPI_ACCESS_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(37U)<sp/></highlight></codeline>
+<codeline lineno="83" refid="xplmi__defs_8h_1a37b21c52c2fc4af79e292c0969d08460" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_RUN_PROC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(38U)<sp/></highlight></codeline>
+<codeline lineno="84" refid="xplmi__defs_8h_1a6ed68cfcd284b1a70e97a05eb9f2a6ca" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LIST_SET_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(39U)<sp/></highlight></codeline>
+<codeline lineno="85" refid="xplmi__defs_8h_1a7558a121dfa07048499ffc22f424ce4b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LIST_WRITE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(40U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="xplmi__defs_8h_1a1c5aff0a2a9accba49a579e3ce397da6" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LIST_MASK_WRITE_CMD_ID<sp/><sp/><sp/><sp/>(41U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="xplmi__defs_8h_1a5fa7a6d0e7f12318c63276a028470b69" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_LIST_MASK_POLL_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(42U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="xplmi__defs_8h_1ac95cc36b490cf20f84746f656e3a7d83" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CONFIG_SECCOMM_CMD_ID<sp/><sp/><sp/><sp/><sp/>(43U)<sp/></highlight></codeline>
+<codeline lineno="89" refid="xplmi__defs_8h_1aac083acfe6fc852913aab86fb2ae5fcc" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_GETSECCOMM_STATUS_CMD_ID<sp/><sp/>(45U)<sp/></highlight></codeline>
+<codeline lineno="90" refid="xplmi__defs_8h_1a4dd9e69cf7522e4aa5b1a56726ec5481" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID<sp/>(46U)<sp/></highlight></codeline>
+<codeline lineno="91" refid="xplmi__defs_8h_1a5142233df47b0d231c8dd124eed82ef2" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_INPLACE_ASU_UPDATE_CMD_ID<sp/>(49U)<sp/></highlight></codeline>
+<codeline lineno="92" refid="xplmi__defs_8h_1aff4210d141a92042195077b139fb22e7" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CDO_END_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/></highlight></codeline>
+<codeline lineno="94" refid="xplmi__defs_8h_1a46424716b1566f702669fbb35ae2c9e7" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="95" refid="xplmi__defs_8h_1a933c7ef25b0a10e53adef63013284acc" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="96" refid="xplmi__defs_8h_1acc2ec018c08bc542927da5d538b8de3a" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="97" refid="xplmi__defs_8h_1a5cdce3a896940495898454b13f2176c1" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="98" refid="xplmi__defs_8h_1a390a530c727590c215c32297099e991d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="99" refid="xplmi__defs_8h_1a24cf08d5101f65f7aaa25c0fa212c997" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="100" refid="xplmi__defs_8h_1a2538235acffeea574d388eaa8908b345" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HEADER_LEN_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="102" refid="xplmi__defs_8h_1ad73f9eba36a0cf0d9e933080619a1594" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_KEY_SIZE_WORDS<sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="103" refid="xplmi__defs_8h_1a6bbdb2c218058fd0c103dc237d18ab72" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_KEY_SIZE_BYTES<sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IVs[<ref refid="xplmi__defs_8h_1ad73f9eba36a0cf0d9e933080619a1594" kindref="member">XPLMI_KEY_SIZE_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Key[<ref refid="xplmi__defs_8h_1ad73f9eba36a0cf0d9e933080619a1594" kindref="member">XPLMI_KEY_SIZE_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}XPlmi_IVsandKey;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SlrIndex;<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>XPlmi_IVsandKey<sp/>IVsandKey;<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}XPlmi_SsitSecComm;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hcresampler__l2" kind="struct" prot="public">
+    <compoundname>XV_Hcresampler_l2</compoundname>
+    <includes local="no">xv_hcresampler_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hcresampler__l2_1a6d23f9a4ce1f760b3ab008ce2622e608" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__hcresampler" kindref="compound">XV_hcresampler</ref></type>
+        <definition>XV_hcresampler XV_Hcresampler_l2::Hcr</definition>
+        <argsstring></argsstring>
+        <name>Hcr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hcresampler__l2_1afb17ff93e533bf3ad8f148573b11d744" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_Hcresampler_l2::UseExtCoeff</definition>
+        <argsstring></argsstring>
+        <name>UseExtCoeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hcresampler__l2_1a76f8644dd65d2b57460081834740dce9" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short XV_Hcresampler_l2::coeff[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_MAX_TAPS]</definition>
+        <argsstring>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_MAX_TAPS]</argsstring>
+        <name>coeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>H Chroma Resampler Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every H chroma resampler device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XV_Hcresampler_l2</label>
+        <link refid="struct_x_v___hcresampler__l2"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Hcr</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XV_hcresampler_Config</label>
+        <link refid="struct_x_v__hcresampler___config"/>
+      </node>
+      <node id="7">
+        <label>XV_hcresampler</label>
+        <link refid="struct_x_v__hcresampler"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.h" bodystart="128" bodyend="133"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hcresampler__l2_1a76f8644dd65d2b57460081834740dce9" prot="public" virt="non-virtual"><scope>XV_Hcresampler_l2</scope><name>coeff</name></member>
+      <member refid="struct_x_v___hcresampler__l2_1a6d23f9a4ce1f760b3ab008ce2622e608" prot="public" virt="non-virtual"><scope>XV_Hcresampler_l2</scope><name>Hcr</name></member>
+      <member refid="struct_x_v___hcresampler__l2_1afb17ff93e533bf3ad8f148573b11d744" prot="public" virt="non-virtual"><scope>XV_Hcresampler_l2</scope><name>UseExtCoeff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d74be761a700f529894d331a17371095" kind="dir">
+    <compoundname>resetps</compoundname>
+    <innerdir refid="dir_ef86256f669979b749cca24b4a5b263a">examples</innerdir>
+    <innerdir refid="dir_318746d8b4ab27e453fcfe2633dc8f9e">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/"/>
+  </compounddef>
+</doxygen>

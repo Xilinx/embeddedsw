@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sd_ps___config" kind="struct" prot="public">
+    <compoundname>XSdPs_Config</compoundname>
+    <includes local="no">xsdps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a4f676512430e5cd1e0485b2d37a79c23" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSdPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gab155865689d6bdec2c089166799a423d" compoundref="xsdps__sinit_8c" startline="84" endline="97">XSdPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSdPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga089a1b91f436e99b0663b91c3038e9ce" compoundref="xsdps__card_8c" startline="1125" endline="1181">XSdPs_AutoTuning</referencedby>
+        <referencedby refid="group__sdps__api_1ga121220c9912174a846e46a4c1ef388d3" compoundref="xsdps__card_8c" startline="466" endline="502">XSdPs_CardIfCond</referencedby>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+        <referencedby refid="group__sdps__api_1ga6b65625dd94d082f21d8dedfdfd8db97" compoundref="xsdps__card_8c" startline="739" endline="775">XSdPs_CardSetVoltage18</referencedby>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga6bc000fb4ce51502058f2e351c90fc19" compoundref="xsdps__options_8c" startline="523" endline="586">XSdPs_Change_BusSpeed</referencedby>
+        <referencedby refid="group__sdps__api_1gaf11db1719933123762fecb790a2977da" compoundref="xsdps__options_8c" startline="283" endline="369">XSdPs_Change_BusWidth</referencedby>
+        <referencedby refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" compoundref="xsdps__options_8c" startline="99" endline="148">XSdPs_Change_ClkFreq</referencedby>
+        <referencedby refid="group__sdps__api_1ga273b141e9bacac12fd3b3123b7827faa" compoundref="xsdps__card_8c" startline="1026" endline="1073">XSdPs_Change_SdBusSpeed</referencedby>
+        <referencedby refid="group__sdps__api_1gaf0101a5bb2238bcf0279c3e4c0a33ccb" compoundref="xsdps__card_8c" startline="924" endline="942">XSdPs_CheckBusHigh</referencedby>
+        <referencedby refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" compoundref="xsdps__host_8c" startline="1705" endline="1727">XSdPs_CheckBusIdle</referencedby>
+        <referencedby refid="group__sdps__api_1ga9c1007ef091d85466eb133a80b9f3213" compoundref="xsdps__card_8c" startline="402" endline="431">XSdPs_CheckCardDetect</referencedby>
+        <referencedby refid="group__sdps__api_1gae561ac5fb9655a8c8523a7afd848f8cd" compoundref="xsdps__card_8c" startline="860" endline="878">XSdPs_CheckResetDone</referencedby>
+        <referencedby refid="group__sdps__api_1gafa28027fec9472b8b49c61ad1c9489f2" compoundref="xsdps__card_8c" startline="168" endline="207">XSdPs_CheckTransferComplete</referencedby>
+        <referencedby refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</referencedby>
+        <referencedby refid="group__sdps__api_1gafa42ece30f32bbc385f0533873461b2d" compoundref="xsdps__card_8c" startline="1552" endline="1566">XSdPs_CheckVoltage18</referencedby>
+        <referencedby refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</referencedby>
+        <referencedby refid="group__sdps__api_1gacae52488893efc2acb048af3660254f5" compoundref="xsdps__host_8c" startline="1526" endline="1539">XSdPs_ConfigDma</referencedby>
+        <referencedby refid="group__sdps__api_1ga5d77b69b0e2e4ca66556dc8a90f834c4" compoundref="xsdps__host_8c" startline="1551" endline="1568">XSdPs_ConfigInterrupt</referencedby>
+        <referencedby refid="group__sdps__api_1ga8644655cee22998e56ef1dba7871ac89" compoundref="xsdps__host_8c" startline="1496" endline="1514">XSdPs_ConfigPower</referencedby>
+        <referencedby refid="group__sdps__api_1gacf453a36b7ec19fb4b5dbfda827cc6a7" compoundref="xsdps__host_8c" startline="1315" endline="1448">XSdPs_ConfigTapDelay</referencedby>
+        <referencedby refid="group__sdps__api_1gaa42580dd8c7438e838e274579d9c4be3" compoundref="xsdps__host_8c" startline="598" endline="611">XSdPs_DisableBusPower</referencedby>
+        <referencedby refid="group__sdps__api_1gad837da458a367f226a76d8eda9a09214" compoundref="xsdps__card_8c" startline="1294" endline="1323">XSdPs_DllReset</referencedby>
+        <referencedby refid="group__sdps__api_1gaf51d4f72c727b7d28592ac797fe5d467" compoundref="xsdps__host_8c" startline="1260" endline="1300">XSdPs_DllRstCtrl</referencedby>
+        <referencedby refid="group__sdps__api_1gaca5e99fecb052c0552ab2d7a692a21ad" compoundref="xsdps__host_8c" startline="623" endline="639">XSdPs_EnableBusPower</referencedby>
+        <referencedby refid="group__sdps__api_1gad6793165c476a72b093f179766ab176f" compoundref="xsdps__host_8c" startline="858" endline="885">XSdPs_EnableClock</referencedby>
+        <referencedby refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" compoundref="xsdps_8c" startline="496" endline="557">XSdPs_Erase</referencedby>
+        <referencedby refid="group__sdps__api_1ga9645b197623dae8c5183bb3d31c7b0eb" compoundref="xsdps__card_8c" startline="594" endline="657">XSdPs_GetCardId</referencedby>
+        <referencedby refid="group__sdps__api_1ga24e128116e1fd880b3ed1ffe7709e75d" compoundref="xsdps__card_8c" startline="669" endline="727">XSdPs_GetCsd</referencedby>
+        <referencedby refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" compoundref="xsdps__card_8c" startline="829" endline="847">XSdPs_HostConfig</referencedby>
+        <referencedby refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" compoundref="xsdps__card_8c" startline="219" endline="265">XSdPs_IdentifyCard</referencedby>
+        <referencedby refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gab802e347cc12cdd73d4d9dd7737535e6" compoundref="xsdps__host_8c" startline="269" endline="285">XSdPs_Reset</referencedby>
+        <referencedby refid="group__sdps__api_1ga43c82653cd80c9c1eb82db2eec0d7718" compoundref="xsdps__card_8c" startline="787" endline="817">XSdPs_ResetConfig</referencedby>
+        <referencedby refid="group__sdps__api_1ga0446c3fbdc875f25c1bbf74efa3ff970" compoundref="xsdps__card_8c" startline="1630" endline="1668">XSdPs_SendCmd</referencedby>
+        <referencedby refid="group__sdps__api_1ga1af3178b4b24c991b431eb7a0aa3b23b" compoundref="xsdps__options_8c" startline="161" endline="192">XSdPs_SetBlkSize</referencedby>
+        <referencedby refid="group__sdps__api_1ga45d325b142a6526ec0468d1fbc34c471" compoundref="xsdps__card_8c" startline="1456" endline="1538">XSdPs_SetClock</referencedby>
+        <referencedby refid="group__sdps__api_1ga2e868dda7aa547805fe79f9e840059e5" compoundref="xsdps__host_8c" startline="297" endline="306">XSdPs_SetExecTuning</referencedby>
+        <referencedby refid="group__sdps__api_1ga8fc46805b1c3026474ca3b26142a9133" compoundref="xsdps__host_8c" startline="1079" endline="1128">XSdPs_Setup32ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1144" endline="1198">XSdPs_Setup64ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1220" endline="1279">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
+        <referencedby refid="group__sdps__api_1ga38aad34c4dd588d187c6053a9514c52e" compoundref="xsdps__card_8c" startline="1581" endline="1615">XSdPs_SetupCmd</referencedby>
+        <referencedby refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</referencedby>
+        <referencedby refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</referencedby>
+        <referencedby refid="group__sdps__api_1ga1dcb11223d1894628593253fd7144c42" compoundref="xsdps__card_8c" startline="890" endline="912">XSdPs_SetupVoltageSwitch</referencedby>
+        <referencedby refid="group__sdps__api_1ga7deb56821f069d713aa76a10b83c4baa" compoundref="xsdps__host_8c" startline="1032" endline="1062">XSdPs_SetupWriteDma</referencedby>
+        <referencedby refid="group__sdps__api_1gab75b25b7d98ac1e72aa60cda683ffcda" compoundref="xsdps__host_8c" startline="1462" endline="1484">XSdPs_SetVoltage18</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gacd492dfefb8a2fe67964993032250bd4" compoundref="xsdps__host_8c" startline="1211" endline="1243">XSdPs_CalcClock</referencedby>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" compoundref="xsdps__card_8c" startline="960" endline="981">XSdPs_Identify_UhsMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::CardDetect</definition>
+        <argsstring></argsstring>
+        <name>CardDetect</name>
+        <briefdescription>
+<para>Card Detect. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga9c1007ef091d85466eb133a80b9f3213" compoundref="xsdps__card_8c" startline="402" endline="431">XSdPs_CheckCardDetect</referencedby>
+        <referencedby refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" compoundref="xsdps_8c" startline="496" endline="557">XSdPs_Erase</referencedby>
+        <referencedby refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::WriteProtect</definition>
+        <argsstring></argsstring>
+        <name>WriteProtect</name>
+        <briefdescription>
+<para>Write Protect. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::BusWidth</definition>
+        <argsstring></argsstring>
+        <name>BusWidth</name>
+        <briefdescription>
+<para>Bus Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gaf11db1719933123762fecb790a2977da" compoundref="xsdps__options_8c" startline="283" endline="369">XSdPs_Change_BusWidth</referencedby>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1ga8e9a576dfdb4440a795eb6e712994050" compoundref="xsdps__card_8c" startline="293" endline="318">XSdPs_SdCardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::BankNumber</definition>
+        <argsstring></argsstring>
+        <name>BankNumber</name>
+        <briefdescription>
+<para>MIO Bank selection for SD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1ga220352b3948b59ad89e32bb71579b861" compoundref="xsdps__host_8c" startline="81" endline="90">XSdPs_SetTapDelay_SDR104</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::HasEMIO</definition>
+        <argsstring></argsstring>
+        <name>HasEMIO</name>
+        <briefdescription>
+<para>If SD is connected to EMIO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdPs_Config::SlotType</definition>
+        <argsstring></argsstring>
+        <name>SlotType</name>
+        <briefdescription>
+<para>Slot type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gae8066fed7198c31836229aeb151ab569" compoundref="xsdps__host_8c" startline="121" endline="138">XSdPs_SetTapDelay_DDR50</referencedby>
+        <referencedby refid="group__sdps__api_1ga0dbbe882b04aab3d81add6021a8698bf" compoundref="xsdps__host_8c" startline="150" endline="167">XSdPs_SetTapDelay_SDR25</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdPs_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>If SD is Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gafc7e71cb62142d0ef939336195102666" compoundref="xsdps__options_8c" startline="389" endline="439">XSdPs_Get_BusSpeed</referencedby>
+        <referencedby refid="group__sdps__api_1ga864452e1802367600d196ccc37310f7c" compoundref="xsdps__options_8c" startline="211" endline="266">XSdPs_Get_BusWidth</referencedby>
+        <referencedby refid="group__sdps__api_1ga69e8d7cd927da4273a12d0d5fb3f36ff" compoundref="xsdps__options_8c" startline="604" endline="653">XSdPs_Get_Mmc_ExtCsd</referencedby>
+        <referencedby refid="group__sdps__api_1gaa26e9b4a046701024b01b1b0cb48ed08" compoundref="xsdps__options_8c" startline="457" endline="506">XSdPs_Get_Status</referencedby>
+        <referencedby refid="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" compoundref="xsdps_8c" startline="314" endline="366">XSdPs_ReadPolled</referencedby>
+        <referencedby refid="group__sdps__api_1ga8fc46805b1c3026474ca3b26142a9133" compoundref="xsdps__host_8c" startline="1079" endline="1128">XSdPs_Setup32ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1144" endline="1198">XSdPs_Setup64ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1220" endline="1279">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
+        <referencedby refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</referencedby>
+        <referencedby refid="group__sdps__api_1ga7deb56821f069d713aa76a10b83c4baa" compoundref="xsdps__host_8c" startline="1032" endline="1062">XSdPs_SetupWriteDma</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::RefClk</definition>
+        <argsstring></argsstring>
+        <name>RefClk</name>
+        <briefdescription>
+<para>Input clocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" compoundref="xsdps_8c" startline="243" endline="295">XSdPs_CardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" compoundref="xsdps_8c" startline="496" endline="557">XSdPs_Erase</referencedby>
+        <referencedby refid="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" compoundref="xsdps_8c" startline="442" endline="479">XSdPs_Idle</referencedby>
+        <referencedby refid="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" compoundref="xsdps_8c" startline="314" endline="366">XSdPs_ReadPolled</referencedby>
+        <referencedby refid="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" compoundref="xsdps_8c" startline="572" endline="599">XSdPs_Sanitize</referencedby>
+        <referencedby refid="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" compoundref="xsdps_8c" startline="385" endline="427">XSdPs_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::ITapDly_SDR_Clk50</definition>
+        <argsstring></argsstring>
+        <name>ITapDly_SDR_Clk50</name>
+        <briefdescription>
+<para>Input Tap delay for HSD/SDR25 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1ga0dbbe882b04aab3d81add6021a8698bf" compoundref="xsdps__host_8c" startline="150" endline="167">XSdPs_SetTapDelay_SDR25</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::OTapDly_SDR_Clk50</definition>
+        <argsstring></argsstring>
+        <name>OTapDly_SDR_Clk50</name>
+        <briefdescription>
+<para>Output Tap delay for HSD/SDR25 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1ga0dbbe882b04aab3d81add6021a8698bf" compoundref="xsdps__host_8c" startline="150" endline="167">XSdPs_SetTapDelay_SDR25</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::ITapDly_DDR_Clk50</definition>
+        <argsstring></argsstring>
+        <name>ITapDly_DDR_Clk50</name>
+        <briefdescription>
+<para>Input Tap delay for DDR50 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gae8066fed7198c31836229aeb151ab569" compoundref="xsdps__host_8c" startline="121" endline="138">XSdPs_SetTapDelay_DDR50</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::OTapDly_DDR_Clk50</definition>
+        <argsstring></argsstring>
+        <name>OTapDly_DDR_Clk50</name>
+        <briefdescription>
+<para>Output Tap delay for DDR50 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gae8066fed7198c31836229aeb151ab569" compoundref="xsdps__host_8c" startline="121" endline="138">XSdPs_SetTapDelay_DDR50</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::OTapDly_SDR_Clk100</definition>
+        <argsstring></argsstring>
+        <name>OTapDly_SDR_Clk100</name>
+        <briefdescription>
+<para>Input Tap delay for SDR50 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gafc5e8e46a354e7a21b046435382bba12" compoundref="xsdps__host_8c" startline="102" endline="109">XSdPs_SetTapDelay_SDR50</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::OTapDly_SDR_Clk200</definition>
+        <argsstring></argsstring>
+        <name>OTapDly_SDR_Clk200</name>
+        <briefdescription>
+<para>Input Tap delay for SDR104/HS200 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1ga220352b3948b59ad89e32bb71579b861" compoundref="xsdps__host_8c" startline="81" endline="90">XSdPs_SetTapDelay_SDR104</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdPs_Config::OTapDly_DDR_Clk200</definition>
+        <argsstring></argsstring>
+        <name>OTapDly_DDR_Clk200</name>
+        <briefdescription>
+<para>Input Tap delay for HS400 modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" compoundref="xsdps_8c" startline="144" endline="222">XSdPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="190" bodyend="215"/>
+    <listofallmembers>
+      <member refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>BankNumber</name></member>
+      <member refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>BusWidth</name></member>
+      <member refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>CardDetect</name></member>
+      <member refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>HasEMIO</name></member>
+      <member refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>ITapDly_DDR_Clk50</name></member>
+      <member refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>ITapDly_SDR_Clk50</name></member>
+      <member refid="struct_x_sd_ps___config_1a4f676512430e5cd1e0485b2d37a79c23" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>OTapDly_DDR_Clk200</name></member>
+      <member refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>OTapDly_DDR_Clk50</name></member>
+      <member refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>OTapDly_SDR_Clk100</name></member>
+      <member refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>OTapDly_SDR_Clk200</name></member>
+      <member refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>OTapDly_SDR_Clk50</name></member>
+      <member refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>RefClk</name></member>
+      <member refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>SlotType</name></member>
+      <member refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" prot="public" virt="non-virtual"><scope>XSdPs_Config</scope><name>WriteProtect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

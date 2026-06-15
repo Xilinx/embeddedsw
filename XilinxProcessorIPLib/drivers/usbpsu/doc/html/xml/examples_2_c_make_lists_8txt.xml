@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="examples_2_c_make_lists_8txt" kind="file">
+    <compoundname>examples/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.14.7)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">include(${CMAKE_CURRENT_SOURCE_DIR}/UsbpsuExample.cmake)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">project(usbpsu)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">enable_language(C<sp/>ASM)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xilstandalone)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xil)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xiltimer)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>gcc)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>c)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collector_list<sp/>(_deps<sp/>PROJECT_LIB_DEPS)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">SET(DRIVER_INSTANCES<sp/>&quot;${NUM_DRIVER_INSTANCES}</highlight><highlight class="stringliteral">&quot;<sp/>CACHE<sp/>STRING<sp/>&quot;</highlight><highlight class="normal">Driver<sp/>Instances</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">SET_PROPERTY(CACHE<sp/>DRIVER_INSTANCES<sp/>PROPERTY<sp/>STRINGS<sp/>&quot;</highlight><highlight class="normal">${NUM_DRIVER_INSTANCES}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral">set(index<sp/>0)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral">LIST_INDEX(${index}<sp/>${DRIVER_INSTANCES}<sp/>&quot;</highlight><highlight class="normal">${NUM_DRIVER_INSTANCES}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral">list(GET<sp/>TOTAL_EXAMPLE_LIST<sp/>${index}<sp/>ex_list)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">list(GET<sp/>REG_LIST<sp/>${index}<sp/>reg)</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral">SET(XUSBPSU_BASEADDRESS<sp/>&quot;</highlight><highlight class="normal">${reg}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral">SET(xusbpsu_poll_example<sp/>xusb_poll_example.c;xusb_ch9.c;xusb_wrapper.c;xusb_class_storage.c;xusb_ch9_storage.c;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral">list(APPEND<sp/>EXAMPLE_LIST<sp/>xusbpsu_poll_example)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral">SET(xusbpsu_intr_example<sp/>xusb_intr_example.c;xusb_ch9.c;xusb_wrapper.c;xusb_class_storage.c;xusb_ch9_storage.c;)</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral">list(APPEND<sp/>EXAMPLE_LIST<sp/>xusbpsu_intr_example)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral">SET(xusbpsu_dfu_example<sp/>xusb_dfu_example.c;xusb_ch9.c;xusb_wrapper.c;xusb_class_dfu.c;xusb_ch9_dfu.c;)</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral">list(APPEND<sp/>EXAMPLE_LIST<sp/>xusbpsu_dfu_example)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral">SET(xusbpsu_audio_dfu_example<sp/>xusb_audio_dfu_example.c;xusb_ch9.c;xusb_wrapper.c;xusb_ch9_audio_dfu.c;xusb_class_audio_dfu.c;)</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral">list(APPEND<sp/>EXAMPLE_LIST<sp/>xusbpsu_audio_dfu_example)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral">SET(xusbpsu_composite_example<sp/>xusb_composite_example.c;xusb_ch9.c;xusb_wrapper.c;xusb_ch9_composite.c;xusb_class_composite.c;)</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral">list(APPEND<sp/>EXAMPLE_LIST<sp/>xusbpsu_composite_example)</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral">set(CMAKE_INFILE_PATH<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral">linker_gen(${CMAKE_INFILE_PATH})</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral">gen_exheader(${CMAKE_INFILE_PATH}<sp/>${CMAKE_PROJECT_NAME}<sp/>${XUSBPSU_BASEADDRESS}<sp/>x)</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral">foreach(EXAMPLE<sp/>${EXAMPLE_LIST})</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>message(&quot;</highlight><highlight class="normal">example<sp/></highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>message(&quot;</highlight><highlight class="normal">${${EXAMPLE}}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_executable(${EXAMPLE}.elf<sp/>${${EXAMPLE}})</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral">endforeach()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

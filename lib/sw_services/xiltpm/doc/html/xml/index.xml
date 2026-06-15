@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_tpm___pcr_event__t" kind="struct"><name>XTpm_PcrEvent_t</name>
+    <member refid="struct_x_tpm___pcr_event__t_1a42e8981372ecee1c8b1846b7db25bdbe" kind="variable"><name>PcrNo</name></member>
+    <member refid="struct_x_tpm___pcr_event__t_1ade52400aa4ffdd95787a382d670ae136" kind="variable"><name>Hash</name></member>
+    <member refid="struct_x_tpm___pcr_event__t_1a46776002a13465378e95b95769a5d73e" kind="variable"><name>PcrValue</name></member>
+  </compound>
+  <compound refid="struct_x_tpm___pcr_log__t" kind="struct"><name>XTpm_PcrLog_t</name>
+    <member refid="struct_x_tpm___pcr_log__t_1a9085317c1eb6db1dd5c7024b19fcf529" kind="variable"><name>Buffer</name></member>
+    <member refid="struct_x_tpm___pcr_log__t_1a1c38687e5b081684e87c0afb2100b04b" kind="variable"><name>LogInfo</name></member>
+    <member refid="struct_x_tpm___pcr_log__t_1a0ec3218fbd4b6c23150ad8511fda52a2" kind="variable"><name>HeadIndex</name></member>
+    <member refid="struct_x_tpm___pcr_log__t_1a323dc4b886f401e039f7b50783b3312d" kind="variable"><name>TailIndex</name></member>
+  </compound>
+  <compound refid="struct_x_tpm___pcr_log_info__t" kind="struct"><name>XTpm_PcrLogInfo_t</name>
+    <member refid="struct_x_tpm___pcr_log_info__t_1a022aafe2c30016e990ce5bb7a6c8d851" kind="variable"><name>RemainingPcrEvents</name></member>
+    <member refid="struct_x_tpm___pcr_log_info__t_1a5a0de48591458d070ce5f6b1c897559a" kind="variable"><name>TotalPcrLogEvents</name></member>
+    <member refid="struct_x_tpm___pcr_log_info__t_1adcc428a51e933174237232aababa82d9" kind="variable"><name>OverflowCntSinceLastRd</name></member>
+    <member refid="struct_x_tpm___pcr_log_info__t_1a887bf2b13c46927d5363140164668e78" kind="variable"><name>PcrEventsRead</name></member>
+  </compound>
+  <compound refid="client_2_c_make_lists_8txt" kind="file"><name>client/CMakeLists.txt</name>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+    <member refid="_c_make_lists_8txt_1a984505feebec79e0e00b4deb9500c986" kind="function"><name>if</name></member>
+  </compound>
+  <compound refid="common_2_c_make_lists_8txt" kind="file"><name>common/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2_c_make_lists_8txt" kind="file"><name>server/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+    <member refid="readme_8txt_1a941f5dba36d259e7bdc6c2296bbd2b05" kind="variable"><name>platforms</name></member>
+  </compound>
+  <compound refid="xiltpm__example_8c" kind="file"><name>xiltpm_example.c</name>
+    <member refid="group__xiltpm__example__apis_1ga2c7901a4aebb26d61080e6e7f6af3928" kind="define"><name>PCR_INDEX</name></member>
+    <member refid="group__xiltpm__example__apis_1gaafcb9039cee36c17c8a10df096fe385d" kind="define"><name>XTPM_READ_NUM_OF_LOG_ENTRIES</name></member>
+    <member refid="group__xiltpm__example__apis_1ga6206bc9e6f81785b96ba78ff31411c48" kind="variable"><name>PcrValue</name></member>
+    <member refid="group__xiltpm__example__apis_1ga4504f59ccc5ef4a5e25142fe6490dec2" kind="variable"><name>PcrEvents</name></member>
+    <member refid="group__xiltpm__example__apis_1ga56049d7be874d92aa6475a4a2bdb3aca" kind="variable"><name>PcrLogInfo</name></member>
+    <member refid="group__xiltpm__example__apis_1ga422c293028f38a678715417471286aac" kind="variable"><name>Data</name></member>
+    <member refid="group__xiltpm__example__apis_1ga6d79f68c3bd186b5003e84c949d6c178" kind="variable"><name>SharedMem</name></member>
+    <member refid="group__xiltpm__example__apis_1ga92ff457a85762c9eade4960806231f0f" kind="function"><name>TPMExample</name></member>
+    <member refid="group__xiltpm__example__apis_1ga44944692632426b188226427319bf023" kind="function"><name>XTpm_PrintData</name></member>
+    <member refid="group__xiltpm__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtpm_8c" kind="file"><name>xtpm.c</name>
+  </compound>
+  <compound refid="xtpm_8h" kind="file"><name>xtpm.h</name>
+  </compound>
+  <compound refid="xtpm__client_8c" kind="file"><name>xtpm_client.c</name>
+    <member refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" kind="function"><name>XTpm_Init</name></member>
+    <member refid="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" kind="function"><name>XTpm_Startup</name></member>
+    <member refid="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" kind="function"><name>XTpm_SelfTest</name></member>
+    <member refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" kind="function"><name>XTpm_PcrEvent</name></member>
+    <member refid="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" kind="function"><name>XTpm_PcrRead</name></member>
+    <member refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" kind="function"><name>XTpm_GetPcrLog</name></member>
+  </compound>
+  <compound refid="xtpm__client_8h" kind="file"><name>xtpm_client.h</name>
+    <member refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" kind="function"><name>XTpm_Init</name></member>
+    <member refid="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" kind="function"><name>XTpm_Startup</name></member>
+    <member refid="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" kind="function"><name>XTpm_SelfTest</name></member>
+    <member refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" kind="function"><name>XTpm_PcrEvent</name></member>
+    <member refid="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" kind="function"><name>XTpm_PcrRead</name></member>
+    <member refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" kind="function"><name>XTpm_GetPcrLog</name></member>
+  </compound>
+  <compound refid="xtpm__cmd_8c" kind="file"><name>xtpm_cmd.c</name>
+  </compound>
+  <compound refid="xtpm__cmd_8h" kind="file"><name>xtpm_cmd.h</name>
+  </compound>
+  <compound refid="xtpm__defs_8h" kind="file"><name>xtpm_defs.h</name>
+    <member refid="xtpm__defs_8h_1aa9b3afee61fd780ccf1d4a99e5a8eb58" kind="define"><name>XTPM_DEBUG</name></member>
+    <member refid="xtpm__defs_8h_1a63fcac8a8d4753fbe1c56020f703e765" kind="define"><name>XTPM_HASH_TYPE_SHA1</name></member>
+    <member refid="xtpm__defs_8h_1aea27be371856284e4da2b06cde7a389b" kind="define"><name>XTPM_HASH_TYPE_SHA256</name></member>
+    <member refid="xtpm__defs_8h_1a9eb63fc0cd517948939470d7c2b0fc04" kind="define"><name>XTPM_DEBUG_GENERAL</name></member>
+    <member refid="xtpm__defs_8h_1a11eee716f72df92f69b27b72125b1144" kind="define"><name>XTpm_Printf</name></member>
+    <member refid="xtpm__defs_8h_1a73b31b5473fb95093ebefb7e3c117e74" kind="define"><name>XTPM_SHA3_HASH_LEN_IN_BYTES</name></member>
+    <member refid="xtpm__defs_8h_1a78f71c4f50ca3304d9ebe863a936872c" kind="define"><name>XTPM_MAX_NUM_OF_PCR_EVENTS</name></member>
+    <member refid="xtpm__defs_8h_1adee201ca7ab296a329e4f99a16abb52d" kind="define"><name>PCR_VALUE_MAX_LEN</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55b" kind="enum"><name>@0</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3558236cfc6af34c4bc6b843653cca74" kind="enumvalue"><name>XTPM_API_ID_FEATURES</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" kind="enumvalue"><name>XTPM_API_ID_INIT</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" kind="enumvalue"><name>XTPM_API_ID_STARTUP</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" kind="enumvalue"><name>XTPM_API_ID_SELFTEST</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" kind="enumvalue"><name>XTPM_API_ID_PCR_EVENT</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" kind="enumvalue"><name>XTPM_API_ID_PCR_READ</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" kind="enumvalue"><name>XTPM_API_ID_GET_PCR_LOG</name></member>
+    <member refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bae4e2e0c5b7c44b6ddddd0248be45d0ad" kind="enumvalue"><name>XTPM_API_MAX</name></member>
+  </compound>
+  <compound refid="xtpm__error_8h" kind="file"><name>xtpm_error.h</name>
+  </compound>
+  <compound refid="xtpm__hw_8h" kind="file"><name>xtpm_hw.h</name>
+  </compound>
+  <compound refid="xtpm__mailbox_8c" kind="file"><name>xtpm_mailbox.c</name>
+    <member refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" kind="function"><name>XTpm_ProcessMailbox</name></member>
+    <member refid="group__xtpm__mailbox__apis_1ga0d1f03472387c6f3c9f44f5027509c25" kind="function"><name>XTpm_ClientInit</name></member>
+  </compound>
+  <compound refid="xtpm__mailbox_8h" kind="file"><name>xtpm_mailbox.h</name>
+    <member refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" kind="function"><name>XTpm_ProcessMailbox</name></member>
+    <member refid="group__xtpm__mailbox__apis_1ga0d1f03472387c6f3c9f44f5027509c25" kind="function"><name>XTpm_ClientInit</name></member>
+  </compound>
+  <compound refid="xtpm__util_8c" kind="file"><name>xtpm_util.c</name>
+  </compound>
+  <compound refid="group__xiltpm__example__apis" kind="group"><name>xiltpm_example_apis</name>
+    <member refid="group__xiltpm__example__apis_1ga6206bc9e6f81785b96ba78ff31411c48" kind="variable"><name>PcrValue</name></member>
+    <member refid="group__xiltpm__example__apis_1ga4504f59ccc5ef4a5e25142fe6490dec2" kind="variable"><name>PcrEvents</name></member>
+    <member refid="group__xiltpm__example__apis_1ga56049d7be874d92aa6475a4a2bdb3aca" kind="variable"><name>PcrLogInfo</name></member>
+    <member refid="group__xiltpm__example__apis_1ga422c293028f38a678715417471286aac" kind="variable"><name>Data</name></member>
+    <member refid="group__xiltpm__example__apis_1ga6d79f68c3bd186b5003e84c949d6c178" kind="variable"><name>SharedMem</name></member>
+    <member refid="group__xiltpm__example__apis_1ga92ff457a85762c9eade4960806231f0f" kind="function"><name>TPMExample</name></member>
+    <member refid="group__xiltpm__example__apis_1ga44944692632426b188226427319bf023" kind="function"><name>XTpm_PrintData</name></member>
+    <member refid="group__xiltpm__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xiltpm__example__apis_1ga2c7901a4aebb26d61080e6e7f6af3928" kind="define"><name>PCR_INDEX</name></member>
+    <member refid="group__xiltpm__example__apis_1gaafcb9039cee36c17c8a10df096fe385d" kind="define"><name>XTPM_READ_NUM_OF_LOG_ENTRIES</name></member>
+  </compound>
+  <compound refid="group__xtpm__apis" kind="group"><name>xtpm_apis</name>
+  </compound>
+  <compound refid="group__xtpm__client__apis" kind="group"><name>xtpm_client_apis</name>
+    <member refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" kind="function"><name>XTpm_Init</name></member>
+    <member refid="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" kind="function"><name>XTpm_Startup</name></member>
+    <member refid="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" kind="function"><name>XTpm_SelfTest</name></member>
+    <member refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" kind="function"><name>XTpm_PcrEvent</name></member>
+    <member refid="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" kind="function"><name>XTpm_PcrRead</name></member>
+    <member refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" kind="function"><name>XTpm_GetPcrLog</name></member>
+  </compound>
+  <compound refid="group__xiltpm__error__codes" kind="group"><name>xiltpm_error_codes</name>
+  </compound>
+  <compound refid="group__xtpm__mailbox__apis" kind="group"><name>xtpm_mailbox_apis</name>
+    <member refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" kind="function"><name>XTpm_ProcessMailbox</name></member>
+    <member refid="group__xtpm__mailbox__apis_1ga0d1f03472387c6f3c9f44f5027509c25" kind="function"><name>XTpm_ClientInit</name></member>
+  </compound>
+  <compound refid="dir_382cc6c14758058198258c2bf07e0a92" kind="dir"><name>client</name>
+  </compound>
+  <compound refid="dir_7c74017a9bad95b3e941d10594b5d1fa" kind="dir"><name>common</name>
+  </compound>
+  <compound refid="dir_de13ec639b8f39d782bee3f462fe3d42" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_741c294606d8628fca0320bbb6bc8daf" kind="dir"><name>server</name>
+  </compound>
+  <compound refid="dir_1c25db9497ab9997f61ececf3cc63991" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_a719c45bdc640507d0be05bb27d871bd" kind="dir"><name>xiltpm</name>
+  </compound>
+</doxygenindex>

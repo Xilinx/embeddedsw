@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__plat__aes__client_8c" kind="file">
+    <compoundname>xsecure_plat_aes_client.c</compoundname>
+    <includes refid="xsecure__plat__aes__client_8h" local="yes">xsecure_plat_aes_client.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <incdepgraph>
+      <node id="2463">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2455">
+        <label>xsecure_plat_aes_client.c</label>
+        <link refid="xsecure_plat_aes_client.c"/>
+        <childnode refid="2456" relation="include">
+        </childnode>
+        <childnode refid="2461" relation="include">
+        </childnode>
+      </node>
+      <node id="2456">
+        <label>xsecure_plat_aes_client.h</label>
+        <link refid="xsecure__plat__aes__client_8h"/>
+        <childnode refid="2457" relation="include">
+        </childnode>
+        <childnode refid="2460" relation="include">
+        </childnode>
+        <childnode refid="2461" relation="include">
+        </childnode>
+      </node>
+      <node id="2464">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2458">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2461">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2462" relation="include">
+        </childnode>
+        <childnode refid="2460" relation="include">
+        </childnode>
+        <childnode refid="2463" relation="include">
+        </childnode>
+        <childnode refid="2464" relation="include">
+        </childnode>
+        <childnode refid="2465" relation="include">
+        </childnode>
+      </node>
+      <node id="2465">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2460">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2459">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2462">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2457">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="2458" relation="include">
+        </childnode>
+        <childnode refid="2459" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesPerformOperationAndZeroizeKey</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u64 KeyAddr, const XSecure_AesDataBlockParams *AesDataParams)</argsstring>
+        <name>XSecure_AesPerformOperationAndZeroizeKey</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref> *</type>
+          <declname>AesDataParams</declname>
+        </param>
+        <briefdescription>
+<para>This function calls IPI request to perform below operation: </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            - Write key into the key source provided by the user
+            - Encrypt/decrypt a single block of data using the provided key
+            - Zeroize the key once the AES operation is done
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_ClientInstance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the key to be used for AES operation </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesDataParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref> structure variable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey API and returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/key_zeroize/xsecure_plat_aes_client.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/key_zeroize/xsecure_plat_aes_client.c" bodystart="62" bodyend="120"/>
+        <references refid="struct_x_secure___aes_data_block_params_1a9ef0690b92cb373e4edba5f737c4e8ec" compoundref="xsecure__defs_8h" startline="212">XSecure_AesDataBlockParams::AadAddr</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a89359753467bd723766dd276a129fb8a" compoundref="xsecure__defs_8h" startline="218">XSecure_AesDataBlockParams::AadSize</references>
+        <references refid="struct_x_secure___aes_data_block_params_1abba392dfef2cf097328fa01ebdcf4a0b" compoundref="xsecure__defs_8h" startline="211">XSecure_AesDataBlockParams::GcmTagAddr</references>
+        <references refid="struct_x_secure___aes_data_block_params_1ab305c36cde6d062cb2d9ec684eb884f3" compoundref="xsecure__defs_8h" startline="209">XSecure_AesDataBlockParams::InDataAddr</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a70006cade009be77a4bfd46988dffd07" compoundref="xsecure__defs_8h" startline="219">XSecure_AesDataBlockParams::IsGmacEnable</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a5de1a144f2ca49b828bfd35dfca31098" compoundref="xsecure__defs_8h" startline="220">XSecure_AesDataBlockParams::IsUpdateAadEn</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a32a405aa0b3b7347ea011c06e82112bb" compoundref="xsecure__defs_8h" startline="208">XSecure_AesDataBlockParams::IvAddr</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a5cb25284ffcb35d77f835feba3c80cca" compoundref="xsecure__defs_8h" startline="215">XSecure_AesDataBlockParams::KeySize</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a9feccfc797d95c76df391388198737a7" compoundref="xsecure__defs_8h" startline="214">XSecure_AesDataBlockParams::KeySrc</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a01bac95e3068af0ce8456da0be15ee99" compoundref="xsecure__defs_8h" startline="213">XSecure_AesDataBlockParams::OperationId</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a0a399c993534db75688840d98da985ff" compoundref="xsecure__defs_8h" startline="210">XSecure_AesDataBlockParams::OutDataAddr</references>
+        <references refid="struct_x_secure___aes_data_block_params_1a15ca86870bbcfea76408b68684b8fb39" compoundref="xsecure__defs_8h" startline="216">XSecure_AesDataBlockParams::Size</references>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="159">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of AES client interface APIs for Versal Net. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- -------------------------------------------------------
+5.3   har  02/05/24 Initial release</preformatted></para><para><preformatted></preformatted> <simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__plat__aes__client_8h" kindref="compound">xsecure_plat_aes_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" kindref="member">XSecure_AesPerformOperationAndZeroizeKey</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>KeyAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref><sp/>*AesDataParams)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref><sp/>*AesParams<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Buffer;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MemSize;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemSize<sp/>=<sp/>XMailbox_GetSharedMem(InstancePtr-&gt;MailboxPtr,<sp/>(u64**)(UINTPTR)&amp;AesParams);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AesParams<sp/>==<sp/>NULL)<sp/>||<sp/>(MemSize<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;IvAddr<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a32a405aa0b3b7347ea011c06e82112bb" kindref="member">IvAddr</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;OperationId<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a01bac95e3068af0ce8456da0be15ee99" kindref="member">OperationId</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;KeySrc<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a9feccfc797d95c76df391388198737a7" kindref="member">KeySrc</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;KeySize<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a5cb25284ffcb35d77f835feba3c80cca" kindref="member">KeySize</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;AadAddr<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a9ef0690b92cb373e4edba5f737c4e8ec" kindref="member">AadAddr</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;AadSize<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a89359753467bd723766dd276a129fb8a" kindref="member">AadSize</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;IsUpdateAadEn<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a5de1a144f2ca49b828bfd35dfca31098" kindref="member">IsUpdateAadEn</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;IsLast<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a70006cade009be77a4bfd46988dffd07" kindref="member">IsGmacEnable</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;IsGmacEnable<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;InDataAddr<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1ab305c36cde6d062cb2d9ec684eb884f3" kindref="member">InDataAddr</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;Size<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a15ca86870bbcfea76408b68684b8fb39" kindref="member">Size</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;OutDataAddr<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1a0a399c993534db75688840d98da985ff" kindref="member">OutDataAddr</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;IsGmacEnable<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesParams-&gt;GcmTagAddr<sp/>=<sp/>AesDataParams-&gt;<ref refid="struct_x_secure___aes_data_block_params_1abba392dfef2cf097328fa01ebdcf4a0b" kindref="member">GcmTagAddr</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buffer<sp/>=<sp/>(u64)(UINTPTR)AesParams;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" kindref="member">XSecure_DCacheFlushRange</ref>(AesParams,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref>));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD4(Payload,<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" kindref="member">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</ref>,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buffer,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Buffer<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeyAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" kindref="member">XSecure_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/key_zeroize/xsecure_plat_aes_client.c"/>
+  </compounddef>
+</doxygen>

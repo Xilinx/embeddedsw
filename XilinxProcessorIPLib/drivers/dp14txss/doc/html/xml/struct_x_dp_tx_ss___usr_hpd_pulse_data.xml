@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___usr_hpd_pulse_data" kind="struct" prot="public">
+    <compoundname>XDpTxSs_UsrHpdPulseData</compoundname>
+    <includes local="no">xdptxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1af18ddd2658d2d05dd77c83ddc3805bcf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::Edid[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>Edid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a34eb17cbe4a6508cdddc96ec4b83fe7a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::AuxValues[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>AuxValues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae69e5cb263d8b6e2a76599df2cb851bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::Lane0Sts</definition>
+        <argsstring></argsstring>
+        <name>Lane0Sts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae792ba929a75eaada16b8bada509a698" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::Lane2Sts</definition>
+        <argsstring></argsstring>
+        <name>Lane2Sts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a42665a996dbca4b49c7a1c16bce9a8e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::LaneAlignStatus</definition>
+        <argsstring></argsstring>
+        <name>LaneAlignStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a434d1ceeedd9334aae15a3f846a7bffe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::BwSet</definition>
+        <argsstring></argsstring>
+        <name>BwSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae31b3029bdc1cf14c790c9d8490fa376" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdPulseData::LaneSet</definition>
+        <argsstring></argsstring>
+        <name>LaneSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>HPD Pulse User Data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="351" bodyend="359"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a34eb17cbe4a6508cdddc96ec4b83fe7a" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>AuxValues</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a434d1ceeedd9334aae15a3f846a7bffe" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>BwSet</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1af18ddd2658d2d05dd77c83ddc3805bcf" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>Edid</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae69e5cb263d8b6e2a76599df2cb851bd" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>Lane0Sts</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae792ba929a75eaada16b8bada509a698" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>Lane2Sts</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1a42665a996dbca4b49c7a1c16bce9a8e1" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>LaneAlignStatus</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_pulse_data_1ae31b3029bdc1cf14c790c9d8490fa376" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdPulseData</scope><name>LaneSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

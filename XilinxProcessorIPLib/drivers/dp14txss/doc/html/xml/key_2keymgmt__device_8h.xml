@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="key_2keymgmt__device_8h" kind="file">
+    <compoundname>key/keymgmt_device.h</compoundname>
+    <includes refid="key_2keymgmt_8h" local="yes">keymgmt.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="key_2keymgmt_8c" local="yes">keymgmt.c</includedby>
+    <includedby refid="key_2keymgmt__device_8c" local="yes">keymgmt_device.c</includedby>
+    <includedby refid="key_2keymgmt__loader_8c" local="yes">keymgmt_loader.c</includedby>
+    <incdepgraph>
+      <node id="577">
+        <label>keymgmt.h</label>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+      </node>
+      <node id="578">
+        <label>stdint.h</label>
+      </node>
+      <node id="576">
+        <label>keymgmt_device.h</label>
+        <link refid="key/keymgmt_device.h"/>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+      </node>
+      <node id="580">
+        <label>xstatus.h</label>
+      </node>
+      <node id="579">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="582">
+        <label>keymgmt.c</label>
+      </node>
+      <node id="584">
+        <label>keymgmt_loader.c</label>
+      </node>
+      <node id="583">
+        <label>keymgmt_device.c</label>
+      </node>
+      <node id="581">
+        <label>keymgmt_device.h</label>
+        <link refid="key/keymgmt_device.h"/>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a65aabf9435fe3aada84d8ce374a6d3ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>KEYMGMTDEV_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the module. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="601" bodyend="654"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a80fa05aa6033e4fc60e446f33d882204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Probe</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID, KEYMGMT_tTableID *theNumTables, KEYMGMT_tRowID *theNumRowsPerTable)</argsstring>
+        <name>KEYMGMTDEV_Probe</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <param>
+          <type>KEYMGMT_tTableID *</type>
+          <declname>theNumTables</declname>
+        </param>
+        <param>
+          <type>KEYMGMT_tRowID *</type>
+          <declname>theNumRowsPerTable</declname>
+        </param>
+        <briefdescription>
+<para>This function probes a device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device to probe</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="672" bodyend="705"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1ac7fa97f9119a3901902f5dd7382b9826" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Enable</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID)</argsstring>
+        <name>KEYMGMTDEV_Enable</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <briefdescription>
+<para>This function enables a device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device to enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="723" bodyend="761"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a9e0387a4ffce75b729697fa1b5653654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Disable</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID)</argsstring>
+        <name>KEYMGMTDEV_Disable</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <briefdescription>
+<para>This function disables a device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="779" bodyend="814"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a88d77f8b0a8b84908151feebc26b669e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Load</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID, KEYMGMT_tTableID theTableID, const uint64_t *theBuf, int theBufSize)</argsstring>
+        <name>KEYMGMTDEV_Load</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <param>
+          <type>KEYMGMT_tTableID</type>
+          <declname>theTableID</declname>
+        </param>
+        <param>
+          <type>const uint64_t *</type>
+          <declname>theBuf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>theBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function loads a buffer of data into a table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device being loaded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theTableD</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the table to be loaded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer of data to be loaded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the size of the buffer (in bytes)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="835" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a4db9f90659780d5f1091f8165e586014" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTDEV_Verify</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID, KEYMGMT_tTableID theTableID, const uint64_t *theBuf, int theBufSize)</argsstring>
+        <name>KEYMGMTDEV_Verify</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <param>
+          <type>KEYMGMT_tTableID</type>
+          <declname>theTableID</declname>
+        </param>
+        <param>
+          <type>const uint64_t *</type>
+          <declname>theBuf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>theBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the contents of a table against a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device being queried </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theTableD</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the table to be verified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer of data to be verified against </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>theBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the size of the buffer (in bytes)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="942" bodyend="1041"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1a2a068f14b6fd7bf9f2ff5c8be041e93c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t KEYMGMTDEV_GetVersion</definition>
+        <argsstring>(KEYMGMT_tDevID theDevID)</argsstring>
+        <name>KEYMGMTDEV_GetVersion</name>
+        <param>
+          <type>KEYMGMT_tDevID</type>
+          <declname>theDevID</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the version of the device core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theDevID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the id of the device to query</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The version of the device core</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="1059" bodyend="1084"/>
+      </memberdef>
+      <memberdef kind="function" id="key_2keymgmt__device_8h_1aeeb0257d3e8f3a17ee979cd07ec96add" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int KEYMGMTDEV_Debug</definition>
+        <argsstring>(int argc, const char *argv[])</argsstring>
+        <name>KEYMGMTDEV_Debug</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function implements the &quot;keymgmt device&quot; debug command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of command line arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the list of the command line arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns zero (0)</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.c" bodystart="1454" bodyend="1500"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#ifndef<sp/>KEYMGMT_DEVICE_H</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_DEVICE_H</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Include<sp/>Files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keymgmt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Constant<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">KEYMGMTDEV_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">KEYMGMTDEV_Probe(KEYMGMT_tDevID<sp/>theDevID,<sp/>KEYMGMT_tTableID*<sp/>theNumTables,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KEYMGMT_tRowID*<sp/>theNumRowsPerTable);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">KEYMGMTDEV_Enable(KEYMGMT_tDevID<sp/>theDevID);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">KEYMGMTDEV_Disable(KEYMGMT_tDevID<sp/>theDevID);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">KEYMGMTDEV_Load(KEYMGMT_tDevID<sp/>theDevID,<sp/>KEYMGMT_tTableID<sp/>theTableID,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t*<sp/>theBuf,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>theBufSize);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">KEYMGMTDEV_Verify(KEYMGMT_tDevID<sp/>theDevID,<sp/>KEYMGMT_tTableID<sp/>theTableID,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t*<sp/>theBuf,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>theBufSize);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">uint32_t</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">KEYMGMTDEV_GetVersion(KEYMGMT_tDevID<sp/>theDevID);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">KEYMGMTDEV_Debug(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[]);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>KEYMGMT_DEVICE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/key/keymgmt_device.h"/>
+  </compounddef>
+</doxygen>

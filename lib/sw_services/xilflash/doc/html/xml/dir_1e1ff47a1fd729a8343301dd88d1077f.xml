@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1e1ff47a1fd729a8343301dd88d1077f" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_a96362d5cbff438542cb1b8020092f0b">include</innerdir>
+    <innerfile refid="xilflash_8c">xilflash.c</innerfile>
+    <innerfile refid="xilflash__amd_8c">xilflash_amd.c</innerfile>
+    <innerfile refid="xilflash__cfi_8c">xilflash_cfi.c</innerfile>
+    <innerfile refid="xilflash__intel_8c">xilflash_intel.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/"/>
+  </compounddef>
+</doxygen>

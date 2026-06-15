@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_r_e_a_d_m_e_8txt" kind="file">
+    <compoundname>README.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">Example<sp/>application<sp/>design<sp/>source<sp/>files<sp/>(contained<sp/>within<sp/></highlight><highlight class="stringliteral">&quot;examples&quot;</highlight><highlight class="normal"><sp/>folder)<sp/>are<sp/>tightly<sp/>coupled<sp/>with<sp/>the<sp/>warp<sp/>example<sp/>design<sp/>available<sp/>in<sp/>Vivado<sp/>Catalog.</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">libm<sp/>library<sp/>should<sp/>be<sp/>linked<sp/>before<sp/>building<sp/>the<sp/>application<sp/>project<sp/>in<sp/>Vitis.<sp/>Go<sp/>to<sp/></highlight><highlight class="stringliteral">&quot;C/C++<sp/>Build<sp/>settings&quot;</highlight><highlight class="normal">-&gt;<sp/></highlight><highlight class="stringliteral">&quot;ARM<sp/>v8<sp/>gcc<sp/>linker&quot;</highlight><highlight class="normal">-&gt;</highlight><highlight class="stringliteral">&quot;Libraries&quot;</highlight><highlight class="normal"><sp/>and<sp/>add<sp/>-lm.</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">When<sp/>executed<sp/>on<sp/>the<sp/>board<sp/>the<sp/>example<sp/>application<sp/>will<sp/>perform<sp/>following<sp/>operations</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">1.<sp/>Program<sp/>warp_init<sp/>descriptor.</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">2.<sp/>Start<sp/>AXI<sp/>timer</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">3.<sp/>Start<sp/>warp_init<sp/>IP</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">4.<sp/>After<sp/>getting<sp/>interrupt<sp/>stop<sp/>AXI<sp/>timer<sp/>and<sp/>measure<sp/>the<sp/>time<sp/>taken<sp/>to<sp/>generate<sp/>the<sp/>Remap<sp/>Vector.</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">5.<sp/>Program<sp/>warp_filter<sp/>descriptor</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">6.<sp/>Start<sp/>AXI<sp/>timer</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">7.<sp/>Start<sp/>warp_filter<sp/>IP</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">8.<sp/>After<sp/>getting<sp/>interrupt<sp/>stop<sp/>AXI<sp/>timer<sp/>and<sp/>measure<sp/>the<sp/>time<sp/>taken<sp/>to<sp/>generate<sp/>the<sp/>warped<sp/>output.</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">9.<sp/>Calculate<sp/>CRC<sp/>and<sp/>compare<sp/>with<sp/>the<sp/>golden<sp/>output<sp/>CRC<sp/>value<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>that<sp/>configuration.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/README.txt"/>
+  </compounddef>
+</doxygen>

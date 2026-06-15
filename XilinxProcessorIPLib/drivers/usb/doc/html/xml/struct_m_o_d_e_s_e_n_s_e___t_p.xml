@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_m_o_d_e_s_e_n_s_e___t_p" kind="struct" prot="public">
+    <compoundname>MODESENSE_TP</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a62f2eb3b7d4cf9b1a0c0e81013b23e41" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::page_code</definition>
+        <argsstring></argsstring>
+        <name>page_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a197c499d71911ab318dca09b7a2bbe2a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::page_length</definition>
+        <argsstring></argsstring>
+        <name>page_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a14b8f321b5566e83957550147127edb1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::mb0_1</definition>
+        <argsstring></argsstring>
+        <name>mb0_1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a90fb76e73152fe5a84177f0ee3ceb917" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::iatm</definition>
+        <argsstring></argsstring>
+        <name>iatm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a19df1066be586734edf1f731cec031ab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::mb0_2[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>mb0_2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___t_p_1a571841c0f0019bd61061acc7d0b8cbec" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_TP::mb1c</definition>
+        <argsstring></argsstring>
+        <name>mb1c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="305" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a90fb76e73152fe5a84177f0ee3ceb917" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>iatm</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a14b8f321b5566e83957550147127edb1" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>mb0_1</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a19df1066be586734edf1f731cec031ab" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>mb0_2</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a571841c0f0019bd61061acc7d0b8cbec" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>mb1c</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a62f2eb3b7d4cf9b1a0c0e81013b23e41" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>page_code</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___t_p_1a197c499d71911ab318dca09b7a2bbe2a" prot="public" virt="non-virtual"><scope>MODESENSE_TP</scope><name>page_length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cmd_info" kind="struct" prot="public">
+    <compoundname>CmdInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::Cmd</definition>
+        <argsstring></argsstring>
+        <name>Cmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1adc65b9863f3d3b9e8ab464751d7c3213" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 CmdInfo::SlaveAddr</definition>
+        <argsstring></argsstring>
+        <name>SlaveAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1ad0ec3bf720fbefe91d294cb5e834266d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* CmdInfo::TxBuff</definition>
+        <argsstring></argsstring>
+        <name>TxBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1a10402adf3fc8238db62c49c4193ebd56" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* CmdInfo::RxBuff</definition>
+        <argsstring></argsstring>
+        <name>RxBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1a1096091010e2b336e93f8b9f2ec07858" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::TxLen</definition>
+        <argsstring></argsstring>
+        <name>TxLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::RxLen</definition>
+        <argsstring></argsstring>
+        <name>RxLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="203" bodyend="210"/>
+    <listofallmembers>
+      <member refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>Cmd</name></member>
+      <member refid="struct_cmd_info_1a10402adf3fc8238db62c49c4193ebd56" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>RxBuff</name></member>
+      <member refid="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>RxLen</name></member>
+      <member refid="struct_cmd_info_1adc65b9863f3d3b9e8ab464751d7c3213" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>SlaveAddr</name></member>
+      <member refid="struct_cmd_info_1ad0ec3bf720fbefe91d294cb5e834266d" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>TxBuff</name></member>
+      <member refid="struct_cmd_info_1a1096091010e2b336e93f8b9f2ec07858" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>TxLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

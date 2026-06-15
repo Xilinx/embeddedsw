@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4664866499d9c697051dc3c436e82d38" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_8895c37d9d22dc8a3fea6d18d7569041">common</innerdir>
+    <innerdir refid="dir_17ef07080c185fe9d16843f703023370">spartanup</innerdir>
+    <innerdir refid="dir_eded8866cae0d299d956873dd6d45373">versal_2vp_p</innerdir>
+    <innerdir refid="dir_2b951a3add9bcb5f5882f73fc806f949">versal_gen</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/"/>
+  </compounddef>
+</doxygen>

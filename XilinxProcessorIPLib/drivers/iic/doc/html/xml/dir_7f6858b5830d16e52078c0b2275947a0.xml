@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7f6858b5830d16e52078c0b2275947a0" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xiic_8c">xiic.c</innerfile>
+    <innerfile refid="xiic_8h">xiic.h</innerfile>
+    <innerfile refid="xiic__dyn__master_8c">xiic_dyn_master.c</innerfile>
+    <innerfile refid="xiic__g_8c">xiic_g.c</innerfile>
+    <innerfile refid="xiic__i_8h">xiic_i.h</innerfile>
+    <innerfile refid="xiic__intr_8c">xiic_intr.c</innerfile>
+    <innerfile refid="xiic__l_8c">xiic_l.c</innerfile>
+    <innerfile refid="xiic__l_8h">xiic_l.h</innerfile>
+    <innerfile refid="xiic__master_8c">xiic_master.c</innerfile>
+    <innerfile refid="xiic__multi__master_8c">xiic_multi_master.c</innerfile>
+    <innerfile refid="xiic__options_8c">xiic_options.c</innerfile>
+    <innerfile refid="xiic__selftest_8c">xiic_selftest.c</innerfile>
+    <innerfile refid="xiic__sinit_8c">xiic_sinit.c</innerfile>
+    <innerfile refid="xiic__slave_8c">xiic_slave.c</innerfile>
+    <innerfile refid="xiic__stats_8c">xiic_stats.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/"/>
+  </compounddef>
+</doxygen>

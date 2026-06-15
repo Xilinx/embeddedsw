@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2ve__2vm_2_rsa_8h" kind="file">
+    <compoundname>versal_2ve_2vm/Rsa.h</compoundname>
+    <includedby refid="2ve__2vm_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <invincdepgraph>
+      <node id="174">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="173">
+        <label>Rsa.h</label>
+        <link refid="versal_2ve_2vm/Rsa.h"/>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_rsa_key_pair" prot="public">RsaKeyPair</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Third-Party RSA quiet mode API declarations</header>
+      <memberdef kind="function" id="versal__2ve__2vm_2_rsa_8h_1a4b1def91705932f7bf7c3a05c88f2788" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
+        <definition>externC int RSA_ExpQ</definition>
+        <argsstring>(unsigned char *base, unsigned char *exp, unsigned char *mod, unsigned char *p, unsigned char *q, unsigned char *pub, unsigned char *tot, int len, unsigned char *res)</argsstring>
+        <name>RSA_ExpQ</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>exp</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>mod</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>pub</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+<para>&lt; Prototype declarations for third-party APIs for RSA &quot;quiet&quot; operations </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__2ve__2vm_2_rsa_8h_1aa719a614b5aea1712401e8f9a31aefb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
+        <definition>externC int RSA_ExpCrtQ</definition>
+        <argsstring>(unsigned char *base, unsigned char *p, unsigned char *q, unsigned char *dp, unsigned char *dq, unsigned char *qinv, unsigned char *pub, unsigned char *mod, int len, unsigned char *res)</argsstring>
+        <name>RSA_ExpCrtQ</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>dp</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>dq</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>qinv</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>pub</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>mod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__2ve__2vm_2_rsa_8h_1a382f928fec4fc085a5d438422773277a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
+        <definition>externC int RSA_ExpoptQ</definition>
+        <argsstring>(unsigned char *base, unsigned char *exp, unsigned char *mod, unsigned char *r, unsigned char *rr, unsigned char *p, unsigned char *q, unsigned char *pub, unsigned char *tot, int len, unsigned char *res)</argsstring>
+        <name>RSA_ExpoptQ</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>exp</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>mod</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>rr</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>pub</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__2ve__2vm_2_rsa_8h_1a855f9154c0c75e694354e9601bc91c6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
+        <definition>externC int rsaprvkeyinit_Q</definition>
+        <argsstring>(unsigned int bits, unsigned char *e, RsaKeyPair *state)</argsstring>
+        <name>rsaprvkeyinit_Q</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>bits</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref> *</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__2ve__2vm_2_rsa_8h_1a798d30c836eddf559bdc4df1353a9335" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
+        <definition>externC int rsaprvkeystep_Q</definition>
+        <argsstring>(unsigned int quant, RsaKeyPair *state)</argsstring>
+        <name>rsaprvkeystep_Q</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>quant</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref> *</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="69" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="versal__2ve__2vm_2_rsa_8h_1aa653fc0677efc4a466e7f5360dbc2abe" prot="public" static="no">
+        <name>externC</name>
+        <initializer>extern</initializer>
+        <briefdescription>
+<para>&lt; RSA compact code for RSA5X, &quot;quiet&quot; version API definitions </para>        </briefdescription>
+        <detaileddescription>
+<para>&lt; For compilation in C++ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" line="18" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>IP<sp/>Cores,<sp/>Inc.<sp/> All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor">#ifndef<sp/>RSA_H</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_H</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern<sp/>&quot;C&quot;</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22" refid="struct_rsa_key_pair" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23" refid="struct_rsa_key_pair_1af15bd921c84879a167573d0c2114dfd7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1af15bd921c84879a167573d0c2114dfd7" kindref="member">E</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24" refid="struct_rsa_key_pair_1aebfda713cf6445589fda2083834e89c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1aebfda713cf6445589fda2083834e89c5" kindref="member">M</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25" refid="struct_rsa_key_pair_1ab7ed70d7394f923b7b7c2eec80761859" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1ab7ed70d7394f923b7b7c2eec80761859" kindref="member">D</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="26" refid="struct_rsa_key_pair_1a5821c94b8865dbe24c04be53d6c9ade2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1a5821c94b8865dbe24c04be53d6c9ade2" kindref="member">P</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27" refid="struct_rsa_key_pair_1a9043dabf7ab1af8061d289484ceb7426" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1a9043dabf7ab1af8061d289484ceb7426" kindref="member">Q</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28" refid="struct_rsa_key_pair_1a3be56408e75d5c80bcd884332da3e198" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1a3be56408e75d5c80bcd884332da3e198" kindref="member">DP</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29" refid="struct_rsa_key_pair_1ac3607c67e7763491339f15d63ef85596" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1ac3607c67e7763491339f15d63ef85596" kindref="member">DQ</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30" refid="struct_rsa_key_pair_1afa504fd7626bc348510239a15d85bda9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="struct_rsa_key_pair_1afa504fd7626bc348510239a15d85bda9" kindref="member">iQ</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31" refid="struct_rsa_key_pair_1ab1f2a21c084f72acafcad67a94de458f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="struct_rsa_key_pair_1ab1f2a21c084f72acafcad67a94de458f" kindref="member">stage</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32" refid="struct_rsa_key_pair_1aef20a68de4a585be3316be2cf4eb5ff4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="struct_rsa_key_pair_1aef20a68de4a585be3316be2cf4eb5ff4" kindref="member">s</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33" refid="struct_rsa_key_pair_1a1f3a1fad1c03878910c9340c7ae46f7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="struct_rsa_key_pair_1a1f3a1fad1c03878910c9340c7ae46f7d" kindref="member">bits2</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_rsa_key_pair_1af925ffac21caa0af4ec31a5607e204fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="struct_rsa_key_pair_1af925ffac21caa0af4ec31a5607e204fb" kindref="member">iter</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}<sp/><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RSA_ExpQ(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>base,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>exp,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>mod,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>p,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>q,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>pub,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>tot,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>res);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RSA_ExpCrtQ(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>base,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>p,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>q,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>dp,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>dq,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>qinv,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>pub,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>mod,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>res);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RSA_ExpoptQ(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>base,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>exp,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>mod,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>r,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>p,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>q,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>pub,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*tot,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>res);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns:<sp/>0<sp/>if<sp/>parameters<sp/>validated<sp/>successfully,<sp/>error<sp/>otherwise</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Input:<sp/><sp/><sp/><sp/><sp/><sp/><sp/>bits<sp/><sp/>number<sp/>of<sp/>bits<sp/>in<sp/>the<sp/>RSA<sp/>key<sp/>(2048,<sp/>3072,<sp/>etc.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e<sp/><sp/><sp/><sp/><sp/>pointer<sp/>to<sp/>a<sp/>public<sp/>exponent<sp/>(65537<sp/>will<sp/>be<sp/>used<sp/>if<sp/>NULL)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Output:<sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>pointer<sp/>to<sp/>an<sp/>RsaKeyPair<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rsaprvkeyinit_Q(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bits,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>e,<sp/><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref>*<sp/>state);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Perform<sp/>a<sp/>step<sp/>of<sp/>the<sp/>key<sp/>generation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Returns:<sp/>0<sp/>if<sp/>completed<sp/>successfully,<sp/>1<sp/>if<sp/>unfinished,<sp/>error<sp/>otherwise</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Input:<sp/><sp/><sp/><sp/><sp/><sp/><sp/>quant<sp/>incremental<sp/>effort<sp/>(in<sp/>half-size<sp/>RSA<sp/>exponentiations)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>I/O:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>pointer<sp/>to<sp/>an<sp/>RsaKeyPair<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rsaprvkeystep_Q(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>quant,<sp/><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref>*<sp/>state);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>RSA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h"/>
+  </compounddef>
+</doxygen>

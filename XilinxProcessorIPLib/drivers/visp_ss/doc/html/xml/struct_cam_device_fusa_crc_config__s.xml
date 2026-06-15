@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_fusa_crc_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceFusaCrcConfig_s</compoundname>
+    <includes local="no">cam_device_fusa_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" kindref="member">CamDeviceFusaCrcRoiConfig_t</ref></type>
+        <definition>CamDeviceFusaCrcRoiConfig_t CamDeviceFusaCrcConfig_s::crcMpRoi</definition>
+        <argsstring></argsstring>
+        <name>crcMpRoi</name>
+        <briefdescription>
+<para>CRC ROI for main path. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" kindref="member">CamDeviceFusaCrcRoiConfig_t</ref></type>
+        <definition>CamDeviceFusaCrcRoiConfig_t CamDeviceFusaCrcConfig_s::crcSp1Roi</definition>
+        <argsstring></argsstring>
+        <name>crcSp1Roi</name>
+        <briefdescription>
+<para>CRC ROI for self path 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" kindref="member">CamDeviceFusaCrcRoiConfig_t</ref></type>
+        <definition>CamDeviceFusaCrcRoiConfig_t CamDeviceFusaCrcConfig_s::crcSp2Roi</definition>
+        <argsstring></argsstring>
+        <name>crcSp2Roi</name>
+        <briefdescription>
+<para>CRC ROI for self path 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" kindref="member">CamDeviceFusaCrcLevel_t</ref></type>
+        <definition>CamDeviceFusaCrcLevel_t CamDeviceFusaCrcConfig_s::crcLevel</definition>
+        <argsstring></argsstring>
+        <name>crcLevel</name>
+        <briefdescription>
+<para>CRC level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" kindref="member">CamDeviceFusaCrcReverseMode_t</ref></type>
+        <definition>CamDeviceFusaCrcReverseMode_t CamDeviceFusaCrcConfig_s::crcInRevEnMode</definition>
+        <argsstring></argsstring>
+        <name>crcInRevEnMode</name>
+        <briefdescription>
+<para>CRC input reverse mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFusaCrcConfig_s::crcOutRevEn</definition>
+        <argsstring></argsstring>
+        <name>crcOutRevEn</name>
+        <briefdescription>
+<para>CRC output reverse enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFusaCrcConfig_s::crcXorEn</definition>
+        <argsstring></argsstring>
+        <name>crcXorEn</name>
+        <briefdescription>
+<para>CRC XOR operation enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice FuSa CRC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="371">
+        <label>CamDeviceFusaCrcRoiConfig_s</label>
+        <link refid="struct_cam_device_fusa_crc_roi_config__s"/>
+      </node>
+      <node id="370">
+        <label>CamDeviceFusaCrcConfig_s</label>
+        <link refid="struct_cam_device_fusa_crc_config__s"/>
+        <childnode refid="371" relation="usage">
+          <edgelabel>crcSp1Roi</edgelabel>
+          <edgelabel>crcMpRoi</edgelabel>
+          <edgelabel>crcSp2Roi</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="141" bodyend="151"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcInRevEnMode</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcLevel</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcMpRoi</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcOutRevEn</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcSp1Roi</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcSp2Roi</name></member>
+      <member refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcConfig_s</scope><name>crcXorEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

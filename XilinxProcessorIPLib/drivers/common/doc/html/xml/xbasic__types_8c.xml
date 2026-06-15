@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xbasic__types_8c" kind="file">
+    <compoundname>xbasic_types.c</compoundname>
+    <includes refid="xbasic__types_8h" local="yes">xbasic_types.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>xbasic_types.c</label>
+        <link refid="xbasic_types.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xbasic_types.h</label>
+        <link refid="xbasic__types_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__common_1ga34f8bacc03ca6dfb9340c96cd449bb1c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XAssertStatus</definition>
+        <argsstring></argsstring>
+        <name>XAssertStatus</name>
+        <briefdescription>
+<para>This variable allows testing to be done easier with asserts. </para>        </briefdescription>
+        <detaileddescription>
+<para>An assert sets this variable such that a driver can evaluate this variable to determine if an assert occurred. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__common_1ga70e19ad3b7f3f7facbe157e082614b83" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XWaitInAssert</definition>
+        <argsstring></argsstring>
+        <name>XWaitInAssert</name>
+        <initializer>= TRUE</initializer>
+        <briefdescription>
+<para>This variable allows the assert functionality to be changed for testing such that it does not wait infinitely. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the debugger to disable the waiting during testing of asserts. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__common_1ga15bbfbbbf84cb3f772dbbf22f7b07b75" compoundref="xbasic__types_8c" startline="74" endline="86">XAssert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__common_1ga05319ab69ef3d952e5168c9d576809e8" prot="public" static="yes" mutable="no">
+        <type><ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref></type>
+        <definition>XAssertCallback XAssertCallbackRoutine</definition>
+        <argsstring></argsstring>
+        <name>XAssertCallbackRoutine</name>
+        <initializer>= (<ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref>) NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__common_1ga15bbfbbbf84cb3f772dbbf22f7b07b75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAssert</definition>
+        <argsstring>(char *File, int Line)</argsstring>
+        <name>XAssert</name>
+        <param>
+          <type>char *</type>
+          <declname>File</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Line</declname>
+        </param>
+        <briefdescription>
+<para>Implements assert. </para>        </briefdescription>
+        <detaileddescription>
+<para>Currently, it calls a user-defined callback function if one has been set. Then, it potentially enters an infinite loop depending on the value of the XWaitInAssert variable.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>File</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the name of the filename of the source </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the linenumber within File</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="74" bodyend="86"/>
+        <references refid="group__common_1ga70e19ad3b7f3f7facbe157e082614b83" compoundref="xbasic__types_8c" startline="52">XWaitInAssert</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1ga6843e75f679abd8d57f070219aa86fa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAssertSetCallback</definition>
+        <argsstring>(XAssertCallback Routine)</argsstring>
+        <name>XAssertSetCallback</name>
+        <param>
+          <type><ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref></type>
+          <declname>Routine</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a callback function to be invoked when an assert occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para>If there was already a callback installed, then it is replaced.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Routine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback to be invoked when an assert is taken</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function has no effect if NDEBUG is set </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="101" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1gaaecaabeb8ae29619054af3e4a0d6f508" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNullHandler</definition>
+        <argsstring>(void *NullParameter)</argsstring>
+        <name>XNullHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>NullParameter</declname>
+        </param>
+        <briefdescription>
+<para>Null handler function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This follows the XInterruptHandler signature for interrupt handlers. It can be used to assign a null handler (a stub) to an interrupt controller vector table.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NullParameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an arbitrary void pointer and not used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c" bodystart="121" bodyend="124"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbasic__types_8h" kindref="compound">xbasic_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="group__common_1ga34f8bacc03ca6dfb9340c96cd449bb1c" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga34f8bacc03ca6dfb9340c96cd449bb1c" kindref="member">XAssertStatus</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__common_1ga70e19ad3b7f3f7facbe157e082614b83" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga70e19ad3b7f3f7facbe157e082614b83" kindref="member">XWaitInAssert</ref><sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>callback<sp/>function<sp/>to<sp/>be<sp/>invoked<sp/>when<sp/>an<sp/>assert<sp/>is<sp/>taken<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref><sp/>XAssertCallbackRoutine<sp/>=<sp/>(<ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref>)<sp/>NULL;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__common_1ga15bbfbbbf84cb3f772dbbf22f7b07b75" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga15bbfbbbf84cb3f772dbbf22f7b07b75" kindref="member">XAssert</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*File,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Line)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>if<sp/>the<sp/>callback<sp/>has<sp/>been<sp/>set<sp/>then<sp/>invoke<sp/>it<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAssertCallbackRoutine<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*XAssertCallbackRoutine)<sp/>(File,<sp/>Line);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>if<sp/>specified,<sp/>wait<sp/>indefinitely<sp/>such<sp/>that<sp/>the<sp/>assert<sp/>will<sp/>show<sp/>up</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>testing</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__common_1ga70e19ad3b7f3f7facbe157e082614b83" kindref="member">XWaitInAssert</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="group__common_1ga6843e75f679abd8d57f070219aa86fa1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga6843e75f679abd8d57f070219aa86fa1" kindref="member">XAssertSetCallback</ref>(<ref refid="group__common_1ga5b1b7db368107ff6ebddb3a463dd786b" kindref="member">XAssertCallback</ref><sp/>Routine)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAssertCallbackRoutine<sp/>=<sp/>Routine;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="121" refid="group__common_1gaaecaabeb8ae29619054af3e4a0d6f508" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1gaaecaabeb8ae29619054af3e4a0d6f508" kindref="member">XNullHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*NullParameter)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/>(void)<sp/>NullParameter;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.c"/>
+  </compounddef>
+</doxygen>

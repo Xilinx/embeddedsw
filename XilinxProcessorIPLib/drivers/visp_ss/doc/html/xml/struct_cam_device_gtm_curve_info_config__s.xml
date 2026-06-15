@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_curve_info_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmCurveInfoConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a650c74c75eed8afb676f5d4b8cfed43b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1gad81edcb4b2d4733897fb0907910da77e" kindref="member">CamDeviceGtmCurveMode_t</ref></type>
+        <definition>CamDeviceGtmCurveMode_t CamDeviceGtmCurveInfoConfig_s::gtmCurveMode</definition>
+        <argsstring></argsstring>
+        <name>gtmCurveMode</name>
+        <briefdescription>
+<para>Curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a758c7d24b26a78164ea1276746b6f2b4" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceGtmCurveInfoConfig_s::userCurveEn</definition>
+        <argsstring></argsstring>
+        <name>userCurveEn</name>
+        <briefdescription>
+<para>Whether to enable user curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a0adcb72b23673eba30d1fe402118d427" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmCurveInfoConfig_s::histContrastLimitLevel</definition>
+        <argsstring></argsstring>
+        <name>histContrastLimitLevel</name>
+        <briefdescription>
+<para>Histogram contrast limit level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a427694703e3d8f4458483f5e6475439e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmCurveInfoConfig_s::histLumaThrLog[CAMDEV_GTM_HIST_LUMA_SIZE]</definition>
+        <argsstring>[CAMDEV_GTM_HIST_LUMA_SIZE]</argsstring>
+        <name>histLumaThrLog</name>
+        <briefdescription>
+<para>The log of histogram luma threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a5f3a068814b3c342f89d1a90a59553c1" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceGtmCurveInfoConfig_s::histLumaWeight[CAMDEV_GTM_HIST_LUMA_SIZE]</definition>
+        <argsstring>[CAMDEV_GTM_HIST_LUMA_SIZE]</argsstring>
+        <name>histLumaWeight</name>
+        <briefdescription>
+<para>Weights of different luminance intervals in histogram curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a6d8a3ec2c624b4f8c7add8e7207f3012" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histHlcFactor</definition>
+        <argsstring></argsstring>
+        <name>histHlcFactor</name>
+        <briefdescription>
+<para>Highlight compensation factor in histogram curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a04d578acc1d95b71a7ce4915d4a30ea2" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histLumaPresWeight</definition>
+        <argsstring></argsstring>
+        <name>histLumaPresWeight</name>
+        <briefdescription>
+<para>Luminance preservation weight in histogram curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1ad35f0fdb8a6923442bc8d6e23cfc2d4f" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histCompressWeight</definition>
+        <argsstring></argsstring>
+        <name>histCompressWeight</name>
+        <briefdescription>
+<para>Compress preservation weight in histogram curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a0a1ded726e5499e20f6116b7f54bb92b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histMaxGain</definition>
+        <argsstring></argsstring>
+        <name>histMaxGain</name>
+        <briefdescription>
+<para>Maximum histogram gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a88199ea92851d184588e51829b7fbb7e" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histMinGain</definition>
+        <argsstring></argsstring>
+        <name>histMinGain</name>
+        <briefdescription>
+<para>Minimum histogram gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1a8b166c8c4c8b32eceb79ff292c7a6ed3" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histStrength</definition>
+        <argsstring></argsstring>
+        <name>histStrength</name>
+        <briefdescription>
+<para>Histogram strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_info_config__s_1ae1ad696e22a84e7ba365edce7ca8f02b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveInfoConfig_s::histDampCoef</definition>
+        <argsstring></argsstring>
+        <name>histDampCoef</name>
+        <briefdescription>
+<para>Histogram damp coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM curve histogram information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="165" bodyend="180"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a650c74c75eed8afb676f5d4b8cfed43b" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>gtmCurveMode</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1ad35f0fdb8a6923442bc8d6e23cfc2d4f" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histCompressWeight</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a0adcb72b23673eba30d1fe402118d427" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histContrastLimitLevel</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1ae1ad696e22a84e7ba365edce7ca8f02b" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histDampCoef</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a6d8a3ec2c624b4f8c7add8e7207f3012" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histHlcFactor</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a04d578acc1d95b71a7ce4915d4a30ea2" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histLumaPresWeight</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a427694703e3d8f4458483f5e6475439e" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histLumaThrLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a5f3a068814b3c342f89d1a90a59553c1" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histLumaWeight</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a0a1ded726e5499e20f6116b7f54bb92b" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histMaxGain</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a88199ea92851d184588e51829b7fbb7e" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histMinGain</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a8b166c8c4c8b32eceb79ff292c7a6ed3" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>histStrength</name></member>
+      <member refid="struct_cam_device_gtm_curve_info_config__s_1a758c7d24b26a78164ea1276746b6f2b4" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveInfoConfig_s</scope><name>userCurveEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

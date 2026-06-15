@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_can_ps" kind="struct" prot="public">
+    <compoundname>XCanPs</compoundname>
+    <includes local="no">xcanps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_can_ps___config" kindref="compound">XCanPs_Config</ref></type>
+        <definition>XCanPs_Config XCanPs::CanConfig</definition>
+        <argsstring></argsstring>
+        <name>CanConfig</name>
+        <briefdescription>
+<para>Device configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga52a76621e921b66e70e1bed7a58b72f7" compoundref="xcanps_8c" startline="708" endline="717">XCanPs_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+        <referencedby refid="group__canps_1gae452283471584ad19f0c854a782640ab" compoundref="xcanps_8c" startline="946" endline="955">XCanPs_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6d87194a88956cbe32f48ea3d25697ef" compoundref="xcanps_8c" startline="333" endline="341">XCanPs_GetStatus</referencedby>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+        <referencedby refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCanPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga52a76621e921b66e70e1bed7a58b72f7" compoundref="xcanps_8c" startline="708" endline="717">XCanPs_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+        <referencedby refid="group__canps_1gae452283471584ad19f0c854a782640ab" compoundref="xcanps_8c" startline="946" endline="955">XCanPs_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</referencedby>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6d87194a88956cbe32f48ea3d25697ef" compoundref="xcanps_8c" startline="333" endline="341">XCanPs_GetStatus</referencedby>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+        <referencedby refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__canps_1ga8a0277ac1de7be22b9de36ef55da1c8d" kindref="member">XCanPs_SendRecvHandler</ref></type>
+        <definition>XCanPs_SendRecvHandler XCanPs::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+<para>Callback and callback reference for TXOK interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCanPs::SendRef</definition>
+        <argsstring></argsstring>
+        <name>SendRef</name>
+        <briefdescription>
+<para>Reference Pointer for Send. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" prot="public" static="no" mutable="no">
+        <type><ref refid="group__canps_1ga8a0277ac1de7be22b9de36ef55da1c8d" kindref="member">XCanPs_SendRecvHandler</ref></type>
+        <definition>XCanPs_SendRecvHandler XCanPs::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>Callback and callback reference for RXOK/RXNEMP/RXFLL interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCanPs::RecvRef</definition>
+        <argsstring></argsstring>
+        <name>RecvRef</name>
+        <briefdescription>
+<para>Reference Pointer for Receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" prot="public" static="no" mutable="no">
+        <type><ref refid="group__canps_1ga72002ff7916781152d893abbe71d83a8" kindref="member">XCanPs_ErrorHandler</ref></type>
+        <definition>XCanPs_ErrorHandler XCanPs::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>Callback and callback reference for ERROR interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCanPs::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>Reference Pointer for Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__canps_1gad81f0a8035bff610185b30bec4e012ea" kindref="member">XCanPs_EventHandler</ref></type>
+        <definition>XCanPs_EventHandler XCanPs::EventHandler</definition>
+        <argsstring></argsstring>
+        <name>EventHandler</name>
+        <briefdescription>
+<para>Callback and callback reference for RXOFLW/RXUFLW/TXBFLL/TXFLL/ Wakeup/Sleep/Bus off/ARBLST interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCanPs::EventRef</definition>
+        <argsstring></argsstring>
+        <name>EventRef</name>
+        <briefdescription>
+<para>Reference Pointer for Event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" compoundref="xcanps__intr_8c" startline="351" endline="392">XCanPs_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps_1acbf278206e65aafd2df7b5dd223b9b49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCanPs::IsBusy</definition>
+        <argsstring></argsstring>
+        <name>IsBusy</name>
+        <briefdescription>
+<para>A transfer is in progress (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every CAN device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XCanPs_Config</label>
+        <link refid="struct_x_can_ps___config"/>
+      </node>
+      <node id="1">
+        <label>XCanPs</label>
+        <link refid="struct_x_can_ps"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>CanConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="290" bodyend="320"/>
+    <listofallmembers>
+      <member refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>CanConfig</name></member>
+      <member refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>EventHandler</name></member>
+      <member refid="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>EventRef</name></member>
+      <member refid="struct_x_can_ps_1acbf278206e65aafd2df7b5dd223b9b49" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>IsBusy</name></member>
+      <member refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>IsReady</name></member>
+      <member refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>RecvRef</name></member>
+      <member refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>SendHandler</name></member>
+      <member refid="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" prot="public" virt="non-virtual"><scope>XCanPs</scope><name>SendRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

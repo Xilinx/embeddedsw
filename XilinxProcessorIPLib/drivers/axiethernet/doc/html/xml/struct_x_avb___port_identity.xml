@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___port_identity" kind="struct" prot="public">
+    <compoundname>XAvb_PortIdentity</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___port_identity_1aa1435c872067f98c7998a4b98b792112" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PortIdentity::ClockIdentityUpper</definition>
+        <argsstring></argsstring>
+        <name>ClockIdentityUpper</name>
+        <briefdescription>
+<para>Upper 4 bytes of ClockIdentity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a8231a4001187aaff164037da857cb333" compoundref="xavb__ptp__packets_8c" startline="101" endline="126">XAvb_ComparePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2f2030902e6748712f30a59a62dff010" compoundref="xavb__ptp__packets_8c" startline="147" endline="166">XAvb_GetPortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___port_identity_1ad7e78ca34d8fcbecf410f8d748177e0e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PortIdentity::ClockIdentityLower</definition>
+        <argsstring></argsstring>
+        <name>ClockIdentityLower</name>
+        <briefdescription>
+<para>Lower 4 bytes of ClockIdentity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a8231a4001187aaff164037da857cb333" compoundref="xavb__ptp__packets_8c" startline="101" endline="126">XAvb_ComparePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2f2030902e6748712f30a59a62dff010" compoundref="xavb__ptp__packets_8c" startline="147" endline="166">XAvb_GetPortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___port_identity_1adbb184a9b5875775835442cf06a25800" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_PortIdentity::PortNumber</definition>
+        <argsstring></argsstring>
+        <name>PortNumber</name>
+        <briefdescription>
+<para>PortNumber associated with ClockIdentity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a8231a4001187aaff164037da857cb333" compoundref="xavb__ptp__packets_8c" startline="101" endline="126">XAvb_ComparePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2f2030902e6748712f30a59a62dff010" compoundref="xavb__ptp__packets_8c" startline="147" endline="166">XAvb_GetPortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the format for a data structure which stores the Port Identity information from received Announce packets. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="283" bodyend="288"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___port_identity_1ad7e78ca34d8fcbecf410f8d748177e0e" prot="public" virt="non-virtual"><scope>XAvb_PortIdentity</scope><name>ClockIdentityLower</name></member>
+      <member refid="struct_x_avb___port_identity_1aa1435c872067f98c7998a4b98b792112" prot="public" virt="non-virtual"><scope>XAvb_PortIdentity</scope><name>ClockIdentityUpper</name></member>
+      <member refid="struct_x_avb___port_identity_1adbb184a9b5875775835442cf06a25800" prot="public" virt="non-virtual"><scope>XAvb_PortIdentity</scope><name>PortNumber</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_prc" kind="struct" prot="public">
+    <compoundname>XPrc</compoundname>
+    <includes local="no">xprc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_prc_1a27ae60cc32838ce302440d7a62ad9e46" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPrc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" compoundref="xprc_8c" startline="75" endline="142">XPrc_CfgInitialize</referencedby>
+        <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gaa1e1c547c5d110ec0e5fb28721398547" compoundref="xprc_8c" startline="739" endline="755">XPrc_GetBsId</referencedby>
+        <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
+        <referencedby refid="group__prc_1ga4328f5b970ea41269486688d36c71330" compoundref="xprc_8c" startline="469" endline="487">XPrc_GetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga1d9eb3af06c1eb952ac109f395feed75" compoundref="xprc_8c" startline="507" endline="524">XPrc_GetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1ga715f096ec7bc1c5eaac8395444fcd03f" compoundref="xprc_8c" startline="348" endline="360">XPrc_GetTriggerToRmMapping</referencedby>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+        <referencedby refid="group__prc_1ga1352d5c7fa50ff03c099da95d1f6d368" compoundref="xprc_8c" startline="917" endline="929">XPrc_ReadStatusReg</referencedby>
+        <referencedby refid="group__prc_1gaf15c985cf911548b53252824dc933313" compoundref="xprc__selftest_8c" startline="60" endline="76">XPrc_SelfTest</referencedby>
+        <referencedby refid="group__prc_1gab034fcd298e89f9ba4c45d4a0dc01258" compoundref="xprc_8c" startline="237" endline="245">XPrc_SendProceedCommand</referencedby>
+        <referencedby refid="group__prc_1gabf496a0a03c16a90c4579f5eb9346289" compoundref="xprc_8c" startline="182" endline="190">XPrc_SendRestartWithNoStatusCommand</referencedby>
+        <referencedby refid="group__prc_1gaf1aadeb2cbc8b0ea416b86f6a722112d" compoundref="xprc_8c" startline="210" endline="221">XPrc_SendRestartWithStatusCommand</referencedby>
+        <referencedby refid="group__prc_1ga8ae7427d46695146ebd8bb1cae333ad7" compoundref="xprc_8c" startline="158" endline="166">XPrc_SendShutdownCommand</referencedby>
+        <referencedby refid="group__prc_1ga6d547d05931dc7104a1c99ac832a84fb" compoundref="xprc_8c" startline="1234" endline="1250">XPrc_SendSwTrigger</referencedby>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+        <referencedby refid="group__prc_1ga66ef8c25b6a68047e74a6d30d215ebf9" compoundref="xprc_8c" startline="846" endline="864">XPrc_SetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gab956d1c5dcfea3a937b2d13cdbe7ea40" compoundref="xprc_8c" startline="702" endline="719">XPrc_SetBsId</referencedby>
+        <referencedby refid="group__prc_1ga77ae77f041ca0822956e93f2c4841384" compoundref="xprc_8c" startline="773" endline="790">XPrc_SetBsSize</referencedby>
+        <referencedby refid="group__prc_1gafa73a0de6152ced50f55b50533135d0d" compoundref="xprc_8c" startline="384" endline="401">XPrc_SetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+        <referencedby refid="group__prc_1gabc3b273ffd5f67fbdfc7f57d7929b45b" compoundref="xprc_8c" startline="312" endline="330">XPrc_SetTriggerToRmMapping</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc_1a004702b744e3189596b5ac40f0b439ad" prot="public" static="no" mutable="no">
+        <type>XPrc_Config</type>
+        <definition>XPrc_Config XPrc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Pointer to instance config entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" compoundref="xprc_8c" startline="75" endline="142">XPrc_CfgInitialize</referencedby>
+        <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
+        <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1ga6d547d05931dc7104a1c99ac832a84fb" compoundref="xprc_8c" startline="1234" endline="1250">XPrc_SendSwTrigger</referencedby>
+        <referencedby refid="group__prc_1ga66ef8c25b6a68047e74a6d30d215ebf9" compoundref="xprc_8c" startline="846" endline="864">XPrc_SetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gab956d1c5dcfea3a937b2d13cdbe7ea40" compoundref="xprc_8c" startline="702" endline="719">XPrc_SetBsId</referencedby>
+        <referencedby refid="group__prc_1ga77ae77f041ca0822956e93f2c4841384" compoundref="xprc_8c" startline="773" endline="790">XPrc_SetBsSize</referencedby>
+        <referencedby refid="group__prc_1gafa73a0de6152ced50f55b50533135d0d" compoundref="xprc_8c" startline="384" endline="401">XPrc_SetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+        <referencedby refid="group__prc_1gabc3b273ffd5f67fbdfc7f57d7929b45b" compoundref="xprc_8c" startline="312" endline="330">XPrc_SetTriggerToRmMapping</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_prc" kindref="compound">XPrc</ref> instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific instance. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="317" bodyend="320"/>
+    <listofallmembers>
+      <member refid="struct_x_prc_1a004702b744e3189596b5ac40f0b439ad" prot="public" virt="non-virtual"><scope>XPrc</scope><name>Config</name></member>
+      <member refid="struct_x_prc_1a27ae60cc32838ce302440d7a62ad9e46" prot="public" virt="non-virtual"><scope>XPrc</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

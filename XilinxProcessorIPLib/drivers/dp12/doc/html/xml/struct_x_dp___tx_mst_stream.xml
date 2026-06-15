@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_mst_stream" kind="struct" prot="public">
+    <compoundname>XDp_TxMstStream</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_mst_stream_1a41b4e8a10b524590cf9e2d44e571d062" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxMstStream::LinkCountTotal</definition>
+        <argsstring></argsstring>
+        <name>LinkCountTotal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_mst_stream_1a4efca5ad738d497ff5b65e87e116e965" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxMstStream::RelativeAddress[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>RelativeAddress</name>
+        <briefdescription>
+<para>The total number of DisplayPort links from the DisplayPort TX to the sink device that this MST stream is targeting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_mst_stream_1a005d091cc3cb8da19fceeb5369b488d9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDp_TxMstStream::MstPbn</definition>
+        <argsstring></argsstring>
+        <name>MstPbn</name>
+        <briefdescription>
+<para>The relative address from the DisplayPort TX to the sink device that this MST stream is targeting. </para>        </briefdescription>
+        <detaileddescription>
+<para>Payload bandwidth number used to allocate bandwidth for the MST stream. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="608" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_mst_stream_1a0341306cca03a2083a02e72c57ed597d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxMstStream::MstStreamEnable</definition>
+        <argsstring></argsstring>
+        <name>MstStreamEnable</name>
+        <briefdescription>
+<para>In MST mode, enables the corresponding stream for this MSA configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a stream when the driver is running in multi-stream transport (MST) mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="599" bodyend="614"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_mst_stream_1a41b4e8a10b524590cf9e2d44e571d062" prot="public" virt="non-virtual"><scope>XDp_TxMstStream</scope><name>LinkCountTotal</name></member>
+      <member refid="struct_x_dp___tx_mst_stream_1a005d091cc3cb8da19fceeb5369b488d9" prot="public" virt="non-virtual"><scope>XDp_TxMstStream</scope><name>MstPbn</name></member>
+      <member refid="struct_x_dp___tx_mst_stream_1a0341306cca03a2083a02e72c57ed597d" prot="public" virt="non-virtual"><scope>XDp_TxMstStream</scope><name>MstStreamEnable</name></member>
+      <member refid="struct_x_dp___tx_mst_stream_1a4efca5ad738d497ff5b65e87e116e965" prot="public" virt="non-virtual"><scope>XDp_TxMstStream</scope><name>RelativeAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

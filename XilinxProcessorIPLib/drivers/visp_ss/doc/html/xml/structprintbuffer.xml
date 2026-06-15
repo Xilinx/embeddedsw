@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structprintbuffer" kind="struct" prot="public">
+    <compoundname>printbuffer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structprintbuffer_1a754f63618e91db99f7ab6cfc4e629013" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* printbuffer::buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1a1a679f8b6fe9b413fb3a87203b0f5bc8" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t printbuffer::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1a3ed6f9d24d6591047680492a962dc7c9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t printbuffer::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1aa7311b5da38ff8d1737824c611b48732" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t printbuffer::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1aa2a7966b71dc3535e4e3789c33ec5368" prot="public" static="no" mutable="no">
+        <type>cJSON_bool</type>
+        <definition>cJSON_bool printbuffer::noalloc</definition>
+        <argsstring></argsstring>
+        <name>noalloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1a75d3f480f5308e7f4afecf30e11277ef" prot="public" static="no" mutable="no">
+        <type>cJSON_bool</type>
+        <definition>cJSON_bool printbuffer::format</definition>
+        <argsstring></argsstring>
+        <name>format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprintbuffer_1a43a8b3bcc644432f12f5aed5159d2520" prot="public" static="no" mutable="no">
+        <type>internal_hooks</type>
+        <definition>internal_hooks printbuffer::hooks</definition>
+        <argsstring></argsstring>
+        <name>hooks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="402" bodyend="410"/>
+    <listofallmembers>
+      <member refid="structprintbuffer_1a754f63618e91db99f7ab6cfc4e629013" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>buffer</name></member>
+      <member refid="structprintbuffer_1aa7311b5da38ff8d1737824c611b48732" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>depth</name></member>
+      <member refid="structprintbuffer_1a75d3f480f5308e7f4afecf30e11277ef" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>format</name></member>
+      <member refid="structprintbuffer_1a43a8b3bcc644432f12f5aed5159d2520" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>hooks</name></member>
+      <member refid="structprintbuffer_1a1a679f8b6fe9b413fb3a87203b0f5bc8" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>length</name></member>
+      <member refid="structprintbuffer_1aa2a7966b71dc3535e4e3789c33ec5368" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>noalloc</name></member>
+      <member refid="structprintbuffer_1a3ed6f9d24d6591047680492a962dc7c9" prot="public" virt="non-virtual"><scope>printbuffer</scope><name>offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

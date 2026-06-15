@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__serdes_8h" kind="file">
+    <compoundname>xdppsu_serdes.h</compoundname>
+    <includes refid="xdppsu__hw_8h" local="yes">xdppsu_hw.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xdppsu_8h" local="yes">xdppsu.h</includes>
+    <includedby refid="xdppsu_8c" local="yes">xdppsu.c</includedby>
+    <includedby refid="xdppsu__serdes_8c" local="yes">xdppsu_serdes.c</includedby>
+    <incdepgraph>
+      <node id="159">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xil_io.h</label>
+      </node>
+      <node id="155">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>xdppsu_serdes.h</label>
+        <link refid="xdppsu_serdes.h"/>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+      </node>
+      <node id="158">
+        <label>xstatus.h</label>
+      </node>
+      <node id="160">
+        <label>xvidc.h</label>
+      </node>
+      <node id="157">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="162">
+        <label>xdppsu.c</label>
+        <link refid="xdppsu_8c"/>
+      </node>
+      <node id="163">
+        <label>xdppsu_serdes.c</label>
+        <link refid="xdppsu__serdes_8c"/>
+      </node>
+      <node id="161">
+        <label>xdppsu_serdes.h</label>
+        <link refid="xdppsu_serdes.h"/>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdppsu__serdes_8h_1af44bf388d373860a3509ae5cdb0f7451" prot="public" static="no">
+        <name>XDPPSU_MAXIMUM_VS_LEVEL</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__serdes_8h_1aad0d209f670c574a70683850313d9724" prot="public" static="no">
+        <name>XDPPSU_MAXIMUM_PE_LEVEL</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__serdes_8h_1a8b4f123e79adab601eb821afeab3e81d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_CfgTxVsLevel</definition>
+        <argsstring>(XDpPsu *InstancePtr, u8 Level, u8 TxLevel)</argsstring>
+        <name>XDpPsu_CfgTxVsLevel</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Level</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TxLevel</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the voltage swing level value in the DisplayPort TX that will be used during link training for a given voltage swing training level. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the voltage swing training level to set the DisplayPort TX level for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TxLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DisplayPort TX voltage swing level value to be used during link training.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There are 16 possible voltage swing levels in the DisplayPort TX core that map to 4 possible voltage swing training levels in the RX device. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.c" bodystart="132" bodyend="140"/>
+        <references refid="struct_x_dp_psu_1af8952657e039d59dd16a286378e54642" compoundref="xdppsu_8h" startline="246">XDpPsu::BoardChar</references>
+        <references refid="struct_x_dp_psu___board_char_1a9a37d526365c5707bddeaf9ba7d2248e" compoundref="xdppsu_8h" startline="201">XDpPsu_BoardChar::TxVsLevels</references>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__serdes_8h_1ae3368e5a71553a4f24719aee485e04e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_CfgTxPeLevel</definition>
+        <argsstring>(XDpPsu *InstancePtr, u8 Level, u8 TxLevel)</argsstring>
+        <name>XDpPsu_CfgTxPeLevel</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Level</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TxLevel</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the pre-emphasis level value in the DisplayPort TX that will be used during link training for a given pre-emphasis training level. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pre-emphasis training level to set the DisplayPort TX level for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TxLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DisplayPort TX pre-emphasis level value to be used during link training.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There are 32 possible pre-emphasis levels in the DisplayPort TX core that map to 4 possible pre-emphasis training levels in the RX device. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.c" bodystart="160" bodyend="168"/>
+        <references refid="struct_x_dp_psu_1af8952657e039d59dd16a286378e54642" compoundref="xdppsu_8h" startline="246">XDpPsu::BoardChar</references>
+        <references refid="struct_x_dp_psu___board_char_1a1e51617b7fe0ed4dfd911d89c3d72325" compoundref="xdppsu_8h" startline="203">XDpPsu_BoardChar::TxPeLevels</references>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__serdes_8h_1a8e083018091fb6116ba6db59cd22b083" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_SetVswingPreemp</definition>
+        <argsstring>(XDpPsu *InstancePtr, u8 *AuxData)</argsstring>
+        <name>XDpPsu_SetVswingPreemp</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>AuxData</declname>
+        </param>
+        <briefdescription>
+<para>This function sets current voltage swing and pre-emphasis level settings from the LinkConfig structure to hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AuxData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the array used for preparing a burst write over the AUX channel.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if writing the settings was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.c" bodystart="91" bodyend="112"/>
+        <references refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" compoundref="xdppsu_8h" startline="244">XDpPsu::LinkConfig</references>
+        <references refid="struct_x_dp_psu___link_config_1a6157c199c9f3129e999c48301926bce9" compoundref="xdppsu_8h" startline="118">XDpPsu_LinkConfig::PeLevel</references>
+        <references refid="struct_x_dp_psu___link_config_1a11df7b48a818526775ed8228e31da551" compoundref="xdppsu_8h" startline="116">XDpPsu_LinkConfig::VsLevel</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains all the functions used by DisplayPort to configure SERDES for link training. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  05/17/14 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XDPPSU_SERDES_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_SERDES_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu__hw_8h" kindref="compound">xdppsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu_8h" kindref="compound">xdppsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>maximum<sp/>voltage<sp/>swing<sp/>level<sp/>is<sp/>3.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_MAXIMUM_VS_LEVEL<sp/>3</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>maximum<sp/>pre-emphasis<sp/>level<sp/>is<sp/>2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_MAXIMUM_PE_LEVEL<sp/>2</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SERDES<sp/>Config<sp/>Functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu__serdes_8c_1a8b4f123e79adab601eb821afeab3e81d" kindref="member">XDpPsu_CfgTxVsLevel</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u8<sp/>Level,<sp/>u8<sp/>TxLevel);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu__serdes_8c_1ae3368e5a71553a4f24719aee485e04e7" kindref="member">XDpPsu_CfgTxPeLevel</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u8<sp/>Level,<sp/>u8<sp/>TxLevel);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu__serdes_8c_1a8e083018091fb6116ba6db59cd22b083" kindref="member">XDpPsu_SetVswingPreemp</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u8<sp/>*AuxData);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_serdes.h"/>
+  </compounddef>
+</doxygen>

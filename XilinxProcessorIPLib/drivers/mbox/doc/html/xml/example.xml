@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use mbox driver.</para><sect1 id="example_1ex1">
+<title>xmbox_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> driver directly. This example shows the usage of driver and will illustrate how the mbox driver can be used to 1.Initialize the Mailbox core, 2.Pass data between two processors.</para><para>For details, see <ref refid="xmbox__example_8c" kindref="compound">xmbox_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xmbox_intr_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> driver directly. This example assumes there are two processors availabile in the system that are expected to inter-communicate and attempts to send a known message through the mailbox from one processor to the other processor. The message is received by the receiver and the test passes.</para><para>For details, see <ref refid="xmbox__intr__example_8c" kindref="compound">xmbox_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xmbox_tapp_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> driver directly. This example attempts to send a known message through the mailbox from one processor to the other processor.The message is received by the receiver and the test passes. This example assumes there are two processors availabile in the system that are expected to inter-communicate. If Mailbox is connected to only one Processor then Data has to be sent from one port and should be received from another port.</para><para>For details, see <ref refid="xmbox__tapp__example_8c" kindref="compound">xmbox_tapp_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

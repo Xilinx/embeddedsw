@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s" kind="struct" prot="public">
+    <compoundname>PicBufMetaData_s::Data_u::jpeg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1aa3ea7afeb4cb848808d92bd85d03ebba" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufMetaData_s::Data_u::jpeg_s::pHeader</definition>
+        <argsstring></argsstring>
+        <name>pHeader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1ab89f9d7f306ca0cfe89a93869db57db2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufMetaData_s::Data_u::jpeg_s::HeaderSize</definition>
+        <argsstring></argsstring>
+        <name>HeaderSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a6b10c77c16903103a8335bee70f061c8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufMetaData_s::Data_u::jpeg_s::pData</definition>
+        <argsstring></argsstring>
+        <name>pData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a5d91a4ca0a691f22d8ad8815a1148e09" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufMetaData_s::Data_u::jpeg_s::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a754249f8ecbcde6041d28748c9c31bae" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufMetaData_s::Data_u::jpeg_s::DataSize</definition>
+        <argsstring></argsstring>
+        <name>DataSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="620" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="615" bodyend="621"/>
+    <listofallmembers>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a5d91a4ca0a691f22d8ad8815a1148e09" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::jpeg_s</scope><name>BaseAddress</name></member>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a754249f8ecbcde6041d28748c9c31bae" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::jpeg_s</scope><name>DataSize</name></member>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1ab89f9d7f306ca0cfe89a93869db57db2" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::jpeg_s</scope><name>HeaderSize</name></member>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1a6b10c77c16903103a8335bee70f061c8" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::jpeg_s</scope><name>pData</name></member>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s_1aa3ea7afeb4cb848808d92bd85d03ebba" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::jpeg_s</scope><name>pHeader</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

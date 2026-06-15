@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f70dd20d68cd8f55cdf30d28a0bb8d5f" kind="dir">
+    <compoundname>mipi_rx_phy</compoundname>
+    <innerdir refid="dir_663bf98ab3262c2b9809084428005c3c">examples</innerdir>
+    <innerdir refid="dir_2d0cc48f21a84812ce02e4727b35af53">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/"/>
+  </compounddef>
+</doxygen>

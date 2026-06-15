@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c8591633588de0cc05ee5e23427ec4b8" kind="dir">
+    <compoundname>emacps</compoundname>
+    <innerdir refid="dir_cd4428091f640ba15984c4405eefa224">examples</innerdir>
+    <innerdir refid="dir_33e010f57670fca6848923df4ac20fd4">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/"/>
+  </compounddef>
+</doxygen>

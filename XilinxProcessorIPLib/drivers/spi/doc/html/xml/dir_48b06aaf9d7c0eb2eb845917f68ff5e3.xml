@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_48b06aaf9d7c0eb2eb845917f68ff5e3" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xspi_8c">xspi.c</innerfile>
+    <innerfile refid="xspi_8h">xspi.h</innerfile>
+    <innerfile refid="xspi__g_8c">xspi_g.c</innerfile>
+    <innerfile refid="xspi__i_8h">xspi_i.h</innerfile>
+    <innerfile refid="xspi__l_8h">xspi_l.h</innerfile>
+    <innerfile refid="xspi__options_8c">xspi_options.c</innerfile>
+    <innerfile refid="xspi__selftest_8c">xspi_selftest.c</innerfile>
+    <innerfile refid="xspi__sinit_8c">xspi_sinit.c</innerfile>
+    <innerfile refid="xspi__stats_8c">xspi_stats.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/"/>
+  </compounddef>
+</doxygen>

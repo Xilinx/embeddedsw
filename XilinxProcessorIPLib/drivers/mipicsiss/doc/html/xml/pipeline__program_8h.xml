@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="pipeline__program_8h" kind="file">
+    <compoundname>pipeline_program.h</compoundname>
+    <includedby refid="xmipi__example_8c" local="yes">xmipi_example.c</includedby>
+    <includedby refid="xmipi__menu_8c" local="yes">xmipi_menu.c</includedby>
+    <invincdepgraph>
+      <node id="474">
+        <label>xmipi_menu.c</label>
+        <link refid="xmipi__menu_8c"/>
+      </node>
+      <node id="472">
+        <label>pipeline_program.h</label>
+        <link refid="pipeline_program.h"/>
+        <childnode refid="473" relation="include">
+        </childnode>
+        <childnode refid="474" relation="include">
+        </childnode>
+      </node>
+      <node id="473">
+        <label>xmipi_example.c</label>
+        <link refid="xmipi__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pipeline__program_8h_1a0e803ea72f41466ba56bd78511996d8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 SetupDSI</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetupDSI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function programs MIPI DSI SS with the required timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function programs MIPI DSI SS with the required timing parameters.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="368" bodyend="420"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a846e1e9bf2b5575fd4dcd158ca6e044b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 InitStreamMuxGpio</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitStreamMuxGpio</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes GPIO IP for Stream Switch selection and gets config parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful or else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1475" bodyend="1499"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1ac2faac01ab0a76fcf6d5904f6c8dc5b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 InitializeCFA</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitializeCFA</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a9af254929ec07e0b8e29ff28e18ec709" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 InitializeCsiRxSs</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitializeCsiRxSs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function programs MIPI CSI SS with the required timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function programs MIPI CSI SS with the required timing parameters.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful or else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="432" bodyend="456"/>
+        <references refid="struct_x_csi_ss___config_1accf7178f1f7fc0ba40fee2e61ca159bc" compoundref="xcsiss_8h" startline="214">XCsiSs_Config::BaseAddr</references>
+        <references refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</references>
+        <references refid="group__csiss_1ga83324a4361a851f2e393f6d0b2c0c539" compoundref="xcsiss__sinit_8c" startline="79" endline="92">XCsiSs_LookupConfig</references>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a0589a00b45c4e4a39cb95eeb89fe3120" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 InitializeVdma</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitializeVdma</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="35" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a27a98e798ed33a22a64a35485322bbdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetColorDepth</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetColorDepth</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets colour depth value getting from MIPI CSI2 RX SS. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1581" bodyend="1588"/>
+        <references refid="struct_x_csi_ss_1a9e11a24b49b049a215fe243afd1e9741" compoundref="xcsiss_8h" startline="253">XCsiSs::Config</references>
+        <references refid="pipeline__program_8c_1af976f4549bce7619166766cf79567e19" compoundref="pipeline__program_8c" startline="1547" endline="1570">GetColorDepth</references>
+        <references refid="struct_x_csi_ss___config_1a7c808fba33fd373f15f4c7e98bea29b9" compoundref="xcsiss_8h" startline="220">XCsiSs_Config::PixelFormat</references>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1ac7e2dc72f4d696dd2e05919f1f626af2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SelectDSIOuptut</definition>
+        <argsstring>(void)</argsstring>
+        <name>SelectDSIOuptut</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a56f64108083ce8ee138d8f0448b28fd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SelectHDMIOutput</definition>
+        <argsstring>(void)</argsstring>
+        <name>SelectHDMIOutput</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function programs GPIO to &apos;0&apos; to select HDMI Stream path in AXI-Stream switch. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function programs GPIO to &apos;0&apos; to select HDMI Stream path in AXI-Stream switch.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1445" bodyend="1447"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a1f5ca95d93d51e6aeaa5b5e53b226ac5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int InitIIC</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitIIC</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function writes, reads, and verifies the data to the IIC EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does the write as a single page write, performs a buffered read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function writes, reads, and verifies the data to the IIC EEPROM.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="690" bodyend="746"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1af24a60bdd8657b70cd5138a7db89ef6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetupIICIntrHandlers</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetupIICIntrHandlers</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets send, receive and error handlers for IIC interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="957" bodyend="971"/>
+        <references refid="function__prototype_8c_1a87955d201525bc8c99bfb6a31494fca2" compoundref="function__prototype_8c" startline="1003" endline="1006">ReceiveHandler</references>
+        <references refid="function__prototype_8c_1ab74027af1cdd114fdeadd58f297e9533" compoundref="function__prototype_8c" startline="985" endline="988">SendHandler</references>
+        <references refid="function__prototype_8c_1ae2037c1d561c098886db8a61be2da667" compoundref="function__prototype_8c" startline="1022" endline="1025">StatusHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1abb01e2a9be230281dc95655303e9e68f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MuxInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>MuxInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a6d9214fe9d62dcb11811423c5b57eae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetupIOExpander</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetupIOExpander</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a9909ac1b3c8acfa727d8b5d0bd7eda39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetupCameraSensor</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetupCameraSensor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function setup Camera sensor programming wrt resolution selected. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="434" bodyend="527"/>
+        <references refid="pipeline__program_8c_1a4e91fc11192ec41418d32f523f3ca435" compoundref="pipeline__program_8c" startline="388" endline="423">SensorReadData</references>
+        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="321" endline="372">SensorWriteData</references>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a7e1295f0953581a991d356def81e639f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitDemosaicGammaCSC</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitDemosaicGammaCSC</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a3aea2e2961d7970a2bab30ad376b312b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int StartSensor</definition>
+        <argsstring>(void)</argsstring>
+        <name>StartSensor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts camera sensor to transmit captured video. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1094" bodyend="1131"/>
+        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="321" endline="372">SensorWriteData</references>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1ac2c548cfd7d61d87e0ce0f07fb520ced" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int StopSensor</definition>
+        <argsstring>(void)</argsstring>
+        <name>StopSensor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a00c7feeeb4bbe038252d17930bb59acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitCSI2RxSS2CFA_Vdma</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitCSI2RxSS2CFA_Vdma</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a983ae30f3270811200b46ddcb9acb097" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitCSC2TPG_Vdma</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitCSC2TPG_Vdma</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a98885e1285167958ebaca3b6325dc7ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ToggleSensorPattern</definition>
+        <argsstring>(void)</argsstring>
+        <name>ToggleSensorPattern</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1ae0af0a350e50fea795e63a85a698c2c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PrintPipeConfig</definition>
+        <argsstring>(void)</argsstring>
+        <name>PrintPipeConfig</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints the video pipeline information. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1602" bodyend="1676"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1af9c3d5144d636d012b7ca70db1290ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableCSI</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableCSI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function disables MIPI CSI IP. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>This function disables MIPI CSI IP<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem><para><simplesect kind="return"><para>None.<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.<itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="530" bodyend="533"/>
+        <references refid="group__csiss_1ga0436d17627c2acd4ed542efbbb584fab" compoundref="xcsiss_8c" startline="276" endline="290">XCsiSs_Reset</references>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1acf294b1de48889033812cd1ff9603747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableCFAVdma</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableCFAVdma</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a14d7190f723e9472aa5f5e3c9d6e6029" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableCFA</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableCFA</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1abed1e40bcf40b6bb99facbb18904c51f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableTPGVdma</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableTPGVdma</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1aaabb459a43a4fde3d6805e6d53c899c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableScaler</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableScaler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stops VProc_SS scalar IP. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1458" bodyend="1461"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1ae229cb3a71466b40c2ac44019d6a1795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableDSI</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableDSI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function disables MIPI DSI SS. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>This function disables MIPI DSI SS.<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem><para><simplesect kind="return"><para>None.<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.<itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="545" bodyend="550"/>
+        <referencedby refid="function__prototype_8h_1a56361447f4b2f2b7e4c28bd94e142116" compoundref="function__prototype_8c" startline="561" endline="570">resetIp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a571466dbec30928cd622090965a7ef0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitDSI</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitDSI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function programs MIPI DSI SS with the required timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="484" bodyend="518"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a3f6ed57e5466f68d54c672459f64f82a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitVprocSs_Scaler</definition>
+        <argsstring>(int count)</argsstring>
+        <name>InitVprocSs_Scaler</name>
+        <param>
+          <type>int</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes and configures VProcSS IP for scalar mode with the given input and output width and height values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag value to initialize IP only once.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="1316" bodyend="1405"/>
+      </memberdef>
+      <memberdef kind="function" id="pipeline__program_8h_1a34f1d639e40a40f098ceee99ce0857ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EnableCSI</definition>
+        <argsstring>(void)</argsstring>
+        <name>EnableCSI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function enables MIPI CSI IP. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>This function enables MIPI CSI IP<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem><para><simplesect kind="return"><para>None.<itemizedlist>
+<listitem><para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.<itemizedlist>
+<listitem></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="468" bodyend="471"/>
+        <references refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="235" endline="258">XCsiSs_Activate</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains the definitions for structures for video pipeline and extern declarations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  pg    12/07/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>PIPELINE_PROGRAM_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PIPELINE_PROGRAM_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="function__prototype_8c_1a0e803ea72f41466ba56bd78511996d8a" kindref="member">SetupDSI</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="pipeline__program_8c_1a846e1e9bf2b5575fd4dcd158ca6e044b" kindref="member">InitStreamMuxGpio</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>InitializeCFA(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="function__prototype_8c_1a9af254929ec07e0b8e29ff28e18ec709" kindref="member">InitializeCsiRxSs</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>InitializeVdma(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1a27a98e798ed33a22a64a35485322bbdc" kindref="member">SetColorDepth</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SelectDSIOuptut(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1a56f64108083ce8ee138d8f0448b28fd9" kindref="member">SelectHDMIOutput</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="function__prototype_8c_1a8602d0639b2c2908365d62b96e5d1439" kindref="member">InitIIC</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetupIICIntrHandlers(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupIOExpander(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1a9909ac1b3c8acfa727d8b5d0bd7eda39" kindref="member">SetupCameraSensor</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitDemosaicGammaCSC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1a3aea2e2961d7970a2bab30ad376b312b" kindref="member">StartSensor</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StopSensor(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitCSI2RxSS2CFA_Vdma(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitCSC2TPG_Vdma(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ToggleSensorPattern(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1ae0af0a350e50fea795e63a85a698c2c7" kindref="member">PrintPipeConfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="function__prototype_8c_1af9c3d5144d636d012b7ca70db1290ce2" kindref="member">DisableCSI</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DisableCFAVdma(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DisableCFA(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DisableTPGVdma(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1aaabb459a43a4fde3d6805e6d53c899c6" kindref="member">DisableScaler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="function__prototype_8c_1ae229cb3a71466b40c2ac44019d6a1795" kindref="member">DisableDSI</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="function__prototype_8c_1a571466dbec30928cd622090965a7ef0f" kindref="member">InitDSI</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitVprocSs_Scaler(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="function__prototype_8c_1a34f1d639e40a40f098ceee99ce0857ac" kindref="member">EnableCSI</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PIPELINE_PROGRAM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__isi__priv" kind="group">
+    <compoundname>isi_priv</compoundname>
+    <title>Isi_priv</title>
+    <innerclass refid="struct_isi_sensor_context__s" prot="public">IsiSensorContext_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__isi__priv_1gac4cdbc369ffa10a4cd182fe3c57ea360" prot="public" static="no">
+        <type>struct IsiSensorContext_s</type>
+        <definition>typedef struct IsiSensorContext_s  IsiSensorContext_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorContext_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="53" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__isi__priv_1ga74b5b39e324c8ff39402909b17afe4ef" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_isi_sensor__s" kindref="compound">IsiSensor_t</ref> *</type>
+        <definition>IsiSensor_t* IsiSensorContext_s::pSensor</definition>
+        <argsstring></argsstring>
+        <name>pSensor</name>
+        <briefdescription>
+<para>point to the sensor device </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

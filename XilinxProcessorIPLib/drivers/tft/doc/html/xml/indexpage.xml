@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>tft</title>
+    <detaileddescription>
+<para>This header file contains the definitions and declarations for the high level driver to access the Xilinx TFT Controller Device. The device has the capability of displaying data onto a 640*480 VGA TFT screen. It can take up to 256K colors. There is no interrupt mode.</para><para>The functions XTft_Setpixel and XTft_Getpixel are provided in the driver to write to and read from the individual pixels, the color values.</para><para>These are generally stored in the assigned 2MB Video Memory which is configurable.</para><para>Video Memory stores each pixel value in 32bits. Out of this 2MB memory which can hold 1024 pixels per line and 512 lines per frame data, only 640 pixels per line and 480 lines per frame are used.</para><para>Each base color Red, Green, Blue is encoded using 6 bits which sums up to 18bits which is stored in the Dual port BRAM.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized as follows:</para><para><itemizedlist>
+<listitem><para>XTft_CfgInitialize(InstancePtr, CfgPtr, BaseAddress) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold></para><para>The TFT device supports a single interrupt which is generated for a Vsync pulse.</para><para>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver    Who   Date      Changes
+<hruler/>
+
+ 1.00a  sg    03/24/08  First release
+ 2.00a   ktn   07/06/09  Added <ref refid="group__tft_1ga3241465696077377ea4000f4caca21a7" kindref="member">XTft_IntrEnable()</ref>, <ref refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" kindref="member">XTft_IntrDisable()</ref>and,
+                         <ref refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" kindref="member">XTft_GetVsyncStatus()</ref> functions to access newly added
+                         Interrupt Enable and Status Register.
+ 3.00a  ktn   10/22/09  Updated driver to use the HAL APIs/macros.
+                         Removed the macros XTft_mSetPixel and XTft_mGetPixel.
+ 3.00a  bss   01/16/12  Updated driver to remove warnings from asserts.
+ 3.01a  sg    05/30/12  Corrected the brace error introduced in
+                         XTft_GetPixel while changing it from macro to
+                         function for CR 647750.
+ 3.02a  bss   11/30/12  CR 690338 - Corrected the brace error introduced in
+                         XTft_GetPixel for CR 647750.
+ 4.00a  bss   01/25/13   Added support for AXI TFT controller, this driver
+                         can only be used for AXI TFT controller
+                         XTft_WriteReg and XTft_ReadReg functions are updated
+                         Removed all functionality associated with DCR access
+                         PlbAccess and DcrBaseAddr are removed from the
+                         <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> config structure
+ 4.01a  bss   11/01/13   Modified driver tcl to retrieve C_BASEADDR/C_HIGHADDR
+                         CR#757359.
+ 5.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+ 6.0    sd  19/08/15  Updated the BaseAddress and VideoMemBaseAddr
+                         variables in <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> to be UINTPTR to support
+                         64 bit addresses. Added AddrWidth to the
+                         <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> structure which reflects the value of
+                         C_M_AXI_ADDR_WIDTH.
+                         Updated to tcl add the C_M_AXI_ADDR_WIDTH  parameter.
+                         Added XTFT_AR_LSB_OFFSET and XTFT_AR_MSB_OFFSET
+                         definitions to the <ref refid="xtft__hw_8h" kindref="compound">xtft_hw.h</ref> file, these offsets
+                         are valid only when the Address Width is greater
+                         than 32 bits.
+       ms   01/23/17 Added xil_printf statement in main function for all
+                     examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                     strings are available in all examples. This is a fix
+                     for CR-965028.
+       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                     generation.
+ 6.1   ms   04/18/17 Modified tcl file to add suffix U for all macros
+                     definitions of tft in xparameters.h
+ 6.3   sd   02/09/20 Updated makefile for parallel execution.
+ 6.4   sd   07/08/23 Added SDT support.
+ 6.8   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

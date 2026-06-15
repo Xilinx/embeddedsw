@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_a_v_buf___video_attribute" kind="struct" prot="public">
+    <compoundname>XAVBuf_VideoAttribute</compoundname>
+    <includes local="no">xavbuf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1ae7d46dc2ebec13dbbbb3427ba9cdf15a" prot="public" static="no" mutable="no">
+        <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+        <definition>XAVBuf_VideoFormat XAVBuf_VideoAttribute::VideoFormat</definition>
+        <argsstring></argsstring>
+        <name>VideoFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1ac8884b88c5b3cdc7cb36ec0a1bd57230" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_VideoAttribute::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1aa385d6b950f8b79ba669f7f25a6f5fde" prot="public" static="no" mutable="no">
+        <type><ref refid="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7da" kindref="member">XAVBuf_VideoModes</ref></type>
+        <definition>XAVBuf_VideoModes XAVBuf_VideoAttribute::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1afd89e18f9ce986644a8fa82f679f99fa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAVBuf_VideoAttribute::SF[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>SF</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1a0c92d32aac91c6fc86afbafda4a36f32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_VideoAttribute::SamplingEn</definition>
+        <argsstring></argsstring>
+        <name>SamplingEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1af80ac2f6cb657d8f9c110b362fb85e55" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_VideoAttribute::IsRGB</definition>
+        <argsstring></argsstring>
+        <name>IsRGB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1a5696f81a89f8a77d6d2a7e1d2cafe244" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_VideoAttribute::Swap</definition>
+        <argsstring></argsstring>
+        <name>Swap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___video_attribute_1a862a8fc2983347dedda142a02767ec2e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_VideoAttribute::BPP</definition>
+        <argsstring></argsstring>
+        <name>BPP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes the attributes associated with the video formats. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="156" bodyend="165"/>
+    <listofallmembers>
+      <member refid="struct_x_a_v_buf___video_attribute_1a862a8fc2983347dedda142a02767ec2e" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>BPP</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1af80ac2f6cb657d8f9c110b362fb85e55" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>IsRGB</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1aa385d6b950f8b79ba669f7f25a6f5fde" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>Mode</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1a0c92d32aac91c6fc86afbafda4a36f32" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>SamplingEn</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1afd89e18f9ce986644a8fa82f679f99fa" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>SF</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1a5696f81a89f8a77d6d2a7e1d2cafe244" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>Swap</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1ac8884b88c5b3cdc7cb36ec0a1bd57230" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>Value</name></member>
+      <member refid="struct_x_a_v_buf___video_attribute_1ae7d46dc2ebec13dbbbb3427ba9cdf15a" prot="public" virt="non-virtual"><scope>XAVBuf_VideoAttribute</scope><name>VideoFormat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

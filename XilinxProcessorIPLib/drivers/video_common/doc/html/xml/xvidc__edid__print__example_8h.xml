@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvidc__edid__print__example_8h" kind="file">
+    <compoundname>xvidc_edid_print_example.h</compoundname>
+    <includes local="yes">xdp.h</includes>
+    <includes refid="xvidc__edid_8h" local="yes">xvidc_edid.h</includes>
+    <includedby refid="xvidc__edid__print__example_8c" local="yes">xvidc_edid_print_example.c</includedby>
+    <incdepgraph>
+      <node id="80">
+        <label>xdp.h</label>
+      </node>
+      <node id="83">
+        <label>xvidc.h</label>
+        <link refid="xvidc_8h"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xstatus.h</label>
+      </node>
+      <node id="81">
+        <label>xvidc_edid.h</label>
+        <link refid="xvidc__edid_8h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xil_types.h</label>
+      </node>
+      <node id="85">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="79">
+        <label>xvidc_edid_print_example.h</label>
+        <link refid="xvidc_edid_print_example.h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="87">
+        <label>xvidc_edid_print_example.c</label>
+        <link refid="xvidc__edid__print__example_8c"/>
+      </node>
+      <node id="86">
+        <label>xvidc_edid_print_example.h</label>
+        <link refid="xvidc_edid_print_example.h"/>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xvidc__edid__print__example_8h_1a16321ab53c4df4a71ad22ccfe6f8fbd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Edid_PrintDecodeBase</definition>
+        <argsstring>(u8 *EdidRaw)</argsstring>
+        <name>Edid_PrintDecodeBase</name>
+        <param>
+          <type>u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>This function decodes the supplied base Extended Display Identification Data (EDID) structure and prints its contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base EDID structure to decode and print.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the supplied base EDID has a valid EDID header.</para></listitem><listitem><para>XST_FAILURE otherwise. The EDID wasn&apos;t decoded further.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="66" bodyend="104"/>
+        <references refid="group__video__common_1gaeb53032d4e3be80ba3b9dc5e368dcffc" compoundref="xvidc__edid_8h" startline="715">XVidC_EdidGetChecksum</references>
+        <references refid="group__video__common_1ga5dd390549fc91a75f848c76270fca04a" compoundref="xvidc__edid_8h" startline="710">XVidC_EdidGetExtBlkCount</references>
+        <references refid="group__video__common_1gac7ff06f6d9f8e49884e0da9a88dccf52" compoundref="xvidc__edid_8h" startline="412">XVidC_EdidIsHeaderValid</references>
+      </memberdef>
+      <memberdef kind="function" id="xvidc__edid__print__example_8h_1a1c214b447b3327e8e6a6e99f6d9bab2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Edid_PrintSuppVmTable</definition>
+        <argsstring>(u8 *EdidRaw)</argsstring>
+        <name>Edid_PrintSuppVmTable</name>
+        <param>
+          <type>u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>This function decodes the supplied base Extended Display Identification Data (EDID) structure for supported video timing modes and prints all video timing modes that are both supported in the EDID and listed in the XVidC_VideoTimingModes table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base EDID structure to decode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="120" bodyend="133"/>
+        <references refid="group__video__common_1gaf00ac478683fd1d3c550e22416cb7c05" compoundref="xvidc__edid_8c" startline="385" endline="409">XVidC_EdidIsVideoTimingSupported</references>
+        <references refid="group__video__common_1ga9000d50f752d484b1cc9aadb61e5da94" compoundref="xvidc__timings__table_8c" startline="76">XVidC_VideoTimingModes</references>
+        <references refid="group__video__common_1gga562f08faf2fc329b1cd7147b3d66ef53aae127191135aced753fc654add24ba4a" compoundref="xvidc_8h" startline="298">XVIDC_VM_NUM_SUPPORTED</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains an example that, given a supplied base Extended Display Identification Data (EDID) structure, will parse, decode, and print its contents. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  11/09/14 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XVIDC_EDID_PRINT_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVIDC_EDID_PRINT_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvidc__edid_8h" kindref="compound">xvidc_edid.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">u32<sp/><ref refid="xvidc__edid__print__example_8c_1a16321ab53c4df4a71ad22ccfe6f8fbd6" kindref="member">Edid_PrintDecodeBase</ref>(u8<sp/>*EdidRaw);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xvidc__edid__print__example_8c_1a1c214b447b3327e8e6a6e99f6d9bab2d" kindref="member">Edid_PrintSuppVmTable</ref>(u8<sp/>*EdidRaw);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XVIDC_EDID_PRINT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.h"/>
+  </compounddef>
+</doxygen>

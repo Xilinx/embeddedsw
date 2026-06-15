@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2srx__hw_8h" kind="file">
+    <compoundname>xi2srx_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xi2srx_8h" local="yes">xi2srx.h</includedby>
+    <includedby refid="xi2srx__debug_8h" local="yes">xi2srx_debug.h</includedby>
+    <includedby refid="xi2srx_8c" local="yes">xi2srx.c</includedby>
+    <includedby refid="xi2srx__chsts_8c" local="yes">xi2srx_chsts.c</includedby>
+    <includedby refid="xi2srx__debug_8c" local="yes">xi2srx_debug.c</includedby>
+    <includedby refid="xi2srx__selftest_8c" local="yes">xi2srx_selftest.c</includedby>
+    <incdepgraph>
+      <node id="104">
+        <label>xil_io.h</label>
+      </node>
+      <node id="103">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx_hw.h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="111">
+        <label>xi2srx_selftest.c</label>
+        <link refid="xi2srx__selftest_8c"/>
+      </node>
+      <node id="117">
+        <label>xi2srx_selftest_example.c</label>
+        <link refid="xi2srx__selftest__example_8c"/>
+      </node>
+      <node id="115">
+        <label>xi2srx_sinit.c</label>
+        <link refid="xi2srx__sinit_8c"/>
+      </node>
+      <node id="109">
+        <label>xi2srx_chsts.c</label>
+        <link refid="xi2srx__chsts_8c"/>
+      </node>
+      <node id="112">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx_hw.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="114">
+        <label>xi2srx_intr.c</label>
+        <link refid="xi2srx__intr_8c"/>
+      </node>
+      <node id="113">
+        <label>xi2srx_g.c</label>
+      </node>
+      <node id="107">
+        <label>xi2srx.c</label>
+        <link refid="xi2srx_8c"/>
+      </node>
+      <node id="106">
+        <label>xi2srx.h</label>
+        <link refid="xi2srx_8h"/>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>xi2srx_intr_example.c</label>
+        <link refid="xi2srx__intr__example_8c"/>
+      </node>
+      <node id="110">
+        <label>xi2srx_debug.c</label>
+        <link refid="xi2srx__debug_8c"/>
+      </node>
+      <node id="108">
+        <label>xi2srx_debug.h</label>
+        <link refid="xi2srx__debug_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the XI2srx device. </para></description>
+      <memberdef kind="define" id="group__i2srx_1gabd6a5cdc267deb874be64ecff6b93e4b" prot="public" static="no">
+        <name>XI2S_RX_CORE_VER_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Core Version Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gaab2f8c799ff6de247d102de9eca1578c" prot="public" static="no">
+        <name>XI2S_RX_CORE_CFG_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Core Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" prot="public" static="no">
+        <name>XI2S_RX_CORE_CTRL_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Core Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" compoundref="xi2srx_8c" startline="112" endline="129">XI2s_Rx_Enable</referencedby>
+        <referencedby refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" compoundref="xi2srx_8c" startline="385" endline="399">XI2s_Rx_Justify</referencedby>
+        <referencedby refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" compoundref="xi2srx_8c" startline="358" endline="372">XI2s_Rx_JustifyEnable</referencedby>
+        <referencedby refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" compoundref="xi2srx_8c" startline="139" endline="150">XI2s_Rx_LatchAesChannelStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" prot="public" static="no">
+        <name>XI2S_RX_IRQCTRL_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Interrupt Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" compoundref="xi2srx_8c" startline="184" endline="194">XI2s_Rx_IntrDisable</referencedby>
+        <referencedby refid="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" compoundref="xi2srx_8c" startline="161" endline="172">XI2s_Rx_IntrEnable</referencedby>
+        <referencedby refid="group__i2srx_1gaca17a3387ef6bb0acdcfd20b94c0b7b1" compoundref="xi2srx__intr_8c" startline="56" endline="94">XI2s_Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga10ebd12832c0df2b25d86e1c426917a2" prot="public" static="no">
+        <name>XI2S_RX_IRQSTS_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gaca17a3387ef6bb0acdcfd20b94c0b7b1" compoundref="xi2srx__intr_8c" startline="56" endline="94">XI2s_Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gad10e1d11d2c50b2111dd3f8a4dd26389" prot="public" static="no">
+        <name>XI2S_RX_TMR_CTRL_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>XI2S Timing Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" compoundref="xi2srx_8c" startline="272" endline="295">XI2s_Rx_SetSclkOutDiv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gacc668d400426098bae3149a9fc4c094f" prot="public" static="no">
+        <name>XI2S_RX_CH01_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Audio Channel 0/1 Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga522d6260d91826f18572844fb0fbf39d" compoundref="xi2srx_8c" startline="212" endline="251">XI2s_Rx_SetChMux</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga7d7fe447197f14d38b515caa072893b7" prot="public" static="no">
+        <name>XI2S_RX_CH23_OFFSET</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>Audio Channel 2/3 Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga29d0c7f997d393d644e6374ea70e6ac2" prot="public" static="no">
+        <name>XI2S_RX_CH45_OFFSET</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>Audio Channel 4/5 Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gae40a3a7ebb7cee1e4a3d935e6b51569f" prot="public" static="no">
+        <name>XI2S_RX_CH67_OFFSET</name>
+        <initializer>0x3C</initializer>
+        <briefdescription>
+<para>Audio Channel 6/7 Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS0_OFFSET</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+<para>AES Channel Status 0 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+        <referencedby refid="group__i2srx_1ga0732ac9b13399678fe408cf55eeab264" compoundref="xi2srx_8c" startline="306" endline="320">XI2s_Rx_SetAesChStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga6eb6685030ce7a4097e2d26591026109" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS1_OFFSET</name>
+        <initializer>0x54</initializer>
+        <briefdescription>
+<para>AES Channel Status 1 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga4a5e64ec439b371f7dbb7795796ea525" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS2_OFFSET</name>
+        <initializer>0x58</initializer>
+        <briefdescription>
+<para>AES Channel Status 2 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga5aec8ad439da8047b7e2406680091bb3" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS3_OFFSET</name>
+        <initializer>0x5C</initializer>
+        <briefdescription>
+<para>AES Channel Status 3 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga64228e861649cfca19122186738890c3" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS4_OFFSET</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+<para>AES Channel Status 4 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gada5ad0f01fc6b245bc58fb0ac66f3672" prot="public" static="no">
+        <name>XI2S_RX_AES_CHSTS5_OFFSET</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>AES Channel Status 5 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core Configuration Register masks and shifts</header>
+      <memberdef kind="define" id="group__i2srx_1ga386baab9d9d9e77e9569f78f8535c79a" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_MSTR_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Is XI2S Master bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gacc9bad93a6ce59caa98a961eca5180fd" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_MSTR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga386baab9d9d9e77e9569f78f8535c79a" kindref="member">XI2S_RX_REG_CFG_MSTR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Is XI2S Master mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga33b447ccf86e1d8e207cd5b04cc0e0bd" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_NUM_CH_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Maximum number of channels bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga6f0aaac08ca351e2389bbe04a8b6a87f" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_NUM_CH_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_RX_REG_CFG_NUM_CH_SHIFT)</initializer>
+        <briefdescription>
+<para>Maximum number of channels mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga9cf777ebbfe32e3744fc3ec6e7b0b439" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_DWDTH_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>XI2S Data Width bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga8e6c0504d9ddf7ecb2301b76815d7fc4" prot="public" static="no">
+        <name>XI2S_RX_REG_CFG_DWDTH_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga9cf777ebbfe32e3744fc3ec6e7b0b439" kindref="member">XI2S_RX_REG_CFG_DWDTH_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>XI2S Data Width mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core Control Register masks and shifts</header>
+      <memberdef kind="define" id="group__i2srx_1ga2b6fec3d30ffb6d6e75686cbd6050d05" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_EN_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Module Enable bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga72d3a8ea524c40940140512a982fb910" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_EN_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga2b6fec3d30ffb6d6e75686cbd6050d05" kindref="member">XI2S_RX_REG_CTRL_EN_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Module Enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" compoundref="xi2srx_8c" startline="112" endline="129">XI2s_Rx_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gac9e9f8391850f0ca4407e7fda7b3c7d6" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_JFE_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Justification Enable or Disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga4bed9d26f96c101a80fdeb5e16c61882" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_JFE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1gac9e9f8391850f0ca4407e7fda7b3c7d6" kindref="member">XI2S_RX_REG_CTRL_JFE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Justification Enable or Disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" compoundref="xi2srx_8c" startline="358" endline="372">XI2s_Rx_JustifyEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gaf733f45be6a7f7c489c2ef5a0faf1cc1" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_LORJF_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Left or Right Justification shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gae1e05f03cc894aaa4e5bf213460eeb43" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_LORJF_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1gaf733f45be6a7f7c489c2ef5a0faf1cc1" kindref="member">XI2S_RX_REG_CTRL_LORJF_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Left or Right Justification mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" compoundref="xi2srx_8c" startline="385" endline="399">XI2s_Rx_Justify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga2a4b4b0ed331511eea0872abe6d1a008" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_LATCH_CHSTS_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>Latch AES Channel Status bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gab1cb52ffff197179ecb2453f3b055f2e" prot="public" static="no">
+        <name>XI2S_RX_REG_CTRL_LATCH_CHSTS_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga2a4b4b0ed331511eea0872abe6d1a008" kindref="member">XI2S_RX_REG_CTRL_LATCH_CHSTS_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Latch AES Channel Status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" compoundref="xi2srx_8c" startline="139" endline="150">XI2s_Rx_LatchAesChannelStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt masks and shifts</header>
+      <memberdef kind="define" id="group__i2srx_1gaeeff2f78e8d4799f14b13f5dd74f07ac" prot="public" static="no">
+        <name>XI2S_RX_INTR_AES_BLKCMPLT_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>AES Block Complete Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gafa37ac42887b7ca3d17a5a48af43c3d1" prot="public" static="no">
+        <name>XI2S_RX_INTR_AES_BLKCMPLT_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1gaeeff2f78e8d4799f14b13f5dd74f07ac" kindref="member">XI2S_RX_INTR_AES_BLKCMPLT_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>AES Block Complete Interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gaca17a3387ef6bb0acdcfd20b94c0b7b1" compoundref="xi2srx__intr_8c" startline="56" endline="94">XI2s_Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga12970ee31e47fcfe72564f65923519ff" prot="public" static="no">
+        <name>XI2S_RX_INTR_AUDOVRFLW_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Audio Overflow Detected Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gacf7d542116f93c176f729165c0c0ab46" prot="public" static="no">
+        <name>XI2S_RX_INTR_AUDOVRFLW_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga12970ee31e47fcfe72564f65923519ff" kindref="member">XI2S_RX_INTR_AUDOVRFLW_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Audio Overflow Detected Interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gaca17a3387ef6bb0acdcfd20b94c0b7b1" compoundref="xi2srx__intr_8c" startline="56" endline="94">XI2s_Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga6ff2b2e7bc857175d47e3b396337c3c8" prot="public" static="no">
+        <name>XI2S_RX_GINTR_EN_SHIFT</name>
+        <initializer>(31)</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga7089f6d78ab940b47ac4e63cc9de876d" prot="public" static="no">
+        <name>XI2S_RX_GINTR_EN_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2srx_1ga6ff2b2e7bc857175d47e3b396337c3c8" kindref="member">XI2S_RX_GINTR_EN_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>XI2S Timing Control Register masks and shifts</header>
+      <memberdef kind="define" id="group__i2srx_1gab3b615049121f07d4a919c3a36866598" prot="public" static="no">
+        <name>XI2S_RX_REG_TMR_SCLKDIV_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SClk Divider bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga0a6e25d96079222ab136c05ab1040bf6" prot="public" static="no">
+        <name>XI2S_RX_REG_TMR_SCLKDIV_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_RX_REG_TMR_SCLKDIV_SHIFT)</initializer>
+        <briefdescription>
+<para>SClk Divider mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Audio Channel Control Register masks and shifts</header>
+      <memberdef kind="define" id="group__i2srx_1gac24b161236882834c75e99865405aed4" prot="public" static="no">
+        <name>XI2S_RX_REG_CHCTRL_CHMUX_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Channel MUX bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga55cd99e10d5e57674583e973d07cd1f3" prot="public" static="no">
+        <name>XI2S_RX_REG_CHCTRL_CHMUX_MASK</name>
+        <initializer>(0x7 &lt;&lt; XI2S_RX_REG_CHCTRL_CHMUX_SHIFT)</initializer>
+        <briefdescription>
+<para>Channel MUX mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__i2srx_1ga09a5bac7db972eedb59f8a333b9ab962" prot="public" static="no">
+        <name>XI2s_Rx_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gadab8698c5b4c02161f42cfc947c5d1b2" prot="public" static="no">
+        <name>XI2s_Rx_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" prot="public" static="no">
+        <name>XI2s_Rx_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__i2srx_1ga09a5bac7db972eedb59f8a333b9ab962" kindref="member">XI2s_Rx_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a XI2s Receiver register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the XI2s Receiver core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" compoundref="xi2srx_8c" startline="112" endline="129">XI2s_Rx_Enable</referencedby>
+        <referencedby refid="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" compoundref="xi2srx_8c" startline="184" endline="194">XI2s_Rx_IntrDisable</referencedby>
+        <referencedby refid="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" compoundref="xi2srx_8c" startline="161" endline="172">XI2s_Rx_IntrEnable</referencedby>
+        <referencedby refid="group__i2srx_1gaca17a3387ef6bb0acdcfd20b94c0b7b1" compoundref="xi2srx__intr_8c" startline="56" endline="94">XI2s_Rx_IntrHandler</referencedby>
+        <referencedby refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" compoundref="xi2srx_8c" startline="385" endline="399">XI2s_Rx_Justify</referencedby>
+        <referencedby refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" compoundref="xi2srx_8c" startline="358" endline="372">XI2s_Rx_JustifyEnable</referencedby>
+        <referencedby refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" compoundref="xi2srx_8c" startline="139" endline="150">XI2s_Rx_LatchAesChannelStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" prot="public" static="no">
+        <name>XI2s_Rx_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__i2srx_1gadab8698c5b4c02161f42cfc947c5d1b2" kindref="member">XI2s_Rx_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a XI2s Receiver register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the XI2s Receiver core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" compoundref="xi2srx_8c" startline="331" endline="347">XI2s_Rx_ClrAesChStatRegs</referencedby>
+        <referencedby refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" compoundref="xi2srx_8c" startline="112" endline="129">XI2s_Rx_Enable</referencedby>
+        <referencedby refid="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" compoundref="xi2srx_8c" startline="184" endline="194">XI2s_Rx_IntrDisable</referencedby>
+        <referencedby refid="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" compoundref="xi2srx_8c" startline="161" endline="172">XI2s_Rx_IntrEnable</referencedby>
+        <referencedby refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" compoundref="xi2srx_8c" startline="385" endline="399">XI2s_Rx_Justify</referencedby>
+        <referencedby refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" compoundref="xi2srx_8c" startline="358" endline="372">XI2s_Rx_JustifyEnable</referencedby>
+        <referencedby refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" compoundref="xi2srx_8c" startline="139" endline="150">XI2s_Rx_LatchAesChannelStatus</referencedby>
+        <referencedby refid="group__i2srx_1ga0732ac9b13399678fe408cf55eeab264" compoundref="xi2srx_8c" startline="306" endline="320">XI2s_Rx_SetAesChStatus</referencedby>
+        <referencedby refid="group__i2srx_1ga522d6260d91826f18572844fb0fbf39d" compoundref="xi2srx_8c" startline="212" endline="251">XI2s_Rx_SetChMux</referencedby>
+        <referencedby refid="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" compoundref="xi2srx_8c" startline="272" endline="295">XI2s_Rx_SetSclkOutDiv</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XI2SRX_HW_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2SRX_HW_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="42" refid="group__i2srx_1gabd6a5cdc267deb874be64ecff6b93e4b" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CORE_VER_OFFSET<sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="43" refid="group__i2srx_1gaab2f8c799ff6de247d102de9eca1578c" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CORE_CFG_OFFSET<sp/><sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="44" refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CORE_CTRL_OFFSET<sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_IRQCTRL_OFFSET<sp/><sp/><sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__i2srx_1ga10ebd12832c0df2b25d86e1c426917a2" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_IRQSTS_OFFSET<sp/><sp/><sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49" refid="group__i2srx_1gad10e1d11d2c50b2111dd3f8a4dd26389" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_TMR_CTRL_OFFSET<sp/><sp/><sp/><sp/>0x20<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__i2srx_1gacc668d400426098bae3149a9fc4c094f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_CH01_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x30<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__i2srx_1ga7d7fe447197f14d38b515caa072893b7" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CH23_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x34<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__i2srx_1ga29d0c7f997d393d644e6374ea70e6ac2" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CH45_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x38<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__i2srx_1gae40a3a7ebb7cee1e4a3d935e6b51569f" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_CH67_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x3C<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS0_OFFSET<sp/>0x50<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__i2srx_1ga6eb6685030ce7a4097e2d26591026109" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS1_OFFSET<sp/>0x54<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__i2srx_1ga4a5e64ec439b371f7dbb7795796ea525" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS2_OFFSET<sp/>0x58<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__i2srx_1ga5aec8ad439da8047b7e2406680091bb3" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS3_OFFSET<sp/>0x5C<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__i2srx_1ga64228e861649cfca19122186738890c3" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS4_OFFSET<sp/>0x60<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__i2srx_1gada5ad0f01fc6b245bc58fb0ac66f3672" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_AES_CHSTS5_OFFSET<sp/>0x64<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__i2srx_1ga386baab9d9d9e77e9569f78f8535c79a" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_MSTR_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_MSTR_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CFG_MSTR_SHIFT)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_NUM_CH_SHIFT<sp/><sp/><sp/><sp/>(8)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_NUM_CH_MASK<sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CFG_NUM_CH_SHIFT)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_DWDTH_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CFG_DWDTH_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CFG_DWDTH_SHIFT)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="group__i2srx_1ga2b6fec3d30ffb6d6e75686cbd6050d05" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_EN_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_EN_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CTRL_EN_SHIFT)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_JFE_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_JFE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CTRL_JFE_SHIFT)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_LORJF_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_LORJF_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CTRL_LORJF_SHIFT)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="group__i2srx_1ga2a4b4b0ed331511eea0872abe6d1a008" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_LATCH_CHSTS_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CTRL_LATCH_CHSTS_MASK<sp/><sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CTRL_LATCH_CHSTS_SHIFT)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="group__i2srx_1gaeeff2f78e8d4799f14b13f5dd74f07ac" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_INTR_AES_BLKCMPLT_SHIFT<sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_INTR_AES_BLKCMPLT_MASK<sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_INTR_AES_BLKCMPLT_SHIFT)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="group__i2srx_1ga12970ee31e47fcfe72564f65923519ff" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_INTR_AUDOVRFLW_SHIFT<sp/><sp/><sp/><sp/><sp/>(1)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_INTR_AUDOVRFLW_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_INTR_AUDOVRFLW_SHIFT)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="group__i2srx_1ga6ff2b2e7bc857175d47e3b396337c3c8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_GINTR_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_GINTR_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_RX_GINTR_EN_SHIFT)</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="group__i2srx_1gab3b615049121f07d4a919c3a36866598" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_TMR_SCLKDIV_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_TMR_SCLKDIV_MASK<sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_RX_REG_TMR_SCLKDIV_SHIFT)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="group__i2srx_1gac24b161236882834c75e99865405aed4" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CHCTRL_CHMUX_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="group__i2srx_1ga55cd99e10d5e57674583e973d07cd1f3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_REG_CHCTRL_CHMUX_MASK<sp/><sp/>(0x7<sp/>&lt;&lt;<sp/>XI2S_RX_REG_CHCTRL_CHMUX_SHIFT)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="group__i2srx_1ga09a5bac7db972eedb59f8a333b9ab962" refkind="member"><highlight class="preprocessor">#define<sp/>XI2s_Rx_In32<sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__i2srx_1gadab8698c5b4c02161f42cfc947c5d1b2" refkind="member"><highlight class="preprocessor">#define<sp/>XI2s_Rx_Out32<sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="170" refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" refkind="member"><highlight class="preprocessor">#define<sp/>XI2s_Rx_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">XI2s_Rx_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="191" refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" refkind="member"><highlight class="preprocessor">#define<sp/>XI2s_Rx_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">XI2s_Rx_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2SRX_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_xxv_ethernet___config" kind="struct" prot="public">
+    <compoundname>XXxvEthernet_Config</compoundname>
+    <includes local="no">xxxvethernet.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_xxv_ethernet___config_1a88f0c1791511df8e26680bd4d8302ae2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XXxvEthernet_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1ga544b9ee2115ee6e77a8a89b76fe832d6" compoundref="xxxvethernet__sinit_8c" startline="66" endline="81">XXxvEthernet_LookupConfig</referencedby>
+        <referencedby refid="group__xxvethernet_1gad9c2ace23ca9a83e51b164c925e79362" compoundref="xxxvethernet__sinit_8c" startline="117" endline="132">XXxvEthernet_LookupConfigBaseAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XXxvEthernet_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para><verbatim>BaseAddress is the physical base address of the
+</verbatim> device&apos;s registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1abb5bc0fd706a832742ca65487e6687af" compoundref="xxxvethernet__example__util_8c" startline="299" endline="313">XxvEthernetUtilEnterLocalLoopback</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+        <referencedby refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" compoundref="xxxvethernet_8c" startline="70" endline="94">XXxvEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" compoundref="xxxvethernet_8c" startline="747" endline="762">XXxvEthernet_GetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" compoundref="xxxvethernet_8c" startline="117" endline="136">XXxvEthernet_Initialize</referencedby>
+        <referencedby refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" compoundref="xxxvethernet_8c" startline="780" endline="795">XXxvEthernet_SetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+        <referencedby refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" compoundref="xxxvethernet_8c" startline="673" endline="691">XXxvEthernet_UsxgmiiAnMainReset</referencedby>
+        <referencedby refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet___config_1a9830e0bbd341d7880be11b218708e1e5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XXxvEthernet_Config::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Statistics gathering option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet___config_1a49f53742b9dcc82373e52a28de62d130" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XXxvEthernet_Config::XxvDevBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>XxvDevBaseAddress</name>
+        <briefdescription>
+<para><verbatim>XxvDevBaseAddress is the base address of
+</verbatim> the device attached to the Xxv Ethernet&apos;s AXI4-Stream interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a Xxv Ethernet device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="220" bodyend="247"/>
+    <listofallmembers>
+      <member refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" prot="public" virt="non-virtual"><scope>XXxvEthernet_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_xxv_ethernet___config_1a88f0c1791511df8e26680bd4d8302ae2" prot="public" virt="non-virtual"><scope>XXxvEthernet_Config</scope><name>Name</name></member>
+      <member refid="struct_x_xxv_ethernet___config_1a9830e0bbd341d7880be11b218708e1e5" prot="public" virt="non-virtual"><scope>XXxvEthernet_Config</scope><name>Stats</name></member>
+      <member refid="struct_x_xxv_ethernet___config_1a49f53742b9dcc82373e52a28de62d130" prot="public" virt="non-virtual"><scope>XXxvEthernet_Config</scope><name>XxvDevBaseAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

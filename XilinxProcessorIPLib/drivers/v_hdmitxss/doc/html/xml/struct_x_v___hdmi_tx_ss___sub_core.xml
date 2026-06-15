@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss___sub_core" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs_SubCore</compoundname>
+    <includes local="no">xv_hdmitxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___sub_core_1abcd708557f32a873b2ea5303f9878b84" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs_SubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to indicate if sub-core is present in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___sub_core_1a2d1a1d8a688cf8533e8f944e0008ca9c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiTxSs_SubCore::AbsAddr</definition>
+        <argsstring></argsstring>
+        <name>AbsAddr</name>
+        <briefdescription>
+<para>Sub-core Absolute Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__v__hdmitxss_1ga23588544c59439321e952b7b4a2c6445" compoundref="xv__hdmitxss__coreinit_8c" startline="72" endline="108">XV_HdmiTxSs_SubcoreInitHdmiTx</referencedby>
+        <referencedby refid="group__v__hdmitxss_1ga2c1e0df6df7d8d7618d3bdde8eb86923" compoundref="xv__hdmitxss__coreinit_8c" startline="119" endline="152">XV_HdmiTxSs_SubcoreInitVtc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sub-Core Configuration Table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="305" bodyend="312"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss___sub_core_1a2d1a1d8a688cf8533e8f944e0008ca9c" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_SubCore</scope><name>AbsAddr</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___sub_core_1abcd708557f32a873b2ea5303f9878b84" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_SubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

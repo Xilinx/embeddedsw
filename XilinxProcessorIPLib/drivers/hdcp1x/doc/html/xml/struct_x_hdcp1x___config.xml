@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___config" kind="struct" prot="public">
+    <compoundname>XHdcp1x_Config</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1a315c5dc486e01c388c4532c8f7aa5d3f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XHdcp1x_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="900" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="900" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1a5aaf25a566d02c952e4ec39d2ac4c4bc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp1x_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="902" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="902" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa2bcbd719e1f2f9b0b5fe6757b5a14b2" compoundref="xhdcp1x__cipher_8c" startline="1305" endline="1318">XHdcp1x_CipherDisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga72d8fd0f45ff6424d3aac43e36360fec" compoundref="xhdcp1x__cipher_8c" startline="1124" endline="1144">XHdcp1x_CipherGetMi</referencedby>
+        <referencedby refid="group__hdcp1x_1gad8759c2071248b537b7ae18b2a1ec5a6" compoundref="xhdcp1x__cipher_8c" startline="1187" endline="1207">XHdcp1x_CipherGetMo</referencedby>
+        <referencedby refid="group__hdcp1x_1gacfeb8a266c1bc554753f93d62eb9a891" compoundref="xhdcp1x__cipher_8c" startline="393" endline="410">XHdcp1x_CipherGetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9d260acd4a5eb9842f5a4bbb31be0e36" compoundref="xhdcp1x__cipher_8c" startline="794" endline="809">XHdcp1x_CipherGetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9719a81dc9b6815f6b616ccc076f03c2" compoundref="xhdcp1x__cipher_8c" startline="1157" endline="1174">XHdcp1x_CipherGetRi</referencedby>
+        <referencedby refid="group__hdcp1x_1ga14ed33ea832900d1022b7a1e8ddba397" compoundref="xhdcp1x__cipher_8c" startline="1220" endline="1237">XHdcp1x_CipherGetRo</referencedby>
+        <referencedby refid="group__hdcp1x_1gaac542620e5aa06df5f83f097a6fc7738" compoundref="xhdcp1x__cipher_8c" startline="1250" endline="1262">XHdcp1x_CipherGetVersion</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1ga40c4838c730476e98dfcd742eb1d21a4" compoundref="xhdcp1x__cipher_8c" startline="110" endline="129">XHdcp1x_CipherIsLinkUp</referencedby>
+        <referencedby refid="group__hdcp1x_1gace24c74db709b523e1aae7e082494022" compoundref="xhdcp1x__cipher_8c" startline="361" endline="380">XHdcp1x_CipherIsRequestComplete</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga6f0a88da0a794b63e3f6caafa912dc10" compoundref="xhdcp1x__cipher_8c" startline="263" endline="281">XHdcp1x_CipherSetKeySelect</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1af6839ec494f0392cfe05dbe17af0f2dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Config::SysFrequency</definition>
+        <argsstring></argsstring>
+        <name>SysFrequency</name>
+        <briefdescription>
+<para>The main clock frequency of the core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="903" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="903" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp1x_Config::IsRx</definition>
+        <argsstring></argsstring>
+        <name>IsRx</name>
+        <briefdescription>
+<para>Flag indicating the core direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="904" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="904" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga103ae62cd1207e7566bf4f39ce946f67" compoundref="xhdcp1x_8c" startline="687" endline="713">XHdcp1x_Authenticate</referencedby>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1gab081c08c9cc4edb8c35c85fb27554b3e" compoundref="xhdcp1x_8c" startline="528" endline="554">XHdcp1x_Disable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga3bcdf20c5176355adb31bf0477bcaaca" compoundref="xhdcp1x_8c" startline="1411" endline="1422">XHdcp1x_DisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1gaad9f3acb0f7df366481d4261542ba2c8" compoundref="xhdcp1x_8c" startline="1092" endline="1109">XHdcp1x_DisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga52caa4f761f34ccb7ad92a40a075ad1e" compoundref="xhdcp1x_8c" startline="292" endline="319">XHdcp1x_DownstreamReady</referencedby>
+        <referencedby refid="group__hdcp1x_1ga72fafe0eef23bbe5dbbc07a260b8d6b3" compoundref="xhdcp1x_8c" startline="482" endline="513">XHdcp1x_Enable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga612654336653a8a03b67da96b5924eb8" compoundref="xhdcp1x_8c" startline="375" endline="392">XHdcp1x_Enable_ECF_Slots</referencedby>
+        <referencedby refid="group__hdcp1x_1ga78468655ea2782da93ae20bab2e9a680" compoundref="xhdcp1x_8c" startline="1434" endline="1445">XHdcp1x_EnableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7ace40ed3ad14f22e3cce4bc8bf6249c" compoundref="xhdcp1x_8c" startline="1049" endline="1075">XHdcp1x_EnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga60f6a284a49f0e381c353180ec5bebdc" compoundref="xhdcp1x_8c" startline="987" endline="1013">XHdcp1x_GetEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga6650255cee4d6285275448cfa0e5664e" compoundref="xhdcp1x_8c" startline="337" endline="359">XHdcp1x_GetRepeaterInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1030400c6c423608ffd155b9cb4d12ef" compoundref="xhdcp1x_8c" startline="1373" endline="1399">XHdcp1x_GetTopology</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa0dc57eed89ceb400350f9d78551946e" compoundref="xhdcp1x_8c" startline="1492" endline="1507">XHdcp1x_GetTopologyBKSV</referencedby>
+        <referencedby refid="group__hdcp1x_1gaf9abe5fb8d1b7663035ceb0250368699" compoundref="xhdcp1x_8c" startline="1461" endline="1476">XHdcp1x_GetTopologyKSVList</referencedby>
+        <referencedby refid="group__hdcp1x_1gadefd696ca95f00b16f9af353a0f7d2e8" compoundref="xhdcp1x_8c" startline="1147" endline="1170">XHdcp1x_HandleTimeout</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7f8a11ce5614a2541b378f034b3198cb" compoundref="xhdcp1x_8c" startline="1314" endline="1336">XHdcp1x_Info</referencedby>
+        <referencedby refid="group__hdcp1x_1gacce89db1cfc0e9cd5c632f3499bff690" compoundref="xhdcp1x_8c" startline="799" endline="825">XHdcp1x_IsAuthenticated</referencedby>
+        <referencedby refid="group__hdcp1x_1gae8389541cb1c23695221b17789eb945c" compoundref="xhdcp1x_8c" startline="919" endline="934">XHdcp1x_IsDwnstrmCapable</referencedby>
+        <referencedby refid="group__hdcp1x_1gac175508b95f7a2d101630aca5b55e8e5" compoundref="xhdcp1x_8c" startline="947" endline="973">XHdcp1x_IsEnabled</referencedby>
+        <referencedby refid="group__hdcp1x_1gad264c967aebfe269ea6e40f675886c9f" compoundref="xhdcp1x_8c" startline="839" endline="865">XHdcp1x_IsInComputations</referencedby>
+        <referencedby refid="group__hdcp1x_1ga934f616f1b538de0f90a343bc1185380" compoundref="xhdcp1x_8c" startline="770" endline="785">XHdcp1x_IsInProgress</referencedby>
+        <referencedby refid="group__hdcp1x_1ga93df0cf3372141a9fd419a02c753196c" compoundref="xhdcp1x_8c" startline="879" endline="905">XHdcp1x_IsInWaitforready</referencedby>
+        <referencedby refid="group__hdcp1x_1gac0c5947639623f7b97d9ec1cc712e75f" compoundref="xhdcp1x_8c" startline="1613" endline="1639">XHdcp1x_IsRepeater</referencedby>
+        <referencedby refid="group__hdcp1x_1ga81768260ec0f02284c294051c56e328e" compoundref="xhdcp1x_8c" startline="251" endline="277">XHdcp1x_Poll</referencedby>
+        <referencedby refid="group__hdcp1x_1gaf5f729774d507b92940336ef2112939a" compoundref="xhdcp1x__port_8c" startline="93" endline="132">XHdcp1x_PortDetermineAdaptor</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8bf591dc879a170beed8edc091ac018f" compoundref="xhdcp1x_8c" startline="1347" endline="1358">XHdcp1x_ProcessAKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga4e1dc21a163e1e2c5281c36f23519a85" compoundref="xhdcp1x_8c" startline="729" endline="755">XHdcp1x_ReadDownstream</referencedby>
+        <referencedby refid="group__hdcp1x_1ga5a42371924892562d7f6df80d5907a1f" compoundref="xhdcp1x_8c" startline="441" endline="467">XHdcp1x_Reset</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+        <referencedby refid="group__hdcp1x_1ga145ec2236143e47dd0bb8e31fbf690e4" compoundref="xhdcp1x__intr_8c" startline="63" endline="90">XHdcp1x_SetCallback</referencedby>
+        <referencedby refid="group__hdcp1x_1gae607ce47975decbc6e4e45d51889dc19" compoundref="xhdcp1x_8c" startline="1744" endline="1764">XHdcp1x_SetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1ga230854e10d59500a41137b4f5951042b" compoundref="xhdcp1x_8c" startline="612" endline="638">XHdcp1x_SetLaneCount</referencedby>
+        <referencedby refid="group__hdcp1x_1gab11e2ca5742f47d45da7e3383e2f6688" compoundref="xhdcp1x_8c" startline="654" endline="672">XHdcp1x_SetMSTMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa00a71253e9a68307ee86ebe6d70b5dc" compoundref="xhdcp1x_8c" startline="570" endline="596">XHdcp1x_SetPhysicalState</referencedby>
+        <referencedby refid="group__hdcp1x_1ga91937cd3d7e1aadbd8bb7be0f6c4fa91" compoundref="xhdcp1x_8c" startline="408" endline="426">XHdcp1x_SetRepeater</referencedby>
+        <referencedby refid="group__hdcp1x_1ga34d2f8270d1aaf386e38e398a590ca3d" compoundref="xhdcp1x_8c" startline="1650" endline="1667">XHdcp1x_SetTopology</referencedby>
+        <referencedby refid="group__hdcp1x_1gad21c705e369902193c9c8b0f0c44027a" compoundref="xhdcp1x_8c" startline="1680" endline="1699">XHdcp1x_SetTopologyKSVList</referencedby>
+        <referencedby refid="group__hdcp1x_1gaba8f1fa8b28a519d192f1183fae62344" compoundref="xhdcp1x_8c" startline="1710" endline="1732">XHdcp1x_SetTopologyUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp1x_Config::IsHDMI</definition>
+        <argsstring></argsstring>
+        <name>IsHDMI</name>
+        <briefdescription>
+<para>Flag indicating if the core is meant to work with HDMI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="905" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="905" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1gaf5f729774d507b92940336ef2112939a" compoundref="xhdcp1x__port_8c" startline="93" endline="132">XHdcp1x_PortDetermineAdaptor</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+        <referencedby refid="group__hdcp1x_1ga230854e10d59500a41137b4f5951042b" compoundref="xhdcp1x_8c" startline="612" endline="638">XHdcp1x_SetLaneCount</referencedby>
+        <referencedby refid="group__hdcp1x_1gab11e2ca5742f47d45da7e3383e2f6688" compoundref="xhdcp1x_8c" startline="654" endline="672">XHdcp1x_SetMSTMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1a562b3c218f2643c5b4ba1c39f20879d5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="908" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___config_1aef989f691702445bea3ce2887b7f9463" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp1x_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="909" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="909" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the HDCP core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="896" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="896" bodyend="911"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___config_1a5aaf25a566d02c952e4ec39d2ac4c4bc" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_hdcp1x___config_1a562b3c218f2643c5b4ba1c39f20879d5" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_hdcp1x___config_1aef989f691702445bea3ce2887b7f9463" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>IsHDMI</name></member>
+      <member refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>IsRx</name></member>
+      <member refid="struct_x_hdcp1x___config_1a315c5dc486e01c388c4532c8f7aa5d3f" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>Name</name></member>
+      <member refid="struct_x_hdcp1x___config_1af6839ec494f0392cfe05dbe17af0f2dd" prot="public" virt="non-virtual"><scope>XHdcp1x_Config</scope><name>SysFrequency</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

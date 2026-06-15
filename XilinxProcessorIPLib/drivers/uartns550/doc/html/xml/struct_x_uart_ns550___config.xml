@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_ns550___config" kind="struct" prot="public">
+    <compoundname>XUartNs550_Config</compoundname>
+    <includes local="no">xuartns550.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1aebff3ecbcdc7267f9044aea6fd7d0bef" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUartNs550_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6121a7c3b5ad2899eb7fa058df9201d2" compoundref="xuartns550__sinit_8c" startline="91" endline="105">XUartNs550_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1a766bb76640ddfde5dbe611ef8ecb9fda" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartNs550_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" compoundref="xuartns550__sinit_8c" startline="144" endline="170">XUartNs550_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1a2ed94077fa9f598a8b86874e7d108831" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartNs550_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1a4f81c402732b39e1380edbdc8dc42b98" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartNs550_Config::DefaultBaudRate</definition>
+        <argsstring></argsstring>
+        <name>DefaultBaudRate</name>
+        <briefdescription>
+<para>Baud Rate in bps, ie 1200. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" compoundref="xuartns550__sinit_8c" startline="144" endline="170">XUartNs550_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1a1ba011ce4ae71fa08741281f9b19710d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUartNs550_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="228" endline="370">UartNs550IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550___config_1a388cf489eb04e7d10e139e6b290b440e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartNs550_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="228" endline="370">UartNs550IntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="335" bodyend="350"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_ns550___config_1a766bb76640ddfde5dbe611ef8ecb9fda" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_uart_ns550___config_1a4f81c402732b39e1380edbdc8dc42b98" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>DefaultBaudRate</name></member>
+      <member refid="struct_x_uart_ns550___config_1a2ed94077fa9f598a8b86874e7d108831" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_uart_ns550___config_1a1ba011ce4ae71fa08741281f9b19710d" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_uart_ns550___config_1a388cf489eb04e7d10e139e6b290b440e" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_uart_ns550___config_1aebff3ecbcdc7267f9044aea6fd7d0bef" prot="public" virt="non-virtual"><scope>XUartNs550_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

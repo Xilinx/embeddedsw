@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__intr_8c" kind="file">
+    <compoundname>xdppsu_intr.c</compoundname>
+    <includes refid="xdppsu_8h" local="yes">xdppsu.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <incdepgraph>
+      <node id="101">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="96">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>xil_io.h</label>
+      </node>
+      <node id="97">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>xvidc.h</label>
+      </node>
+      <node id="99">
+        <label>xil_types.h</label>
+      </node>
+      <node id="95">
+        <label>xdppsu_intr.c</label>
+        <link refid="xdppsu_intr.c"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__intr_8c_1a1c4b527b0d2029a84a19d8e419a071bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_SetHpdEventHandler</definition>
+        <argsstring>(XDpPsu *InstancePtr, XDpPsu_HpdEventHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDpPsu_SetHpdEventHandler</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref></type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for when a hot-plug-detect event interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="47" bodyend="57"/>
+        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdEventCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdEventHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr_8c_1a566d5385a4745191d09f43440125d927" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_SetHpdPulseHandler</definition>
+        <argsstring>(XDpPsu *InstancePtr, XDpPsu_HpdPulseHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDpPsu_SetHpdPulseHandler</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref></type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for when a hot-plug-detect pulse interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="74" bodyend="84"/>
+        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="270">XDpPsu::HpdPulseCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="267">XDpPsu::HpdPulseHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr_8c_1a940393f7b33c36e51ea69d4561630222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpPsu_HpdInterruptHandler</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>XDpPsu_HpdInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>When an interrupt happens, it first detects what kind of interrupt happened, then decides which callback function to invoke.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="100" bodyend="134"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="239">XDpPsu::Config</references>
+        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdEventCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdEventHandler</references>
+        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="270">XDpPsu::HpdPulseCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="267">XDpPsu::HpdPulseHandler</references>
+        <references refid="xdppsu__hw_8h_1a728bb80efc84e6cb161e3f04103bf6ed" compoundref="xdppsu__hw_8h" startline="153">XDPPSU_HPD_DURATION</references>
+        <references refid="xdppsu__hw_8h_1a3c97c07d18d9c5a39382fb8f8f7518b6" compoundref="xdppsu__hw_8h" startline="712">XDPPSU_INTR_HPD_EVENT_MASK</references>
+        <references refid="xdppsu__hw_8h_1a63c73ef7b94ee2b16928d5423226e636" compoundref="xdppsu__hw_8h" startline="724">XDPPSU_INTR_HPD_PULSE_DETECTED_MASK</references>
+        <references refid="xdppsu__hw_8h_1a66cf1bc6e98aa546ba11f8a8091b1f8e" compoundref="xdppsu__hw_8h" startline="338">XDPPSU_INTR_STATUS</references>
+        <references refid="xdppsu_8c_1aee45a79c993e3bcad636dddf3121aeab" compoundref="xdppsu_8c" startline="1585" endline="1606">XDpPsu_IsConnected</references>
+        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1424">XDpPsu_ReadReg</references>
+        <references refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" compoundref="xdppsu__hw_8h" startline="1441">XDpPsu_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions related to <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> interrupt handling. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  01/17/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu_8h" kindref="compound">xdppsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="47" refid="xdppsu__intr_8c_1a1c4b527b0d2029a84a19d8e419a071bc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu_8h_1a1c4b527b0d2029a84a19d8e419a071bc" kindref="member">XDpPsu_SetHpdEventHandler</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref><sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" kindref="member">HpdEventHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" kindref="member">HpdEventCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="xdppsu__intr_8c_1a566d5385a4745191d09f43440125d927" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu_8h_1a566d5385a4745191d09f43440125d927" kindref="member">XDpPsu_SetHpdPulseHandler</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref><sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" kindref="member">HpdPulseHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" kindref="member">HpdPulseCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="100" refid="xdppsu__intr_8c_1a940393f7b33c36e51ea69d4561630222" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdppsu_8h_1a940393f7b33c36e51ea69d4561630222" kindref="member">XDpPsu_HpdInterruptHandler</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HpdEventDetected;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HpdPulseDetected;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdDuration;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>what<sp/>kind<sp/>of<sp/>interrupt<sp/>occurred.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a66cf1bc6e98aa546ba11f8a8091b1f8e" kindref="member">XDPPSU_INTR_STATUS</ref>);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>to<sp/>clear<sp/>interrupt<sp/>status<sp/>register<sp/>bits.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" kindref="member">XDpPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,<sp/><ref refid="xdppsu__hw_8h_1a66cf1bc6e98aa546ba11f8a8091b1f8e" kindref="member">XDPPSU_INTR_STATUS</ref>,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdEventDetected<sp/>=<sp/>IntrStatus<sp/>&amp;<sp/><ref refid="xdppsu__hw_8h_1a3c97c07d18d9c5a39382fb8f8f7518b6" kindref="member">XDPPSU_INTR_HPD_EVENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdPulseDetected<sp/>=<sp/>IntrStatus<sp/>&amp;<sp/><ref refid="xdppsu__hw_8h_1a63c73ef7b94ee2b16928d5423226e636" kindref="member">XDPPSU_INTR_HPD_PULSE_DETECTED_MASK</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdEventDetected)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" kindref="member">HpdEventHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" kindref="member">HpdEventCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdPulseDetected<sp/>&amp;&amp;<sp/><ref refid="xdppsu_8c_1aee45a79c993e3bcad636dddf3121aeab" kindref="member">XDpPsu_IsConnected</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>source<sp/>device<sp/>must<sp/>debounce<sp/>the<sp/>incoming<sp/>HPD<sp/>signal<sp/>by</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>sampling<sp/>the<sp/>value<sp/>at<sp/>an<sp/>interval<sp/>greater<sp/>than<sp/>0.500<sp/>ms.<sp/>An</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>HPD<sp/>pulse<sp/>should<sp/>be<sp/>of<sp/>width<sp/>0.5<sp/>ms<sp/>-<sp/>1.0<sp/>ms.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdDuration<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a728bb80efc84e6cb161e3f04103bf6ed" kindref="member">XDPPSU_HPD_DURATION</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdDuration<sp/>&gt;=<sp/>500)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" kindref="member">HpdPulseHandler</ref>(</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" kindref="member">HpdPulseCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c"/>
+  </compounddef>
+</doxygen>

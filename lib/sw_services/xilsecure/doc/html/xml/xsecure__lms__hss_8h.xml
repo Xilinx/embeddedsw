@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__lms__hss_8h" kind="file">
+    <compoundname>xsecure_lms_hss.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__lms_8h" local="yes">xsecure_lms.h</includes>
+    <includedby refid="xsecure__lms__core_8h" local="yes">xsecure_lms_core.h</includedby>
+    <includedby refid="2ve__2vm_2xsecure__plat__kat_8c" local="yes">xsecure_plat_kat.c</includedby>
+    <includedby refid="2vp__p_2xsecure__plat__kat_8c" local="yes">xsecure_plat_kat.c</includedby>
+    <includedby refid="xilsecure__spartanup__lms__hss__server__example_8c" local="yes">xilsecure_spartanup_lms_hss_server_example.c</includedby>
+    <incdepgraph>
+      <node id="1976">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1974">
+        <label>xsecure_lms.h</label>
+        <link refid="xsecure__lms_8h"/>
+        <childnode refid="1973" relation="include">
+        </childnode>
+        <childnode refid="1975" relation="include">
+        </childnode>
+      </node>
+      <node id="1975">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure__lms__ots_8h"/>
+        <childnode refid="1973" relation="include">
+        </childnode>
+        <childnode refid="1976" relation="include">
+        </childnode>
+      </node>
+      <node id="1973">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1972">
+        <label>xsecure_lms_hss.h</label>
+        <link refid="xsecure_lms_hss.h"/>
+        <childnode refid="1973" relation="include">
+        </childnode>
+        <childnode refid="1974" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1983">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="1980">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="1982">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1979">
+        <label>xsecure_lms_core.c</label>
+        <link refid="xsecure__lms__core_8c"/>
+      </node>
+      <node id="1978">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure__lms__core_8h"/>
+        <childnode refid="1979" relation="include">
+        </childnode>
+        <childnode refid="1980" relation="include">
+        </childnode>
+        <childnode refid="1981" relation="include">
+        </childnode>
+        <childnode refid="1982" relation="include">
+        </childnode>
+        <childnode refid="1983" relation="include">
+        </childnode>
+      </node>
+      <node id="1981">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1977">
+        <label>xsecure_lms_hss.h</label>
+        <link refid="xsecure_lms_hss.h"/>
+        <childnode refid="1978" relation="include">
+        </childnode>
+        <childnode refid="1981" relation="include">
+        </childnode>
+        <childnode refid="1982" relation="include">
+        </childnode>
+        <childnode refid="1983" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___lms_hss_public_key" prot="public">XSecure_LmsHssPublicKey</innerclass>
+    <innerclass refid="struct_x_secure___lms_hss_signature" prot="public">XSecure_LmsHssSignature</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a6cb54a299293871f5c5d9a5a2534f5a8" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>during KAT we support only one tree </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a4fd6c0cb9921c16deb2d40e0d524a8b8" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>max supported by ROM </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_LEVELS_FIELD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Level field size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a46fcdbeb8c2bcadbe7d087915c3eefd3" prot="public" static="no">
+        <name>XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE</name>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" kindref="member">XSECURE_LMS_HSS_LEVELS_FIELD_SIZE</ref> +\
+						 <ref refid="group__xsecure__lms__server__apis_1ga341d86a79ae638b27351c4f88c02d7dc" kindref="member">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>public key size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gacd410c8890a3160304bf000bf0af2031" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1673" endline="1705">XSecure_HssSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1abec1603be20f35c205417ebdb200a91d" prot="public" static="no">
+        <name>XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>level field offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1ab442918b28d70596ef1a7699466d6389" prot="public" static="no">
+        <name>XSECURE_HSS_SIGN_LIST_SIGN_0_OFFSET</name>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1abec1603be20f35c205417ebdb200a91d" kindref="member">XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET</ref> + \
+							<ref refid="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" kindref="member">XSECURE_LMS_HSS_LEVELS_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of Signature-0 in HSS Signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a575720db478a76f56faa45ab7ac75d68" prot="public" static="no">
+        <name>XSECURE_HSS_SIGN_LIST_PUB_KEY_1_OFFSET</name>
+        <param><defname>Sign0Len_</defname></param>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1ab442918b28d70596ef1a7699466d6389" kindref="member">XSECURE_HSS_SIGN_LIST_SIGN_0_OFFSET</ref> + Sign0Len_)</initializer>
+        <briefdescription>
+<para>Offset of Public key-1 in HSS Signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a0ad4a563774bf73310bbb3e0c7003b8f" prot="public" static="no">
+        <name>XSECURE_HSS_SIGN_LIST_SIGN_NPSK_OFFSET</name>
+        <param><defname>Sign0Len_</defname></param>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1a575720db478a76f56faa45ab7ac75d68" kindref="member">XSECURE_HSS_SIGN_LIST_PUB_KEY_1_OFFSET</ref>(Sign0Len_) +\
+								 <ref refid="group__xsecure__lms__server__apis_1ga341d86a79ae638b27351c4f88c02d7dc" kindref="member">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Offset of Signature Npsk in HSS Signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1ab2de8c49f8d9ca07deb6af37ee6e50e8" prot="public" static="no">
+        <name>XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>HSS public key level field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a199dc0496a0cbfdfd170327b221a9b21" prot="public" static="no">
+        <name>XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET</name>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1ab2de8c49f8d9ca07deb6af37ee6e50e8" kindref="member">XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET</ref> +\
+								 <ref refid="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" kindref="member">XSECURE_LMS_HSS_LEVELS_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>HSS public key LMS field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" compoundref="xsecure__lms__core_8c" startline="1517" endline="1553">XSecure_GetLmsHashAlgo</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__lms__hss_8h_1a7f0b45574f2597e10f0dce915977c6ca" prot="public" static="no">
+        <name>XSECURE_HSS_PUBLIC_KEY_LMS_OTS_FIELD_OFFSET</name>
+        <initializer>(<ref refid="xsecure__lms__hss_8h_1a199dc0496a0cbfdfd170327b221a9b21" kindref="member">XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET</ref> + \
+								<ref refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" kindref="member">XSECURE_LMS_TYPE_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>HSS public key OTS field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XSECURE_LMS_HSS_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_HSS_H_</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__lms_8h" kindref="compound">xsecure_lms.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="xsecure__lms__hss_8h_1a6cb54a299293871f5c5d9a5a2534f5a8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED<sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39" refid="xsecure__lms__hss_8h_1a4fd6c0cb9921c16deb2d40e0d524a8b8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED<sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LMS_HSS_LEVELS_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="xsecure__lms__hss_8h_1a46fcdbeb8c2bcadbe7d087915c3eefd3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_LMS_HSS_LEVELS_FIELD_SIZE<sp/>+\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_PUB_KEY_TOTAL_SIZE)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>signature<sp/>list<sp/>related<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="xsecure__lms__hss_8h_1abec1603be20f35c205417ebdb200a91d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="xsecure__lms__hss_8h_1ab442918b28d70596ef1a7699466d6389" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_SIGN_LIST_SIGN_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_HSS_LEVELS_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="xsecure__lms__hss_8h_1a575720db478a76f56faa45ab7ac75d68" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_SIGN_LIST_PUB_KEY_1_OFFSET(Sign0Len_)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_HSS_SIGN_LIST_SIGN_0_OFFSET<sp/>+<sp/>Sign0Len_)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="xsecure__lms__hss_8h_1a0ad4a563774bf73310bbb3e0c7003b8f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_SIGN_LIST_SIGN_NPSK_OFFSET(Sign0Len_)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_HSS_SIGN_LIST_PUB_KEY_1_OFFSET(Sign0Len_)<sp/>+\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_PUB_KEY_TOTAL_SIZE)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>public<sp/>key<sp/>related<sp/>offsets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="xsecure__lms__hss_8h_1ab2de8c49f8d9ca07deb6af37ee6e50e8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="xsecure__lms__hss_8h_1a199dc0496a0cbfdfd170327b221a9b21" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET<sp/>+\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_HSS_LEVELS_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="xsecure__lms__hss_8h_1a7f0b45574f2597e10f0dce915977c6ca" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_HSS_PUBLIC_KEY_LMS_OTS_FIELD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_LMS_TYPE_SIZE)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight></codeline>
+<codeline lineno="71" refid="struct_x_secure___lms_hss_public_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="struct_x_secure___lms_hss_public_key_1a72db34768ff86ad08c95dbc639f23c6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_hss_public_key_1a72db34768ff86ad08c95dbc639f23c6c" kindref="member">Levels</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_secure___lms_hss_public_key_1a56016066ce1d20e7638544427ee07e1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="union_x_secure___lms_public_key__" kindref="compound">XSecure_LmsPublicKey</ref><sp/><ref refid="struct_x_secure___lms_hss_public_key_1a56016066ce1d20e7638544427ee07e1d" kindref="member">LmsPubKey</ref>;<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}__attribute__((__packed__))<sp/><ref refid="struct_x_secure___lms_hss_public_key" kindref="compound">XSecure_LmsHssPublicKey</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="struct_x_secure___lms_hss_signature" refkind="compound"><highlight class="normal">typedef<sp/>struct<sp/>{</highlight></codeline>
+<codeline lineno="81" refid="struct_x_secure___lms_hss_signature_1ac93bc008c53a7984f4d53f7deb655e96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_hss_signature_1ac93bc008c53a7984f4d53f7deb655e96" kindref="member">Levels</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_secure___lms_hss_signature_1a7cca598155436054fdaf923adaf8b61e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___lms_hss_signature_1a7cca598155436054fdaf923adaf8b61e" kindref="member">SignList</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/><ref refid="struct_x_secure___lms_hss_signature" kindref="compound">XSecure_LmsHssSignature</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMS_HSS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h"/>
+  </compounddef>
+</doxygen>

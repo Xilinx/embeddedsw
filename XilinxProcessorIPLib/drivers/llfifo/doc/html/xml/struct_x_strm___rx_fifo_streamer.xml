@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_strm___rx_fifo_streamer" kind="struct" prot="public">
+    <compoundname>XStrm_RxFifoStreamer</compoundname>
+    <includes local="no">xstreamer.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a5d1f8f992cd102849b29a2df35751393" prot="public" static="no" mutable="no">
+        <type>union XStrm_AlignedBufferType</type>
+        <definition>union XStrm_AlignedBufferType XStrm_RxFifoStreamer::AlignedBuffer</definition>
+        <argsstring></argsstring>
+        <name>AlignedBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a6321ab6bf1a1f3979c0771618a4aba7c" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XStrm_RxFifoStreamer::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para>HeadIndex is the index to the AlignedBuffer as bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" compoundref="xstreamer_8c" startline="275" endline="355">XStrm_Read</referencedby>
+        <referencedby refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" compoundref="xstreamer_8c" startline="246" endline="254">XStrm_RxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a3ad4cdd1ad14dcecfaf5f923850289fb" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XStrm_RxFifoStreamer::FifoWidth</definition>
+        <argsstring></argsstring>
+        <name>FifoWidth</name>
+        <briefdescription>
+<para>FifoWidth is the FIFO key hole width in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" compoundref="xstreamer_8c" startline="275" endline="355">XStrm_Read</referencedby>
+        <referencedby refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" compoundref="xstreamer_8c" startline="246" endline="254">XStrm_RxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a9fa74d02f4fa2607e78b11de059be837" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XStrm_RxFifoStreamer::FrmByteCnt</definition>
+        <argsstring></argsstring>
+        <name>FrmByteCnt</name>
+        <briefdescription>
+<para>FrmByteCnt is the number of bytes in the next Frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" compoundref="xstreamer_8c" startline="275" endline="355">XStrm_Read</referencedby>
+        <referencedby refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" compoundref="xstreamer_8c" startline="246" endline="254">XStrm_RxGetLen</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1ab278ceaef035943f8a3a8b85a8cab99d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XStrm_RxFifoStreamer::FifoInstance</definition>
+        <argsstring></argsstring>
+        <name>FifoInstance</name>
+        <briefdescription>
+<para>FifoInstance is the FIFO driver instance to pass to ReadFn, GetLenFn, and GetOccupancyFn routines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" compoundref="xstreamer_8c" startline="275" endline="355">XStrm_Read</referencedby>
+        <referencedby refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" compoundref="xstreamer_8c" startline="246" endline="254">XStrm_RxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1af3bfc974fd88c7b707edf680b3c9aed2" prot="public" static="no" mutable="no">
+        <type>XStrm_XferFnType</type>
+        <definition>XStrm_XferFnType XStrm_RxFifoStreamer::ReadFn</definition>
+        <argsstring></argsstring>
+        <name>ReadFn</name>
+        <briefdescription>
+<para>ReadFn is the routine the streamer uses to receive bytes from the Fifo. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" compoundref="xstreamer_8c" startline="275" endline="355">XStrm_Read</referencedby>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a01fa1cc2098388ac9371beb090c0c212" prot="public" static="no" mutable="no">
+        <type>XStrm_GetLenFnType</type>
+        <definition>XStrm_GetLenFnType XStrm_RxFifoStreamer::GetLenFn</definition>
+        <argsstring></argsstring>
+        <name>GetLenFn</name>
+        <briefdescription>
+<para>GetLenFn is the routine the streamer uses to initiate receive operations on the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" compoundref="xstreamer_8c" startline="246" endline="254">XStrm_RxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_strm___rx_fifo_streamer_1a8d552e42f58c3230de010178832b41b1" prot="public" static="no" mutable="no">
+        <type>XStrm_GetOccupancyFnType</type>
+        <definition>XStrm_GetOccupancyFnType XStrm_RxFifoStreamer::GetOccupancyFn</definition>
+        <argsstring></argsstring>
+        <name>GetOccupancyFn</name>
+        <briefdescription>
+<para>GetOccupancyFn is the routine the streamer uses to get the occupancy from the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines a run-time instance of a receive byte-streamer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="136" bodyend="162"/>
+    <listofallmembers>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a5d1f8f992cd102849b29a2df35751393" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>AlignedBuffer</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1ab278ceaef035943f8a3a8b85a8cab99d" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>FifoInstance</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a3ad4cdd1ad14dcecfaf5f923850289fb" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>FifoWidth</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a9fa74d02f4fa2607e78b11de059be837" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>FrmByteCnt</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a01fa1cc2098388ac9371beb090c0c212" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>GetLenFn</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a8d552e42f58c3230de010178832b41b1" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>GetOccupancyFn</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1a6321ab6bf1a1f3979c0771618a4aba7c" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_strm___rx_fifo_streamer_1af3bfc974fd88c7b707edf680b3c9aed2" prot="public" virt="non-virtual"><scope>XStrm_RxFifoStreamer</scope><name>ReadFn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

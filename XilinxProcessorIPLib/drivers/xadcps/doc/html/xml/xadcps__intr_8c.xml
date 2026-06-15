@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xadcps__intr_8c" kind="file">
+    <compoundname>xadcps_intr.c</compoundname>
+    <includes refid="xadcps_8h" local="yes">xadcps.h</includes>
+    <incdepgraph>
+      <node id="51">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="54">
+        <label>xil_io.h</label>
+      </node>
+      <node id="52">
+        <label>xstatus.h</label>
+      </node>
+      <node id="48">
+        <label>xadcps_intr.c</label>
+        <link refid="xadcps_intr.c"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xil_types.h</label>
+      </node>
+      <node id="53">
+        <label>xadcps_hw.h</label>
+        <link refid="xadcps__hw_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xadcps.h</label>
+        <link refid="xadcps_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAdcPs_IntrEnable</definition>
+        <argsstring>(XAdcPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XAdcPs_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Functions in <ref refid="xadcps__intr_8c" kindref="compound">xadcps_intr.c</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the specified interrupts in the device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XADCPS_INTX_* bits defined in <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c" bodystart="72" bodyend="91"/>
+        <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
+        <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
+        <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
+        <references refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" compoundref="xadcps__hw_8h" startline="64">XADCPS_INT_MASK_OFFSET</references>
+        <references refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" compoundref="xadcps__hw_8h" startline="97">XADCPS_INTX_ALL_MASK</references>
+        <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
+        <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
+        <referencedby refid="xadcps__intr__example_8c_1a1c6d46393cad7397e19d5978f448d60c" compoundref="xadcps__intr__example_8c" startline="174" endline="290">XAdcIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAdcPs_IntrDisable</definition>
+        <argsstring>(XAdcPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XAdcPs_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the specified interrupts in the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XADCPS_INTX_* bits defined in <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c" bodystart="110" bodyend="129"/>
+        <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
+        <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
+        <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
+        <references refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" compoundref="xadcps__hw_8h" startline="64">XADCPS_INT_MASK_OFFSET</references>
+        <references refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" compoundref="xadcps__hw_8h" startline="97">XADCPS_INTX_ALL_MASK</references>
+        <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
+        <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAdcPs_IntrGetEnabled</definition>
+        <argsstring>(XAdcPs *InstancePtr)</argsstring>
+        <name>XAdcPs_IntrGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the enabled interrupts read from the Interrupt Mask Register (IPIER). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XADCPS_IPIXR_* constants defined in <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the I.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c" bodystart="144" bodyend="157"/>
+        <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
+        <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
+        <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
+        <references refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" compoundref="xadcps__hw_8h" startline="64">XADCPS_INT_MASK_OFFSET</references>
+        <references refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" compoundref="xadcps__hw_8h" startline="97">XADCPS_INTX_ALL_MASK</references>
+        <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAdcPs_IntrGetStatus</definition>
+        <argsstring>(XAdcPs *InstancePtr)</argsstring>
+        <name>XAdcPs_IntrGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the interrupt status read from Interrupt Status Register(IPISR). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XADCPS_IPIXR_* constants defined in <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the IPISR.</para></simplesect>
+<simplesect kind="note"><para>The device must be configured at hardware build time to include interrupt component for this function to work. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c" bodystart="174" bodyend="187"/>
+        <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
+        <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
+        <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
+        <references refid="group___overview_1ga8de2b14bf355495765652a96cf984196" compoundref="xadcps__hw_8h" startline="63">XADCPS_INT_STS_OFFSET</references>
+        <references refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" compoundref="xadcps__hw_8h" startline="97">XADCPS_INTX_ALL_MASK</references>
+        <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
+        <referencedby refid="xadcps__intr__example_8c_1a1c6d46393cad7397e19d5978f448d60c" compoundref="xadcps__intr__example_8c" startline="174" endline="290">XAdcIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAdcPs_IntrClear</definition>
+        <argsstring>(XAdcPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XAdcPs_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the specified interrupts in the Interrupt Status Register (IPISR). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR&apos;ing XADCPS_IPIXR_* bits which are defined in <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c" bodystart="206" bodyend="225"/>
+        <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
+        <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
+        <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
+        <references refid="group___overview_1ga8de2b14bf355495765652a96cf984196" compoundref="xadcps__hw_8h" startline="63">XADCPS_INT_STS_OFFSET</references>
+        <references refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" compoundref="xadcps__hw_8h" startline="97">XADCPS_INTX_ALL_MASK</references>
+        <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
+        <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
+        <referencedby refid="xadcps__intr__example_8c_1a1c6d46393cad7397e19d5978f448d60c" compoundref="xadcps__intr__example_8c" startline="174" endline="290">XAdcIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xadcps_8h" kindref="compound">xadcps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" kindref="member">XAdcPs_IntrEnable</ref>(<ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>IPIER.</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" kindref="member">XAdcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" kindref="member">XADCPS_INT_MASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~(Mask<sp/>&amp;<sp/><ref refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" kindref="member">XADCPS_INTX_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga48770272099dfc236414809f6ac0f911" kindref="member">XAdcPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" kindref="member">XADCPS_INT_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" kindref="member">XAdcPs_IntrDisable</ref>(<ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>IPIER.</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" kindref="member">XAdcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" kindref="member">XADCPS_INT_MASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(Mask<sp/>&amp;<sp/><ref refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" kindref="member">XADCPS_INTX_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga48770272099dfc236414809f6ac0f911" kindref="member">XAdcPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" kindref="member">XADCPS_INT_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="144" refid="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" refkind="member"><highlight class="normal">u32<sp/><ref refid="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" kindref="member">XAdcPs_IntrGetEnabled</ref>(<ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>value<sp/>read<sp/>from<sp/>the<sp/>Interrupt<sp/>Enable<sp/>Register.</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(~<sp/><ref refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" kindref="member">XAdcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga07a51f2e305a76820614eaca76a2b917" kindref="member">XADCPS_INT_MASK_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" kindref="member">XADCPS_INTX_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="174" refid="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" kindref="member">XAdcPs_IntrGetStatus</ref>(<ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>value<sp/>read<sp/>from<sp/>the<sp/>Interrupt<sp/>Status<sp/>register.</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" kindref="member">XAdcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga8de2b14bf355495765652a96cf984196" kindref="member">XADCPS_INT_STS_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" kindref="member">XADCPS_INTX_ALL_MASK</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="206" refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" kindref="member">XAdcPs_IntrClear</ref>(<ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>Interrupt<sp/>Status<sp/>register.</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" kindref="member">XAdcPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga8de2b14bf355495765652a96cf984196" kindref="member">XADCPS_INT_STS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>(Mask<sp/>&amp;<sp/><ref refid="group___overview_1ga58603ef8e228edc64329d0df7d431f83" kindref="member">XADCPS_INTX_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga48770272099dfc236414809f6ac0f911" kindref="member">XAdcPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" kindref="member">Config</ref>.<ref refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga8de2b14bf355495765652a96cf984196" kindref="member">XADCPS_INT_STS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_intr.c"/>
+  </compounddef>
+</doxygen>

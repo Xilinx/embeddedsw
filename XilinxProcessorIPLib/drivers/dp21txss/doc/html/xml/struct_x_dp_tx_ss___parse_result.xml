@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___parse_result" kind="struct" prot="public">
+    <compoundname>XDpTxSs_ParseResult</compoundname>
+    <includes local="no">xdptxss_edid_parser.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_ParseResult::TotalBlockCount</definition>
+        <argsstring></argsstring>
+        <name>TotalBlockCount</name>
+        <briefdescription>
+<para>Total blocks of this type found. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_ParseResult::InvalidBlockCount</definition>
+        <argsstring></argsstring>
+        <name>InvalidBlockCount</name>
+        <briefdescription>
+<para>Blocks with checksum failures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>EDID Parse Result Structure Contains detailed information about the parsing operation including timing count, block-level validation statistics. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="111" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" prot="public" virt="non-virtual"><scope>XDpTxSs_ParseResult</scope><name>InvalidBlockCount</name></member>
+      <member refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" prot="public" virt="non-virtual"><scope>XDpTxSs_ParseResult</scope><name>TotalBlockCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

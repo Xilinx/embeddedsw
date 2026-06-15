@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___sb_msg_link_address_reply_device_info" kind="struct" prot="public">
+    <compoundname>XDp_SbMsgLinkAddressReplyDeviceInfo</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_device_info_1ac6645755a481d4e2e9e1efc4e65baf54" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyDeviceInfo::Guid[XDP_GUID_NBYTES]</definition>
+        <argsstring>[XDP_GUID_NBYTES]</argsstring>
+        <name>Guid</name>
+        <briefdescription>
+<para>The global unique identifier (GUID) of the branch device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="712" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_device_info_1aa7c37e0193462c84f4aeb17a1ad7b651" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyDeviceInfo::NumPorts</definition>
+        <argsstring></argsstring>
+        <name>NumPorts</name>
+        <briefdescription>
+<para>The number of ports associated with this branch device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="714" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="714" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_device_info_1a54c17ec692e9044a5100b1280299e750" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___sb_msg_link_address_reply_port_detail" kindref="compound">XDp_SbMsgLinkAddressReplyPortDetail</ref></type>
+        <definition>XDp_SbMsgLinkAddressReplyPortDetail XDp_SbMsgLinkAddressReplyDeviceInfo::PortDetails[XDP_MAX_NPORTS]</definition>
+        <argsstring>[XDP_MAX_NPORTS]</argsstring>
+        <name>PortDetails</name>
+        <briefdescription>
+<para><verbatim>          An
+</verbatim> array describing all ports attached to this branch device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="716" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="716" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a DisplayPort branch device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure is used when the driver is operating in multi-stream transport (MST) mode. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="51">
+        <label>XDp_SbMsgLinkAddressReplyPortDetail</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_port_detail"/>
+      </node>
+      <node id="50">
+        <label>XDp_SbMsgLinkAddressReplyDeviceInfo</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_device_info"/>
+        <childnode refid="51" relation="usage">
+          <edgelabel>PortDetails</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="711" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="711" bodyend="720"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_device_info_1ac6645755a481d4e2e9e1efc4e65baf54" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyDeviceInfo</scope><name>Guid</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_device_info_1aa7c37e0193462c84f4aeb17a1ad7b651" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyDeviceInfo</scope><name>NumPorts</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_device_info_1a54c17ec692e9044a5100b1280299e750" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyDeviceInfo</scope><name>PortDetails</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

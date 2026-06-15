@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx___audio_stream" kind="struct" prot="public">
+    <compoundname>XV_HdmiRx_AudioStream</compoundname>
+    <includes local="no">xv_hdmirx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx___audio_stream_1a62436417a204c891460a4a70603eb523" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx_AudioStream::Active</definition>
+        <argsstring></argsstring>
+        <name>Active</name>
+        <briefdescription>
+<para>Active flag. </para>        </briefdescription>
+        <detaileddescription>
+<para>This flag is set when an active audio stream was detected </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx_8h_1adaa424ff55e1b21973d23de5f1a03071" compoundref="xv__hdmirx_8c" startline="298" endline="350">XV_HdmiRx_Clear</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx___audio_stream_1ac2fce5e2b2f4d39c4ca275bbbee2e000" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx_AudioStream::Channels</definition>
+        <argsstring></argsstring>
+        <name>Channels</name>
+        <briefdescription>
+<para>Channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx_8h_1adaa424ff55e1b21973d23de5f1a03071" compoundref="xv__hdmirx_8c" startline="298" endline="350">XV_HdmiRx_Clear</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains HDMI RX audio stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="238" bodyend="242"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx___audio_stream_1a62436417a204c891460a4a70603eb523" prot="public" virt="non-virtual"><scope>XV_HdmiRx_AudioStream</scope><name>Active</name></member>
+      <member refid="struct_x_v___hdmi_rx___audio_stream_1ac2fce5e2b2f4d39c4ca275bbbee2e000" prot="public" virt="non-virtual"><scope>XV_HdmiRx_AudioStream</scope><name>Channels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

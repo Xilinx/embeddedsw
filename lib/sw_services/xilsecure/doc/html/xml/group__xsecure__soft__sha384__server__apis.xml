@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__soft__sha384__server__apis" kind="group">
+    <compoundname>xsecure_soft_sha384_server_apis</compoundname>
+    <title>XilSecure Soft SHA384 Server APIs</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__soft__sha384__server__apis_1ga51cd88b75b96ed38f7280f8b7ae8918f" prot="public" static="yes" mutable="no">
+        <type><ref refid="structsha384__context" kindref="compound">sha384_context</ref></type>
+        <definition>sha384_context ShaCtx</definition>
+        <argsstring></argsstring>
+        <name>ShaCtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__soft__sha384__server__apis_1ga130483db02549f4f03400a5dc7baf143" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha384Digest</definition>
+        <argsstring>(u8 *Data, u32 Size, u8 *Hash)</argsstring>
+        <name>XSecure_Sha384Digest</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the SHA2-384 digest on the given input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to buffer which stores input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to buffer which stores calculated SHA2 hash</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If digest calculation done successfully</para></listitem><listitem><para>XSECURE_SHA384_INVALID_PARAM - On invalid parameter </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" bodystart="56" bodyend="72"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da100072ce638ce3448414ff0807685dfa" compoundref="spartanup_2xsecure__error_8h" startline="61">XSECURE_SHA384_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gabcd23e63d210e5c19bc9d4eeedac8dec" compoundref="net_2xsecure__plat__kat_8c" startline="142" endline="181">XSecure_Sha384Kat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__soft__sha384__server__apis_1ga9c71d3654dbc4cf5be8c6e9a46f270c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_Sha384Start</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_Sha384Start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts the SHA384 engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__soft__sha384__server__apis_1ga56ed875b32f95c5d82de53b87470e96e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha384Update</definition>
+        <argsstring>(u8 *Data, u32 Size)</argsstring>
+        <name>XSecure_Sha384Update</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the data to SHA2-384 update API in driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to buffer which stores input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the input data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If update done successfully</para></listitem><listitem><para>XSECURE_SHA384_INVALID_PARAM - On invalid parameter </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" bodystart="96" bodyend="112"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da100072ce638ce3448414ff0807685dfa" compoundref="spartanup_2xsecure__error_8h" startline="61">XSECURE_SHA384_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__soft__sha384__server__apis_1ga39d8f5d862be99e451abfab33d969e7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha384Finish</definition>
+        <argsstring>(XSecure_Sha2Hash *ResHash)</argsstring>
+        <name>XSecure_Sha384Finish</name>
+        <param>
+          <type>XSecure_Sha2Hash *</type>
+          <declname>ResHash</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the SHA2-384 hash on the given input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ResHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XSecure_Sha2Hash structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If digest calculation done successfully</para></listitem><listitem><para>XSECURE_SHA384_INVALID_PARAM - On invalid parameter </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/xsecure_sha384.c" bodystart="125" bodyend="141"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da100072ce638ce3448414ff0807685dfa" compoundref="spartanup_2xsecure__error_8h" startline="61">XSECURE_SHA384_INVALID_PARAM</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

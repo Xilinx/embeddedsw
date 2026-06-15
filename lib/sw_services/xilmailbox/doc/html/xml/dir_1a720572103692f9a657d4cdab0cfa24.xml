@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1a720572103692f9a657d4cdab0cfa24" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_9f065f2381ebe402f6bb5ded3e1cf48f">PS</innerdir>
+    <innerfile refid="xilmailbox_8c">xilmailbox.c</innerfile>
+    <innerfile refid="xilmailbox_8h">xilmailbox.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/"/>
+  </compounddef>
+</doxygen>

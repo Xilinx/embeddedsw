@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___hw_pcr_event" kind="struct" prot="public">
+    <compoundname>XOcp_HwPcrEvent</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___hw_pcr_event_1a9c3e569cad9bd0724f0332543c7b5406" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOcp_HwPcrEvent::PcrNo</definition>
+        <argsstring></argsstring>
+        <name>PcrNo</name>
+        <briefdescription>
+<para>HW PCR number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___hw_pcr_event_1a43de5bc41c221f781de99245e76a7ded" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOcp_HwPcrEvent::Hash[XOCP_SHA3_LEN_IN_BYTES]</definition>
+        <argsstring>[XOCP_SHA3_LEN_IN_BYTES]</argsstring>
+        <name>Hash</name>
+        <briefdescription>
+<para>Hash to be extended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___hw_pcr_event_1abd388da1f48ad2d8c3bde69a10439761" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOcp_HwPcrEvent::PcrValue[XOCP_SHA3_LEN_IN_BYTES]</definition>
+        <argsstring>[XOCP_SHA3_LEN_IN_BYTES]</argsstring>
+        <name>PcrValue</name>
+        <briefdescription>
+<para>PCR value after extension. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Hardware PCR Event structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="122" bodyend="126"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___hw_pcr_event_1a43de5bc41c221f781de99245e76a7ded" prot="public" virt="non-virtual"><scope>XOcp_HwPcrEvent</scope><name>Hash</name></member>
+      <member refid="struct_x_ocp___hw_pcr_event_1a9c3e569cad9bd0724f0332543c7b5406" prot="public" virt="non-virtual"><scope>XOcp_HwPcrEvent</scope><name>PcrNo</name></member>
+      <member refid="struct_x_ocp___hw_pcr_event_1abd388da1f48ad2d8c3bde69a10439761" prot="public" virt="non-virtual"><scope>XOcp_HwPcrEvent</scope><name>PcrValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

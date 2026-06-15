@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_bc33ee77fd14d20aa9c25820a4f07623" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xdfeprach__2_c_c__3_r_c__dynamic__example_8c">xdfeprach_2CC_3RC_dynamic_example.c</innerfile>
+    <innerfile refid="xdfeprach__2_c_c__3_r_c__example_8c">xdfeprach_2CC_3RC_example.c</innerfile>
+    <innerfile refid="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c">xdfeprach_2CC_3RC_reconfigure_example.c</innerfile>
+    <innerfile refid="xdfeprach__examples_8c">xdfeprach_examples.c</innerfile>
+    <innerfile refid="xdfeprach__examples_8h">xdfeprach_examples.h</innerfile>
+    <innerfile refid="xdfeprach__one__instance__initialization__example_8c">xdfeprach_one_instance_initialization_example.c</innerfile>
+    <innerfile refid="xdfesi570__mgt_8c">xdfesi570_mgt.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/"/>
+  </compounddef>
+</doxygen>

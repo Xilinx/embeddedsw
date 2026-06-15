@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i_o_module___buffer" kind="struct" prot="public">
+    <compoundname>XIOModule_Buffer</compoundname>
+    <includes local="no">xiomodule.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XIOModule_Buffer::NextBytePtr</definition>
+        <argsstring></argsstring>
+        <name>NextBytePtr</name>
+        <briefdescription>
+<para>Pointer to Next byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule_Buffer::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+<para>Requested number of bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" compoundref="xiomodule__uart__intr_8c" startline="560" endline="580">XIOModule_Uart_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule_Buffer::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Remaining number of bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The following data type is used to manage the buffers that are handled when sending and receiving UART data in the interrupt mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>It is intended for internal use only. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="400" bodyend="404"/>
+    <listofallmembers>
+      <member refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" prot="public" virt="non-virtual"><scope>XIOModule_Buffer</scope><name>NextBytePtr</name></member>
+      <member refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" prot="public" virt="non-virtual"><scope>XIOModule_Buffer</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" prot="public" virt="non-virtual"><scope>XIOModule_Buffer</scope><name>RequestedBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

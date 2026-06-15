@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3feed4ac2bde566e34bdd8f6f375e0ca" kind="dir">
+    <compoundname>kc</compoundname>
+    <innerfile refid="dppt_8h">dppt.h</innerfile>
+    <innerfile refid="dppt__vdma_8c">dppt_vdma.c</innerfile>
+    <innerfile refid="dppt__vdma_8h">dppt_vdma.h</innerfile>
+    <innerfile refid="dppt__vid__phy__config_8c">dppt_vid_phy_config.c</innerfile>
+    <innerfile refid="dppt__vid__phy__config_8h">dppt_vid_phy_config.h</innerfile>
+    <innerfile refid="kc_2_l_m_k04906_8c">kc/LMK04906.c</innerfile>
+    <innerfile refid="kc_2menus_8c">kc/menus.c</innerfile>
+    <innerfile refid="_p_l_l___conf_8c">PLL_Conf.c</innerfile>
+    <innerfile refid="xclk__wiz_8c">xclk_wiz.c</innerfile>
+    <innerfile refid="xdebug_8h">xdebug.h</innerfile>
+    <innerfile refid="xdptxss__kc705_8c">xdptxss_kc705.c</innerfile>
+    <innerfile refid="xedid__print__example_8c">xedid_print_example.c</innerfile>
+    <innerfile refid="xlib__string_8c">xlib_string.c</innerfile>
+    <innerfile refid="kc_2xlib__string_8h">kc/xlib_string.h</innerfile>
+    <innerfile refid="kc_2xvid__pat__gen_8c">kc/xvid_pat_gen.c</innerfile>
+    <innerfile refid="xvid__pat__gen_8h">xvid_pat_gen.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kc/"/>
+  </compounddef>
+</doxygen>

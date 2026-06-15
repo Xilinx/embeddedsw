@@ -1,0 +1,1949 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxipcie_8h" kind="file">
+    <compoundname>xaxipcie.h</compoundname>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xaxipcie__hw_8h" local="yes">xaxipcie_hw.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includedby refid="xaxipcie_8c" local="yes">xaxipcie.c</includedby>
+    <includedby refid="xaxipcie__g_8c" local="yes">xaxipcie_g.c</includedby>
+    <includedby refid="xaxipcie__intr_8c" local="yes">xaxipcie_intr.c</includedby>
+    <includedby refid="xaxipcie__sinit_8c" local="yes">xaxipcie_sinit.c</includedby>
+    <includedby refid="xaxipcie__ep__cdma__example_8c" local="yes">xaxipcie_ep_cdma_example.c</includedby>
+    <includedby refid="xaxipcie__ep__enable__example_8c" local="yes">xaxipcie_ep_enable_example.c</includedby>
+    <includedby refid="xaxipcie__rc__cdma__example_8c" local="yes">xaxipcie_rc_cdma_example.c</includedby>
+    <includedby refid="xaxipcie__rc__enumerate__example_8c" local="yes">xaxipcie_rc_enumerate_example.c</includedby>
+    <incdepgraph>
+      <node id="15">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="19">
+        <label>xil_io.h</label>
+      </node>
+      <node id="21">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="17">
+        <label>xaxipcie_hw.h</label>
+        <link refid="xaxipcie__hw_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>string.h</label>
+      </node>
+      <node id="16">
+        <label>xstatus.h</label>
+      </node>
+      <node id="18">
+        <label>xil_types.h</label>
+      </node>
+      <node id="14">
+        <label>xaxipcie.h</label>
+        <link refid="xaxipcie.h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="27">
+        <label>xaxipcie_ep_cdma_example.c</label>
+        <link refid="xaxipcie__ep__cdma__example_8c"/>
+      </node>
+      <node id="25">
+        <label>xaxipcie_intr.c</label>
+      </node>
+      <node id="24">
+        <label>xaxipcie_g.c</label>
+        <link refid="xaxipcie__g_8c"/>
+      </node>
+      <node id="26">
+        <label>xaxipcie_sinit.c</label>
+      </node>
+      <node id="28">
+        <label>xaxipcie_ep_enable_example.c</label>
+        <link refid="xaxipcie__ep__enable__example_8c"/>
+      </node>
+      <node id="30">
+        <label>xaxipcie_rc_enumerate_example.c</label>
+        <link refid="xaxipcie__rc__enumerate__example_8c"/>
+      </node>
+      <node id="29">
+        <label>xaxipcie_rc_cdma_example.c</label>
+        <link refid="xaxipcie__rc__cdma__example_8c"/>
+      </node>
+      <node id="23">
+        <label>xaxipcie.c</label>
+      </node>
+      <node id="22">
+        <label>xaxipcie.h</label>
+        <link refid="xaxipcie.h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_axi_pcie___config" prot="public">XAxiPcie_Config</innerclass>
+    <innerclass refid="struct_x_axi_pcie" prot="public">XAxiPcie</innerclass>
+    <innerclass refid="struct_x_axi_pcie___bar_addr" prot="public">XAxiPcie_BarAddr</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axipcie_1ga02ad1a5f3d0ed294888c77c60b229a3b" prot="public" static="no">
+        <name>XAXIPCIE_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaea6bdd6f359208f120597390fe6cad0b" prot="public" static="no">
+        <name>XAXIPCIE_IS_RC</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gafa73b84cb240d4b683d33ed8e48f4f49" prot="public" static="no">
+        <name>ALIGN_4KB</name>
+        <initializer>0xFFFFF000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7e5fb7cdef729030bf31e9c3651253b1" prot="public" static="no">
+        <name>XAXIPCIE_VSEC1</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>First VSEC Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga08b7198f8d99e2f00b912ae94f25d088" prot="public" static="no">
+        <name>XAXIPCIE_VSEC2</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Second VSEC Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gacd9a5078571848df63efc237fac1a672" prot="public" static="no">
+        <name>XAxiPcie_GetRequestId</name>
+        <initializer><ref refid="group__axipcie_1ga77063428b5641d07910419770813c148" kindref="member">XAxiPcie_GetRequesterId</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga08e3f639ed3ca042d429630fec260654" prot="public" static="no">
+        <name>XAxiPcie_IsLinkUp</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(<ref refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" kindref="member">XAxiPcie_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, 	\
+	<ref refid="group__axipcie_1ga84f89f155288e2a5de41a09bdf5d8672" kindref="member">XAXIPCIE_PHYSC_OFFSET</ref>) &amp; <ref refid="group__axipcie_1ga1b1c63c3222b1c3585b7b7ba73a46db8" kindref="member">XAXIPCIE_PHYSC_LINK_UP_MASK</ref>) ? TRUE : FALSE</initializer>
+        <briefdescription>
+<para>Check whether link is up or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if link is up</para></listitem><listitem><para>FALSE if link is down</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="223" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga4eff130db70eebadac90b43cbd2561fa" prot="public" static="no">
+        <name>XAxiPcie_IsEcamBusy</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(<ref refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" kindref="member">XAxiPcie_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, 	\
+	<ref refid="group__axipcie_1ga10e385edef3931106642fcf07d5a5fec" kindref="member">XAXIPCIE_BSC_OFFSET</ref>) &amp; <ref refid="group__axipcie_1gabfb6e478c3f181fcec8e4918f9442296" kindref="member">XAXIPCIE_BSC_ECAM_BUSY_MASK</ref>) ? TRUE : FALSE</initializer>
+        <briefdescription>
+<para>Check whether ECAM is busy or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if ECAM is busy</para></listitem><listitem><para>FALSE if ECAM is idel</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="242" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" compoundref="xaxipcie_8c" startline="773" endline="802">XAxiPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" compoundref="xaxipcie_8c" startline="825" endline="865">XAxiPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axipcie_1ga485623abf227332437c8b204233e4a83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref> *</type>
+        <definition>XAxiPcie_Config* XAxiPcie_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAxiPcie_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Lookup the device configuration based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table ConfigTable contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device identifier to lookup.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> configuration structure pointer if DeviceID is found.</para></listitem><listitem><para>NULL if DeviceID is not found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" bodystart="76" bodyend="90"/>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiPcie_CfgInitialize</definition>
+        <argsstring>(XAxiPcie *InstancePtr, XAxiPcie_Config *CfgPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XAxiPcie_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on.The memory of the pointer references must be pre-allocated by the caller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing required HW build data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical address of the hardware in a Virtual Memory operating system environment.It is the Base Address in a stand alone environment.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>            - XST_SUCCESS Initialization was successful.
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="94" bodyend="121"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="struct_x_axi_pcie_1a75ec06e432dfea5967d2912b2af901b0" compoundref="xaxipcie_8h" startline="187">XAxiPcie::MaxNumOfBuses</references>
+        <references refid="group__axipcie_1ga2d99e62d5248da57465cd526eaf9cb01" compoundref="xaxipcie__hw_8h" startline="327">XAXIPCIE_BI_ECAM_SIZE_MASK</references>
+        <references refid="group__axipcie_1ga6e5ee78d2b39fa90a87fea37ed49d35a" compoundref="xaxipcie__hw_8h" startline="329">XAXIPCIE_BI_ECAM_SIZE_SHIFT</references>
+        <references refid="group__axipcie_1ga9f8bb352119692caff9e7851fe534498" compoundref="xaxipcie__hw_8h" startline="76">XAXIPCIE_BI_OFFSET</references>
+        <references refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" compoundref="xaxipcie__intr_8c" startline="141" endline="154">XAxiPcie_DisableInterrupts</references>
+        <references refid="group__axipcie_1ga1da6c8b6280b6726d8ac6178bf11af15" compoundref="xaxipcie__hw_8h" startline="442">XAXIPCIE_IM_DISABLE_ALL_MASK</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetVsecCapability</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 VsecNum, u16 *VsecIdPtr, u8 *VersionPtr, u16 *NextCapPtr)</argsstring>
+        <name>XAxiPcie_GetVsecCapability</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VsecNum</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>VsecIdPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>VersionPtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>NextCapPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to read the VSEC Capability Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VsecNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a VSEC register number as there are two registers. Possible values are.<itemizedlist>
+<listitem><para>XAXIPCIE_VSEC1 (0)</para></listitem><listitem><para>XAXIPCIE_VSEC2 (1) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VsecIdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the Vendor Specific Enhanced Capability ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VersionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will . pass back the Version of VSEC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NextCapPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the Next Capability offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="144" bodyend="168"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gabd84445ebce4bfcb25ca5b75799bbba5" compoundref="xaxipcie__hw_8h" startline="279">XAXIPCIE_VSECC_ID_MASK</references>
+        <references refid="group__axipcie_1gaca2f85036ff847a8f3c9def6d402bfe3" compoundref="xaxipcie__hw_8h" startline="285">XAXIPCIE_VSECC_NEXT_MASK</references>
+        <references refid="group__axipcie_1ga4ea49e123b5a60e753034437e748a455" compoundref="xaxipcie__hw_8h" startline="291">XAXIPCIE_VSECC_NEXT_SHIFT</references>
+        <references refid="group__axipcie_1gaf01ed785ab64d6c124437532ece335ce" compoundref="xaxipcie__hw_8h" startline="64">XAXIPCIE_VSECC_OFFSET</references>
+        <references refid="group__axipcie_1ga8724baa412ffd4bd593fd67c2928c3a1" compoundref="xaxipcie__hw_8h" startline="280">XAXIPCIE_VSECC_VER_MASK</references>
+        <references refid="group__axipcie_1gab791a04d374dfc7d88d5e3c817126b8f" compoundref="xaxipcie__hw_8h" startline="290">XAXIPCIE_VSECC_VER_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetVsecHeader</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 VsecNum, u16 *VsecIdPtr, u8 *RevisionPtr, u16 *LengthPtr)</argsstring>
+        <name>XAxiPcie_GetVsecHeader</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VsecNum</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>VsecIdPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RevisionPtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>LengthPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to read the VSEC Header Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VsecNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a VSEC register number as there are two registers. Possible values are.<itemizedlist>
+<listitem><para>XAXIPCIE_VSEC1 (0)</para></listitem><listitem><para>XAXIPCIE_VSEC2 (1) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VsecIdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the VSEC header structure Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RevisionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the Revision of VSEC capability Structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LengthPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass . back the length of the VSEC capability structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="191" bodyend="216"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gafd846b29aae82d036fc3ea66ef65596f" compoundref="xaxipcie__hw_8h" startline="302">XAXIPCIE_VSECH_ID_MASK</references>
+        <references refid="group__axipcie_1gaed6b0e6cd2817f7c5c69c3290833447e" compoundref="xaxipcie__hw_8h" startline="304">XAXIPCIE_VSECH_LEN_MASK</references>
+        <references refid="group__axipcie_1gaa6e2e6e5e712fa8b44077688caee37d1" compoundref="xaxipcie__hw_8h" startline="310">XAXIPCIE_VSECH_LEN_SHIFT</references>
+        <references refid="group__axipcie_1gab99ecd675b55df50a385fc7b429d38e4" compoundref="xaxipcie__hw_8h" startline="71">XAXIPCIE_VSECH_OFFSET</references>
+        <references refid="group__axipcie_1ga94c0af68259b5949d6c003dd85d46b2d" compoundref="xaxipcie__hw_8h" startline="303">XAXIPCIE_VSECH_REV_MASK</references>
+        <references refid="group__axipcie_1ga591f34e1c213bb45aba99629c71b565b" compoundref="xaxipcie__hw_8h" startline="309">XAXIPCIE_VSECH_REV_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetBridgeInfo</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 *Gen2Ptr, u8 *RootPortPtr, u8 *ECAMSizePtr)</argsstring>
+        <name>XAxiPcie_GetBridgeInfo</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Gen2Ptr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RootPortPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ECAMSizePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API Reads the Bridge info register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Gen2Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable indicating whether underlying PCIe block support PCIe Gen2 Speed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RootPortPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable indication whether underlying PCIe block is root port. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ECAMSizePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where it indicates ECAM size. Value is between 1 to 8. Total address bits dedicated to ECAM is 20 + ECAM size.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="236" bodyend="259"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga2d99e62d5248da57465cd526eaf9cb01" compoundref="xaxipcie__hw_8h" startline="327">XAXIPCIE_BI_ECAM_SIZE_MASK</references>
+        <references refid="group__axipcie_1ga6e5ee78d2b39fa90a87fea37ed49d35a" compoundref="xaxipcie__hw_8h" startline="329">XAXIPCIE_BI_ECAM_SIZE_SHIFT</references>
+        <references refid="group__axipcie_1ga5c3e13956927d814f89b16d58bc87b71" compoundref="xaxipcie__hw_8h" startline="317">XAXIPCIE_BI_GEN2_MASK</references>
+        <references refid="group__axipcie_1ga9f8bb352119692caff9e7851fe534498" compoundref="xaxipcie__hw_8h" startline="76">XAXIPCIE_BI_OFFSET</references>
+        <references refid="group__axipcie_1gab624cf074fe8d343c15a086782e1150c" compoundref="xaxipcie__hw_8h" startline="322">XAXIPCIE_BI_RP_MASK</references>
+        <references refid="group__axipcie_1gae20709cf0062b87ed8689af2e8ee0a0a" compoundref="xaxipcie__hw_8h" startline="328">XAXIPCIE_BI_RP_SHIFT</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga77063428b5641d07910419770813c148" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetRequesterId</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 *BusNumPtr, u8 *DevNumPtr, u8 *FunNumPtr, u8 *PortNumPtr)</argsstring>
+        <name>XAxiPcie_GetRequesterId</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BusNumPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DevNumPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>FunNumPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PortNumPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read the Bus Location register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BusNumPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the bus number of requester ID assigned to IP. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DevNumPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the device number of requester ID assigned to IP. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FunNumPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the function number of requester ID assigned to IP. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PortNumPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the Port number of requester ID assigned to IP.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="280" bodyend="307"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gaf8a11f087363d5ff57409bf45a597851" compoundref="xaxipcie__hw_8h" startline="455">XAXIPCIE_BL_BUS_MASK</references>
+        <references refid="group__axipcie_1gadc5afc68e0ece36131a9636a467ab327" compoundref="xaxipcie__hw_8h" startline="463">XAXIPCIE_BL_BUS_SHIFT</references>
+        <references refid="group__axipcie_1ga21a35da125896346b1a3219fe2dfcc93" compoundref="xaxipcie__hw_8h" startline="454">XAXIPCIE_BL_DEV_MASK</references>
+        <references refid="group__axipcie_1gaf0d3ce908be6f6c89a7212ddc42ba192" compoundref="xaxipcie__hw_8h" startline="458">XAXIPCIE_BL_DEV_SHIFT</references>
+        <references refid="group__axipcie_1ga269fecd1e2d8010e7b84e1339a5b2b94" compoundref="xaxipcie__hw_8h" startline="453">XAXIPCIE_BL_FUNC_MASK</references>
+        <references refid="group__axipcie_1gae8a758a6bb3b73be59a403a53ef97881" compoundref="xaxipcie__hw_8h" startline="102">XAXIPCIE_BL_OFFSET</references>
+        <references refid="group__axipcie_1gae40bca0b490429edd0c59df2f04dd595" compoundref="xaxipcie__hw_8h" startline="456">XAXIPCIE_BL_PORT_MASK</references>
+        <references refid="group__axipcie_1ga7ef6bab98d1eba6156f808f92e39d7f2" compoundref="xaxipcie__hw_8h" startline="468">XAXIPCIE_BL_PORT_SHIFT</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga372301905fec6833c06320fb45261cd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetPhyStatusCtrl</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 *PhyState)</argsstring>
+        <name>XAxiPcie_GetPhyStatusCtrl</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PhyState</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to read the Phy Status/Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhyState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back Current physical status.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="322" bodyend="334"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga84f89f155288e2a5de41a09bdf5d8672" compoundref="xaxipcie__hw_8h" startline="107">XAXIPCIE_PHYSC_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetRootPortStatusCtrl</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 *StatusPtr)</argsstring>
+        <name>XAxiPcie_GetRootPortStatusCtrl</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>StatusPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read Root Port Status/Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the root port status.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="350" bodyend="360"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gafb8cd2a16037d697cf4a5af55506af44" compoundref="xaxipcie__hw_8h" startline="114">XAXIPCIE_RPSC_OFFSET</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1a01838eb2ef6647eade95ec664ea99543" compoundref="xaxipcie__rc__cdma__example_8c" startline="359" endline="499">PCIeEnumerateFabric</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_SetRootPortStatusCtrl</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 StatusData)</argsstring>
+        <name>XAxiPcie_SetRootPortStatusCtrl</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusData</declname>
+        </param>
+        <briefdescription>
+<para>Write Value in Root Port Status/Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is data to set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="375" bodyend="386"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga727eba08077bad1923e3ff44e5522110" compoundref="xaxipcie__hw_8h" startline="540">XAXIPCIE_RPSC_MASK</references>
+        <references refid="group__axipcie_1gafb8cd2a16037d697cf4a5af55506af44" compoundref="xaxipcie__hw_8h" startline="114">XAXIPCIE_RPSC_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1a01838eb2ef6647eade95ec664ea99543" compoundref="xaxipcie__rc__cdma__example_8c" startline="359" endline="499">PCIeEnumerateFabric</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiPcie_SetRootPortMSIBase</definition>
+        <argsstring>(XAxiPcie *InstancePtr, unsigned long long MsiBase)</argsstring>
+        <name>XAxiPcie_SetRootPortMSIBase</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned long long</type>
+          <declname>MsiBase</declname>
+        </param>
+        <briefdescription>
+<para>Write MSI Base Address to Root Port MSI Base Address Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsiBase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is 64 bit base address for MSI.This address should be 4kB aligned always.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if success or XST_FAILURE if failure .</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="402" bodyend="428"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gac25094bce1e85b534dc154222a7d83a3" compoundref="xaxipcie__hw_8h" startline="650">XAXIPCIE_RPMSIB_LOWER_MASK</references>
+        <references refid="group__axipcie_1ga7fff8ece26635ba08deb9dd05f6283a1" compoundref="xaxipcie__hw_8h" startline="132">XAXIPCIE_RPMSIB_LOWER_OFFSET</references>
+        <references refid="group__axipcie_1ga6b8ab2e2dd878a06c3fec3bef2612f88" compoundref="xaxipcie__hw_8h" startline="642">XAXIPCIE_RPMSIB_UPPER_MASK</references>
+        <references refid="group__axipcie_1ga5b498715d2bbafc1a81fea7abd853f29" compoundref="xaxipcie__hw_8h" startline="121">XAXIPCIE_RPMSIB_UPPER_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetRootPortErrFIFOMsg</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u16 *ReqIdPtr, u8 *ErrType, u8 *ErrValid)</argsstring>
+        <name>XAxiPcie_GetRootPortErrFIFOMsg</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>ReqIdPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ErrType</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ErrValid</declname>
+        </param>
+        <briefdescription>
+<para>Read Root Port Error FIFO Message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqIdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the requester Id of error message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the type of error message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrValid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the status of read operation of error message.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="448" bodyend="471"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1ga76dd5672aa49d1675193c515ee99275e" compoundref="xaxipcie__hw_8h" startline="669">XAXIPCIE_RPEFR_ERR_TYPE_MASK</references>
+        <references refid="group__axipcie_1ga285c4d376d023b3b9df54754606808df" compoundref="xaxipcie__hw_8h" startline="683">XAXIPCIE_RPEFR_ERR_TYPE_SHIFT</references>
+        <references refid="group__axipcie_1ga0d7406f32c476e78d25f92fab2bbb30b" compoundref="xaxipcie__hw_8h" startline="675">XAXIPCIE_RPEFR_ERR_VALID_MASK</references>
+        <references refid="group__axipcie_1gacb9ed69607f6da66cc0501f4f18bb732" compoundref="xaxipcie__hw_8h" startline="685">XAXIPCIE_RPEFR_ERR_VALID_SHIFT</references>
+        <references refid="group__axipcie_1ga8e3c116efe4ad6fc7c0d87a4fdea9dab" compoundref="xaxipcie__hw_8h" startline="143">XAXIPCIE_RPEFR_OFFSET</references>
+        <references refid="group__axipcie_1ga4e82350a3eb45f3f8a61351de81d39c9" compoundref="xaxipcie__hw_8h" startline="663">XAXIPCIE_RPEFR_REQ_ID_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_ClearRootPortErrFIFOMsg</definition>
+        <argsstring>(XAxiPcie *InstancePtr)</argsstring>
+        <name>XAxiPcie_ClearRootPortErrFIFOMsg</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clear Root Port Error FIFO Message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="485" bodyend="495"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga8e3c116efe4ad6fc7c0d87a4fdea9dab" compoundref="xaxipcie__hw_8h" startline="143">XAXIPCIE_RPEFR_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiPcie_GetRootPortIntFIFOReg</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u16 *ReqIdPtr, u16 *MsiAddr, u8 *MsiInt, u8 *IntValid, u16 *MsiMsgData)</argsstring>
+        <name>XAxiPcie_GetRootPortIntFIFOReg</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>ReqIdPtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>MsiAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsiInt</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>IntValid</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>MsiMsgData</declname>
+        </param>
+        <briefdescription>
+<para>Read Root Port Interrupt FIFO message Register 1 &amp; 2. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqIdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the requester Id of error message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsiAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the MSI address for which interrupt message received. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsiInt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the type of interrupt message received (MSI/INTx). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntValid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the status of read operation of interrupt message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsiMsgData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable where the driver will pass back the MSI data received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>MsiMsgData if MSI interrupt is observed or 0 if there is no MSI interrupt.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="520" bodyend="561"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf9a5f8ec646e50bdc31887a508f50fc5" compoundref="xaxipcie__hw_8h" startline="722">XAXIPCIE_RPIFR1_INTR_VALID_MASK</references>
+        <references refid="group__axipcie_1gabdd55507fa3a696908e3d31abe7ff1e6" compoundref="xaxipcie__hw_8h" startline="734">XAXIPCIE_RPIFR1_INTR_VALID_SHIFT</references>
+        <references refid="group__axipcie_1gad2a9c673eaa9cdb18e3ac3788fcb834d" compoundref="xaxipcie__hw_8h" startline="702">XAXIPCIE_RPIFR1_MSI_ADDR_MASK</references>
+        <references refid="group__axipcie_1ga71868428e591d5f59fd40151da6d3aa5" compoundref="xaxipcie__hw_8h" startline="730">XAXIPCIE_RPIFR1_MSI_ADDR_SHIFT</references>
+        <references refid="group__axipcie_1ga9d9b70e72dbf4e3db706b28f5f749e74" compoundref="xaxipcie__hw_8h" startline="714">XAXIPCIE_RPIFR1_MSIINTR_VALID_MASK</references>
+        <references refid="group__axipcie_1ga0465365bbae94b36de39aceeb580cdd1" compoundref="xaxipcie__hw_8h" startline="732">XAXIPCIE_RPIFR1_MSIINTR_VALID_SHIFT</references>
+        <references refid="group__axipcie_1gad61ae31bb34ed3e02243c5d74ac75afa" compoundref="xaxipcie__hw_8h" startline="150">XAXIPCIE_RPIFR1_OFFSET</references>
+        <references refid="group__axipcie_1ga477d9111e2c1e6932b00b658cda9df01" compoundref="xaxipcie__hw_8h" startline="695">XAXIPCIE_RPIFR1_REQ_ID_MASK</references>
+        <references refid="group__axipcie_1gaaf6ce74eb3d24d535f2c399330c27af9" compoundref="xaxipcie__hw_8h" startline="742">XAXIPCIE_RPIFR2_MSG_DATA_MASK</references>
+        <references refid="group__axipcie_1ga92a83142f665f34045a5235732060c47" compoundref="xaxipcie__hw_8h" startline="157">XAXIPCIE_RPIFR2_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_ClearRootPortIntFIFOReg</definition>
+        <argsstring>(XAxiPcie *InstancePtr)</argsstring>
+        <name>XAxiPcie_ClearRootPortIntFIFOReg</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clear Root Port FIFO Interrupt message Register 1 &amp; 2. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex.Clearing any one Interrupt FIFO register clears both registers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="576" bodyend="586"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gad61ae31bb34ed3e02243c5d74ac75afa" compoundref="xaxipcie__hw_8h" startline="150">XAXIPCIE_RPIFR1_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetLocalBusBar2PcieBar</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 BarNumber, XAxiPcie_BarAddr *BarAddrPtr)</argsstring>
+        <name>XAxiPcie_GetLocalBusBar2PcieBar</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BarNumber</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axi_pcie___bar_addr" kindref="compound">XAxiPcie_BarAddr</ref> *</type>
+          <declname>BarAddrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read PCIe address translation vector that corresponds to one of AXI local bus bars passed by the caller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is AXI bar number (0 - 5) passed by caller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarAddrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will . pass back translation vector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="603" bodyend="621"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" compoundref="xaxipcie_8h" startline="171">XAxiPcie_Config::IncludeBarOffsetReg</references>
+        <references refid="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" compoundref="xaxipcie_8h" startline="200">XAxiPcie_BarAddr::LowerAddr</references>
+        <references refid="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" compoundref="xaxipcie_8h" startline="201">XAxiPcie_BarAddr::UpperAddr</references>
+        <references refid="group__axipcie_1gaa01b566fdaa57bf0696c4a4445053158" compoundref="xaxipcie__hw_8h" startline="175">XAXIPCIE_AXIBAR2PCIBAR_0L_OFFSET</references>
+        <references refid="group__axipcie_1gace702755df9d438185fdb96c5e63cc0e" compoundref="xaxipcie__hw_8h" startline="166">XAXIPCIE_AXIBAR2PCIBAR_0U_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_SetLocalBusBar2PcieBar</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 BarNumber, XAxiPcie_BarAddr *BarAddrPtr)</argsstring>
+        <name>XAxiPcie_SetLocalBusBar2PcieBar</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BarNumber</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axi_pcie___bar_addr" kindref="compound">XAxiPcie_BarAddr</ref> *</type>
+          <declname>BarAddrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Write PCIe address translation vector that corresponds to one of AXI local bus bars passed by the caller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is AXI bar number (0 - 5) passed by caller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarAddrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back translation vector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="638" bodyend="654"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" compoundref="xaxipcie_8h" startline="171">XAxiPcie_Config::IncludeBarOffsetReg</references>
+        <references refid="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" compoundref="xaxipcie_8h" startline="200">XAxiPcie_BarAddr::LowerAddr</references>
+        <references refid="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" compoundref="xaxipcie_8h" startline="201">XAxiPcie_BarAddr::UpperAddr</references>
+        <references refid="group__axipcie_1gaa01b566fdaa57bf0696c4a4445053158" compoundref="xaxipcie__hw_8h" startline="175">XAXIPCIE_AXIBAR2PCIBAR_0L_OFFSET</references>
+        <references refid="group__axipcie_1gace702755df9d438185fdb96c5e63cc0e" compoundref="xaxipcie__hw_8h" startline="166">XAXIPCIE_AXIBAR2PCIBAR_0U_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gad9494095b9350f455af9e7da5375d522" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_ReadLocalConfigSpace</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u16 Offset, u32 *DataPtr)</argsstring>
+        <name>XAxiPcie_ReadLocalConfigSpace</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read 32-bit value from one of this IP own configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beginning of IP own configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the value read from the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="672" bodyend="683"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga7cecef23e8a28935226e7dc9815390c0" compoundref="xaxipcie__hw_8h" startline="57">XAXIPCIE_PCIE_CORE_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_WriteLocalConfigSpace</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u16 Offset, u32 Data)</argsstring>
+        <name>XAxiPcie_WriteLocalConfigSpace</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Write 32-bit value to one of this IP own configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beginning of IP own configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be written to the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="701" bodyend="712"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga7cecef23e8a28935226e7dc9815390c0" compoundref="xaxipcie__hw_8h" startline="57">XAXIPCIE_PCIE_CORE_OFFSET</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_ReadRemoteConfigSpace</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 Bus, u8 Device, u8 Function, u16 Offset, u32 *DataPtr)</argsstring>
+        <name>XAxiPcie_ReadRemoteConfigSpace</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read 32-bit value from external PCIe Function&apos;s configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>External PCIe function is identified by its Requester ID (Bus#, Device#, Function#). Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Bus number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Device number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Function number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beggininng of PCIe function&apos;s configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the value read from the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. The XAxiPcie_ReadLocalConfigSpace API should be used for reading the local config space. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="773" bodyend="802"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="struct_x_axi_pcie_1a75ec06e432dfea5967d2912b2af901b0" compoundref="xaxipcie_8h" startline="187">XAxiPcie::MaxNumOfBuses</references>
+        <references refid="group__axipcie_1ga4eff130db70eebadac90b43cbd2561fa" compoundref="xaxipcie_8h" startline="242">XAxiPcie_IsEcamBusy</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1a01838eb2ef6647eade95ec664ea99543" compoundref="xaxipcie__rc__cdma__example_8c" startline="359" endline="499">PCIeEnumerateFabric</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_WriteRemoteConfigSpace</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u8 Bus, u8 Device, u8 Function, u16 Offset, u32 Data)</argsstring>
+        <name>XAxiPcie_WriteRemoteConfigSpace</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Write 32-bit value to external PCIe function&apos;s configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>External PCIe function is identified by its Requester ID (Bus#, Device#, Function#). Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Bus number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Device number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the external PCIe function&apos;s Function number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beggininng of PCIe function&apos;s configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be written to the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. The XAxiPcie_WriteLocalConfigSpace should be used for writing to local config space. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.c" bodystart="825" bodyend="865"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" compoundref="xaxipcie_8h" startline="174">XAxiPcie_Config::IncludeRootComplex</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="struct_x_axi_pcie_1a75ec06e432dfea5967d2912b2af901b0" compoundref="xaxipcie_8h" startline="187">XAxiPcie::MaxNumOfBuses</references>
+        <references refid="group__axipcie_1ga4eff130db70eebadac90b43cbd2561fa" compoundref="xaxipcie_8h" startline="242">XAxiPcie_IsEcamBusy</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1a01838eb2ef6647eade95ec664ea99543" compoundref="xaxipcie__rc__cdma__example_8c" startline="359" endline="499">PCIeEnumerateFabric</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga062809d176f81251886d5372c0714f7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_EnableGlobalInterrupt</definition>
+        <argsstring>(XAxiPcie *InstancePtr)</argsstring>
+        <name>XAxiPcie_EnableGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable the Global Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This bit is in the Bridge Status and Control Register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="52" bodyend="66"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga6a80436f1d395be5d4963d3f9d09f49c" compoundref="xaxipcie__hw_8h" startline="337">XAXIPCIE_BSC_GI_MASK</references>
+        <references refid="group__axipcie_1ga92e6aa96f3a966ac3ac8b8b00bb770e6" compoundref="xaxipcie__hw_8h" startline="352">XAXIPCIE_BSC_GI_SHIFT</references>
+        <references refid="group__axipcie_1ga10e385edef3931106642fcf07d5a5fec" compoundref="xaxipcie__hw_8h" startline="81">XAXIPCIE_BSC_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_DisableGlobalInterrupt</definition>
+        <argsstring>(XAxiPcie *InstancePtr)</argsstring>
+        <name>XAxiPcie_DisableGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable the Global Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This bit is in the Bridge Status and Control Register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="79" bodyend="94"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1ga6a80436f1d395be5d4963d3f9d09f49c" compoundref="xaxipcie__hw_8h" startline="337">XAXIPCIE_BSC_GI_MASK</references>
+        <references refid="group__axipcie_1ga92e6aa96f3a966ac3ac8b8b00bb770e6" compoundref="xaxipcie__hw_8h" startline="352">XAXIPCIE_BSC_GI_SHIFT</references>
+        <references refid="group__axipcie_1ga10e385edef3931106642fcf07d5a5fec" compoundref="xaxipcie__hw_8h" startline="81">XAXIPCIE_BSC_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1ga22a95261655e78a944d1a2462031da57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_EnableInterrupts</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 EnableMask)</argsstring>
+        <name>XAxiPcie_EnableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EnableMask</declname>
+        </param>
+        <briefdescription>
+<para>Enable the IP interrupt bits passed into &quot;EnableMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for interrupts wanted to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If an interrupt is already enabled before calling this function, it will stay enabled regardless of the value of &quot;EnableMask&quot; passed from the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="111" bodyend="124"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gad798e4bbf2fc4fe5135dfa56fac31399" compoundref="xaxipcie__hw_8h" startline="95">XAXIPCIE_IM_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_DisableInterrupts</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 DisableMask)</argsstring>
+        <name>XAxiPcie_DisableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DisableMask</declname>
+        </param>
+        <briefdescription>
+<para>Disable the IP interrupt bits passed into &quot;DisableMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DisableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for interrupts wanted to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If an interrupt is already disabled before calling this function, it will stay disabled regardless of the value of &quot;DisableMask&quot; passed from the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="141" bodyend="154"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gad798e4bbf2fc4fe5135dfa56fac31399" compoundref="xaxipcie__hw_8h" startline="95">XAXIPCIE_IM_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gae118e9d7fd6b78ca0b8d4fd6694f9808" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetEnabledInterrupts</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 *EnabledMaskPtr)</argsstring>
+        <name>XAxiPcie_GetEnabledInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>EnabledMaskPtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the currently enabled interrupt bits of the IP and pass them back to the caller into &quot;EnabledMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnabledMaskPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the enabled interrupt bits after reading them from IP.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="170" bodyend="180"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gad798e4bbf2fc4fe5135dfa56fac31399" compoundref="xaxipcie__hw_8h" startline="95">XAXIPCIE_IM_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gaec39c65db1aeac38798a250a25298208" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_GetPendingInterrupts</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 *PendingMaskPtr)</argsstring>
+        <name>XAxiPcie_GetPendingInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PendingMaskPtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the currently pending interrupt bits of the IP and pass them back to the caller into &quot;PendingMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PendingMaskPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the pending interrupt bits after reading them from IP.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="196" bodyend="206"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gaf4ee25f8cd866c3c4c79bd9f1a784a7c" compoundref="xaxipcie__hw_8h" startline="88">XAXIPCIE_ID_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiPcie_ClearPendingInterrupts</definition>
+        <argsstring>(XAxiPcie *InstancePtr, u32 ClearMask)</argsstring>
+        <name>XAxiPcie_ClearPendingInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ClearMask</declname>
+        </param>
+        <briefdescription>
+<para>Clear the currently pending interrupt bits of the IP passed from the caller into &quot;ClearMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClearMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for pending interrupts wanted to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_intr.c" bodystart="222" bodyend="231"/>
+        <references refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" compoundref="xaxipcie_8h" startline="167">XAxiPcie_Config::BaseAddress</references>
+        <references refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" compoundref="xaxipcie_8h" startline="185">XAxiPcie::Config</references>
+        <references refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" compoundref="xaxipcie_8h" startline="186">XAxiPcie::IsReady</references>
+        <references refid="group__axipcie_1gaf4ee25f8cd866c3c4c79bd9f1a784a7c" compoundref="xaxipcie__hw_8h" startline="88">XAXIPCIE_ID_OFFSET</references>
+        <references refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" compoundref="xaxipcie__hw_8h" startline="786">XAxiPcie_ReadReg</references>
+        <references refid="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" compoundref="xaxipcie__hw_8h" startline="805">XAxiPcie_WriteReg</references>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#ifndef<sp/>XAXIPCIE_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxipcie__hw_8h" kindref="compound">xaxipcie_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/>*<sp/>To<sp/>figure<sp/>out<sp/>if<sp/>PCIe<sp/>IP</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/>*<sp/>is<sp/>configured<sp/>as<sp/>an<sp/>end</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/>*<sp/>point<sp/>or<sp/>as<sp/>a<sp/>root<sp/>complex</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_IS_RC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/>*<sp/>4KB<sp/>alignment</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ALIGN_4KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFF000</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/>*<sp/>Version<sp/>Specific<sp/>Enhanced<sp/>Capability<sp/>register<sp/>numbers.</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="group__axipcie_1ga7e5fb7cdef729030bf31e9c3651253b1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSEC1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="153" refid="group__axipcie_1ga08b7198f8d99e2f00b912ae94f25d088" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSEC2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161" refid="struct_x_axi_pcie___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compatible<sp/>string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="167" refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>LocalBarsNum;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>number<sp/>of<sp/>local<sp/>bus<sp/>(AXI)<sp/>BARs</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>hardware</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" kindref="member">IncludeBarOffsetReg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" kindref="member">IncludeRootComplex</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}<sp/><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184" refid="struct_x_axi_pcie" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185" refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref><sp/><ref refid="struct_x_axi_pcie_1ab87e6544d15c1c11d8aaba5021606363" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_axi_pcie_1aa3d7812e2f5b430c9a551f735b8e0c69" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_x_axi_pcie_1a75ec06e432dfea5967d2912b2af901b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_axi_pcie_1a75ec06e432dfea5967d2912b2af901b0" kindref="member">MaxNumOfBuses</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}<sp/><ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199" refid="struct_x_axi_pcie___bar_addr" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200" refid="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" kindref="member">LowerAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" kindref="member">UpperAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}<sp/><ref refid="struct_x_axi_pcie___bar_addr" kindref="compound">XAxiPcie_BarAddr</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XAxiPcie_GetRequestId</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAxiPcie_GetRequestId<sp/>XAxiPcie_GetRequesterId</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="223" refid="group__axipcie_1ga08e3f639ed3ca042d429630fec260654" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>XAxiPcie_IsLinkUp(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiPcie_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIPCIE_PHYSC_OFFSET)<sp/>&amp;<sp/>XAXIPCIE_PHYSC_LINK_UP_MASK)<sp/>?<sp/>TRUE<sp/>:<sp/>FALSE</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="242" refid="group__axipcie_1ga4eff130db70eebadac90b43cbd2561fa" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>XAxiPcie_IsEcamBusy(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiPcie_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIPCIE_BSC_OFFSET)<sp/>&amp;<sp/>XAXIPCIE_BSC_ECAM_BUSY_MASK)<sp/>?<sp/>TRUE<sp/>:<sp/>FALSE</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/>*<sp/>API<sp/>exported<sp/>by<sp/>the<sp/>driver<sp/>to<sp/>the<sp/>upper<sp/>layer</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>are<sp/>the<sp/>driver<sp/>interface<sp/>entry<sp/>points.</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/>*<sp/>Config<sp/>Look<sp/>Up<sp/>Function.</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/>*<sp/>This<sp/>API<sp/>is<sp/>implemented<sp/>in<sp/>xaxipcie_sinit.c</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref><sp/>*<sp/><ref refid="group__axipcie_1ga485623abf227332437c8b204233e4a83" kindref="member">XAxiPcie_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref><sp/>*<sp/><ref refid="group__axipcie_1ga485623abf227332437c8b204233e4a83" kindref="member">XAxiPcie_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/>*<sp/>PCIe<sp/>Setup<sp/>and<sp/>Configuration<sp/>Functions.</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/>*<sp/>This<sp/>API<sp/>is<sp/>implemented<sp/>in<sp/>xaxipcie.c</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Config<sp/>Initialization<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" kindref="member">XAxiPcie_CfgInitialize</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*<sp/>InstancePtr,<sp/><ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref><sp/>*<sp/>CfgPtr,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddress);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" kindref="member">XAxiPcie_GetVsecCapability</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>VsecNum,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*VsecIdPtr,<sp/>u8<sp/>*VersionPtr,<sp/>u16<sp/>*NextCapPtr);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" kindref="member">XAxiPcie_GetVsecHeader</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>VsecNum,<sp/>u16<sp/>*VsecIdPtr,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RevisionPtr,<sp/>u16<sp/>*LengthPtr);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" kindref="member">XAxiPcie_GetBridgeInfo</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>*Gen2Ptr,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RootPortPtr,<sp/>u8<sp/>*ECAMSizePtr);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga77063428b5641d07910419770813c148" kindref="member">XAxiPcie_GetRequesterId</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BusNumPtr,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*DevNumPtr,<sp/>u8<sp/>*FunNumPtr,<sp/>u8<sp/>*PortNumPtr);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga372301905fec6833c06320fb45261cd7" kindref="member">XAxiPcie_GetPhyStatusCtrl</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PhyState);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" kindref="member">XAxiPcie_GetRootPortStatusCtrl</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*StatusPtr);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" kindref="member">XAxiPcie_SetRootPortStatusCtrl</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>StatusData);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" kindref="member">XAxiPcie_SetRootPortMSIBase</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>MsiBase);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" kindref="member">XAxiPcie_GetRootPortErrFIFOMsg</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u16<sp/>*ReqIdPtr,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*ErrType,<sp/>u8<sp/>*ErrValid);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" kindref="member">XAxiPcie_ClearRootPortErrFIFOMsg</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" kindref="member">XAxiPcie_GetRootPortIntFIFOReg</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u16<sp/>*ReqIdPtr,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*MsiAddr,<sp/>u8<sp/>*MsiInt,<sp/>u8<sp/>*IntValid,<sp/>u16<sp/>*MsiMsgData);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" kindref="member">XAxiPcie_ClearRootPortIntFIFOReg</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" kindref="member">XAxiPcie_GetLocalBusBar2PcieBar</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>BarNumber,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_pcie___bar_addr" kindref="compound">XAxiPcie_BarAddr</ref><sp/>*BarAddrPtr);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" kindref="member">XAxiPcie_SetLocalBusBar2PcieBar</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>BarNumber,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_pcie___bar_addr" kindref="compound">XAxiPcie_BarAddr</ref><sp/>*BarAddrPtr);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gad9494095b9350f455af9e7da5375d522" kindref="member">XAxiPcie_ReadLocalConfigSpace</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u16<sp/>Offset,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*DataPtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" kindref="member">XAxiPcie_WriteLocalConfigSpace</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u16<sp/>Offset,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" kindref="member">XAxiPcie_ReadRemoteConfigSpace</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u16<sp/>Offset,<sp/>u32<sp/>*DataPtr);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" kindref="member">XAxiPcie_WriteRemoteConfigSpace</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u16<sp/>Offset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/>*<sp/>Interrupt<sp/>Functions.</highlight></codeline>
+<codeline lineno="307"><highlight class="comment"><sp/>*<sp/>This<sp/>API<sp/>is<sp/>implemented<sp/>in<sp/>xaxipcie_intr.c</highlight></codeline>
+<codeline lineno="308"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" kindref="member">XAxiPcie_EnableGlobalInterrupt</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" kindref="member">XAxiPcie_DisableGlobalInterrupt</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1ga22a95261655e78a944d1a2462031da57" kindref="member">XAxiPcie_EnableInterrupts</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>EnableMask);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" kindref="member">XAxiPcie_DisableInterrupts</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>DisableMask);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gae118e9d7fd6b78ca0b8d4fd6694f9808" kindref="member">XAxiPcie_GetEnabledInterrupts</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*EnabledMaskPtr);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gaec39c65db1aeac38798a250a25298208" kindref="member">XAxiPcie_GetPendingInterrupts</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PendingMaskPtr);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" kindref="member">XAxiPcie_ClearPendingInterrupts</ref>(<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>ClearMask);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h"/>
+  </compounddef>
+</doxygen>

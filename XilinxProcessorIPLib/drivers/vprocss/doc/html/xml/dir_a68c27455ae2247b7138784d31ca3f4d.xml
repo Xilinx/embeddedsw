@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a68c27455ae2247b7138784d31ca3f4d" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_b5f1cf713b9aafa6d6d60015f38dd698">src</innerdir>
+    <innerfile refid="vpss__example__kc705_8tcl">vpss_example_kc705.tcl</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/"/>
+  </compounddef>
+</doxygen>

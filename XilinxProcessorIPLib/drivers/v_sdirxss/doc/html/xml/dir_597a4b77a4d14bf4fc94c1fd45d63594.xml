@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_597a4b77a4d14bf4fc94c1fd45d63594" kind="dir">
+    <compoundname>scu200_picxo_example</compoundname>
+    <innerfile refid="scu200__picxo__example_2platform_8c">scu200_picxo_example/platform.c</innerfile>
+    <innerfile refid="scu200__picxo__example_2platform_8h">scu200_picxo_example/platform.h</innerfile>
+    <innerfile refid="scu200__picxo__example_2platform__config_8h">scu200_picxo_example/platform_config.h</innerfile>
+    <innerfile refid="si570drv_8c">si570drv.c</innerfile>
+    <innerfile refid="si570drv_8h">si570drv.h</innerfile>
+    <innerfile refid="scu200__picxo__example_2xsdi__example_8c">scu200_picxo_example/xsdi_example.c</innerfile>
+    <innerfile refid="scu200__picxo__example_2xsdi__menu_8c">scu200_picxo_example/xsdi_menu.c</innerfile>
+    <innerfile refid="scu200__picxo__example_2xsdi__menu_8h">scu200_picxo_example/xsdi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/"/>
+  </compounddef>
+</doxygen>

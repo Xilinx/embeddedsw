@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="readme_8txt" kind="file">
+    <compoundname>readme.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="readme_8txt_1a8d4014dcc601e9e6ea7ac6ef84148ac2" prot="public" static="no" mutable="no">
+        <type>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory</type>
+        <definition>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="readme_8txt_1a2d462cdd528903640f94ff1514cbcb0f" prot="public" static="no" mutable="no">
+        <type>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory</type>
+        <definition>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="readme_8txt_1a207b162564172e3bd9904828baea77d9" prot="public" static="no" mutable="no">
+        <type>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory</type>
+        <definition>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="readme_8txt_1a3348d00d4b0a03ce91cdc0f418790b3a" prot="public" static="no" mutable="no">
+        <type>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory</type>
+        <definition>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory stride</definition>
+        <argsstring></argsstring>
+        <name>stride</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="readme_8txt_1a8c5e394c0b849056efdc2fede8c0d307" prot="public" static="no" mutable="no">
+        <type>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory buffer</type>
+        <definition>Scenechange IP calculates sum of absolute compares and notifies the user about scene change Scenechange IP has two applications for testing Memory Mode Stream Mode Procedure to test SceneChange IP in Memory buffer address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="readme_8txt_1a649b08e4f0f43903922048a2af860d58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Scenechange IP calculates sum of absolute</type>
+        <definition>Scenechange IP calculates sum of absolute differences</definition>
+        <argsstring>(SAD) between consecutive video frames received on either memory interface or stream interface.Interface selection can be done from the GUI.Scenechange IP driver gets SAD values from IP</argsstring>
+        <name>differences</name>
+        <param>
+          <type>SAD</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt" line="1" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">Scenechange<sp/>IP<sp/>calculates<sp/>sum<sp/>of<sp/>absolute<sp/>differences<sp/>(SAD)<sp/>between</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">consecutive<sp/>video<sp/>frames<sp/>received<sp/>on<sp/>either<sp/>memory<sp/>interface<sp/>or<sp/>stream</highlight></codeline>
+<codeline lineno="3"><highlight class="normal">interface.<sp/>Interface<sp/>selection<sp/>can<sp/>be<sp/>done<sp/>from<sp/>the<sp/>GUI.</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">Scenechange<sp/>IP<sp/>driver<sp/>gets<sp/>SAD<sp/>values<sp/>from<sp/>IP,<sp/>compares<sp/>and<sp/>notifies</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">the<sp/>user<sp/>about<sp/>scene<sp/>change.</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">Scenechange<sp/>IP<sp/>has<sp/>two<sp/>applications<sp/>for<sp/>testing.</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">1.<sp/>Memory<sp/>Mode.</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">2.<sp/>Stream<sp/>Mode.</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">Procedure<sp/>to<sp/>test<sp/>SceneChange<sp/>IP<sp/>in<sp/>Memory<sp/>mode:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">------------------------------------------------</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">Scenechange<sp/>IP<sp/>supports<sp/>8<sp/>streams<sp/>in<sp/>the<sp/>memory<sp/>mode.<sp/>User<sp/>has<sp/>to</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">configure<sp/>the<sp/>number<sp/>of<sp/>streams,<sp/>height,<sp/>width,<sp/>stride,<sp/>buffer</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">address,<sp/>threshold<sp/>value<sp/>for<sp/>SAD<sp/>and<sp/>subsample<sp/>value<sp/>into<sp/>the</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">registers.</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">Final<sp/>scene<sp/>change<sp/>determination<sp/>will<sp/>be<sp/>made<sp/>based<sp/>on<sp/>threshold</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">value<sp/>(i.e<sp/>0.5<sp/>-<sp/>1)<sp/>specified<sp/>by<sp/>the<sp/>user.<sp/>Refer<sp/>scene<sp/>change<sp/>PG</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">for<sp/>threshold<sp/>calculation.</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">Application<sp/>is<sp/>trying<sp/>to<sp/>write<sp/>different<sp/>patterns<sp/>into<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">address<sp/>with<sp/>the<sp/>some<sp/>delay<sp/>and<sp/>waiting<sp/>for<sp/>scenechange<sp/>detection.</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">SceneChange<sp/>driver<sp/>notifies<sp/>the<sp/>SAD<sp/>with<sp/>stream<sp/>number(on<sp/>which</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">stream<sp/>scene<sp/>change<sp/>has<sp/>happened)<sp/>with<sp/>the<sp/>help<sp/>of<sp/>callback</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">function.</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">Procedure<sp/>to<sp/>test<sp/>Scenechange<sp/>IP<sp/>in<sp/>Stream<sp/>mode:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">------------------------------------------------</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">Scenechange<sp/>IP<sp/>supports<sp/>only<sp/>one<sp/>stream<sp/>in<sp/>the<sp/>stream<sp/>mode.<sp/>User<sp/>has</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">to<sp/>configure<sp/>the<sp/>height,<sp/>width,<sp/>stride,<sp/>buffer<sp/>address,<sp/>threshold</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">value<sp/>for<sp/>SAD<sp/>and<sp/>subsample<sp/>value<sp/>into<sp/>the<sp/>registers.</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">Final<sp/>scene<sp/>change<sp/>determination<sp/>will<sp/>be<sp/>made<sp/>based<sp/>on<sp/>threshold<sp/>value</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">specified<sp/>by<sp/>the<sp/>user.<sp/>Refer<sp/>scene<sp/>change<sp/>PG<sp/>for<sp/>threshold<sp/>calculation.</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">Application<sp/>is<sp/>trying<sp/>to<sp/>generate<sp/>different<sp/>TPG<sp/>patterns<sp/>using<sp/>TPG<sp/>with</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">the<sp/>delay<sp/>of<sp/>2sec<sp/>and<sp/>observing<sp/>scenechange<sp/>happens<sp/>are<sp/>not<sp/>based<sp/>on</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">the<sp/>threshold<sp/>value.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/readme.txt"/>
+  </compounddef>
+</doxygen>

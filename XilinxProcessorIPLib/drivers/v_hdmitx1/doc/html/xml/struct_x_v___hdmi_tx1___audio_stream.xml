@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx1___audio_stream" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx1_AudioStream</compoundname>
+    <includes local="no">xv_hdmitx1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___audio_stream_1a6c5f2350bbef920f66a9a674535938af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_AudioStream::Channels</definition>
+        <argsstring></argsstring>
+        <name>Channels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___audio_stream_1ac4c60675cc3379dfeed0147daa5467fa" prot="public" static="no" mutable="no">
+        <type>XHdmiC_SamplingFrequencyVal</type>
+        <definition>XHdmiC_SamplingFrequencyVal XV_HdmiTx1_AudioStream::SampleFrequency</definition>
+        <argsstring></argsstring>
+        <name>SampleFrequency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___audio_stream_1a464bcdba0034ba2bcfe7c1696aedd3df" prot="public" static="no" mutable="no">
+        <type>XHdmiC_SamplingFrequency</type>
+        <definition>XHdmiC_SamplingFrequency XV_HdmiTx1_AudioStream::SFreq</definition>
+        <argsstring></argsstring>
+        <name>SFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains audio stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="270" bodyend="276"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx1___audio_stream_1a6c5f2350bbef920f66a9a674535938af" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_AudioStream</scope><name>Channels</name></member>
+      <member refid="struct_x_v___hdmi_tx1___audio_stream_1ac4c60675cc3379dfeed0147daa5467fa" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_AudioStream</scope><name>SampleFrequency</name></member>
+      <member refid="struct_x_v___hdmi_tx1___audio_stream_1a464bcdba0034ba2bcfe7c1696aedd3df" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_AudioStream</scope><name>SFreq</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

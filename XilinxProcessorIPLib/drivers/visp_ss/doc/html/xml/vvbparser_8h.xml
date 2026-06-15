@@ -1,0 +1,1173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbparser_8h" kind="file">
+    <compoundname>vvbparser.h</compoundname>
+    <includes refid="vvdevice_8h" local="yes">vvdevice.h</includes>
+    <includes refid="c_j_s_o_n_8h" local="yes">cJSON.h</includes>
+    <includedby refid="vvpath_8h" local="yes">vvpath.h</includedby>
+    <includedby refid="vvbparser_8c" local="yes">vvbparser.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="11358">
+        <label>stdbool.h</label>
+      </node>
+      <node id="11361">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="11348">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="11349" relation="include">
+        </childnode>
+        <childnode refid="11355" relation="include">
+        </childnode>
+      </node>
+      <node id="11357">
+        <label>stdint.h</label>
+      </node>
+      <node id="11373">
+        <label>system_module.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+      </node>
+      <node id="11347">
+        <label>stdlib.h</label>
+      </node>
+      <node id="11359">
+        <label>cam_device_api.h</label>
+        <childnode refid="11360" relation="include">
+        </childnode>
+        <childnode refid="11367" relation="include">
+        </childnode>
+        <childnode refid="11368" relation="include">
+        </childnode>
+        <childnode refid="11369" relation="include">
+        </childnode>
+      </node>
+      <node id="11367">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+      </node>
+      <node id="11344">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="11363">
+        <label>sensor_cmd.h</label>
+        <childnode refid="11364" relation="include">
+        </childnode>
+        <childnode refid="11361" relation="include">
+        </childnode>
+      </node>
+      <node id="11370">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+        <childnode refid="11361" relation="include">
+        </childnode>
+        <childnode refid="11348" relation="include">
+        </childnode>
+        <childnode refid="11359" relation="include">
+        </childnode>
+        <childnode refid="11362" relation="include">
+        </childnode>
+      </node>
+      <node id="11353">
+        <label>stddef.h</label>
+      </node>
+      <node id="11374">
+        <label>cJSON.h</label>
+        <childnode refid="11353" relation="include">
+        </childnode>
+        <childnode refid="11358" relation="include">
+        </childnode>
+      </node>
+      <node id="11352">
+        <label>limits.h</label>
+      </node>
+      <node id="11360">
+        <label>cam_device_common.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+        <childnode refid="11361" relation="include">
+        </childnode>
+        <childnode refid="11349" relation="include">
+        </childnode>
+        <childnode refid="11362" relation="include">
+        </childnode>
+        <childnode refid="11363" relation="include">
+        </childnode>
+      </node>
+      <node id="11362">
+        <label>buf_defs.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+      </node>
+      <node id="11364">
+        <label>mbox_api.h</label>
+        <childnode refid="11358" relation="include">
+        </childnode>
+        <childnode refid="11357" relation="include">
+        </childnode>
+        <childnode refid="11365" relation="include">
+        </childnode>
+      </node>
+      <node id="11354">
+        <label>string.h</label>
+      </node>
+      <node id="11365">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="11358" relation="include">
+        </childnode>
+        <childnode refid="11366" relation="include">
+        </childnode>
+      </node>
+      <node id="11372">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="11350" relation="include">
+        </childnode>
+        <childnode refid="11361" relation="include">
+        </childnode>
+        <childnode refid="11360" relation="include">
+        </childnode>
+        <childnode refid="11373" relation="include">
+        </childnode>
+      </node>
+      <node id="11371">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="11359" relation="include">
+        </childnode>
+      </node>
+      <node id="11356">
+        <label>cam_common_api.h</label>
+        <childnode refid="11357" relation="include">
+        </childnode>
+        <childnode refid="11358" relation="include">
+        </childnode>
+      </node>
+      <node id="11342">
+        <label>vvdevice.h</label>
+        <childnode refid="11343" relation="include">
+        </childnode>
+        <childnode refid="11344" relation="include">
+        </childnode>
+        <childnode refid="11345" relation="include">
+        </childnode>
+        <childnode refid="11356" relation="include">
+        </childnode>
+        <childnode refid="11359" relation="include">
+        </childnode>
+        <childnode refid="11370" relation="include">
+        </childnode>
+        <childnode refid="11360" relation="include">
+        </childnode>
+        <childnode refid="11371" relation="include">
+        </childnode>
+        <childnode refid="11372" relation="include">
+        </childnode>
+        <childnode refid="11362" relation="include">
+        </childnode>
+        <childnode refid="11349" relation="include">
+        </childnode>
+      </node>
+      <node id="11366">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="11355">
+        <label>ff.h</label>
+      </node>
+      <node id="11368">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="11351" relation="include">
+        </childnode>
+        <childnode refid="11350" relation="include">
+        </childnode>
+        <childnode refid="11361" relation="include">
+        </childnode>
+      </node>
+      <node id="11350">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="11351" relation="include">
+        </childnode>
+        <childnode refid="11352" relation="include">
+        </childnode>
+        <childnode refid="11353" relation="include">
+        </childnode>
+      </node>
+      <node id="11369">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="11360" relation="include">
+        </childnode>
+      </node>
+      <node id="11343">
+        <label>vvbase.h</label>
+      </node>
+      <node id="11341">
+        <label>vvbparser.h</label>
+        <link refid="vvbparser.h"/>
+        <childnode refid="11342" relation="include">
+        </childnode>
+        <childnode refid="11374" relation="include">
+        </childnode>
+      </node>
+      <node id="11345">
+        <label>vlog.h</label>
+        <childnode refid="11346" relation="include">
+        </childnode>
+        <childnode refid="11347" relation="include">
+        </childnode>
+        <childnode refid="11348" relation="include">
+        </childnode>
+      </node>
+      <node id="11349">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="11350" relation="include">
+        </childnode>
+        <childnode refid="11354" relation="include">
+        </childnode>
+      </node>
+      <node id="11346">
+        <label>stdio.h</label>
+      </node>
+      <node id="11351">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="11346" relation="include">
+        </childnode>
+        <childnode refid="11347" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11377">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="11378">
+        <label>vvpath.c</label>
+      </node>
+      <node id="11379">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="11376">
+        <label>vvpath.h</label>
+        <childnode refid="11377" relation="include">
+        </childnode>
+        <childnode refid="11378" relation="include">
+        </childnode>
+      </node>
+      <node id="11375">
+        <label>vvbparser.h</label>
+        <link refid="vvbparser.h"/>
+        <childnode refid="11376" relation="include">
+        </childnode>
+        <childnode refid="11379" relation="include">
+        </childnode>
+        <childnode refid="11377" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vvbparser_8h_1ab63a0aae65b54280eae24a80bf7fad50" prot="public" static="no">
+        <name>VVCASE_EXEC_PASS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbparser_8h_1ab8f6e8a15fcac4e1513101585b5b9a4d" prot="public" static="no">
+        <name>VVCASE_EXEC_FAIL</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbparser_8h_1ac481a7588318f74132b7445fa84d2a71" prot="public" static="no">
+        <name>VVCASE_EXEC_PARSER_FAIL</name>
+        <initializer>-2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vvbparser_8h_1a5e82aba07e5f88646c28d92cc15df5d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>VvbenchRunMode_t</type>
+        <definition>VvbenchRunMode_t _VsiVvbenchRunMode</definition>
+        <argsstring>(const VvbenchRunMode_t *const pVvbenchRunMode)</argsstring>
+        <name>_VsiVvbenchRunMode</name>
+        <param>
+          <type>const VvbenchRunMode_t *const</type>
+          <declname>pVvbenchRunMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="140" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1aa0e3843f0214de4553b276af202bb8e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>VvbenchRunMode_t</type>
+        <definition>VvbenchRunMode_t VsiVvbenchGetVvbenchRunMode</definition>
+        <argsstring>()</argsstring>
+        <name>VsiVvbenchGetVvbenchRunMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a15c7d89ddb50a5132c8be36c7247450b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>VvbenchRunMode_t</type>
+        <definition>VvbenchRunMode_t VsiVvbenchSetVvbenchRunMode</definition>
+        <argsstring>(const VvbenchRunMode_t vvbenchRunMode)</argsstring>
+        <name>VsiVvbenchSetVvbenchRunMode</name>
+        <param>
+          <type>const VvbenchRunMode_t</type>
+          <declname>vvbenchRunMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="166" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a899267393089ccb86bb5e7a91b81ffa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* VsiVvbenchLoadFileContent</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>VsiVvbenchLoadFileContent</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ad6737109fd1d80a5d5e9406d45618bef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchSwSimuSingleParseConfig</definition>
+        <argsstring>(const char *fileName, VvbenchCfg_t *cfgCtx)</argsstring>
+        <name>VsiVvbenchSwSimuSingleParseConfig</name>
+        <param>
+          <type>const char *</type>
+          <declname>fileName</declname>
+        </param>
+        <param>
+          <type>VvbenchCfg_t *</type>
+          <declname>cfgCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="326" bodyend="446"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a5b47e119d014a437d295bdcc3e1aee3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseConfig</definition>
+        <argsstring>(const char *file, VvbenchCfg_t *cfgCtx)</argsstring>
+        <name>VsiVvbenchParseConfig</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>VvbenchCfg_t *</type>
+          <declname>cfgCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="450" bodyend="615"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a6456210bffd76ab7d7e49d5d7fff0114" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchExecuteList</definition>
+        <argsstring>(const char *file, VvbenchCfg_t *cfgCtx)</argsstring>
+        <name>VsiVvbenchExecuteList</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>VvbenchCfg_t *</type>
+          <declname>cfgCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="618" bodyend="821"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ab7db82ad21611b1ec1cb8404ecbd0e2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchExecuteClose</definition>
+        <argsstring>()</argsstring>
+        <name>VsiVvbenchExecuteClose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="823" bodyend="850"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a1dd0bd81ff2ea1c22c0df46d51c09207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseCase</definition>
+        <argsstring>(const char *fileName, VvbenchVvdev_t *caseContext)</argsstring>
+        <name>VsiVvbenchParseCase</name>
+        <param>
+          <type>const char *</type>
+          <declname>fileName</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="853" bodyend="1212"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ad6137b13c29ee92db8172bd1fca72f73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group____buf__mgmt__ctrl_1gaabd1c3649d1090fdbf374d4998429302" kindref="member">CamDeviceBufMode_t</ref></type>
+        <definition>CamDeviceBufMode_t VsiVvbenchStrToBuffMode</definition>
+        <argsstring>(const char *bufferString)</argsstring>
+        <name>VsiVvbenchStrToBuffMode</name>
+        <param>
+          <type>const char *</type>
+          <declname>bufferString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1215" bodyend="1238"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a7c703d577e0407a535d5262a41caf492" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+        <definition>CamDeviceBufChainId_t VsiVvbenchStrToBuffIo</definition>
+        <argsstring>(const char *bufferString)</argsstring>
+        <name>VsiVvbenchStrToBuffIo</name>
+        <param>
+          <type>const char *</type>
+          <declname>bufferString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1241" bodyend="1288"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a6743668eadbf389c6fc7157d36e8e942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToInputFormat</definition>
+        <argsstring>(const char *formatString)</argsstring>
+        <name>VsiVvbenchStrToInputFormat</name>
+        <param>
+          <type>const char *</type>
+          <declname>formatString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1291" bodyend="1374"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ab9430ee590bdc61f8faae413fea75563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToBuffFormat</definition>
+        <argsstring>(const char *formatString)</argsstring>
+        <name>VsiVvbenchStrToBuffFormat</name>
+        <param>
+          <type>const char *</type>
+          <declname>formatString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1377" bodyend="1508"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1aebcf7dd1284a030be2f69a719c97b850" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToInputType</definition>
+        <argsstring>(const char *inputType)</argsstring>
+        <name>VsiVvbenchStrToInputType</name>
+        <param>
+          <type>const char *</type>
+          <declname>inputType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1629" bodyend="1656"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a2b9f055d6f9dcbebe1448c073f0ae8c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToPicLayout</definition>
+        <argsstring>(const char *patternString)</argsstring>
+        <name>VsiVvbenchStrToPicLayout</name>
+        <param>
+          <type>const char *</type>
+          <declname>patternString</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1659" bodyend="1753"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a13e69184d1054c0015f8c3fa022db210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseFusaInfo</definition>
+        <argsstring>(cJSON *inputInfo, VvbenchInstanceFusaCfg_t *const pFusaCfg)</argsstring>
+        <name>VsiVvbenchParseFusaInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>inputInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchInstanceFusaCfg_t *const</type>
+          <declname>pFusaCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1953" bodyend="2164"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a90720c776363099107939c9083b01d46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParsePathSwitchInfo</definition>
+        <argsstring>(cJSON *pathSwitch, VvbenchInstancePathSwitchCfg_t *pathSwitchCfg)</argsstring>
+        <name>VsiVvbenchParsePathSwitchInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>pathSwitch</declname>
+        </param>
+        <param>
+          <type>VvbenchInstancePathSwitchCfg_t *</type>
+          <declname>pathSwitchCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1870" bodyend="1949"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ae27d03eec3c2307cc0938ef3c9292c4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseTpgInfo</definition>
+        <argsstring>(cJSON *tpgInfo, VvbenchInstanceTpgCfg_t *tpgCtrl)</argsstring>
+        <name>VsiVvbenchParseTpgInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>tpgInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchInstanceTpgCfg_t *</type>
+          <declname>tpgCtrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1756" bodyend="1867"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a73f3fe699d7a03df13fd3180013dcfa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSensorInfo</definition>
+        <argsstring>(cJSON *sensorInfo, VvbenchInstanceSensorCfg_t *sensorCfg)</argsstring>
+        <name>VsiVvbenchParseSensorInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>sensorInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchInstanceSensorCfg_t *</type>
+          <declname>sensorCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2167" bodyend="2379"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a23f1c10a50264ca78c8b186fc3ccb30a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParsePicInfo</definition>
+        <argsstring>(cJSON *inputInfo, VvbenchInstancePictureCfg_t *pictureCfg)</argsstring>
+        <name>VsiVvbenchParsePicInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>inputInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchInstancePictureCfg_t *</type>
+          <declname>pictureCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2382" bodyend="2463"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1ab526e38dfb2a9709e9138fb6662f407c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseModeInfo</definition>
+        <argsstring>(int workMode, cJSON *modeInfo, CamDeviceWorkConfig_t *modeCfg)</argsstring>
+        <name>VsiVvbenchParseModeInfo</name>
+        <param>
+          <type>int</type>
+          <declname>workMode</declname>
+        </param>
+        <param>
+          <type>cJSON *</type>
+          <declname>modeInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__general_1ga000e3a3251cbc743895dab94987c2283" kindref="member">CamDeviceWorkConfig_t</ref> *</type>
+          <declname>modeCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2466" bodyend="2554"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a8ac56300f7cbe4932766976c8759901d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSwSimuDefaultInfo</definition>
+        <argsstring>(VvbenchVvdev_t *caseCtx)</argsstring>
+        <name>VsiVvbenchParseSwSimuDefaultInfo</name>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2557" bodyend="2587"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a7b919c346779d8b4e6bde136949ce977" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSwSimuInfo</definition>
+        <argsstring>(VvbenchVvdev_t *caseCtx)</argsstring>
+        <name>VsiVvbenchParseSwSimuInfo</name>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2590" bodyend="2947"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a455eb5c655237f9692c3733df8dc0b27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSwSimuInfoByToolOutput</definition>
+        <argsstring>(VvbenchVvdev_t *caseCtx, const char *rawName)</argsstring>
+        <name>VsiVvbenchParseSwSimuInfoByToolOutput</name>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>rawName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="2950" bodyend="3196"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a1899f915a5233b0e10877c433f792ea1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToRawMetaInfo</definition>
+        <argsstring>(const char *inputName, VvbenchRawMetaInfo_t *const pRawMetaInfo)</argsstring>
+        <name>VsiVvbenchStrToRawMetaInfo</name>
+        <param>
+          <type>const char *</type>
+          <declname>inputName</declname>
+        </param>
+        <param>
+          <type>VvbenchRawMetaInfo_t *const</type>
+          <declname>pRawMetaInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1538" bodyend="1598"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a38f25b39e3378a1c4539c4381586a672" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSubSystemInfo</definition>
+        <argsstring>(VvbenchVvdev_t *caseCtx, uint32_t instanceId)</argsstring>
+        <name>VsiVvbenchParseSubSystemInfo</name>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="3199" bodyend="3229"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a58ca62d0134351ebff711c30b6924502" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseSubmoduleInfo</definition>
+        <argsstring>(cJSON *instanceCfg, VvbenchVvdev_t *caseCtx, uint32_t instanceId)</argsstring>
+        <name>VsiVvbenchParseSubmoduleInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>instanceCfg</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="3233" bodyend="3497"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a12aebd36949581ab4886af97c82e6cdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseDewarpInfo</definition>
+        <argsstring>(cJSON *dewarpInfo, VvbenchInstanceDewarpCfg_t *dewarpCtrl)</argsstring>
+        <name>VsiVvbenchParseDewarpInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>dewarpInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchInstanceDewarpCfg_t *</type>
+          <declname>dewarpCtrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="3500" bodyend="3737"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1aa072369dab27e910a9be05fde74f990d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchInitModuleConfig</definition>
+        <argsstring>(VvbenchVvdev_t *caseCtx, uint32_t instanceId)</argsstring>
+        <name>VsiVvbenchInitModuleConfig</name>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="3740" bodyend="3768"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a782e46d7cd41b46d8b5f0a7addc35ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrSpliter</definition>
+        <argsstring>(char *inputName, const char *strDelim, char **strList)</argsstring>
+        <name>VsiVvbenchStrSpliter</name>
+        <param>
+          <type>char *</type>
+          <declname>inputName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>strDelim</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>strList</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1511" bodyend="1535"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1afc560fa19e6615b502ad491fda435f06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchStrToPicSize</definition>
+        <argsstring>(const char *inputSizeStr, uint32_t *const height, uint32_t *const width)</argsstring>
+        <name>VsiVvbenchStrToPicSize</name>
+        <param>
+          <type>const char *</type>
+          <declname>inputSizeStr</declname>
+        </param>
+        <param>
+          <type>uint32_t *const</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>uint32_t *const</type>
+          <declname>width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="1600" bodyend="1627"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbparser_8h_1a35009b67015e0c5631b343101c92efe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchGetPathInfoFromJson</definition>
+        <argsstring>(cJSON *pJsonInstancePathCfg, VvbenchInstanceCfg_t *pInstanceCfgCtx)</argsstring>
+        <name>VsiVvbenchGetPathInfoFromJson</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>pJsonInstancePathCfg</declname>
+        </param>
+        <param>
+          <type>VvbenchInstanceCfg_t *</type>
+          <declname>pInstanceCfgCtx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="174" bodyend="324"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__VVBPARSER_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__VVBPARSER_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;vvdevice.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cJSON.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VVCASE_EXEC_PASS<sp/>0</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VVCASE_EXEC_FAIL<sp/>-1</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VVCASE_EXEC_PARSER_FAIL<sp/>-2</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">VvbenchRunMode_t<sp/>_VsiVvbenchRunMode</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VvbenchRunMode_t<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>pVvbenchRunMode</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">VvbenchRunMode_t<sp/>VsiVvbenchGetVvbenchRunMode</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">VvbenchRunMode_t<sp/>VsiVvbenchSetVvbenchRunMode</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>VvbenchRunMode_t<sp/>vvbenchRunMode</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*VsiVvbenchLoadFileContent</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchSwSimuSingleParseConfig</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchCfg_t<sp/>*cfgCtx</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseConfig</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchCfg_t<sp/>*cfgCtx</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchExecuteList</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchCfg_t<sp/>*cfgCtx</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchExecuteClose</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseCase</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseContext</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><ref refid="group____buf__mgmt__ctrl_1gaabd1c3649d1090fdbf374d4998429302" kindref="member">CamDeviceBufMode_t</ref><sp/>VsiVvbenchStrToBuffMode</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*bufferString</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>VsiVvbenchStrToBuffIo</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*bufferString</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToInputFormat</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*formatString</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToBuffFormat</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*formatString</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToInputType</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*inputType</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToPicLayout</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*patternString</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseFusaInfo</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*inputInfo,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstanceFusaCfg_t<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>pFusaCfg</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParsePathSwitchInfo</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*pathSwitch,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstancePathSwitchCfg_t<sp/>*pathSwitchCfg</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParsePathSwitchInfo</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*pathSwitch,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstancePathSwitchCfg_t<sp/>*pathSwitchCfg</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseTpgInfo</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*tpgInfo,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstanceTpgCfg_t<sp/>*tpgCtrl</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSensorInfo</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*sensorInfo,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstanceSensorCfg_t<sp/>*sensorCfg</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParsePicInfo</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*inputInfo,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstancePictureCfg_t<sp/>*pictureCfg</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseModeInfo</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>workMode,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*modeInfo,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_work_config__s" kindref="compound">CamDeviceWorkConfig_t</ref><sp/>*modeCfg</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSwSimuDefaultInfo</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSwSimuInfo</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSwSimuInfoByToolOutput</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*rawName</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToRawMetaInfo</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*inputName,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchRawMetaInfo_t<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>pRawMetaInfo</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSubSystemInfo</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>instanceId</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseSubmoduleInfo</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*instanceCfg,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>instanceId</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseDewarpInfo</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*dewarpInfo,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstanceDewarpCfg_t<sp/>*dewarpCtrl</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchInitModuleConfig</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>instanceId</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrSpliter</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*inputName,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*strDelim,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**strList</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchStrToPicSize</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*inputSizeStr,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>height,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>width</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchGetPathInfoFromJson</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*pJsonInstancePathCfg,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchInstanceCfg_t<sp/>*pInstanceCfgCtx</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//__VVBPARSER_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbparser.h"/>
+  </compounddef>
+</doxygen>

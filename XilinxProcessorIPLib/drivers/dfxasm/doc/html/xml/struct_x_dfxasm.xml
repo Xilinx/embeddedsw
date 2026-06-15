@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfxasm" kind="struct" prot="public">
+    <compoundname>XDfxasm</compoundname>
+    <includes local="no">xdfxasm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" prot="public" static="no" mutable="no">
+        <type>XDfxasm_Config</type>
+        <definition>XDfxasm_Config XDfxasm::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Device configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" compoundref="xdfxasm_8c" startline="64" endline="84">XDfxasm_CfgInitialize</referencedby>
+        <referencedby refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" compoundref="xdfxasm_8c" startline="139" endline="150">XDfxasm_GetState</referencedby>
+        <referencedby refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" compoundref="xdfxasm_8c" startline="105" endline="114">XDfxasm_SetState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfxasm::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" compoundref="xdfxasm_8c" startline="64" endline="84">XDfxasm_CfgInitialize</referencedby>
+        <referencedby refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" compoundref="xdfxasm_8c" startline="139" endline="150">XDfxasm_GetState</referencedby>
+        <referencedby refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" compoundref="xdfxasm_8c" startline="105" endline="114">XDfxasm_SetState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific instance. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="109" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" prot="public" virt="non-virtual"><scope>XDfxasm</scope><name>Config</name></member>
+      <member refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" prot="public" virt="non-virtual"><scope>XDfxasm</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

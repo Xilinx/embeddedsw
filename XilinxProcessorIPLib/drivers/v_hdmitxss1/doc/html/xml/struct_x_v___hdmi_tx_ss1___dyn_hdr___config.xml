@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs1_DynHdr_Config</compoundname>
+    <includes local="no">xv_hdmitxss1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1a987a7f2d88dc7379db6d99b8e2cc2b62" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XV_HdmiTxSs1_DynHdr_Config::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Dynamic HDR packet buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1_8h_1a175b839b0e0ec994f7e8771ce1c5753e" compoundref="xv__hdmitxss1_8c" startline="4106" endline="4124">XV_HdmiTxSs1_DynHdr_Cfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1a34f1ad07e598e0a76f7976be6ef93852" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs1_DynHdr_Config::PktType</definition>
+        <argsstring></argsstring>
+        <name>PktType</name>
+        <briefdescription>
+<para>16 bit Packet Type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1_8h_1a175b839b0e0ec994f7e8771ce1c5753e" compoundref="xv__hdmitxss1_8c" startline="4106" endline="4124">XV_HdmiTxSs1_DynHdr_Cfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1acf78a352dda4f8106b0314c4c47c647a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs1_DynHdr_Config::PktLength</definition>
+        <argsstring></argsstring>
+        <name>PktLength</name>
+        <briefdescription>
+<para>16 bit Packet Length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1_8h_1a175b839b0e0ec994f7e8771ce1c5753e" compoundref="xv__hdmitxss1_8c" startline="4106" endline="4124">XV_HdmiTxSs1_DynHdr_Cfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1ac3519dab2855dbcb7aded59f82b37f12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs1_DynHdr_Config::GOF</definition>
+        <argsstring></argsstring>
+        <name>GOF</name>
+        <briefdescription>
+<para>GOF Value 0 or 1 only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1_8h_1a175b839b0e0ec994f7e8771ce1c5753e" compoundref="xv__hdmitxss1_8c" startline="4106" endline="4124">XV_HdmiTxSs1_DynHdr_Cfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1af4802f8e2b072d06492046f9b17a33e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs1_DynHdr_Config::FAPA</definition>
+        <argsstring></argsstring>
+        <name>FAPA</name>
+        <briefdescription>
+<para>FAPA Location 0 or 1 only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1_8h_1a175b839b0e0ec994f7e8771ce1c5753e" compoundref="xv__hdmitxss1_8c" startline="4106" endline="4124">XV_HdmiTxSs1_DynHdr_Cfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Dynamic HDR configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This contains 1 - buffer address which contains the Dynamic HDR packet, 2 - the packet type and length, 3 - Graphics Overlay Flag value 4 - FAPA Location </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="385" bodyend="392"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1a987a7f2d88dc7379db6d99b8e2cc2b62" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_DynHdr_Config</scope><name>Address</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1af4802f8e2b072d06492046f9b17a33e7" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_DynHdr_Config</scope><name>FAPA</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1ac3519dab2855dbcb7aded59f82b37f12" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_DynHdr_Config</scope><name>GOF</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1acf78a352dda4f8106b0314c4c47c647a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_DynHdr_Config</scope><name>PktLength</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___dyn_hdr___config_1a34f1ad07e598e0a76f7976be6ef93852" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_DynHdr_Config</scope><name>PktType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

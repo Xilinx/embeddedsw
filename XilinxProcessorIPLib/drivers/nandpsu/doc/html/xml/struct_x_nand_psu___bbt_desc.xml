@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_psu___bbt_desc" kind="struct" prot="public">
+    <compoundname>XNandPsu_BbtDesc</compoundname>
+    <includes local="no">xnandpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1a4c854b10969f6886013052f9f928aa53" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::PageOffset[XNANDPSU_MAX_TARGETS]</definition>
+        <argsstring>[XNANDPSU_MAX_TARGETS]</argsstring>
+        <name>PageOffset</name>
+        <briefdescription>
+<para>Page offset where BBT resides. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1ad5295a6495e3a435bda4cc1df6ec4eed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::SigOffset</definition>
+        <argsstring></argsstring>
+        <name>SigOffset</name>
+        <briefdescription>
+<para>Signature offset in Spare area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1a6d18dd4d196a0238fe481892757a246d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::VerOffset</definition>
+        <argsstring></argsstring>
+        <name>VerOffset</name>
+        <briefdescription>
+<para>Offset of BBT version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1aeca29e857ef5b418f4f7c11de6ebc407" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::SigLength</definition>
+        <argsstring></argsstring>
+        <name>SigLength</name>
+        <briefdescription>
+<para>Length of the signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1a61ba87d5d389cec767a5854cb16dda75" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::MaxBlocks</definition>
+        <argsstring></argsstring>
+        <name>MaxBlocks</name>
+        <briefdescription>
+<para>Max blocks to search for BBT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1a9cd3753f701f3e8cfe986b75af51de50" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XNandPsu_BbtDesc::Signature[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+<para>BBT signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1a70f3d7ba3eecaa2843c55a6c791d4104" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsu_BbtDesc::Version[XNANDPSU_MAX_TARGETS]</definition>
+        <argsstring>[XNANDPSU_MAX_TARGETS]</argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>BBT version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___bbt_desc_1afb0259f07299db4364f5b9c31dba7264" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_BbtDesc::Valid</definition>
+        <argsstring></argsstring>
+        <name>Valid</name>
+        <briefdescription>
+<para>BBT descriptor is valid or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Bad block table descriptor. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="298" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_psu___bbt_desc_1a61ba87d5d389cec767a5854cb16dda75" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>MaxBlocks</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1a4c854b10969f6886013052f9f928aa53" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>PageOffset</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1aeca29e857ef5b418f4f7c11de6ebc407" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>SigLength</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1a9cd3753f701f3e8cfe986b75af51de50" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>Signature</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1ad5295a6495e3a435bda4cc1df6ec4eed" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>SigOffset</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1afb0259f07299db4364f5b9c31dba7264" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>Valid</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1a6d18dd4d196a0238fe481892757a246d" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>VerOffset</name></member>
+      <member refid="struct_x_nand_psu___bbt_desc_1a70f3d7ba3eecaa2843c55a6c791d4104" prot="public" virt="non-virtual"><scope>XNandPsu_BbtDesc</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

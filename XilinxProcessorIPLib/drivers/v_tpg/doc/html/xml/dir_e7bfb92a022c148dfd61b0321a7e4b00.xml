@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e7bfb92a022c148dfd61b0321a7e4b00" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__tpg_8c">xv_tpg.c</innerfile>
+    <innerfile refid="xv__tpg_8h">xv_tpg.h</innerfile>
+    <innerfile refid="xv__tpg__g_8c">xv_tpg_g.c</innerfile>
+    <innerfile refid="xv__tpg__hw_8h">xv_tpg_hw.h</innerfile>
+    <innerfile refid="xv__tpg__intr_8c">xv_tpg_intr.c</innerfile>
+    <innerfile refid="xv__tpg__linux_8c">xv_tpg_linux.c</innerfile>
+    <innerfile refid="xv__tpg__sinit_8c">xv_tpg_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/"/>
+  </compounddef>
+</doxygen>

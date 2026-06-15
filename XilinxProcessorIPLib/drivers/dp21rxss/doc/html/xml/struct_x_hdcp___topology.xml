@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp___topology" kind="struct" prot="public">
+    <compoundname>XHdcp_Topology</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1affa31628999bfd178dbc1c7aced1aa9f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp_Topology::DeviceCnt</definition>
+        <argsstring></argsstring>
+        <name>DeviceCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1aae955c20909d9fca363f8f8ffb327964" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp_Topology::Depth</definition>
+        <argsstring></argsstring>
+        <name>Depth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1a46ebe230ff2deeb830e854876dddb79c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp_Topology::DeviceList[XHDCP_MAX_DEVICE_CNT_HDCP14][XHDCP_DEVICE_ID_SIZE]</definition>
+        <argsstring>[XHDCP_MAX_DEVICE_CNT_HDCP14][XHDCP_DEVICE_ID_SIZE]</argsstring>
+        <name>DeviceList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1a6bf849700edc84872544272f2290c582" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp_Topology::MaxDevsExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxDevsExceeded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1a4d47535cc0f8c77b15ff9f12762f7b8a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp_Topology::MaxCascadeExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxCascadeExceeded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1ab4ec66a48a3e5ba1b825bf48523da782" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp_Topology::Hdcp2LegacyDeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp2LegacyDeviceDownstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp___topology_1a9dd22f9db7b70a2a69538b26452ef8fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp_Topology::Hdcp1DeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1DeviceDownstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xhdcp22_example.h" bodystart="29" bodyend="38"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp___topology_1aae955c20909d9fca363f8f8ffb327964" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>Depth</name></member>
+      <member refid="struct_x_hdcp___topology_1affa31628999bfd178dbc1c7aced1aa9f" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>DeviceCnt</name></member>
+      <member refid="struct_x_hdcp___topology_1a46ebe230ff2deeb830e854876dddb79c" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>DeviceList</name></member>
+      <member refid="struct_x_hdcp___topology_1a9dd22f9db7b70a2a69538b26452ef8fa" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>Hdcp1DeviceDownstream</name></member>
+      <member refid="struct_x_hdcp___topology_1ab4ec66a48a3e5ba1b825bf48523da782" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>Hdcp2LegacyDeviceDownstream</name></member>
+      <member refid="struct_x_hdcp___topology_1a4d47535cc0f8c77b15ff9f12762f7b8a" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>MaxCascadeExceeded</name></member>
+      <member refid="struct_x_hdcp___topology_1a6bf849700edc84872544272f2290c582" prot="public" virt="non-virtual"><scope>XHdcp_Topology</scope><name>MaxDevsExceeded</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

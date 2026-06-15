@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0868d6d3647f56c719be769a4e090ff9" kind="dir">
+    <compoundname>versal_net</compoundname>
+    <innerfile refid="xsecure__keyunwrapalginfo_8c">xsecure_keyunwrapalginfo.c</innerfile>
+    <innerfile refid="xsecure__keyunwrapalginfo_8h">xsecure_keyunwrapalginfo.h</innerfile>
+    <innerfile refid="xsecure__plat__client_8c">xsecure_plat_client.c</innerfile>
+    <innerfile refid="xsecure__plat__client_8h">xsecure_plat_client.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat__katclient_8c">versal_net/xsecure_plat_katclient.c</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat__katclient_8h">versal_net/xsecure_plat_katclient.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/"/>
+  </compounddef>
+</doxygen>

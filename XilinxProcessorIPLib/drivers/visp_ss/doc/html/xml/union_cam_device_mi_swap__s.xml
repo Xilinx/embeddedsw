@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_cam_device_mi_swap__s" kind="union" prot="public">
+    <compoundname>CamDeviceMiSwap_s</compoundname>
+    <includes local="no">cam_device_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_cam_device_mi_swap__s_1a3452cc2f45887c2f76b76eafb880d0f4" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6aefba63872285153cbced9d992caf81" kindref="member">CamDeviceMiSwapType_t</ref></type>
+        <definition>CamDeviceMiSwapType_t CamDeviceMiSwap_s::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>Swap type of Y channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_mi_swap__s_1a6f2bd67be5a39155343ecb369c90de04" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6aefba63872285153cbced9d992caf81" kindref="member">CamDeviceMiSwapType_t</ref></type>
+        <definition>CamDeviceMiSwapType_t CamDeviceMiSwap_s::u</definition>
+        <argsstring></argsstring>
+        <name>u</name>
+        <briefdescription>
+<para>Swap type of U channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_mi_swap__s_1a094cb6c03f099db41711770260b30edf" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6aefba63872285153cbced9d992caf81" kindref="member">CamDeviceMiSwapType_t</ref></type>
+        <definition>CamDeviceMiSwapType_t CamDeviceMiSwap_s::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+<para>Swap type of V channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_mi_swap__s_1a0bc0d5f83f3287e9c62c6d5ba672173b" prot="public" static="no" mutable="no">
+        <type>struct CamDeviceMiSwap_s::@2</type>
+        <definition>struct CamDeviceMiSwap_s::@2  CamDeviceMiSwap_s::yuvSwap</definition>
+        <argsstring></argsstring>
+        <name>yuvSwap</name>
+        <briefdescription>
+<para>The swap type of YUV format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_mi_swap__s_1a491a4c91c0d4fd8a67ca25800433f5d9" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6aefba63872285153cbced9d992caf81" kindref="member">CamDeviceMiSwapType_t</ref></type>
+        <definition>CamDeviceMiSwapType_t CamDeviceMiSwap_s::rawSwap</definition>
+        <argsstring></argsstring>
+        <name>rawSwap</name>
+        <briefdescription>
+<para>Swap type of RAW format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Union type to specify the RAW and YUV swap mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="194" bodyend="201"/>
+    <listofallmembers>
+      <member refid="union_cam_device_mi_swap__s_1a491a4c91c0d4fd8a67ca25800433f5d9" prot="public" virt="non-virtual"><scope>CamDeviceMiSwap_s</scope><name>rawSwap</name></member>
+      <member refid="union_cam_device_mi_swap__s_1a6f2bd67be5a39155343ecb369c90de04" prot="public" virt="non-virtual"><scope>CamDeviceMiSwap_s</scope><name>u</name></member>
+      <member refid="union_cam_device_mi_swap__s_1a094cb6c03f099db41711770260b30edf" prot="public" virt="non-virtual"><scope>CamDeviceMiSwap_s</scope><name>v</name></member>
+      <member refid="union_cam_device_mi_swap__s_1a3452cc2f45887c2f76b76eafb880d0f4" prot="public" virt="non-virtual"><scope>CamDeviceMiSwap_s</scope><name>y</name></member>
+      <member refid="union_cam_device_mi_swap__s_1a0bc0d5f83f3287e9c62c6d5ba672173b" prot="public" virt="non-virtual"><scope>CamDeviceMiSwap_s</scope><name>yuvSwap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

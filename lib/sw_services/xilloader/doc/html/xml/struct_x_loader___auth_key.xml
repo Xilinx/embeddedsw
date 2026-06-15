@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___auth_key" kind="struct" prot="public">
+    <compoundname>XLoader_AuthKey</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___auth_key_1af4d9c62a5264075eaba57a27e5dbcb70" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_AuthKey::Key[XLOADER_MAX_TOTAL_KEY_SIZE]</definition>
+        <argsstring>[XLOADER_MAX_TOTAL_KEY_SIZE]</argsstring>
+        <name>Key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="560" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="556" bodyend="561"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___auth_key_1af4d9c62a5264075eaba57a27e5dbcb70" prot="public" virt="non-virtual"><scope>XLoader_AuthKey</scope><name>Key</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

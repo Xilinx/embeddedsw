@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavb__hw_8c" kind="file">
+    <compoundname>xavb_hw.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xavb__hw_8h" local="yes">xavb_hw.h</includes>
+    <incdepgraph>
+      <node id="48">
+        <label>xil_io.h</label>
+      </node>
+      <node id="46">
+        <label>xavb_hw.c</label>
+        <link refid="xavb_hw.c"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xavb_hw.h</label>
+        <link refid="xavb__hw_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavb__hw_8c_1a18111ab5a605391b7a45186761ef671b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvbMac_ReadStats</definition>
+        <argsstring>(u32 BaseAddress, u32 CounterId, XAvb_Uint64 *Value)</argsstring>
+        <name>XAvbMac_ReadStats</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___uint64" kindref="compound">XAvb_Uint64</ref> *</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the given Ethernet Statistic Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Statistic Counter to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a pointer to the read value of the 64-bit value of the counter and it is updated by this function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The CounterID&apos;s defined here are the same as the Statistic Counter Addresses as used with the TEMAC core. Since each counter is 8-bytes wide, we must multiply these Counter ID&apos;s by 8 (or a left shift of 3) when mapping this into the PLB memory map. The 64-bit counter value is read as two separate 32-bit accesses. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="70" bodyend="76"/>
+        <references refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" compoundref="xavb__hw_8h" startline="308">XAvb_Uint64::Lower</references>
+        <references refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" compoundref="xavb__hw_8h" startline="307">XAvb_Uint64::Upper</references>
+      </memberdef>
+      <memberdef kind="function" id="xavb__hw_8c_1adbb46fbeb6b3bb40e8067ea6f8a0776c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_ReadRtc</definition>
+        <argsstring>(u32 BaseAddress, XAvb_RtcFormat *RtcValue)</argsstring>
+        <name>XAvb_ReadRtc</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref> *</type>
+          <declname>RtcValue</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the current Real Time Counter (RTC) value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RtcValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a struct in which to store the value read from the RTC (The RTC 48-bit seconds field and the 32-bit ns field of this struct are updated).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is provided as a basic function since the ns field MUST be read before the seconds/epoch registers (reading the ns samples the entire RTC in hardware). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="96" bodyend="110"/>
+        <references refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" compoundref="xavb__hw_8h" startline="299">XAvb_RtcFormat::NanoSeconds</references>
+        <references refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" compoundref="xavb__hw_8h" startline="298">XAvb_RtcFormat::SecondsLower</references>
+        <references refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" compoundref="xavb__hw_8h" startline="297">XAvb_RtcFormat::SecondsUpper</references>
+        <references refid="xavb__hw_8h_1a59f550eaa57148613974c4aa5628bfb4" compoundref="xavb__hw_8h" startline="78">XAVB_RTC_NANOSEC_VALUE_OFFSET</references>
+        <references refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" compoundref="xavb__hw_8h" startline="79">XAVB_RTC_SEC_LOWER_VALUE_OFFSET</references>
+        <references refid="xavb__hw_8h_1ae38e8307c8da64ba9f42516168855a8f" compoundref="xavb__hw_8h" startline="80">XAVB_RTC_SEC_UPPER_VALUE_OFFSET</references>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__hw_8c_1a07f6e740f5623df870beea331507baf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_WriteRtcOffset</definition>
+        <argsstring>(u32 BaseAddress, XAvb_RtcFormat *RtcValue)</argsstring>
+        <name>XAvb_WriteRtcOffset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref> *</type>
+          <declname>RtcValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes to the Real Time Counter (RTC) Offset Registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RtcValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the nanoseconds and seconds offset values that should be written to the RTC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is provided as a basic function since the ns field MUST be written after the seconds/epoch offset registers (writing to the ns offset registers samples the entire RTC offset in hardware). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="129" bodyend="139"/>
+        <references refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" compoundref="xavb__hw_8h" startline="299">XAvb_RtcFormat::NanoSeconds</references>
+        <references refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" compoundref="xavb__hw_8h" startline="298">XAvb_RtcFormat::SecondsLower</references>
+        <references refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" compoundref="xavb__hw_8h" startline="297">XAvb_RtcFormat::SecondsUpper</references>
+        <references refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" compoundref="xavb__hw_8h" startline="74">XAVB_RTC_NANOSEC_OFFSET</references>
+        <references refid="xavb__hw_8h_1acc7285ad5177c30185fcd6e39992865b" compoundref="xavb__hw_8h" startline="75">XAVB_RTC_SEC_LOWER_OFFSET</references>
+        <references refid="xavb__hw_8h_1ac8683f10accad0c3fbb9ed86f7e63577" compoundref="xavb__hw_8h" startline="76">XAVB_RTC_SEC_UPPER_OFFSET</references>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The xavb_hw driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>Functions in this file are the minimum required functions for this driver. See <ref refid="xavb__hw_8h" kindref="compound">xavb_hw.h</ref> for a detailed description of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a mbr  09/19/08 First release
+1.01a mbr  06/24/09 PTP frame format updates for IEEE802.1 AS draft 5-0
+2_02a mbr  09/16/09 Updates for programmable PTP timers
+2_04a kag  07/23/10 PTP frame format updates for IEEE802.1 AS draft 6-7
+3_01a kag  08/29/11 Added new APIs to update the RX Filter Control Reg.
+              Fix for CR:572539. Updated bit map for Rx Filter
+              control reg.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavb__hw_8h" kindref="compound">xavb_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="xavb__hw_8h_1a18111ab5a605391b7a45186761ef671b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1a18111ab5a605391b7a45186761ef671b" kindref="member">XAvbMac_ReadStats</ref>(u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CounterId,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_avb___uint64" kindref="compound">XAvb_Uint64</ref>*<sp/>Value)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>Value-&gt;<ref refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" kindref="member">Upper</ref><sp/>=<sp/>Xil_In32(BaseAddress<sp/>+<sp/>((CounterId<sp/>&amp;<sp/>0x00ff)<sp/>&lt;&lt;<sp/>3)<sp/>+<sp/>0x4);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>Value-&gt;<ref refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" kindref="member">Lower</ref><sp/>=<sp/>Xil_In32(BaseAddress<sp/>+<sp/>((CounterId<sp/>&amp;<sp/>0x00ff)<sp/>&lt;&lt;<sp/>3));</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1adbb46fbeb6b3bb40e8067ea6f8a0776c" kindref="member">XAvb_ReadRtc</ref>(u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref>*<sp/>RtcValue)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/><sp/>=</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1a59f550eaa57148613974c4aa5628bfb4" kindref="member">XAVB_RTC_NANOSEC_VALUE_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAVB_RTC_NS_MASK;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>=</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" kindref="member">XAVB_RTC_SEC_LOWER_VALUE_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAVB_RTC_SEC_LOWER_MASK;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref><sp/>=</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1ae38e8307c8da64ba9f42516168855a8f" kindref="member">XAVB_RTC_SEC_UPPER_VALUE_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAVB_RTC_SEC_UPPER_MASK;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="129" refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1a07f6e740f5623df870beea331507baf3" kindref="member">XAvb_WriteRtcOffset</ref>(u32<sp/>BaseAddress,<sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref>*<sp/>RtcValue)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>Xil_Out32((BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1ac8683f10accad0c3fbb9ed86f7e63577" kindref="member">XAVB_RTC_SEC_UPPER_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref><sp/>&amp;<sp/>XAVB_RTC_SEC_UPPER_MASK));</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>Xil_Out32((BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1acc7285ad5177c30185fcd6e39992865b" kindref="member">XAVB_RTC_SEC_LOWER_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>&amp;<sp/>XAVB_RTC_SEC_LOWER_MASK));</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>Xil_Out32((BaseAddress<sp/>+<sp/><ref refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" kindref="member">XAVB_RTC_NANOSEC_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RtcValue-&gt;<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/><sp/>&amp;<sp/>XAVB_RTC_NS_MASK));</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c"/>
+  </compounddef>
+</doxygen>

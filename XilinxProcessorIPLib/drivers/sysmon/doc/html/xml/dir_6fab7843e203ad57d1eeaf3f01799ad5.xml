@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6fab7843e203ad57d1eeaf3f01799ad5" kind="dir">
+    <compoundname>sysmon</compoundname>
+    <innerdir refid="dir_d4e90f82cd7f24080896bac290392778">examples</innerdir>
+    <innerdir refid="dir_e3eb25fdb863d309faae8f5b2c199b9c">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/"/>
+  </compounddef>
+</doxygen>

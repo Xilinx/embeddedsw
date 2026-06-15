@@ -1,0 +1,733 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsi__intr_8c" kind="file">
+    <compoundname>xcsi_intr.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xcsi_8h" local="yes">xcsi.h</includes>
+    <incdepgraph>
+      <node id="58">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>xcsi.h</label>
+        <link refid="xcsi_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xstatus.h</label>
+      </node>
+      <node id="52">
+        <label>xcsi_intr.c</label>
+        <link refid="xcsi_intr.c"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xil_types.h</label>
+      </node>
+      <node id="53">
+        <label>xparameters.h</label>
+      </node>
+      <node id="57">
+        <label>xcsi_hw.h</label>
+        <link refid="xcsi__hw_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csi_1gacd995a7fb82069ad196da70b4d033f19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_IntrEnable</definition>
+        <argsstring>(XCsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XCsi_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will enable the interrupts present in the interrupt mask passed onto the function.</para><para>This function enables the specified interrupts in the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="990" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="63" bodyend="74"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
+        <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga9cc5750f241d74489ee972978f99ec74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_IntrDisable</definition>
+        <argsstring>(XCsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XCsi_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will disable the interrupts present in the interrupt mask passed onto the function.</para><para>This function disables the specified interrupts in the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1005" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="89" bodyend="98"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
+        <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1gaf224384089501234f8c3ef338fbe242f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_GetIntrEnable</definition>
+        <argsstring>(XCsi *InstancePtr)</argsstring>
+        <name>XCsi_GetIntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the current interrupt enable mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will get the interrupt mask set (enabled) in the CSI2 Rx core.</para><para>This function returns the current interrupt enable mask.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current interrupt enable mask.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt enable register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="975" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="112" bodyend="122"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1gad685546b6515977cc8149620ef3298bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_GetIntrStatus</definition>
+        <argsstring>(XCsi *InstancePtr)</argsstring>
+        <name>XCsi_GetIntrStatus</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will get the list of interrupts pending in the Interrupt Status Register of the CSI2 Rx core.</para><para>This function returns the current interrupt status register value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current interrupt status.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt Status register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1019" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="137" bodyend="147"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1ga2cf032f37565c991932495f74683bad2" compoundref="xcsi__hw_8h" startline="61">XCSI_ISR_OFFSET</references>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga237454e9bbb1b663513369b6bc703f97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_InterruptClear</definition>
+        <argsstring>(XCsi *InstancePtr, u32 Mask)</argsstring>
+        <name>XCsi_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clear specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will clear the interrupts set in the Interrupt Status Register of the CSI2 Rx core.</para><para>This function clears the specified interrupts in the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Interrupt Mask with bits set for corresponding interrupt to be cleared in the Interrupt Status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1034" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="163" bodyend="174"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
+        <references refid="group__csi_1gaeb6ff00e1737f1f8b07f692bbdb287d6" compoundref="xcsi__hw_8h" startline="340">XCSI_ISR_ALLINTR_MASK</references>
+        <references refid="group__csi_1ga2cf032f37565c991932495f74683bad2" compoundref="xcsi__hw_8h" startline="61">XCSI_ISR_OFFSET</references>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1gacb1df45621d8075df1f159781ae4936e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCsi_SetCallBack</definition>
+        <argsstring>(XCsi *InstancePtr, u32 HandleType, void *Callbackfunc, void *Callbackref)</argsstring>
+        <name>XCsi_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandleType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Callbackfunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Callbackref</declname>
+        </param>
+        <briefdescription>
+<para>Set callback function for interrupt handling. </para>        </briefdescription>
+        <detaileddescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType:</para><para>This function sets a callback function for a specific interrupt handler type. The registered callback function will be called when the corresponding interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandleType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of handler to register. It can be one of:<itemizedlist>
+<listitem><para>XCSI_HANDLER_DPHY</para></listitem><listitem><para>XCSI_HANDLER_PKTLVL</para></listitem><listitem><para>XCSI_HANDLER_PROTLVL</para></listitem><listitem><para>XCSI_HANDLER_SHORTPACKET</para></listitem><listitem><para>XCSI_HANDLER_FRAMERECVD</para></listitem><listitem><para>XCSI_HANDLER_VCXERR</para></listitem><listitem><para>XCSI_HANDLER_OTHERERROR </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Callbackfunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Callbackref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback was successfully registered.</para></listitem><listitem><para>XST_FAILURE if callback registration failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+HandlerType                     Callback Function Type
+----------------------------  --------------------------------------------
+(XCSI_HANDLER_DPHY)             DPhyLvlErrCallBack
+(XCSI_HANDLER_PROTLVL)  ProtDecodeErrCallBack
+(XCSI_HANDLER_PKTLVL)           PktLvlErrCallBack
+(XCSI_HANDLER_SHORTPACKET)      ShortPacketCallBack
+(XCSI_HANDLER_FRAMERECVD)       FrameRecvdCallBack
+(XCSI_HANDLER_VCXERR)           VCXErrCallBack
+(XCSI_HANDLER_OTHERERROR)       ErrorCallBack
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandleType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of call back to be registered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Callbackfunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to a call back function which is called when a particular event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Callbackref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a void pointer to data to be referenced to by the Callbackfunc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="960" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="209" bodyend="259"/>
+        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="243">XCsi::DPhyLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="245">XCsi::DPhyLvlErrRef</references>
+        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="256">XCsi::ErrorCallBack</references>
+        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="259">XCsi::ErrRef</references>
+        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="239">XCsi::FrameRecvdCallBack</references>
+        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="241">XCsi::FrameRecvdRef</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
+        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="247">XCsi::PktLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="249">XCsi::PktLvlErrRef</references>
+        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="254">XCsi::ProtDecErrRef</references>
+        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="251">XCsi::ProtDecodeErrCallBack</references>
+        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="235">XCsi::ShortPacketCallBack</references>
+        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="237">XCsi::ShortPacketRef</references>
+        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="260">XCsi::VCXErrCallBack</references>
+        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="263">XCsi::VCXErrRef</references>
+        <references refid="group__csi_1ga5e09e8315ed79111e896d07c13bda3a8" compoundref="xcsi_8h" startline="122">XCSI_HANDLER_DPHY</references>
+        <references refid="group__csi_1ga35985933f4901b919830bc8b765a866b" compoundref="xcsi_8h" startline="126">XCSI_HANDLER_FRAMERECVD</references>
+        <references refid="group__csi_1ga73c4b49b1c1c0d1d887fa951de5dcb99" compoundref="xcsi_8h" startline="128">XCSI_HANDLER_OTHERERROR</references>
+        <references refid="group__csi_1ga9ca60dc045109f1dbb64a68214f9d247" compoundref="xcsi_8h" startline="123">XCSI_HANDLER_PKTLVL</references>
+        <references refid="group__csi_1gaf8d7c7c2417bf01ba2d1587f7715b883" compoundref="xcsi_8h" startline="124">XCSI_HANDLER_PROTLVL</references>
+        <references refid="group__csi_1gaa9e2fe84efd0c56e0b63ae53d3d7650e" compoundref="xcsi_8h" startline="125">XCSI_HANDLER_SHORTPACKET</references>
+        <references refid="group__csi_1ga5ad39ccb5e0f7f0b60b96755c17d1c8e" compoundref="xcsi_8h" startline="127">XCSI_HANDLER_VCXERR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga965f0a1afd6a596528c1d68642a65911" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XCsi_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the CSI controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the CSI2 Rx core.</para><para>This function is the interrupt handler for the CSI driver. It processes all pending interrupts and routes them to the appropriate callback handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance (passed as void *).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function should be connected to the interrupt system.</para></simplesect>
+This handler reads the pending interrupt from the Interrupt Status register, determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register, and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" kindref="member">XCsi_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="283" bodyend="349"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="243">XCsi::DPhyLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="245">XCsi::DPhyLvlErrRef</references>
+        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="256">XCsi::ErrorCallBack</references>
+        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="259">XCsi::ErrRef</references>
+        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="239">XCsi::FrameRecvdCallBack</references>
+        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="241">XCsi::FrameRecvdRef</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
+        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="247">XCsi::PktLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="249">XCsi::PktLvlErrRef</references>
+        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="254">XCsi::ProtDecErrRef</references>
+        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="251">XCsi::ProtDecodeErrCallBack</references>
+        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="235">XCsi::ShortPacketCallBack</references>
+        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="237">XCsi::ShortPacketRef</references>
+        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="260">XCsi::VCXErrCallBack</references>
+        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="263">XCsi::VCXErrRef</references>
+        <references refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</references>
+        <references refid="group__csi_1gad685546b6515977cc8149620ef3298bd" compoundref="xcsi__intr_8c" startline="137" endline="147">XCsi_GetIntrStatus</references>
+        <references refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" compoundref="xcsi__intr_8c" startline="163" endline="174">XCsi_InterruptClear</references>
+        <references refid="group__csi_1ga35bdf5775bb2ab64a69b92eaa2040afe" compoundref="xcsi__hw_8h" startline="601">XCSI_INTR_DPHY_MASK</references>
+        <references refid="group__csi_1gac80f26402c7d8e3abaf1d4da0e0035a4" compoundref="xcsi__hw_8h" startline="619">XCSI_INTR_ERR_MASK</references>
+        <references refid="group__csi_1gaa5b5ffa22bd55af6dcbc562d609bcfcf" compoundref="xcsi__hw_8h" startline="611">XCSI_INTR_FRAMERCVD_MASK</references>
+        <references refid="group__csi_1gab8c4b2bac55a3e55b32a86d19e2bf850" compoundref="xcsi__hw_8h" startline="594">XCSI_INTR_PKTLVL_MASK</references>
+        <references refid="group__csi_1gaa6a4492341d6b195ad646e1153efa554" compoundref="xcsi__hw_8h" startline="434">XCSI_INTR_PROT_MASK</references>
+        <references refid="group__csi_1gab000e47ba8b499d6702071d100e131d5" compoundref="xcsi__hw_8h" startline="606">XCSI_INTR_SPKT_MASK</references>
+        <references refid="group__csi_1ga4111a9b1dc87e7c977ee50067d0e5d50" compoundref="xcsi__hw_8h" startline="567">XCSI_INTR_VCFE_MASK</references>
+        <references refid="group__csi_1ga94cf100f2a6ed500f62879a88cd6b4d5" compoundref="xcsi__hw_8h" startline="615">XCSI_INTR_VCXFE_MASK</references>
+        <references refid="group__csi_1ga53f623d43aa529c983d38dd2d226a4d7" compoundref="xcsi__hw_8h" startline="73">XCSI_VCX_FE_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsi_8h" kindref="compound">xcsi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" kindref="member">XCsi_IntrEnable</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" kindref="member">XCSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" kindref="member">XCSI_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<ref refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" kindref="member">XCSI_IER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;<sp/><ref refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" kindref="member">XCSI_IER_ALLINTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="89" refid="group__csi_1ga9cc5750f241d74489ee972978f99ec74" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga9cc5750f241d74489ee972978f99ec74" kindref="member">XCsi_IntrDisable</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" kindref="member">XCSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" kindref="member">XCSI_IER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<sp/>Mask<sp/>&amp;<sp/><ref refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" kindref="member">XCSI_IER_ALLINTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" kindref="member">XCsi_GetIntrEnable</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" kindref="member">XCSI_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="137" refid="group__csi_1gad685546b6515977cc8149620ef3298bd" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1gad685546b6515977cc8149620ef3298bd" kindref="member">XCsi_GetIntrStatus</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga2cf032f37565c991932495f74683bad2" kindref="member">XCSI_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" kindref="member">XCsi_InterruptClear</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" kindref="member">XCSI_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga2cf032f37565c991932495f74683bad2" kindref="member">XCSI_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga2cf032f37565c991932495f74683bad2" kindref="member">XCSI_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;<sp/><ref refid="group__csi_1gaeb6ff00e1737f1f8b07f692bbdb287d6" kindref="member">XCSI_ISR_ALLINTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="209" refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" kindref="member">XCsi_SetCallBack</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandleType,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callbackfunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callbackref)</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Callbackref<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandleType)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga5e09e8315ed79111e896d07c13bda3a8" kindref="member">XCSI_HANDLER_DPHY</ref>:</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" kindref="member">DPhyLvlErrCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" kindref="member">DPhyLvlErrRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1gaf8d7c7c2417bf01ba2d1587f7715b883" kindref="member">XCSI_HANDLER_PROTLVL</ref>:</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" kindref="member">ProtDecodeErrCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" kindref="member">ProtDecErrRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga9ca60dc045109f1dbb64a68214f9d247" kindref="member">XCSI_HANDLER_PKTLVL</ref>:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" kindref="member">PktLvlErrCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" kindref="member">PktLvlErrRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1gaa9e2fe84efd0c56e0b63ae53d3d7650e" kindref="member">XCSI_HANDLER_SHORTPACKET</ref>:</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" kindref="member">ShortPacketCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" kindref="member">ShortPacketRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga35985933f4901b919830bc8b765a866b" kindref="member">XCSI_HANDLER_FRAMERECVD</ref>:</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" kindref="member">FrameRecvdCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" kindref="member">FrameRecvdRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga5ad39ccb5e0f7f0b60b96755c17d1c8e" kindref="member">XCSI_HANDLER_VCXERR</ref>:</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" kindref="member">VCXErrCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" kindref="member">VCXErrRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga73c4b49b1c1c0d1d887fa951de5dcb99" kindref="member">XCSI_HANDLER_OTHERERROR</ref>:</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" kindref="member">ErrorCallBack</ref><sp/>=<sp/>Callbackfunc;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" kindref="member">ErrRef</ref><sp/>=<sp/>Callbackref;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalid<sp/>value<sp/>of<sp/>HandleType<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="283" refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" kindref="member">XCsi_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveIntr;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*XCsiPtr<sp/>=<sp/>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XCsiPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XCsiPtr-&gt;<ref refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Active<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveIntr<sp/>=<sp/><ref refid="group__csi_1gad685546b6515977cc8149620ef3298bd" kindref="member">XCsi_GetIntrStatus</ref>(XCsiPtr)<sp/>&amp;<sp/><ref refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" kindref="member">XCsi_GetIntrEnable</ref>(XCsiPtr);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1gaa5b5ffa22bd55af6dcbc562d609bcfcf" kindref="member">XCSI_INTR_FRAMERCVD_MASK</ref>;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Frame<sp/>received<sp/>then<sp/>call<sp/>corresponding<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" kindref="member">FrameRecvdCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" kindref="member">FrameRecvdRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1gac80f26402c7d8e3abaf1d4da0e0035a4" kindref="member">XCSI_INTR_ERR_MASK</ref>;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>ShortPacket<sp/>Interrupts<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" kindref="member">ErrorCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" kindref="member">ErrRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1gab000e47ba8b499d6702071d100e131d5" kindref="member">XCSI_INTR_SPKT_MASK</ref>;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>ShortPacket<sp/>Interrupts<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" kindref="member">ShortPacketCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" kindref="member">ShortPacketRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1ga35bdf5775bb2ab64a69b92eaa2040afe" kindref="member">XCSI_INTR_DPHY_MASK</ref>;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Handle<sp/>DPHY<sp/>Level<sp/>Errors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" kindref="member">DPhyLvlErrCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" kindref="member">DPhyLvlErrRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1ga94cf100f2a6ed500f62879a88cd6b4d5" kindref="member">XCSI_INTR_VCXFE_MASK</ref>;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Handle<sp/>VCx<sp/>Errors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XCsi_ReadReg(XCsiPtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga53f623d43aa529c983d38dd2d226a4d7" kindref="member">XCSI_VCX_FE_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;=<sp/><ref refid="group__csi_1ga4111a9b1dc87e7c977ee50067d0e5d50" kindref="member">XCSI_INTR_VCFE_MASK</ref>;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" kindref="member">VCXErrCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" kindref="member">VCXErrRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(XCsiPtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1ga53f623d43aa529c983d38dd2d226a4d7" kindref="member">XCSI_VCX_FE_OFFSET</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1gaa6a4492341d6b195ad646e1153efa554" kindref="member">XCSI_INTR_PROT_MASK</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Handle<sp/>Protocol<sp/>Decoding<sp/>Level<sp/>Errors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" kindref="member">ProtDecodeErrCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" kindref="member">ProtDecErrRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/><ref refid="group__csi_1gab8c4b2bac55a3e55b32a86d19e2bf850" kindref="member">XCSI_INTR_PKTLVL_MASK</ref>;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Handle<sp/>Packet<sp/>Level<sp/>Errors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsiPtr-&gt;<ref refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" kindref="member">PktLvlErrCallBack</ref>(XCsiPtr-&gt;<ref refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" kindref="member">PktLvlErrRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" kindref="member">XCsi_InterruptClear</ref>(XCsiPtr,<sp/>ActiveIntr);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c"/>
+  </compounddef>
+</doxygen>

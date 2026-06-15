@@ -1,0 +1,706 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavb__rtc__sync_8c" kind="file">
+    <compoundname>xavb_rtc_sync.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xavb__hw_8h" local="yes">xavb_hw.h</includes>
+    <includes refid="xavb_8h" local="yes">xavb.h</includes>
+    <incdepgraph>
+      <node id="83">
+        <label>xil_io.h</label>
+      </node>
+      <node id="84">
+        <label>xavb.h</label>
+        <link refid="xavb_8h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xavb_hw.h</label>
+        <link refid="xavb__hw_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="85">
+        <label>xstatus.h</label>
+      </node>
+      <node id="80">
+        <label>xavb_rtc_sync.c</label>
+        <link refid="xavb_rtc_sync.c"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xil_types.h</label>
+      </node>
+      <node id="86">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavb__rtc__sync_8c_1a3ce07f766a1033fab5a1981e947db52e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAvb_CaptureNanoSec</definition>
+        <argsstring>(u32 BaseAddress, u32 PtpFrameBaseAddr)</argsstring>
+        <name>XAvb_CaptureNanoSec</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PtpFrameBaseAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>The timestamp is located over several 32-bit Words of the PTP frame buffer Read the relevant Words containing the ns timestamp:</para><para>Now re-arrange the data from the Words to obtain the required ns Timestamp in binary format </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" bodystart="67" bodyend="89"/>
+        <references refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" compoundref="xavb__hw_8h" startline="363">XAvb_ReadPtpBuffer</references>
+        <references refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" compoundref="xavb__ptp__packets_8c" startline="245" endline="253">XAvb_ReorderWord</references>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__rtc__sync_8c_1a6d7814f965d4141992654954f1243679" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_CalcDelay</definition>
+        <argsstring>(XAvb *InstancePtr)</argsstring>
+        <name>XAvb_CalcDelay</name>
+        <param>
+          <type><ref refid="struct_x_avb" kindref="compound">XAvb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Since we are only using the nanoseconds field here we need to account for wrap. So we add one second to the T4 and T3 terms to ensure that the T4MinusT1 and T3MinusT2 results cannot be negative. These two additional seconds then cancel each other out in the T4MinusT1 - T3MinusT2 equation.</para><para>If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer</para><para>If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer</para><para>For now we are simply going to throw out any absurdly large link delays.</para><para>The peer has responded to the pDelay_Req and the measured delay is within tolerance: the peer is deemed to be AS capable </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" bodystart="104" bodyend="161"/>
+        <references refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" compoundref="xavb_8h" startline="459">XAvb::PtpRecords</references>
+        <references refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" compoundref="xavb_8h" startline="339">XAvb_PtpStruct::PDelayTimestampT1</references>
+        <references refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" compoundref="xavb_8h" startline="340">XAvb_PtpStruct::PDelayTimestampT2</references>
+        <references refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" compoundref="xavb_8h" startline="341">XAvb_PtpStruct::PDelayTimestampT3</references>
+        <references refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" compoundref="xavb_8h" startline="342">XAvb_PtpStruct::PDelayTimestampT4</references>
+        <references refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" compoundref="xavb_8h" startline="237">XAVB_ONE_SECOND</references>
+        <references refid="xavb_8h_1aeee995ca1e92645f113145ca6dbeceda" compoundref="xavb_8h" startline="178">XAVB_NEIGHBOR_PROP_DELAY_THRESH</references>
+        <references refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" compoundref="xavb_8h" startline="343">XAvb_PtpStruct::LinkDelay</references>
+        <references refid="xavb_8h_1a004f6ae823f2e50f4dd2fac409953537" compoundref="xavb__ptp__bmca_8c" startline="745" endline="761">XAvb_ChangePeerASCapability</references>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__rtc__sync_8c_1a5ee8dd26b932ff82daa0dc87fd6d38d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_CalcRtcOffset</definition>
+        <argsstring>(XAvb *InstancePtr, u32 PtpFrameBaseAddr)</argsstring>
+        <name>XAvb_CalcRtcOffset</name>
+        <param>
+          <type><ref refid="struct_x_avb" kindref="compound">XAvb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PtpFrameBaseAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para><heading level="2">Capture the Slave Time </heading>
+</para><para>We do this immediately to get the slave time ASAP (since processing time is uncertain and the RTC does not stand still).</para><para><heading level="2">Capture the Master Origin Timestamp (from received FollowUp Frame) </heading>
+</para><para>read the Words from the PTP frame buffer containing the RTC seconds field</para><para>Now re-arrange the required data from the Words to obtain the required seconds field timestamp in binary format</para><para><heading level="2">Correct the Nanoseconds </heading>
+</para><para>NOTE: we are trying to compare the value of the slave RTC nano- seconds field timestamp with the nano-seconds value of the Masters RTC nanosecond field at exactly that time.</para><para>Sync Frame routing delay is equal to the value of the correction field (sum of correction fields in Sync and FollowUp frames) plus the link delay measurement made by this slave.</para><para>MasterNsCorrected time here is the calculated time that the master will be at the point in time when the sync frame is received (and timestamped) at the slave. This is calculated from the originTimeStamp (from the FollowUpframe), plus the Sync Frame routing delay. A direct comparison can then be made between master and slave.</para><para>Check for ns wrap-around condition</para><para>Make the Master and Slave comparison and discover the difference!</para><para>Check for ns wrap-around condition</para><para>Return these comparison figures in the form of a pointer (RTC increment rate adjust function also needs to know this information)</para><para>Adjust the 8k clock logic (if necessary)</para><para><heading level="2">Correct the Seconds and Epoch </heading>
+</para><para>NOTE: we are trying to compare the value of the slave RTC seconds field at the exact time when the timestamp was taken with the RTC seconds value of the Master at that time.</para><para>We need to know the value of the slaves synchronised nano-seconds field at the time when the timestamp was taken (since timestamps use the syntonised time). So we add the current nanosecond field offset value:</para><para>Check for ns wrap-around condition</para><para>Even though we read the slave RTC value at the beginning of this function, there would have been processing delay between the actual reception (and timestamping) of the FollowUp frame and the start of this function. During this time, the slave RTC seconds field could have wrapped around. We need to detect this and if it has done, the slave seconds field would also have incremented (so it needs to be set back).</para><para>slave_nanosec has wrapped since timestamp so decrement the seconds field</para><para>If the Master nano seconds field wrapped during the Sync frame routing delay, then we need to increment the seconds field.</para><para>Calculate the slave RTC error: the master time minus the timestamp taken by this slave for Sync Frame reception.</para><para><heading level="2">Write the results to the RTC Offset registers </heading>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" bodystart="179" bodyend="364"/>
+        <references refid="xavb__hw_8c_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</references>
+        <references refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" compoundref="xavb_8h" startline="432">XAvb::Config</references>
+        <references refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" compoundref="xavb_8h" startline="275">XAvb_Config::BaseAddress</references>
+        <references refid="xavb_8h_1a3ce07f766a1033fab5a1981e947db52e" compoundref="xavb__rtc__sync_8c" startline="67" endline="89">XAvb_CaptureNanoSec</references>
+        <references refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" compoundref="xavb__hw_8h" startline="363">XAvb_ReadPtpBuffer</references>
+        <references refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" compoundref="xavb__ptp__packets_8c" startline="245" endline="253">XAvb_ReorderWord</references>
+        <references refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" compoundref="xavb_8h" startline="459">XAvb::PtpRecords</references>
+        <references refid="struct_x_avb___ptp_struct_1a9ccce78c48aeb38e81ccfe20f4fcbf14" compoundref="xavb_8h" startline="338">XAvb_PtpStruct::MasterCorrectionField</references>
+        <references refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" compoundref="xavb_8h" startline="343">XAvb_PtpStruct::LinkDelay</references>
+        <references refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" compoundref="xavb_8h" startline="237">XAVB_ONE_SECOND</references>
+        <references refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" compoundref="xavb__hw_8h" startline="299">XAvb_RtcFormat::NanoSeconds</references>
+        <references refid="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" compoundref="xavb_8h" startline="337">XAvb_PtpStruct::SlaveSyncTimestamp</references>
+        <references refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" compoundref="xavb_8h" startline="344">XAvb_PtpStruct::NewSlaveTime</references>
+        <references refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" compoundref="xavb_8h" startline="345">XAvb_PtpStruct::NewMasterTime</references>
+        <references refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" compoundref="xavb__rtc__sync_8c" startline="380" endline="432">XAvb_Adjust8kClock</references>
+        <references refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" compoundref="xavb__hw_8h" startline="326">XAvb_ReadReg</references>
+        <references refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" compoundref="xavb__hw_8h" startline="74">XAVB_RTC_NANOSEC_OFFSET</references>
+        <references refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" compoundref="xavb__hw_8h" startline="298">XAvb_RtcFormat::SecondsLower</references>
+        <references refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" compoundref="xavb__hw_8h" startline="297">XAvb_RtcFormat::SecondsUpper</references>
+        <references refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" compoundref="xavb__hw_8h" startline="79">XAVB_RTC_SEC_LOWER_VALUE_OFFSET</references>
+        <references refid="xavb__hw_8c_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</references>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__rtc__sync_8c_1a2a46d84127016dacb2823b953acbfd20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_Adjust8kClock</definition>
+        <argsstring>(u32 BaseAddress, u32 NewOffset)</argsstring>
+        <name>XAvb_Adjust8kClock</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NewOffset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Read the previous offset</para><para>Calculate the change in the previous and current RTC ns offset</para><para>Is the adjustment &quot;large&quot;? &quot;large&quot; is chosen here to be one 8k clock period which is a somewhat arbitrary figure</para><para>The value XAVB_PERIOD_8KHZ is one 8k clock period in ns. We divide the RTC ns offset change by this to get the offset change in a multiple of 8k clock periods, the add 1 so that we always round up. Then multiply this by XAVB_PERIOD_8KHZ again so that we are always phased aligned to the RTC master (only every adjust in a multiple of 8k periods.</para><para>Write the results to the 8K clock logic Offset register </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" bodystart="380" bodyend="432"/>
+        <references refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" compoundref="xavb__hw_8h" startline="326">XAvb_ReadReg</references>
+        <references refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" compoundref="xavb__hw_8h" startline="74">XAVB_RTC_NANOSEC_OFFSET</references>
+        <references refid="xavb_8h_1a4793b0c7d045e9391746350389ff4ecc" compoundref="xavb_8h" startline="238">XAVB_PERIOD_8KHZ</references>
+        <references refid="xavb__hw_8h_1af86466362cc51296ae22fd1cb6c1d6ad" compoundref="xavb__hw_8h" startline="82">XAVB_RTC_8K_OFFSET_OFFSET</references>
+        <references refid="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" compoundref="xavb__hw_8h" startline="344">XAvb_WriteReg</references>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__rtc__sync_8c_1ada9dd75eb576b0e600686514fbea45e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_UpdateRtcIncrement</definition>
+        <argsstring>(XAvb *InstancePtr)</argsstring>
+        <name>XAvb_UpdateRtcIncrement</name>
+        <param>
+          <type><ref refid="struct_x_avb" kindref="compound">XAvb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Sanity Check that Sync Frames were n apart. This safeguards the calculation against the ethernet cable being pulled out and then replaced, etc.</para><para>Measure the time duration, as measured by the RTC master of the M sync delay measurement period.</para><para>Measure the time duration, as measured by the RTC slave of the M sync delay measurement period.</para><para>Therefore calculate the slave error (in ns)</para><para>If the slave error is zero, skip the remainder of function. (Note : a zero error would otherwise get stuck in the while loop further down this function).</para><para>Analyse msb of error signal to see which clock is running fastest</para><para>This check is in addition to the checks described in IEEE802.1as. If the SlaveError is unexpectedly large, then set asCapable to 0.</para><para>SlaveError signal is 32-bits (ns). This can indicate &gt; 4 sec of error: this is too large for 100 ms measurement period. So we expect upper bits to be zero.</para><para>This function will shift the 1st none zero bit of SlaveError up to bit 31, so that forthcoming calculation uses maximum accuracy.</para><para>This shift is equivalent to a multiply (of the error signal). A shift the opposite way (equivalent to a divide) will follow at end of full calculation.</para><para>Calculate the relative error: can be thought of as a scaled ratio of error per time unit</para><para>Obtain the current increment value</para><para>Calculate the increment adjustment: multiply NormalisedError by the increment time unit. Then shift back the other way to correct the calculation (restore to ns).</para><para>Now calculate the new increment value</para><para>Add some rails so that recovery is possible after a string of bad pDelay values. The RTC should be able to lock to within 100ppm of the slowest allowable clock (25 MHz). This equates to +/-4ps. Let&apos;s arbitrarily set the rails to 400ppm (+/-16ps) just in case someone decides to use a particularly bad oscillator. The lowest 20 bits of NewIncrement are fractions of a nanosecond, which equates to +/- 0x04189</para><para>And write the new increment value! </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c" bodystart="445" bodyend="615"/>
+        <references refid="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" compoundref="xavb_8h" startline="462">XAvb::SequenceIdRecords</references>
+        <references refid="struct_x_avb___sequence_id_struct_1a6905c062e37474a276a80955ebe565b5" compoundref="xavb_8h" startline="363">XAvb_SequenceIdStruct::OldSyncSequenceId</references>
+        <references refid="struct_x_avb___sequence_id_struct_1a689e9f68ca62fd5f25c4ba60be3419cc" compoundref="xavb_8h" startline="365">XAvb_SequenceIdStruct::NewSyncSequenceId</references>
+        <references refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" compoundref="xavb_8h" startline="459">XAvb::PtpRecords</references>
+        <references refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" compoundref="xavb_8h" startline="345">XAvb_PtpStruct::NewMasterTime</references>
+        <references refid="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" compoundref="xavb_8h" startline="347">XAvb_PtpStruct::OldMasterTime</references>
+        <references refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" compoundref="xavb_8h" startline="344">XAvb_PtpStruct::NewSlaveTime</references>
+        <references refid="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" compoundref="xavb_8h" startline="346">XAvb_PtpStruct::OldSlaveTime</references>
+        <references refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" compoundref="xavb_8h" startline="237">XAVB_ONE_SECOND</references>
+        <references refid="xavb_8h_1aa7c8e8ce9e50f2b41384c01c7644073b" compoundref="xavb_8h" startline="247">XAVB_CLOCK_LOCK_THRESHOLD</references>
+        <references refid="xavb_8h_1a07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="703" endline="730">XAvb_ChangePTPLockStatus</references>
+        <references refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" compoundref="xavb__hw_8h" startline="326">XAvb_ReadReg</references>
+        <references refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" compoundref="xavb_8h" startline="432">XAvb::Config</references>
+        <references refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" compoundref="xavb_8h" startline="275">XAvb_Config::BaseAddress</references>
+        <references refid="xavb__hw_8h_1a48d76d16f8d685a65a1216614e548071" compoundref="xavb__hw_8h" startline="77">XAVB_RTC_INCREMENT_OFFSET</references>
+        <references refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" compoundref="xavb__hw_8h" startline="187">XAVB_RTC_INCREMENT_NOMINAL_RATE</references>
+        <references refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" compoundref="xavb__hw_8h" startline="196">XAVB_RTC_400PPM_OFFSET</references>
+        <references refid="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" compoundref="xavb__hw_8h" startline="344">XAvb_WriteReg</references>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">*<sp/>@file<sp/>xavb_rtc_sync.c</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*<sp/>The<sp/>XAvb<sp/>driver.<sp/>Functions<sp/>in<sp/>this<sp/>file<sp/>all<sp/>contain<sp/>calculations<sp/>which<sp/>are</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/>essential<sp/>for<sp/>the<sp/>AVB<sp/>(1588<sp/>based)<sp/>Real<sp/>Time<sp/>Clock<sp/>(RTC)<sp/>Synchronisation.<sp/><sp/>In</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*<sp/>here<sp/>are<sp/>functions<sp/>to<sp/>measure<sp/>the<sp/>Link<sp/>Delay<sp/>(Master<sp/>and<sp/>Slave);<sp/>to<sp/>measure</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">*<sp/>and<sp/>correct<sp/>the<sp/>current<sp/>RTC<sp/>error<sp/>(Slave);<sp/>to<sp/>measure<sp/>and<sp/>correct<sp/>the<sp/>current</highlight></codeline>
+<codeline lineno="16"><highlight class="comment">*<sp/>RTC<sp/>increment<sp/>rate<sp/>error.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">*<sp/>&lt;pre&gt;</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*<sp/>MODIFICATION<sp/>HISTORY:</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">*<sp/>Ver<sp/><sp/><sp/>Who<sp/><sp/>Date<sp/><sp/><sp/><sp/><sp/>Changes</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">*<sp/>-----<sp/>----<sp/>--------<sp/>-----------------------------------------------</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">*<sp/>1.00a<sp/>mbr<sp/><sp/>09/19/08<sp/>First<sp/>release</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">*<sp/>1.01a<sp/>mbr<sp/><sp/>06/24/09<sp/>PTP<sp/>frame<sp/>format<sp/>updates<sp/>for<sp/>IEEE802.1<sp/>AS<sp/>draft<sp/>5-0</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">*<sp/>2_02a<sp/>mbr<sp/><sp/>09/16/09<sp/>Updates<sp/>for<sp/>programmable<sp/>PTP<sp/>timers</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">*<sp/>2_04a<sp/>kag<sp/><sp/>07/23/10<sp/>PTP<sp/>frame<sp/>format<sp/>updates<sp/>for<sp/>IEEE802.1<sp/>AS<sp/>draft<sp/>6-7</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">*<sp/>3_01a<sp/>kag<sp/><sp/>08/29/11<sp/>Added<sp/>new<sp/>APIs<sp/>to<sp/>update<sp/>the<sp/>RX<sp/>Filter<sp/>Control<sp/>Reg.</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fix<sp/>for<sp/>CR:572539.<sp/>Updated<sp/>bit<sp/>map<sp/>for<sp/>Rx<sp/>Filter</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>control<sp/>reg.</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">*<sp/>&lt;/pre&gt;</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavb__hw_8h" kindref="compound">xavb_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavb_8h" kindref="compound">xavb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="55"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="56"><highlight class="comment">*<sp/>A<sp/>function<sp/>to<sp/>capture<sp/>the<sp/>nanosecond<sp/>timestamp<sp/>field<sp/>from<sp/>a<sp/>received<sp/>PTP<sp/>frame</highlight></codeline>
+<codeline lineno="57"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="58"><highlight class="comment">*<sp/>@param<sp/><sp/>BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="59"><highlight class="comment">*<sp/>@param<sp/><sp/>PtpFrameBaseAddr<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>received<sp/>Announce<sp/>Packet</highlight></codeline>
+<codeline lineno="60"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>in<sp/>the<sp/>Rx<sp/>PTP<sp/>Packet<sp/>Buffer</highlight></codeline>
+<codeline lineno="61"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="62"><highlight class="comment">*<sp/>@return<sp/>The<sp/>Nanoseconds<sp/>Timestamp<sp/>field,<sp/>captured<sp/>from<sp/>an<sp/>Rx<sp/>PTP<sp/>frame</highlight></codeline>
+<codeline lineno="63"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="64"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="66"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="xavb_8h_1a3ce07f766a1033fab5a1981e947db52e" refkind="member"><highlight class="normal">u32<sp/><ref refid="xavb_8h_1a3ce07f766a1033fab5a1981e947db52e" kindref="member">XAvb_CaptureNanoSec</ref>(u32<sp/>BaseAddress,<sp/>u32<sp/>PtpFrameBaseAddr)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>u32<sp/>Timestamp<sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>u32<sp/>BufferWordA<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>u32<sp/>BufferWordB<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>BufferWordA<sp/>=<sp/><ref refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" kindref="member">XAvb_ReadPtpBuffer</ref>(BaseAddress,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpFrameBaseAddr,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>BufferWordB<sp/>=<sp/><ref refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" kindref="member">XAvb_ReadPtpBuffer</ref>(BaseAddress,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpFrameBaseAddr,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_PTP_RX_PKT_TIMESTAMP_LOWER_OFFSET);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>Timestamp<sp/>=<sp/>(<ref refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" kindref="member">XAvb_ReorderWord</ref>(BufferWordA)&lt;&lt;16)<sp/>|</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" kindref="member">XAvb_ReorderWord</ref>(BufferWordB)&gt;&gt;16);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Timestamp;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="94"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="95"><highlight class="comment">*<sp/>A<sp/>function<sp/>to<sp/>Measure<sp/>the<sp/>Link<sp/>Delay<sp/>of<sp/>the<sp/>local<sp/>full-duplex<sp/>Ethernet<sp/>link</highlight></codeline>
+<codeline lineno="96"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="97"><highlight class="comment">*<sp/>@param<sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XAvb<sp/>instance<sp/>to<sp/>be<sp/>worked<sp/>on</highlight></codeline>
+<codeline lineno="98"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="99"><highlight class="comment">*<sp/>@return<sp/>None.</highlight></codeline>
+<codeline lineno="100"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="xavb_8h_1a6d7814f965d4141992654954f1243679" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb_8h_1a6d7814f965d4141992654954f1243679" kindref="member">XAvb_CalcDelay</ref>(<ref refid="struct_x_avb" kindref="compound">XAvb</ref><sp/>*<sp/>InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>u32<sp/>T4MinusT1<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>u32<sp/>T3MinusT2<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>u32<sp/>Delay<sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_CalcDelay()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" kindref="member">PDelayTimestampT1</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" kindref="member">PDelayTimestampT2</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" kindref="member">PDelayTimestampT3</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" kindref="member">PDelayTimestampT4</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" kindref="member">PDelayTimestampT4</ref><sp/>&lt;<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" kindref="member">PDelayTimestampT1</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>T4MinusT1<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" kindref="member">PDelayTimestampT4</ref><sp/>+<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" kindref="member">PDelayTimestampT1</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>T4MinusT1<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" kindref="member">PDelayTimestampT4</ref></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" kindref="member">PDelayTimestampT1</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" kindref="member">PDelayTimestampT3</ref><sp/>&lt;<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" kindref="member">PDelayTimestampT2</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>T3MinusT2<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" kindref="member">PDelayTimestampT3</ref><sp/>+<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" kindref="member">PDelayTimestampT2</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>T3MinusT2<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" kindref="member">PDelayTimestampT3</ref></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" kindref="member">PDelayTimestampT2</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>Delay<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(T4MinusT1<sp/>-<sp/>T3MinusT2)<sp/>&gt;&gt;<sp/>1;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Delay<sp/>&lt;<sp/><ref refid="xavb_8h_1aeee995ca1e92645f113145ca6dbeceda" kindref="member">XAVB_NEIGHBOR_PROP_DELAY_THRESH</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" kindref="member">LinkDelay</ref><sp/><sp/>=<sp/>Delay;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xavb_8h_1a004f6ae823f2e50f4dd2fac409953537" kindref="member">XAvb_ChangePeerASCapability</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Bad<sp/>Link<sp/>Delay<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>Delay);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_CalcDelay()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" kindref="member">PDelayTimestampT1</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" kindref="member">PDelayTimestampT2</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" kindref="member">PDelayTimestampT3</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nt4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" kindref="member">PDelayTimestampT4</ref>);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nLinkDelay<sp/>%x<sp/>&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" kindref="member">LinkDelay</ref>);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="167"><highlight class="comment">*<sp/>A<sp/>function<sp/>to<sp/>calculate<sp/>the<sp/>Slave<sp/>Offset<sp/>from<sp/>the<sp/>GrandMaster<sp/>time</highlight></codeline>
+<codeline lineno="168"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="169"><highlight class="comment">*<sp/>@param<sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XAvb<sp/>instance<sp/>to<sp/>be<sp/>worked<sp/>on</highlight></codeline>
+<codeline lineno="170"><highlight class="comment">*<sp/>@param<sp/><sp/>PtpFrameBaseAddr<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>received<sp/>Announce<sp/>Packet</highlight></codeline>
+<codeline lineno="171"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>in<sp/>the<sp/>Rx<sp/>PTP<sp/>Packet<sp/>Buffer</highlight></codeline>
+<codeline lineno="172"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="173"><highlight class="comment">*<sp/>@return<sp/>The<sp/>PtpRecords<sp/>data<sp/>structure<sp/>is<sp/>updated<sp/>with<sp/>the<sp/>calculated<sp/>RTC</highlight></codeline>
+<codeline lineno="174"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>value.</highlight></codeline>
+<codeline lineno="175"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="176"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="177"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="178"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" kindref="member">XAvb_CalcRtcOffset</ref><sp/>(<ref refid="struct_x_avb" kindref="compound">XAvb</ref><sp/>*<sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/>PtpFrameBaseAddr)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>u32<sp/>MasterNanosec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>u32<sp/>MasterSeconds<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>u32<sp/>MasterEpoch<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>u32<sp/>SyncRouteDelay<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>u32<sp/>MasterNsCorrected<sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>u32<sp/>MasterNsHasWrapped<sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>u32<sp/>SlaveNsTimestamp<sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref><sp/>RtcError;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>u32<sp/>BufferWordA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>u32<sp/>BufferWordB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref><sp/>SlaveRtc;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="xavb__hw_8c_1adbb46fbeb6b3bb40e8067ea6f8a0776c" kindref="member">XAvb_ReadRtc</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,<sp/>&amp;SlaveRtc);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>MasterNanosec<sp/>=<sp/><ref refid="xavb_8h_1a3ce07f766a1033fab5a1981e947db52e" kindref="member">XAvb_CaptureNanoSec</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpFrameBaseAddr);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>BufferWordA<sp/>=<sp/><ref refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" kindref="member">XAvb_ReadPtpBuffer</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpFrameBaseAddr,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_PTP_RX_PKT_TIMESTAMP_UPPER_OFFSET);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>BufferWordB<sp/>=<sp/><ref refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" kindref="member">XAvb_ReadPtpBuffer</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpFrameBaseAddr,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/>MasterSeconds<sp/>=<sp/>(<ref refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" kindref="member">XAvb_ReorderWord</ref>(BufferWordA)<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" kindref="member">XAvb_ReorderWord</ref>(BufferWordB)<sp/>&gt;&gt;<sp/>16);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/>MasterEpoch<sp/><sp/><sp/>=<sp/><sp/><ref refid="xavb_8h_1a664d83b2f34093d6000f3ea2facef449" kindref="member">XAvb_ReorderWord</ref>(BufferWordA)<sp/>&gt;&gt;<sp/>16;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/>SyncRouteDelay<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a9ccce78c48aeb38e81ccfe20f4fcbf14" kindref="member">MasterCorrectionField</ref></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" kindref="member">LinkDelay</ref>;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/>MasterNsCorrected<sp/>=<sp/>MasterNanosec<sp/>+<sp/>SyncRouteDelay;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MasterNsCorrected<sp/>&gt;=<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>MasterNsCorrected<sp/><sp/><sp/>=<sp/>MasterNsCorrected<sp/>-<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>MasterNsHasWrapped<sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/>=<sp/>MasterNsCorrected</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" kindref="member">SlaveSyncTimestamp</ref>;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RtcError.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/>&gt;=<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/>=<sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/>+<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" kindref="member">NewSlaveTime</ref></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" kindref="member">SlaveSyncTimestamp</ref>;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" kindref="member">NewMasterTime</ref><sp/>=<sp/>MasterNsCorrected;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><ref refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" kindref="member">XAvb_Adjust8kClock</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,<sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref>);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/>SlaveNsTimestamp<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" kindref="member">SlaveSyncTimestamp</ref></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/><ref refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" kindref="member">XAvb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" kindref="member">XAVB_RTC_NANOSEC_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveNsTimestamp<sp/>&gt;=<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>SlaveNsTimestamp<sp/>=<sp/>SlaveNsTimestamp<sp/>-<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveRtc.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref><sp/>&lt;<sp/>SlaveNsTimestamp)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>==<sp/>0x00000000)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref><sp/>=<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref><sp/><sp/><sp/>-<sp/>0x1;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>=<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>-<sp/>0x1;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MasterNsHasWrapped<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MasterSeconds<sp/>==<sp/>0xFFFFFFFF)<sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>MasterEpoch<sp/>=<sp/>MasterEpoch<sp/>+<sp/>0x1;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>MasterSeconds<sp/>=<sp/>MasterSeconds<sp/>+<sp/>0x1;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>=<sp/><sp/>MasterSeconds<sp/>-<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref>;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref><sp/>=<sp/><sp/>MasterEpoch<sp/><sp/><sp/>-<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref>;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RtcError.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_CalcRtcOffset()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n--<sp/>Seconds<sp/>Field<sp/>Correction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nSlaveNsTimestamp<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>SlaveNsTimestamp);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nslave_ns<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref>);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n--&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nread<sp/>slave<sp/>seconds<sp/>:<sp/>%x&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" kindref="member">XAvb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" kindref="member">XAVB_RTC_SEC_LOWER_VALUE_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\ncalc<sp/>slave<sp/>secs<sp/><sp/><sp/><sp/>:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>SlaveRtc.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref>);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n--&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nmaster<sp/>sec<sp/>wrap<sp/><sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>MasterNsHasWrapped);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\ncalc<sp/>master_secs<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>MasterSeconds);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nrtc_sec_error<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>,<sp/>RtcError.<ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref>);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n--&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><ref refid="xavb__hw_8c_1a07f6e740f5623df870beea331507baf3" kindref="member">XAvb_WriteRtcOffset</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,<sp/>&amp;RtcError);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="369"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="370"><highlight class="comment">*<sp/>A<sp/>function<sp/>to<sp/>Adjust<sp/>the<sp/>phase<sp/>offset<sp/>of<sp/>the<sp/>8k<sp/>clock</highlight></codeline>
+<codeline lineno="371"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="372"><highlight class="comment">*<sp/>@param<sp/><sp/>InstancePtr-&gt;BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="373"><highlight class="comment">*<sp/>@param<sp/><sp/>NewOffset<sp/>is<sp/>the<sp/>newly<sp/>calculated<sp/>RTC<sp/>Offset<sp/>value</highlight></codeline>
+<codeline lineno="374"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="375"><highlight class="comment">*<sp/>@return<sp/>None.<sp/>But<sp/>the<sp/>devices<sp/>RTC<sp/>Phase<sp/>Adjustment<sp/>Register<sp/>is<sp/>updated</highlight></codeline>
+<codeline lineno="376"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="377"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="378"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="379"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380" refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" kindref="member">XAvb_Adjust8kClock</ref><sp/>(u32<sp/>BaseAddress,<sp/>u32<sp/>NewOffset)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/>u32<sp/>PreviousOffset<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/>u32<sp/>OffsetChange<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/>u32<sp/>ChangeIn8kPeriods<sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>u32<sp/>Clock8kOffset<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/>PreviousOffset<sp/>=<sp/><ref refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" kindref="member">XAvb_ReadReg</ref>(BaseAddress,<sp/><ref refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" kindref="member">XAVB_RTC_NANOSEC_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PreviousOffset<sp/>&gt;<sp/>NewOffset)<sp/>{</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/>OffsetChange<sp/>=<sp/><sp/>PreviousOffset<sp/>-<sp/>NewOffset;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/>OffsetChange<sp/>=<sp/><sp/>NewOffset<sp/>-<sp/>PreviousOffset;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OffsetChange<sp/>&gt;<sp/><ref refid="xavb_8h_1a4793b0c7d045e9391746350389ff4ecc" kindref="member">XAVB_PERIOD_8KHZ</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="405"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Clock8kOffset<sp/>=<sp/><ref refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" kindref="member">XAvb_ReadReg</ref>(BaseAddress,<sp/><ref refid="xavb__hw_8h_1af86466362cc51296ae22fd1cb6c1d6ad" kindref="member">XAVB_RTC_8K_OFFSET_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_Adjust8kClock()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nold<sp/>ns<sp/>offset:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>PreviousOffset);</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nold<sp/>Clk8kOffset:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>Clock8kOffset);</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/>ChangeIn8kPeriods<sp/>=<sp/>NewOffset<sp/>/<sp/><ref refid="xavb_8h_1a4793b0c7d045e9391746350389ff4ecc" kindref="member">XAVB_PERIOD_8KHZ</ref>;</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/>OffsetChange<sp/>=<sp/>(ChangeIn8kPeriods<sp/>+<sp/>1)<sp/>*<sp/><ref refid="xavb_8h_1a4793b0c7d045e9391746350389ff4ecc" kindref="member">XAVB_PERIOD_8KHZ</ref>;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" kindref="member">XAvb_WriteReg</ref>(BaseAddress,<sp/><ref refid="xavb__hw_8h_1af86466362cc51296ae22fd1cb6c1d6ad" kindref="member">XAVB_RTC_8K_OFFSET_OFFSET</ref>,<sp/>OffsetChange);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_Adjust8kClock()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nnew<sp/>ns<sp/>offset:<sp/>%x&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>NewOffset);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nnew<sp/>Clk8kOffset:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>OffsetChange);</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="430"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/***</highlight></codeline>
+<codeline lineno="437"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="438"><highlight class="comment">*<sp/>A<sp/>function<sp/>to<sp/>calculate<sp/>the<sp/>RTC<sp/>increment<sp/>value<sp/>based<sp/>on<sp/>the<sp/>Slave<sp/>Error</highlight></codeline>
+<codeline lineno="439"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="440"><highlight class="comment">*<sp/>@return<sp/>None.<sp/>But<sp/>the<sp/>devices<sp/>RTC<sp/>Increment<sp/>Value<sp/>Control<sp/>Register<sp/>is<sp/>updated</highlight></codeline>
+<codeline lineno="441"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="442"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="443"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="444"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="445" refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" kindref="member">XAvb_UpdateRtcIncrement</ref>(<ref refid="struct_x_avb" kindref="compound">XAvb</ref><sp/>*<sp/>InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/>u32<sp/>LoopCount<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>31;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>SlaveIsFast<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/>u32<sp/>SlaveTimeDuration<sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/>u32<sp/>MasterTimeDuration<sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/>u32<sp/>SlaveError<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/>u32<sp/>ScaledError<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/>u32<sp/>NormalisedError<sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/>u32<sp/>IncrementAdjust<sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/>u32<sp/>OldIncrement<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/>u32<sp/>NewIncrement<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>((InstancePtr-&gt;<ref refid="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" kindref="member">SequenceIdRecords</ref>.<ref refid="struct_x_avb___sequence_id_struct_1a6905c062e37474a276a80955ebe565b5" kindref="member">OldSyncSequenceId</ref><sp/>+</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT)<sp/>&amp;<sp/>0xFFFF)<sp/>==</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" kindref="member">SequenceIdRecords</ref>.<ref refid="struct_x_avb___sequence_id_struct_1a689e9f68ca62fd5f25c4ba60be3419cc" kindref="member">NewSyncSequenceId</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_UpdateRtcIncrement():<sp/>Debug...(a)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNewMasterTime<sp/>:<sp/>%x,<sp/>%d&quot;</highlight><highlight class="normal"><sp/>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" kindref="member">NewMasterTime</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" kindref="member">NewMasterTime</ref>);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nOldMasterTime<sp/>:<sp/>%x,<sp/>%d&quot;</highlight><highlight class="normal"><sp/>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" kindref="member">OldMasterTime</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" kindref="member">OldMasterTime</ref>);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNewSlaveTime<sp/>:<sp/>%x,<sp/>%d&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" kindref="member">NewSlaveTime</ref>,<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" kindref="member">NewSlaveTime</ref>);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nOldSlaveTime<sp/>:<sp/>%x,<sp/>%d\r\n&quot;</highlight><highlight class="normal"><sp/><sp/>,<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" kindref="member">OldSlaveTime</ref>,<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" kindref="member">OldSlaveTime</ref>);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="473"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/>MasterTimeDuration<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" kindref="member">NewMasterTime</ref></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" kindref="member">OldMasterTime</ref>);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MasterTimeDuration<sp/>&gt;=<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>MasterTimeDuration<sp/>=<sp/>MasterTimeDuration<sp/>+<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/>SlaveTimeDuration<sp/><sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" kindref="member">NewSlaveTime</ref></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" kindref="member">PtpRecords</ref>.<ref refid="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" kindref="member">OldSlaveTime</ref>);</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveTimeDuration<sp/>&gt;=<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>SlaveTimeDuration<sp/>=<sp/>SlaveTimeDuration<sp/>+<sp/><ref refid="xavb_8h_1a0e38789f6a2e5cdbf7a2f305c77044dd" kindref="member">XAVB_ONE_SECOND</ref>;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/>SlaveError<sp/>=<sp/>MasterTimeDuration<sp/>-<sp/>SlaveTimeDuration;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveError<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveError<sp/>&amp;<sp/>0x80000000)<sp/>{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveIsFast<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveError<sp/><sp/><sp/>=<sp/>SlaveTimeDuration<sp/>-<sp/>MasterTimeDuration;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveIsFast<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveError<sp/>&lt;<sp/><ref refid="xavb_8h_1aa7c8e8ce9e50f2b41384c01c7644073b" kindref="member">XAVB_CLOCK_LOCK_THRESHOLD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb_8h_1a07f69b843cd86ca6149c838c478c4e01" kindref="member">XAvb_ChangePTPLockStatus</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb_8h_1a07f69b843cd86ca6149c838c478c4e01" kindref="member">XAvb_ChangePTPLockStatus</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<sp/>!(SlaveError<sp/>&amp;<sp/>(0x1<sp/>&lt;&lt;<sp/>LoopCount))<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoopCount<sp/>=<sp/>LoopCount<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoopCount<sp/>=<sp/>31<sp/>-<sp/>LoopCount;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScaledError<sp/><sp/>=<sp/>(SlaveError<sp/>&lt;&lt;<sp/>LoopCount);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NormalisedError<sp/>=<sp/>ScaledError<sp/>/<sp/>MasterTimeDuration;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OldIncrement<sp/>=<sp/>(<ref refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" kindref="member">XAvb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a48d76d16f8d685a65a1216614e548071" kindref="member">XAVB_RTC_INCREMENT_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAVB_RTC_INCREMENT_VALUE_MASK);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IncrementAdjust<sp/>=<sp/>(NormalisedError<sp/>*<sp/>OldIncrement)<sp/>&gt;&gt;<sp/>LoopCount;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveIsFast)<sp/>{</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIncrement<sp/>=<sp/>OldIncrement<sp/>-<sp/>IncrementAdjust;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIncrement<sp/>=<sp/>OldIncrement<sp/>+<sp/>IncrementAdjust;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<sp/>NewIncrement<sp/>&gt;<sp/>(<ref refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" kindref="member">XAVB_RTC_INCREMENT_NOMINAL_RATE</ref><sp/>+<sp/><ref refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" kindref="member">XAVB_RTC_400PPM_OFFSET</ref>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nRTC<sp/>Exceeded<sp/>400ppm<sp/>offset:<sp/>Railing<sp/>to<sp/>400ppm\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIncrement<sp/>=<sp/><ref refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" kindref="member">XAVB_RTC_INCREMENT_NOMINAL_RATE</ref><sp/>+<sp/><ref refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" kindref="member">XAVB_RTC_400PPM_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<sp/>NewIncrement<sp/>&lt;<sp/>(<ref refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" kindref="member">XAVB_RTC_INCREMENT_NOMINAL_RATE</ref><sp/>-<sp/><ref refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" kindref="member">XAVB_RTC_400PPM_OFFSET</ref>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nRTC<sp/>Exceeded<sp/>400ppm<sp/>offset:<sp/>Railing<sp/>to<sp/>400ppm\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIncrement<sp/>=<sp/><ref refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" kindref="member">XAVB_RTC_INCREMENT_NOMINAL_RATE</ref><sp/>-<sp/><ref refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" kindref="member">XAVB_RTC_400PPM_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" kindref="member">XAvb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" kindref="member">Config</ref>.<ref refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavb__hw_8h_1a48d76d16f8d685a65a1216614e548071" kindref="member">XAVB_RTC_INCREMENT_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIncrement);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_XAVB_LEVEL2</highlight></codeline>
+<codeline lineno="584"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_UpdateRtcIncrement():<sp/>Debug...&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nM<sp/>Time<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>MasterTimeDuration);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nS<sp/>Time<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>SlaveTimeDuration);</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nErr<sp/>:<sp/>%x<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>SlaveIsFast,<sp/>SlaveError);</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nScaled<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>ScaledError);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNorm<sp/><sp/><sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>NormalisedError);</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nAdjust<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>IncrementAdjust);</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNew<sp/>Inc:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>NewIncrement);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="593"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_UpdateRtcIncrement()&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nERROR:<sp/>Syncs<sp/>not<sp/>%d<sp/>apart<sp/>-<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT,</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" kindref="member">SequenceIdRecords</ref>.<ref refid="struct_x_avb___sequence_id_struct_1a689e9f68ca62fd5f25c4ba60be3419cc" kindref="member">NewSyncSequenceId</ref><sp/>-</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" kindref="member">SequenceIdRecords</ref>.<ref refid="struct_x_avb___sequence_id_struct_1a6905c062e37474a276a80955ebe565b5" kindref="member">OldSyncSequenceId</ref>);</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlaveError<sp/>&gt;<sp/>0x2700)<sp/>{</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nXAvb_UpdateRtcIncrement():<sp/>Large<sp/>Error<sp/>over<sp/>100ms&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nM<sp/>Time<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>MasterTimeDuration);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nS<sp/>Time<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>SlaveTimeDuration);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nErr<sp/>:<sp/>%x<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>SlaveIsFast,<sp/>SlaveError);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nScaled<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>ScaledError);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNorm<sp/><sp/><sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>NormalisedError);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nAdjust<sp/>:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>IncrementAdjust);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nNew<sp/>Inc:<sp/>%x&quot;</highlight><highlight class="normal"><sp/>,<sp/>NewIncrement);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_rtc_sync.c"/>
+  </compounddef>
+</doxygen>

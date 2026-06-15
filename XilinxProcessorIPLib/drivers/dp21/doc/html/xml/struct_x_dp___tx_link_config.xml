@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_link_config" kind="struct" prot="public">
+    <compoundname>XDp_TxLinkConfig</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a86b3dae5f9896de8c18734aadbf3d23b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+<para>The current lane count of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="647" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+<para>The current link rate of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="649" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="649" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a9d864bb2a9556349b1ba3dfe86573985" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::ScramblerEn</definition>
+        <argsstring></argsstring>
+        <name>ScramblerEn</name>
+        <briefdescription>
+<para>Symbol scrambling is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="651" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="651" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a5501883285a3e774671d23189b6f86ee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::EnhancedFramingMode</definition>
+        <argsstring></argsstring>
+        <name>EnhancedFramingMode</name>
+        <briefdescription>
+<para>Enhanced frame mode is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="653" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1af33daefb802fb10fc7b5ee6e215eb702" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::DownspreadControl</definition>
+        <argsstring></argsstring>
+        <name>DownspreadControl</name>
+        <briefdescription>
+<para>Downspread control is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="655" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1aa7ce05bdbb77f099987f327918c92e5a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+<para>The maximum lane count of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="657" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a1cb767e2205df48354b391fbf205fe40" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::MaxLinkRate</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate</name>
+        <briefdescription>
+<para>The maximum link rate of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="659" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1aa2438dc91b77d9c780dbca7a1c570d19" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::SupportEnhancedFramingMode</definition>
+        <argsstring></argsstring>
+        <name>SupportEnhancedFramingMode</name>
+        <briefdescription>
+<para>Enhanced frame mode is supported by the RX device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="661" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="661" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a957740d0c485555909af79128c4ab8b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::SupportDownspreadControl</definition>
+        <argsstring></argsstring>
+        <name>SupportDownspreadControl</name>
+        <briefdescription>
+<para>Downspread control is supported by the RX device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="663" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="663" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1aa3d917e88adb041f86fb32ea448c9a97" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::VsLevel</definition>
+        <argsstring></argsstring>
+        <name>VsLevel</name>
+        <briefdescription>
+<para>The current voltage swing level for each lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="665" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="665" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1ad339d9961828fbb419a0f39c47e16351" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::PeLevel</definition>
+        <argsstring></argsstring>
+        <name>PeLevel</name>
+        <briefdescription>
+<para>The current pre-emphasis/cursor level for each lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="667" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a3f772d0aa0f69b45f774bef8c05f5be0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::Pattern</definition>
+        <argsstring></argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+<para>The current pattern currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="669" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="669" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a92a206b0bb0922f49168956f93930168" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::cr_done_cnt</definition>
+        <argsstring></argsstring>
+        <name>cr_done_cnt</name>
+        <briefdescription>
+<para>The number of lanes done with clock recovery. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="671" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a546df44822abcea4958187d265971c2f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::cr_done_oldstate</definition>
+        <argsstring></argsstring>
+        <name>cr_done_oldstate</name>
+        <briefdescription>
+<para>Restores the number of lanes done with clock recovery. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="673" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a921e8b8167b7e6ef3b67699941ed05d7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::LinkTraining2x</definition>
+        <argsstring></argsstring>
+        <name>LinkTraining2x</name>
+        <briefdescription>
+<para>indicates link training in DP 2.1 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a05070b351b2a9702571d7fcff7d386b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::Downstream2xSupported</definition>
+        <argsstring></argsstring>
+        <name>Downstream2xSupported</name>
+        <briefdescription>
+<para>indicates dp2.1 capability from downstream receiver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1af626b66624516cde91a5fd524be64e3e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::ProtocolSwitch</definition>
+        <argsstring></argsstring>
+        <name>ProtocolSwitch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="677" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1abdc5cba3148e6806722c3c323fab8c31" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::Downstream1xSupported</definition>
+        <argsstring></argsstring>
+        <name>Downstream1xSupported</name>
+        <briefdescription>
+<para>indicates dp1.4 capability from downstream receiver </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="678" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a01964bed638e86c896770cea9d0b1bed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::PresetVal[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>PresetVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="679" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a000b74c7b7478e65dc29fefd7bc7d1be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::CeDoneLaneCnt</definition>
+        <argsstring></argsstring>
+        <name>CeDoneLaneCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="682" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="682" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a7c7fa416b17acb02eba67e6b78b57c13" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::CeDoneOldState</definition>
+        <argsstring></argsstring>
+        <name>CeDoneOldState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="685" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a98f2cc31ea42b8030610f98b8606fae8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::TrainingMode</definition>
+        <argsstring></argsstring>
+        <name>TrainingMode</name>
+        <briefdescription>
+<para>The Current Training protocol. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="688" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="688" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a9a33114c8619fca9d9a462ae78068ad5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::ExtendedCapPresent</definition>
+        <argsstring></argsstring>
+        <name>ExtendedCapPresent</name>
+        <briefdescription>
+<para>Availability of Extended capabilities. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="689" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a52bc84b6f8c43cdac3dbee44e5afd9b7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::IsDsRepeater</definition>
+        <argsstring></argsstring>
+        <name>IsDsRepeater</name>
+        <briefdescription>
+<para>Downstream detected as Repeater. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="690" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="690" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1ac584183fed5d455ec70314a4e0563d14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::OverrideLinkrate</definition>
+        <argsstring></argsstring>
+        <name>OverrideLinkrate</name>
+        <briefdescription>
+<para>If set to 1, the value stored for LinkRate will get Overwrite with user LinkRates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="691" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a3d727464529d57e828e2ec30650a2e12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::OverrideLinkCount</definition>
+        <argsstring></argsstring>
+        <name>OverrideLinkCount</name>
+        <briefdescription>
+<para>If set to 1, the value stored for LinkCount will get Overwrite with user LinkCount. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="694" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1abdffa64488425f3c184344c531f41c70" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::OverrideRepeaterMode</definition>
+        <argsstring></argsstring>
+        <name>OverrideRepeaterMode</name>
+        <briefdescription>
+<para>If set to 1, the value stored for LinkCount will get Overwrite with user LinkCount. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="697" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="697" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1ad2084d1e093d6179b2365df9eaf56924" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::ActiveRepeaterCount</definition>
+        <argsstring></argsstring>
+        <name>ActiveRepeaterCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1ad5ab67bcf28a4a873cb6b5d0a7aba930" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::LttprMode</definition>
+        <argsstring></argsstring>
+        <name>LttprMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="701" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="701" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_link_config_1a0c303fb11e1dd19750852060a2299048" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLinkConfig::OverrideLttprMode</definition>
+        <argsstring></argsstring>
+        <name>OverrideLttprMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="702" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information about the main link settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="646" bodyend="703"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_link_config_1ad2084d1e093d6179b2365df9eaf56924" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>ActiveRepeaterCount</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a000b74c7b7478e65dc29fefd7bc7d1be" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>CeDoneLaneCnt</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a7c7fa416b17acb02eba67e6b78b57c13" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>CeDoneOldState</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a92a206b0bb0922f49168956f93930168" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>cr_done_cnt</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a546df44822abcea4958187d265971c2f" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>cr_done_oldstate</name></member>
+      <member refid="struct_x_dp___tx_link_config_1af33daefb802fb10fc7b5ee6e215eb702" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>DownspreadControl</name></member>
+      <member refid="struct_x_dp___tx_link_config_1abdc5cba3148e6806722c3c323fab8c31" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>Downstream1xSupported</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a05070b351b2a9702571d7fcff7d386b3" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>Downstream2xSupported</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a5501883285a3e774671d23189b6f86ee" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>EnhancedFramingMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a9a33114c8619fca9d9a462ae78068ad5" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>ExtendedCapPresent</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a52bc84b6f8c43cdac3dbee44e5afd9b7" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>IsDsRepeater</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a86b3dae5f9896de8c18734aadbf3d23b" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>LaneCount</name></member>
+      <member refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>LinkRate</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a921e8b8167b7e6ef3b67699941ed05d7" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>LinkTraining2x</name></member>
+      <member refid="struct_x_dp___tx_link_config_1ad5ab67bcf28a4a873cb6b5d0a7aba930" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>LttprMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1aa7ce05bdbb77f099987f327918c92e5a" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a1cb767e2205df48354b391fbf205fe40" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>MaxLinkRate</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a3d727464529d57e828e2ec30650a2e12" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>OverrideLinkCount</name></member>
+      <member refid="struct_x_dp___tx_link_config_1ac584183fed5d455ec70314a4e0563d14" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>OverrideLinkrate</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a0c303fb11e1dd19750852060a2299048" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>OverrideLttprMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1abdffa64488425f3c184344c531f41c70" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>OverrideRepeaterMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a3f772d0aa0f69b45f774bef8c05f5be0" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>Pattern</name></member>
+      <member refid="struct_x_dp___tx_link_config_1ad339d9961828fbb419a0f39c47e16351" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>PeLevel</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a01964bed638e86c896770cea9d0b1bed" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>PresetVal</name></member>
+      <member refid="struct_x_dp___tx_link_config_1af626b66624516cde91a5fd524be64e3e" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>ProtocolSwitch</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a9d864bb2a9556349b1ba3dfe86573985" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>ScramblerEn</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a957740d0c485555909af79128c4ab8b9" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>SupportDownspreadControl</name></member>
+      <member refid="struct_x_dp___tx_link_config_1aa2438dc91b77d9c780dbca7a1c570d19" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>SupportEnhancedFramingMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1a98f2cc31ea42b8030610f98b8606fae8" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>TrainingMode</name></member>
+      <member refid="struct_x_dp___tx_link_config_1aa3d917e88adb041f86fb32ea448c9a97" prot="public" virt="non-virtual"><scope>XDp_TxLinkConfig</scope><name>VsLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mpegtsmux___config" kind="struct" prot="public">
+    <compoundname>XMpegtsmux_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mpegtsmux___config_1af8636fe9fa54738ed1047c1bbe889536" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMpegtsmux_Config::DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mpegtsmux___config_1a50c4b957303a8224fbc3088ca4fb8f8b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Config::Ctrl_BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>Ctrl_BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="39" bodyend="42"/>
+    <listofallmembers>
+      <member refid="struct_x_mpegtsmux___config_1a50c4b957303a8224fbc3088ca4fb8f8b" prot="public" virt="non-virtual"><scope>XMpegtsmux_Config</scope><name>Ctrl_BaseAddress</name></member>
+      <member refid="struct_x_mpegtsmux___config_1af8636fe9fa54738ed1047c1bbe889536" prot="public" virt="non-virtual"><scope>XMpegtsmux_Config</scope><name>DeviceId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

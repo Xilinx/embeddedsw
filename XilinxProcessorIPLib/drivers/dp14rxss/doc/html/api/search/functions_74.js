@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['ti_5flmk03318_5fenablebypass',['TI_LMK03318_EnableBypass',['../group___t_i___l_m_k03318.html#gaaf6db83c8a277f026f2d3e15fc310e21',1,'ti_lmk03318.c']]],
+  ['ti_5flmk03318_5finit',['TI_LMK03318_Init',['../group___t_i___l_m_k03318.html#ga54cc8eb4fa5d5ca151a85b56d6f50531',1,'ti_lmk03318.c']]],
+  ['ti_5flmk03318_5fpowerdown',['TI_LMK03318_PowerDown',['../group___t_i___l_m_k03318.html#gad23a875ad2640e133b3c60b9b2614854',1,'TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress):&#160;ti_lmk03318.c'],['../group___t_i___l_m_k03318.html#gad23a875ad2640e133b3c60b9b2614854',1,'TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress):&#160;ti_lmk03318.c']]],
+  ['ti_5flmk03318_5fregisterdump',['TI_LMK03318_RegisterDump',['../group___t_i___l_m_k03318.html#ga6c9419870b565daf5346f7f052774d43',1,'ti_lmk03318.c']]]
+];

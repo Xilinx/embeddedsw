@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_946e032228b7411647604b2e0de066ca" kind="dir">
+    <compoundname>platform</compoundname>
+    <innerdir refid="dir_7cab295d26c5536e990b0c020f17b3f8">include</innerdir>
+    <innerfile refid="hal__i2c_8c">hal_i2c.c</innerfile>
+    <innerfile refid="hal__ps__i2c_8c">hal_ps_i2c.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/"/>
+  </compounddef>
+</doxygen>

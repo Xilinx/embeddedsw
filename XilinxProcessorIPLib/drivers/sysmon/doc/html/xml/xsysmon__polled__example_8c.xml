@@ -1,0 +1,498 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmon__polled__example_8c" kind="file">
+    <compoundname>xsysmon_polled_example.c</compoundname>
+    <includes refid="xsysmon_8h" local="yes">xsysmon.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="129">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="130">
+        <label>xil_io.h</label>
+      </node>
+      <node id="124">
+        <label>xsysmon_polled_example.c</label>
+        <link refid="xsysmon_polled_example.c"/>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>xstatus.h</label>
+      </node>
+      <node id="128">
+        <label>xil_types.h</label>
+      </node>
+      <node id="127">
+        <label>xsysmon_hw.h</label>
+        <link refid="xsysmon__hw_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="125">
+        <label>xsysmon.h</label>
+        <link refid="xsysmon_8h"/>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsysmon__polled__example_8c_1a84f7428db805800241676dd836763f43" prot="public" static="no">
+        <name>SYSMON_DEVICE_ID</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" line="63" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xsysmon__polled__example_8c_1aa522a5fef0d6969bc6dcfba54a873261" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_sys_mon" kindref="compound">XSysMon</ref></type>
+        <definition>XSysMon SysMonInst</definition>
+        <argsstring></argsstring>
+        <name>SysMonInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SysMonPolledExample</definition>
+        <argsstring>(u16 SysMonDeviceId, int *Temp)</argsstring>
+        <name>SysMonPolledExample</name>
+        <param>
+          <type>u16</type>
+          <declname>SysMonDeviceId</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>Temp</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a test on the System Monitor/ADC device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Initiate the System Monitor device driver instance</para></listitem><listitem><para>Run self-test on the device</para></listitem><listitem><para>Setup alarms for on-chip temperature and VCCAUX</para></listitem><listitem><para>Setup the sequence registers to continuously monitor on-chip temperature and VCCAUX</para></listitem><listitem><para>Setup configuration registers to start the sequence</para></listitem><listitem><para>Read latest on-chip temperature and VCCAUX, as well as their maximum and minimum values. Also check if alarm(s) are set</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SysMonDeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPAR_&lt;SYSMON_ADC_instance&gt;_DEVICE_ID value from xparameters.h. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Temp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an output parameter, it is a pointer through which the current temperature value is returned to the main function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" bodystart="142" bodyend="356"/>
+        <references refid="struct_x_sys_mon___config_1a0c21814e1533c922ccbb0a70bf60261f" compoundref="xsysmon_8h" startline="381">XSysMon_Config::BaseAddress</references>
+        <references refid="group___overview_1gac40645b74aaa13f5a98f54766d9867c2" compoundref="xsysmon__hw_8h" startline="371">XSM_AOR_TEMP_MASK</references>
+        <references refid="group___overview_1ga3298749348791ea76d1e35a9a1ab1b93" compoundref="xsysmon__hw_8h" startline="369">XSM_AOR_VCCAUX_MASK</references>
+        <references refid="group___overview_1ga138ea63ae47cd1478f188045792a5aef" compoundref="xsysmon_8h" startline="311">XSM_ATR_TEMP_LOWER</references>
+        <references refid="group___overview_1ga7e041ad6a624c7014aad8803d2f9667a" compoundref="xsysmon_8h" startline="307">XSM_ATR_TEMP_UPPER</references>
+        <references refid="group___overview_1ga6e1a39ae23bf829dbb3eb27f95582cea" compoundref="xsysmon_8h" startline="313">XSM_ATR_VCCAUX_LOWER</references>
+        <references refid="group___overview_1gaf1f02865999885b46b1b1fdd64f71098" compoundref="xsysmon_8h" startline="309">XSM_ATR_VCCAUX_UPPER</references>
+        <references refid="group___overview_1ga7cd77d90e7456614726390476f3636c8" compoundref="xsysmon_8h" startline="340">XSM_AVG_16_SAMPLES</references>
+        <references refid="group___overview_1ga52a6fb60ad44e0e4b95c4c54e331bc5c" compoundref="xsysmon__hw_8h" startline="515">XSM_CFR1_ALM_TEMP_MASK</references>
+        <references refid="group___overview_1ga426292488bb2aee0969e533223757104" compoundref="xsysmon__hw_8h" startline="513">XSM_CFR1_ALM_VCCAUX_MASK</references>
+        <references refid="group___overview_1gaf2f79c54dddbdf090934f80f315b2e60" compoundref="xsysmon_8h" startline="228">XSM_CH_TEMP</references>
+        <references refid="group___overview_1ga1c6a2517306958c69f3259057d3649a9" compoundref="xsysmon_8h" startline="230">XSM_CH_VCCAUX</references>
+        <references refid="group___overview_1ga35d9814abedb2943f4a84ecff66351e5" compoundref="xsysmon_8h" startline="276">XSM_MAX_TEMP</references>
+        <references refid="group___overview_1ga0318391019767d409a0df13f82003999" compoundref="xsysmon_8h" startline="278">XSM_MAX_VCCAUX</references>
+        <references refid="group___overview_1gaf3acf3098ee563aa1cc3e35555d4e801" compoundref="xsysmon_8h" startline="280">XSM_MIN_TEMP</references>
+        <references refid="group___overview_1gabf3015adb8b42e4b09d5ef8634558852" compoundref="xsysmon_8h" startline="282">XSM_MIN_VCCAUX</references>
+        <references refid="group___overview_1ga7a2f95ce30a1155b39edd9384e6d898a" compoundref="xsysmon__hw_8h" startline="586">XSM_SEQ_CH_AUX00</references>
+        <references refid="group___overview_1gaee1c4b7f6daf995c00e384a844581230" compoundref="xsysmon__hw_8h" startline="601">XSM_SEQ_CH_AUX15</references>
+        <references refid="group___overview_1ga4fed5630d5bcefd6b2c8b4692a5cb579" compoundref="xsysmon__hw_8h" startline="579">XSM_SEQ_CH_TEMP</references>
+        <references refid="group___overview_1ga5426b215d0d905d01876ba679f08fbe5" compoundref="xsysmon__hw_8h" startline="581">XSM_SEQ_CH_VCCAUX</references>
+        <references refid="group___overview_1ga090e870886f3ed8d58efc57c763772f2" compoundref="xsysmon_8h" startline="353">XSM_SEQ_MODE_CONTINPASS</references>
+        <references refid="group___overview_1ga223c74befcd8a6710ea7a7acbaf41636" compoundref="xsysmon_8h" startline="351">XSM_SEQ_MODE_SAFE</references>
+        <references refid="group___overview_1gac10ed891373f4799aa33110441cb5595" compoundref="xsysmon__hw_8h" startline="347">XSM_SR_EOS_MASK</references>
+        <references refid="group___overview_1ga04de4a4efc9fab7a41b88166bbffc615" compoundref="xsysmon_8c" startline="98" endline="128">XSysMon_CfgInitialize</references>
+        <references refid="group___overview_1ga07ab2025481799032cd40ff62f4b10f6" compoundref="xsysmon_8c" startline="329" endline="358">XSysMon_GetAdcData</references>
+        <references refid="group___overview_1ga2220b73838f1d10b79b688d1a8ce4c03" compoundref="xsysmon_8c" startline="208" endline="221">XSysMon_GetAlarmOutputStatus</references>
+        <references refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" compoundref="xsysmon_8c" startline="440" endline="463">XSysMon_GetMinMaxMeasurement</references>
+        <references refid="group___overview_1ga34d731dace546db3397741f0d229cb3b" compoundref="xsysmon_8c" startline="180" endline="192">XSysMon_GetStatus</references>
+        <references refid="group___overview_1ga54b145e1592c8df09b3041eb12cd283a" compoundref="xsysmon__sinit_8c" startline="80" endline="94">XSysMon_LookupConfig</references>
+        <references refid="group___overview_1ga251f2e509945b445a655fbc885f6a934" compoundref="xsysmon_8h" startline="489">XSysMon_RawToTemperature</references>
+        <references refid="group___overview_1ga23b6bce798cabbee7cb637d36edd54da" compoundref="xsysmon__selftest_8c" startline="77" endline="118">XSysMon_SelfTest</references>
+        <references refid="group___overview_1ga3c119682ea951295d41462e329da881a" compoundref="xsysmon_8c" startline="1087" endline="1101">XSysMon_SetAdcClkDivisor</references>
+        <references refid="group___overview_1ga458e2807135bef154d249e80b145520a" compoundref="xsysmon_8c" startline="700" endline="736">XSysMon_SetAlarmEnables</references>
+        <references refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" compoundref="xsysmon_8c" startline="1575" endline="1592">XSysMon_SetAlarmThreshold</references>
+        <references refid="group___overview_1gaf3504732dccf017f38fa7ffd7483f358" compoundref="xsysmon_8c" startline="486" endline="506">XSysMon_SetAvg</references>
+        <references refid="group___overview_1gaeafd06e40eff4807b362edf043d725e8" compoundref="xsysmon_8c" startline="1478" endline="1509">XSysMon_SetSeqAcqTime</references>
+        <references refid="group___overview_1gae7072bfa213b7318fcc29408a459c0bb" compoundref="xsysmon_8c" startline="1270" endline="1305">XSysMon_SetSeqAvgEnables</references>
+        <references refid="group___overview_1ga60d92b3a70aab326364319b3d1f1a7cc" compoundref="xsysmon_8c" startline="1159" endline="1195">XSysMon_SetSeqChEnables</references>
+        <references refid="group___overview_1ga3d3d8052fae049f4ca772b5956ced31f" compoundref="xsysmon_8c" startline="1380" endline="1411">XSysMon_SetSeqInputMode</references>
+        <references refid="group___overview_1ga433e353cd5a25454ce2a6da51494e478" compoundref="xsysmon_8c" startline="909" endline="931">XSysMon_SetSequencerMode</references>
+        <referencedby refid="xsysmon__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsysmon__polled__example_8c" startline="94" endline="112">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsysmon__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that invokes the polled example in this file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c" bodystart="94" bodyend="112"/>
+        <references refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" compoundref="xsysmon__polled__example_8c" startline="142" endline="356">SysMonPolledExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the driver functions of the System Monitor driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example here shows the driver/device in polled mode to check the on-chip temperature and voltages.</para><para><simplesect kind="note"><para></para></simplesect>
+The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a xd/sv  05/22/07 First release
+2.00a sdm    09/26/08 Added code to return temperature value to the main
+                function. TestappPeripheral prints the temperature
+4.00a ktn    10/22/09 Updated the example to use macros that have been
+                renamed to remove _m from the name of the macro.
+5.03a bss    04/25/13 Modified SysMonPolledExample function to set
+                Sequencer Mode as Safe mode instead of Single
+                channel mode before configuring Sequencer registers.
+                CR #703729
+7.3   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+7.8   cog  07/20/23 Added support for SDT flow
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2007<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmon_8h" kindref="compound">xsysmon.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SYSMON_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" kindref="member">SysMonPolledExample</ref>(u16<sp/>SysMonDeviceId,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Temp);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_sys_mon" kindref="compound">XSysMon</ref><sp/>SysMonInst;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>System<sp/>Monitor<sp/>driver<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="xsysmon__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmon__aux__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Temp;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>SysMonitor<sp/>polled<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>generated<sp/>in<sp/>xparameters.h<sp/>.</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" kindref="member">SysMonPolledExample</ref>(SYSMON_DEVICE_ID,<sp/>&amp;Temp);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Sysmon<sp/>polled<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Sysmon<sp/>polled<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" kindref="member">SysMonPolledExample</ref>(u16<sp/>SysMonDeviceId,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Temp)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon___config" kindref="compound">XSysMon_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TempData;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>VccauxData;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon" kindref="compound">XSysMon</ref><sp/>*SysMonInstPtr<sp/>=<sp/>&amp;SysMonInst;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>SysMon<sp/>driver.</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga54b145e1592c8df09b3041eb12cd283a" kindref="member">XSysMon_LookupConfig</ref>(SysMonDeviceId);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga04de4a4efc9fab7a41b88166bbffc615" kindref="member">XSysMon_CfgInitialize</ref>(SysMonInstPtr,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_sys_mon___config_1a0c21814e1533c922ccbb0a70bf60261f" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Self<sp/>Test<sp/>the<sp/>System<sp/>Monitor/ADC<sp/>device</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga23b6bce798cabbee7cb637d36edd54da" kindref="member">XSysMon_SelfTest</ref>(SysMonInstPtr);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>before<sp/>configuring<sp/>the<sp/>Sequence</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers.</highlight></codeline>
+<codeline lineno="173"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga433e353cd5a25454ce2a6da51494e478" kindref="member">XSysMon_SetSequencerMode</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga223c74befcd8a6710ea7a7acbaf41636" kindref="member">XSM_SEQ_MODE_SAFE</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Averaging<sp/>to<sp/>be<sp/>done<sp/>for<sp/>the<sp/>channels<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configuration<sp/>0<sp/>register<sp/>as<sp/>16<sp/>samples:</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf3504732dccf017f38fa7ffd7483f358" kindref="member">XSysMon_SetAvg</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga7cd77d90e7456614726390476f3636c8" kindref="member">XSM_AVG_16_SAMPLES</ref>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Sequence<sp/>register<sp/>for<sp/>1st<sp/>Auxiliary<sp/>channel</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setting<sp/>is:</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Add<sp/>acquisition<sp/>time<sp/>by<sp/>6<sp/>ADCCLK<sp/>cycles.</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Bipolar<sp/>Mode</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Sequence<sp/>register<sp/>for<sp/>16th<sp/>Auxiliary<sp/>channel</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setting<sp/>is:</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Add<sp/>acquisition<sp/>time<sp/>by<sp/>6<sp/>ADCCLK<sp/>cycles.</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Unipolar<sp/>Mode</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga3d3d8052fae049f4ca772b5956ced31f" kindref="member">XSysMon_SetSeqInputMode</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga7a2f95ce30a1155b39edd9384e6d898a" kindref="member">XSM_SEQ_CH_AUX00</ref>);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gaeafd06e40eff4807b362edf043d725e8" kindref="member">XSysMon_SetSeqAcqTime</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gaee1c4b7f6daf995c00e384a844581230" kindref="member">XSM_SEQ_CH_AUX15</ref><sp/>|</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga7a2f95ce30a1155b39edd9384e6d898a" kindref="member">XSM_SEQ_CH_AUX00</ref>);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>averaging<sp/>on<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers:</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>VCCAUX<sp/>supply<sp/>sensor</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>1st<sp/>Auxiliary<sp/>Channel</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>16th<sp/>Auxiliary<sp/>Channel</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group___overview_1gae7072bfa213b7318fcc29408a459c0bb" kindref="member">XSysMon_SetSeqAvgEnables</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga4fed5630d5bcefd6b2c8b4692a5cb579" kindref="member">XSM_SEQ_CH_TEMP</ref><sp/>|</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga5426b215d0d905d01876ba679f08fbe5" kindref="member">XSM_SEQ_CH_VCCAUX</ref><sp/>|</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga7a2f95ce30a1155b39edd9384e6d898a" kindref="member">XSM_SEQ_CH_AUX00</ref><sp/>|</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaee1c4b7f6daf995c00e384a844581230" kindref="member">XSM_SEQ_CH_AUX15</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer<sp/>registers:</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>VCCAUX<sp/>supply<sp/>sensor</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>1st<sp/>Auxiliary<sp/>Channel</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>16th<sp/>Auxiliary<sp/>Channel</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group___overview_1ga60d92b3a70aab326364319b3d1f1a7cc" kindref="member">XSysMon_SetSeqChEnables</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga4fed5630d5bcefd6b2c8b4692a5cb579" kindref="member">XSM_SEQ_CH_TEMP</ref><sp/>|</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga5426b215d0d905d01876ba679f08fbe5" kindref="member">XSM_SEQ_CH_VCCAUX</ref><sp/>|</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga7a2f95ce30a1155b39edd9384e6d898a" kindref="member">XSM_SEQ_CH_AUX00</ref><sp/>|</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaee1c4b7f6daf995c00e384a844581230" kindref="member">XSM_SEQ_CH_AUX15</ref>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>ADCCLK<sp/>frequency<sp/>equal<sp/>to<sp/>1/32<sp/>of<sp/>System<sp/>clock<sp/>for<sp/>the<sp/>System</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Monitor/ADC<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>2.</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga3c119682ea951295d41462e329da881a" kindref="member">XSysMon_SetAdcClkDivisor</ref>(SysMonInstPtr,<sp/>32);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>in<sp/>continuous<sp/>sequencer<sp/>cycling<sp/>mode.</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga433e353cd5a25454ce2a6da51494e478" kindref="member">XSysMon_SetSequencerMode</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga090e870886f3ed8d58efc57c763772f2" kindref="member">XSM_SEQ_MODE_CONTINPASS</ref>);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>till<sp/>the<sp/>End<sp/>of<sp/>Sequence<sp/>occurs</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga34d731dace546db3397741f0d229cb3b" kindref="member">XSysMon_GetStatus</ref>(SysMonInstPtr);<sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>old<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="group___overview_1ga34d731dace546db3397741f0d229cb3b" kindref="member">XSysMon_GetStatus</ref>(SysMonInstPtr)<sp/>&amp;<sp/><ref refid="group___overview_1gac10ed891373f4799aa33110441cb5595" kindref="member">XSM_SR_EOS_MASK</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSM_SR_EOS_MASK);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>all<sp/>the<sp/>alarms<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>1</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga458e2807135bef154d249e80b145520a" kindref="member">XSysMon_SetAlarmEnables</ref>(SysMonInstPtr,<sp/>0x0);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>ADC<sp/>converted<sp/>Data<sp/>from<sp/>the<sp/>data<sp/>registers<sp/>for<sp/>on-chip</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>temperature<sp/>and<sp/>on-chip<sp/>VCCAUX</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>=<sp/><ref refid="group___overview_1ga07ab2025481799032cd40ff62f4b10f6" kindref="member">XSysMon_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gaf2f79c54dddbdf090934f80f315b2e60" kindref="member">XSM_CH_TEMP</ref>);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>=<sp/><ref refid="group___overview_1ga07ab2025481799032cd40ff62f4b10f6" kindref="member">XSysMon_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga1c6a2517306958c69f3259057d3649a9" kindref="member">XSM_CH_VCCAUX</ref>);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Convert<sp/>the<sp/>ADC<sp/>data<sp/>into<sp/>temperature</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Temp<sp/>=<sp/><ref refid="group___overview_1ga251f2e509945b445a655fbc885f6a934" kindref="member">XSysMon_RawToTemperature</ref>(TempData);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>up<sp/>Alarm<sp/>threshold<sp/>registers<sp/>for</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>On-chip<sp/>Temperature<sp/>High<sp/>limit</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>On-chip<sp/>Temperature<sp/>Low<sp/>limit</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>High<sp/>limit</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>Low<sp/>limit</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" kindref="member">XSysMon_SetAlarmThreshold</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga7e041ad6a624c7014aad8803d2f9667a" kindref="member">XSM_ATR_TEMP_UPPER</ref>,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>-<sp/>0x007F);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" kindref="member">XSysMon_SetAlarmThreshold</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga138ea63ae47cd1478f188045792a5aef" kindref="member">XSM_ATR_TEMP_LOWER</ref>,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>-<sp/>0x007F);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" kindref="member">XSysMon_SetAlarmThreshold</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gaf1f02865999885b46b1b1fdd64f71098" kindref="member">XSM_ATR_VCCAUX_UPPER</ref>,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>-<sp/>0x007F);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" kindref="member">XSysMon_SetAlarmThreshold</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga6e1a39ae23bf829dbb3eb27f95582cea" kindref="member">XSM_ATR_VCCAUX_LOWER</ref>,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VccauxData<sp/>+<sp/>0x007F);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>Alarm<sp/>0<sp/>for<sp/>on-chip<sp/>temperature<sp/>and<sp/>Alarm<sp/>2<sp/>for<sp/>on-chip</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>VCCAUX<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>1.</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga458e2807135bef154d249e80b145520a" kindref="member">XSysMon_SetAlarmEnables</ref>(SysMonInstPtr,<sp/>(<ref refid="group___overview_1ga426292488bb2aee0969e533223757104" kindref="member">XSM_CFR1_ALM_VCCAUX_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga52a6fb60ad44e0e4b95c4c54e331bc5c" kindref="member">XSM_CFR1_ALM_TEMP_MASK</ref>));</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="298"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>in<sp/>continuous<sp/>cycling<sp/>mode.</highlight></codeline>
+<codeline lineno="299"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga433e353cd5a25454ce2a6da51494e478" kindref="member">XSysMon_SetSequencerMode</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga090e870886f3ed8d58efc57c763772f2" kindref="member">XSM_SEQ_MODE_CONTINPASS</ref>);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="303"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>on-chip<sp/>Temperature.</highlight></codeline>
+<codeline lineno="304"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga07ab2025481799032cd40ff62f4b10f6" kindref="member">XSysMon_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gaf2f79c54dddbdf090934f80f315b2e60" kindref="member">XSM_CH_TEMP</ref>);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="308"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Maximum<sp/>value<sp/>of<sp/>on-chip<sp/>Temperature.</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" kindref="member">XSysMon_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga35d9814abedb2943f4a84ecff66351e5" kindref="member">XSM_MAX_TEMP</ref>);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Minimum<sp/>value<sp/>of<sp/>on-chip<sp/>Temperature.</highlight></codeline>
+<codeline lineno="314"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" kindref="member">XSysMon_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gaf3acf3098ee563aa1cc3e35555d4e801" kindref="member">XSM_MIN_TEMP</ref>);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>alarm<sp/>for<sp/>on-chip<sp/>temperature<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga2220b73838f1d10b79b688d1a8ce4c03" kindref="member">XSysMon_GetAlarmOutputStatus</ref>(SysMonInstPtr)<sp/>&amp;<sp/><ref refid="group___overview_1gac40645b74aaa13f5a98f54766d9867c2" kindref="member">XSM_AOR_TEMP_MASK</ref>;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Value)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="323"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Alarm<sp/>for<sp/>on-chip<sp/>temperature<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="324"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>required<sp/>processing<sp/>should<sp/>be<sp/>put<sp/>here.</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>current<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga07ab2025481799032cd40ff62f4b10f6" kindref="member">XSysMon_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga1c6a2517306958c69f3259057d3649a9" kindref="member">XSM_CH_VCCAUX</ref>);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="334"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Maximum<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.</highlight></codeline>
+<codeline lineno="335"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" kindref="member">XSysMon_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1ga0318391019767d409a0df13f82003999" kindref="member">XSM_MAX_VCCAUX</ref>);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Minimum<sp/>value<sp/>of<sp/>on-chip<sp/>VCCAUX.</highlight></codeline>
+<codeline lineno="340"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" kindref="member">XSysMon_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="group___overview_1gabf3015adb8b42e4b09d5ef8634558852" kindref="member">XSM_MIN_VCCAUX</ref>);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>alarm<sp/>for<sp/>on-chip<sp/>VCCAUX<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___overview_1ga2220b73838f1d10b79b688d1a8ce4c03" kindref="member">XSysMon_GetAlarmOutputStatus</ref>(SysMonInstPtr)<sp/>&amp;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga3298749348791ea76d1e35a9a1ab1b93" kindref="member">XSM_AOR_VCCAUX_MASK</ref>;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Value)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Alarm<sp/>for<sp/>on-chip<sp/>VCCAUX<sp/>is<sp/>set.</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>required<sp/>processing<sp/>should<sp/>be<sp/>put<sp/>here.</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/xsysmon_polled_example.c"/>
+  </compounddef>
+</doxygen>

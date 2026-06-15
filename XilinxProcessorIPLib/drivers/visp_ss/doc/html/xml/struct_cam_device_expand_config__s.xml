@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_expand_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceExpandConfig_s</compoundname>
+    <includes local="no">cam_device_cpd_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_expand_config__s_1a039dfa04ca63ac071e2df1b46527b896" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceExpandConfig_s::expandCurveX[CAMDEV_CPD_CURVE_X_SIZE]</definition>
+        <argsstring>[CAMDEV_CPD_CURVE_X_SIZE]</argsstring>
+        <name>expandCurveX</name>
+        <briefdescription>
+<para>The X-coordinates of expand curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_expand_config__s_1a936c7825f5da863182d1abce7a9a13a4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceExpandConfig_s::expandCurveY[CAMDEV_CPD_CURVE_Y_SIZE]</definition>
+        <argsstring>[CAMDEV_CPD_CURVE_Y_SIZE]</argsstring>
+        <name>expandCurveY</name>
+        <briefdescription>
+<para>The Y-coordinates of expand curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_expand_config__s_1ab0f14595f261973a8bcdfe8121640010" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceExpandConfig_s::expandUseOutYcurve</definition>
+        <argsstring></argsstring>
+        <name>expandUseOutYcurve</name>
+        <briefdescription>
+<para>not used </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice expand configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="64" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_expand_config__s_1a039dfa04ca63ac071e2df1b46527b896" prot="public" virt="non-virtual"><scope>CamDeviceExpandConfig_s</scope><name>expandCurveX</name></member>
+      <member refid="struct_cam_device_expand_config__s_1a936c7825f5da863182d1abce7a9a13a4" prot="public" virt="non-virtual"><scope>CamDeviceExpandConfig_s</scope><name>expandCurveY</name></member>
+      <member refid="struct_cam_device_expand_config__s_1ab0f14595f261973a8bcdfe8121640010" prot="public" virt="non-virtual"><scope>CamDeviceExpandConfig_s</scope><name>expandUseOutYcurve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

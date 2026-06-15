@@ -1,0 +1,493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdmapcie__intr_8c" kind="file">
+    <compoundname>xdmapcie_intr.c</compoundname>
+    <includes refid="xdmapcie_8h" local="yes">xdmapcie.h</includes>
+    <incdepgraph>
+      <node id="83">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="81">
+        <label>xdmapcie_intr.c</label>
+        <link refid="xdmapcie_intr.c"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="87">
+        <label>xil_io.h</label>
+      </node>
+      <node id="82">
+        <label>xdmapcie.h</label>
+        <link refid="xdmapcie_8h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="89">
+        <label>string.h</label>
+      </node>
+      <node id="85">
+        <label>xdmapcie_hw.h</label>
+        <link refid="xdmapcie__hw_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xstatus.h</label>
+      </node>
+      <node id="86">
+        <label>xil_types.h</label>
+      </node>
+      <node id="88">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a60093f2ef3dd433de9da51dadc1e46bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_EnableGlobalInterrupt</definition>
+        <argsstring>(XDmaPcie *InstancePtr)</argsstring>
+        <name>XDmaPcie_EnableGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable the Global Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This bit is in the Bridge Status and Control Register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="48" bodyend="62"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1ad1ca428956c846fb789bc4c9bb31bc58" compoundref="xdmapcie__hw_8h" startline="512">XDMAPCIE_BSC_GI_MASK</references>
+        <references refid="xdmapcie__hw_8h_1a46af7762c004cff0605f71238f33039a" compoundref="xdmapcie__hw_8h" startline="527">XDMAPCIE_BSC_GI_SHIFT</references>
+        <references refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" compoundref="xdmapcie__hw_8h" startline="220">XDMAPCIE_BSC_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <references refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" compoundref="xdmapcie__hw_8h" startline="991">XDmaPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a3130feda681a6630a2c1d0cb77a2d868" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_DisableGlobalInterrupt</definition>
+        <argsstring>(XDmaPcie *InstancePtr)</argsstring>
+        <name>XDmaPcie_DisableGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable the Global Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This bit is in the Bridge Status and Control Register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="75" bodyend="90"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1ad1ca428956c846fb789bc4c9bb31bc58" compoundref="xdmapcie__hw_8h" startline="512">XDMAPCIE_BSC_GI_MASK</references>
+        <references refid="xdmapcie__hw_8h_1a46af7762c004cff0605f71238f33039a" compoundref="xdmapcie__hw_8h" startline="527">XDMAPCIE_BSC_GI_SHIFT</references>
+        <references refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" compoundref="xdmapcie__hw_8h" startline="220">XDMAPCIE_BSC_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <references refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" compoundref="xdmapcie__hw_8h" startline="991">XDmaPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a034dab86e9626ac44e222373d056f693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_EnableInterrupts</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u32 EnableMask)</argsstring>
+        <name>XDmaPcie_EnableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EnableMask</declname>
+        </param>
+        <briefdescription>
+<para>Enable the IP interrupt bits passed into &quot;EnableMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for interrupts wanted to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If an interrupt is already enabled before calling this function, it will stay enabled regardless of the value of &quot;EnableMask&quot; passed from the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="107" bodyend="120"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" compoundref="xdmapcie__hw_8h" startline="234">XDMAPCIE_IM_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <references refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" compoundref="xdmapcie__hw_8h" startline="991">XDmaPcie_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a086244f1e8866721dbb016893814281a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_DisableInterrupts</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u32 DisableMask)</argsstring>
+        <name>XDmaPcie_DisableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DisableMask</declname>
+        </param>
+        <briefdescription>
+<para>Disable the IP interrupt bits passed into &quot;DisableMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DisableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for interrupts wanted to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If an interrupt is already disabled before calling this function, it will stay disabled regardless of the value of &quot;DisableMask&quot; passed from the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="137" bodyend="150"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" compoundref="xdmapcie__hw_8h" startline="234">XDMAPCIE_IM_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <references refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" compoundref="xdmapcie__hw_8h" startline="991">XDmaPcie_WriteReg</references>
+        <referencedby refid="xdmapcie__rc__enumerate__example_8c_1a0e8ddec2bae30b18b9eaae3e53385138" compoundref="xdmapcie__rc__enumerate__example_8c" startline="191" endline="331">PcieInitRootComplex</referencedby>
+        <referencedby refid="xdmapcie_8h_1a557a92506060fd460154426bd8c4870c" compoundref="xdmapcie_8c" startline="122" endline="173">XDmaPcie_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a7f0db923538acc2ee66a3011f1abf32c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_GetEnabledInterrupts</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u32 *EnabledMaskPtr)</argsstring>
+        <name>XDmaPcie_GetEnabledInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>EnabledMaskPtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the currently enabled interrupt bits of the IP and pass them back to the caller into &quot;EnabledMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnabledMaskPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the enabled interrupt bits after reading them from IP.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="166" bodyend="176"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" compoundref="xdmapcie__hw_8h" startline="234">XDMAPCIE_IM_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <referencedby refid="xdmapcie__rc__enumerate__example_8c_1a0e8ddec2bae30b18b9eaae3e53385138" compoundref="xdmapcie__rc__enumerate__example_8c" startline="191" endline="331">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1afbcdc92c0afe5f15363ceea6dd2472be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_GetPendingInterrupts</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u32 *PendingMaskPtr)</argsstring>
+        <name>XDmaPcie_GetPendingInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PendingMaskPtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the currently pending interrupt bits of the IP and pass them back to the caller into &quot;PendingMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PendingMaskPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the pending interrupt bits after reading them from IP.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="192" bodyend="202"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1a1a466d7f94958ad960844918169a95ef" compoundref="xdmapcie__hw_8h" startline="227">XDMAPCIE_ID_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <referencedby refid="xdmapcie__rc__enumerate__example_8c_1a0e8ddec2bae30b18b9eaae3e53385138" compoundref="xdmapcie__rc__enumerate__example_8c" startline="191" endline="331">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__intr_8c_1a1ba2488b5b13dfebf7a3df93c300d67e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDmaPcie_ClearPendingInterrupts</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u32 ClearMask)</argsstring>
+        <name>XDmaPcie_ClearPendingInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ClearMask</declname>
+        </param>
+        <briefdescription>
+<para>Clear the currently pending interrupt bits of the IP passed from the caller into &quot;ClearMask&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClearMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit pattern for pending interrupts wanted to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c" bodystart="218" bodyend="227"/>
+        <references refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" compoundref="xdmapcie_8h" startline="108">XDmaPcie_Config::BaseAddress</references>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" compoundref="xdmapcie_8h" startline="151">XDmaPcie::IsReady</references>
+        <references refid="xdmapcie__hw_8h_1a1a466d7f94958ad960844918169a95ef" compoundref="xdmapcie__hw_8h" startline="227">XDMAPCIE_ID_OFFSET</references>
+        <references refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" compoundref="xdmapcie__hw_8h" startline="972">XDmaPcie_ReadReg</references>
+        <references refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" compoundref="xdmapcie__hw_8h" startline="991">XDmaPcie_WriteReg</references>
+        <referencedby refid="xdmapcie__rc__enumerate__example_8c_1a0e8ddec2bae30b18b9eaae3e53385138" compoundref="xdmapcie__rc__enumerate__example_8c" startline="191" endline="331">PcieInitRootComplex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements interrupt functions for the <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> IP. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0     tk      01/30/2019      First release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmapcie_8h" kindref="compound">xdmapcie.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="48" refid="xdmapcie__intr_8c_1a60093f2ef3dd433de9da51dadc1e46bc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a60093f2ef3dd433de9da51dadc1e46bc" kindref="member">XDmaPcie_EnableGlobalInterrupt</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" kindref="member">XDMAPCIE_BSC_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>|=<sp/>(<ref refid="xdmapcie__hw_8h_1ad1ca428956c846fb789bc4c9bb31bc58" kindref="member">XDMAPCIE_BSC_GI_MASK</ref><sp/>&gt;&gt;<sp/><ref refid="xdmapcie__hw_8h_1a46af7762c004cff0605f71238f33039a" kindref="member">XDMAPCIE_BSC_GI_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" kindref="member">XDmaPcie_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" kindref="member">XDMAPCIE_BSC_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="xdmapcie__intr_8c_1a3130feda681a6630a2c1d0cb77a2d868" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a3130feda681a6630a2c1d0cb77a2d868" kindref="member">XDmaPcie_DisableGlobalInterrupt</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" kindref="member">XDMAPCIE_BSC_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>&amp;=<sp/>~(<ref refid="xdmapcie__hw_8h_1ad1ca428956c846fb789bc4c9bb31bc58" kindref="member">XDMAPCIE_BSC_GI_MASK</ref><sp/>&gt;&gt;<sp/><ref refid="xdmapcie__hw_8h_1a46af7762c004cff0605f71238f33039a" kindref="member">XDMAPCIE_BSC_GI_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" kindref="member">XDmaPcie_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1ac669dec8e84593dc82387d7abb9e27ae" kindref="member">XDMAPCIE_BSC_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="xdmapcie__intr_8c_1a034dab86e9626ac44e222373d056f693" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a034dab86e9626ac44e222373d056f693" kindref="member">XDmaPcie_EnableInterrupts</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>EnableMask)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" kindref="member">XDMAPCIE_IM_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" kindref="member">XDmaPcie_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" kindref="member">XDMAPCIE_IM_OFFSET</ref>,<sp/>(Data<sp/>|<sp/>EnableMask));</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="137" refid="xdmapcie__intr_8c_1a086244f1e8866721dbb016893814281a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a086244f1e8866721dbb016893814281a" kindref="member">XDmaPcie_DisableInterrupts</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>DisableMask)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" kindref="member">XDMAPCIE_IM_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" kindref="member">XDmaPcie_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" kindref="member">XDMAPCIE_IM_OFFSET</ref>,<sp/>(Data<sp/>&amp;<sp/>(~DisableMask)));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="166" refid="xdmapcie__intr_8c_1a7f0db923538acc2ee66a3011f1abf32c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a7f0db923538acc2ee66a3011f1abf32c" kindref="member">XDmaPcie_GetEnabledInterrupts</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*EnabledMaskPtr)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(EnabledMaskPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*EnabledMaskPtr<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a241506bc1816800ebc206d77b9d26436" kindref="member">XDMAPCIE_IM_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="xdmapcie__intr_8c_1afbcdc92c0afe5f15363ceea6dd2472be" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1afbcdc92c0afe5f15363ceea6dd2472be" kindref="member">XDmaPcie_GetPendingInterrupts</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PendingMaskPtr)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PendingMaskPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*PendingMaskPtr<sp/>=<sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a1a466d7f94958ad960844918169a95ef" kindref="member">XDMAPCIE_ID_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="218" refid="xdmapcie__intr_8c_1a1ba2488b5b13dfebf7a3df93c300d67e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdmapcie_8h_1a1ba2488b5b13dfebf7a3df93c300d67e" kindref="member">XDmaPcie_ClearPendingInterrupts</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u32<sp/>ClearMask)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1ab8f1b6c7f90a5614de5f726f4daef12e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1afa180a178e9501f6238f5a5fbbd62a69" kindref="member">XDmaPcie_WriteReg</ref>((InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>),<sp/><ref refid="xdmapcie__hw_8h_1a1a466d7f94958ad960844918169a95ef" kindref="member">XDMAPCIE_ID_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a736c70d6aa883f4d252670658e3b95ad" kindref="member">XDmaPcie_ReadReg</ref>((InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" kindref="member">BaseAddress</ref>),</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie__hw_8h_1a1a466d7f94958ad960844918169a95ef" kindref="member">XDMAPCIE_ID_OFFSET</ref>)<sp/>&amp;<sp/>(ClearMask));</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_intr.c"/>
+  </compounddef>
+</doxygen>

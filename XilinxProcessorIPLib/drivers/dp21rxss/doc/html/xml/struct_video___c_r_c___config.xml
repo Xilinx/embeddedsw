@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_video___c_r_c___config" kind="struct" prot="public">
+    <compoundname>Video_CRC_Config</compoundname>
+    <includes local="no">xvidframe_crc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a2d3e4eb28462799ff9115ed76261e4f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_CNT</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_CNT</name>
+        <briefdescription>
+<para>CRC test count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="1134" endline="1157">CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp21__pt_8c_1ae98fd79f1e659896c629cf449e543ba4" compoundref="xdprxss__dp21__pt_8c" startline="1118" endline="1145">Dp21RxSs_Pt_CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a182eb63ff50788f187a14f7a92642af6" compoundref="hdcp_2rx_8c" startline="414" endline="448">DpRxSs_NoVideoHandler</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a1b44ac6b87efbb02046da6924c82ed70" compoundref="hdcp_2rx_8c" startline="526" endline="584">DpRxSs_TrainingLostHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a61b10f930fd7356b69a7afa53365bb47" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_SUPPORTED</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_SUPPORTED</name>
+        <briefdescription>
+<para>CRC test supported flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="1134" endline="1157">CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp21__pt_8c_1ae98fd79f1e659896c629cf449e543ba4" compoundref="xdprxss__dp21__pt_8c" startline="1118" endline="1145">Dp21RxSs_Pt_CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp21__rx_8c" startline="590" endline="865">DpRxSs_Main</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a182eb63ff50788f187a14f7a92642af6" compoundref="hdcp_2rx_8c" startline="414" endline="448">DpRxSs_NoVideoHandler</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a1b44ac6b87efbb02046da6924c82ed70" compoundref="hdcp_2rx_8c" startline="526" endline="584">DpRxSs_TrainingLostHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1add11f2b84774c96d3fe82ede74ed2cab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_START_STOP</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_START_STOP</name>
+        <briefdescription>
+<para>CRC test start/stop control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a48d565c043c12539ec8f79389442cc36" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_r</definition>
+        <argsstring></argsstring>
+        <name>Pixel_r</name>
+        <briefdescription>
+<para>Red/Y pixel component value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__rx_8c" startline="1896" endline="1991">CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a439326dc25566524de20b196f8c7ef5a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_g</definition>
+        <argsstring></argsstring>
+        <name>Pixel_g</name>
+        <briefdescription>
+<para>Green/Cr pixel component value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__rx_8c" startline="1896" endline="1991">CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a3e09060ce62888a6cd397d15d691b658" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_b</definition>
+        <argsstring></argsstring>
+        <name>Pixel_b</name>
+        <briefdescription>
+<para>Blue/Cb pixel component value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__rx_8c" startline="1896" endline="1991">CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a0f45e4525febf55d651cd4dcbceeef4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::Mode_422</definition>
+        <argsstring></argsstring>
+        <name>Mode_422</name>
+        <briefdescription>
+<para>YUV 4:2:2 mode flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="1134" endline="1157">CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp21__pt_8c_1ae98fd79f1e659896c629cf449e543ba4" compoundref="xdprxss__dp21__pt_8c" startline="1118" endline="1145">Dp21RxSs_Pt_CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a3c2a921043a1972612392719fe59e527" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Video_CRC_Config::Base_Addr</definition>
+        <argsstring></argsstring>
+        <name>Base_Addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video CRC configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xvidframe_crc.h" bodystart="80" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_video___c_r_c___config_1a3c2a921043a1972612392719fe59e527" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Base_Addr</name></member>
+      <member refid="struct_video___c_r_c___config_1a0f45e4525febf55d651cd4dcbceeef4b" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Mode_422</name></member>
+      <member refid="struct_video___c_r_c___config_1a3e09060ce62888a6cd397d15d691b658" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_b</name></member>
+      <member refid="struct_video___c_r_c___config_1a439326dc25566524de20b196f8c7ef5a" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_g</name></member>
+      <member refid="struct_video___c_r_c___config_1a48d565c043c12539ec8f79389442cc36" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_r</name></member>
+      <member refid="struct_video___c_r_c___config_1a2d3e4eb28462799ff9115ed76261e4f0" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_CNT</name></member>
+      <member refid="struct_video___c_r_c___config_1add11f2b84774c96d3fe82ede74ed2cab" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_START_STOP</name></member>
+      <member refid="struct_video___c_r_c___config_1a61b10f930fd7356b69a7afa53365bb47" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_SUPPORTED</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

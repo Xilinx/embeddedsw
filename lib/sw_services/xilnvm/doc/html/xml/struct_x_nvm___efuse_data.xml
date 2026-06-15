@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_data" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseData</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a40a617dfe5718df762fe48c2c67b0826" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> *</type>
+        <definition>XNvm_EfuseAesKeys * XNvm_EfuseData::AesKeys</definition>
+        <argsstring></argsstring>
+        <name>AesKeys</name>
+        <briefdescription>
+<para>Pointer to Aes keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1abab6c07013ca54a3578ae97f8b864df2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> *</type>
+        <definition>XNvm_EfusePpkHash * XNvm_EfuseData::PpkHash</definition>
+        <argsstring></argsstring>
+        <name>PpkHash</name>
+        <briefdescription>
+<para>Pointer to ppk hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a2cf1b8014de6a6140273c1c62b009901" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_aes_ivs" kindref="compound">XNvm_EfuseAesIvs</ref> *</type>
+        <definition>XNvm_EfuseAesIvs* XNvm_EfuseData::Ivs</definition>
+        <argsstring></argsstring>
+        <name>Ivs</name>
+        <briefdescription>
+<para>Pointer to the IVs structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4751c17a98da016fea4e701d67d5154b" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1455" endline="1494">XNvm_EfuseWriteIVs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1aa40b3b4e453639a62a2fdf1705cd906a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> *</type>
+        <definition>XNvm_EfuseDecOnly * XNvm_EfuseData::DecOnly</definition>
+        <argsstring></argsstring>
+        <name>DecOnly</name>
+        <briefdescription>
+<para>Pointer to the DecOnly structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1acd26a239627d2f44f5d1bdccf9ab028c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> *</type>
+        <definition>XNvm_EfuseSecCtrlBits * XNvm_EfuseData::SecCtrlBits</definition>
+        <argsstring></argsstring>
+        <name>SecCtrlBits</name>
+        <briefdescription>
+<para>Pointer to security control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a80084d3505e5a98d60ce6ed6cb69ec40" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_spk_revoke_id" kindref="compound">XNvm_EfuseSpkRevokeId</ref> *</type>
+        <definition>XNvm_EfuseSpkRevokeId* XNvm_EfuseData::SpkRevokeId</definition>
+        <argsstring></argsstring>
+        <name>SpkRevokeId</name>
+        <briefdescription>
+<para>Pointer to the SPK revoke ID structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a318eb3e1b698e5c75ac5fdf8eed041a5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_aes_revoke_id" kindref="compound">XNvm_EfuseAesRevokeId</ref> *</type>
+        <definition>XNvm_EfuseAesRevokeId* XNvm_EfuseData::AesRevokeId</definition>
+        <argsstring></argsstring>
+        <name>AesRevokeId</name>
+        <briefdescription>
+<para>Pointer to the AES revoke ID structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ae03da2572371ebdd78cd4cdd98991ca3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_user_fuse" kindref="compound">XNvm_EfuseUserFuse</ref> *</type>
+        <definition>XNvm_EfuseUserFuse* XNvm_EfuseData::UserFuse</definition>
+        <argsstring></argsstring>
+        <name>UserFuse</name>
+        <briefdescription>
+<para>Pointer to the user efuse structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a08a03557d95045caa9b95f72caa6cda5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_xilinx_ctrl" kindref="compound">XNvm_EfuseXilinxCtrl</ref> *</type>
+        <definition>XNvm_EfuseXilinxCtrl* XNvm_EfuseData::XilinxCtrl</definition>
+        <argsstring></argsstring>
+        <name>XilinxCtrl</name>
+        <briefdescription>
+<para>Pointer to the Xilinx Ctrl efuse structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ae37b284ddba52c76d2dec67f41855e65" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseData::EfuseClkFreq</definition>
+        <argsstring></argsstring>
+        <name>EfuseClkFreq</name>
+        <briefdescription>
+<para>eFuse clock frequency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ac97aea69e02f5d6f47627a6bf0d6ed3a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseData::EfuseClkSrc</definition>
+        <argsstring></argsstring>
+        <name>EfuseClkSrc</name>
+        <briefdescription>
+<para>eFuse clock source </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a56cf00130abbe5a1a24c2540f1f1d07d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseData::EnvMonitorDis</definition>
+        <argsstring></argsstring>
+        <name>EnvMonitorDis</name>
+        <briefdescription>
+<para>Environmental Monitor Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4751c17a98da016fea4e701d67d5154b" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1455" endline="1494">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga26145c29a3bf9f92c4cee3878a4abef2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2115" endline="2152">XNvm_EfuseWriteUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" prot="public" static="no" mutable="no">
+        <type>XSysMonPsv *</type>
+        <definition>XSysMonPsv* XNvm_EfuseData::SysMonInstPtr</definition>
+        <argsstring></argsstring>
+        <name>SysMonInstPtr</name>
+        <briefdescription>
+<para>Pointer to SysMon instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4751c17a98da016fea4e701d67d5154b" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1455" endline="1494">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga26145c29a3bf9f92c4cee3878a4abef2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2115" endline="2152">XNvm_EfuseWriteUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a648bf9eac4781c7ceb9152af74f86ba3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> *</type>
+        <definition>XNvm_EfuseMiscCtrlBits* XNvm_EfuseData::MiscCtrlBits</definition>
+        <argsstring></argsstring>
+        <name>MiscCtrlBits</name>
+        <briefdescription>
+<para>Pointer to miscellenous control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1aa5b39fcba9da9972e4c88c239709e68f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> *</type>
+        <definition>XNvm_EfuseRevokeIds* XNvm_EfuseData::RevokeIds</definition>
+        <argsstring></argsstring>
+        <name>RevokeIds</name>
+        <briefdescription>
+<para>Pointer to the Revoke Id structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ad8ca8b3559db5a0562575a5c51057d42" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> *</type>
+        <definition>XNvm_EfuseIvs* XNvm_EfuseData::Ivs</definition>
+        <argsstring></argsstring>
+        <name>Ivs</name>
+        <briefdescription>
+<para>Pointer to the IVs structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ac4074f3afc3b16a7fa461b72647c46af" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_user_data" kindref="compound">XNvm_EfuseUserData</ref> *</type>
+        <definition>XNvm_EfuseUserData* XNvm_EfuseData::UserFuses</definition>
+        <argsstring></argsstring>
+        <name>UserFuses</name>
+        <briefdescription>
+<para>Pointer to user efuses structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga26145c29a3bf9f92c4cee3878a4abef2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2115" endline="2152">XNvm_EfuseWriteUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a58b017066d4c8fa115c357ecbbe5e31b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_glitch_cfg_bits" kindref="compound">XNvm_EfuseGlitchCfgBits</ref> *</type>
+        <definition>XNvm_EfuseGlitchCfgBits* XNvm_EfuseData::GlitchCfgBits</definition>
+        <argsstring></argsstring>
+        <name>GlitchCfgBits</name>
+        <briefdescription>
+<para>Pointer to glitch configuration bit structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a04756918acbdd14679a239840ce9740a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> *</type>
+        <definition>XNvm_EfuseBootEnvCtrlBits* XNvm_EfuseData::BootEnvCtrl</definition>
+        <argsstring></argsstring>
+        <name>BootEnvCtrl</name>
+        <briefdescription>
+<para>Pointer to boot environment control structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1ae72e320353ddac96b4f459279d531cc5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> *</type>
+        <definition>XNvm_EfuseSecMisc1Bits* XNvm_EfuseData::Misc1Bits</definition>
+        <argsstring></argsstring>
+        <name>Misc1Bits</name>
+        <briefdescription>
+<para>Pointer to Miscellneous bits structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_1a1bbdf191a788ec60235e38651d0a1402" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref> *</type>
+        <definition>XNvm_EfuseOffChipIds* XNvm_EfuseData::OffChipIds</definition>
+        <argsstring></argsstring>
+        <name>OffChipIds</name>
+        <briefdescription>
+<para>Pointer to offchip IDs structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure defines sub structures of Spartan Ultrascale plus eFuses to be blown. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure defines sub structures of Versal eFuses to be blown. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="14">
+        <label>XNvm_EfuseDecOnly</label>
+        <link refid="struct_x_nvm___efuse_dec_only"/>
+      </node>
+      <node id="22">
+        <label>XNvm_EfuseBootEnvCtrlBits</label>
+        <link refid="struct_x_nvm___efuse_boot_env_ctrl_bits"/>
+      </node>
+      <node id="26">
+        <label>XNvm_EfuseUserData</label>
+        <link refid="struct_x_nvm___efuse_user_data"/>
+      </node>
+      <node id="16">
+        <label>XNvm_EfuseRevokeIds</label>
+        <link refid="struct_x_nvm___efuse_revoke_ids"/>
+      </node>
+      <node id="27">
+        <label>XNvm_EfuseSecCtrlBits</label>
+        <link refid="struct_x_nvm___efuse_sec_ctrl_bits"/>
+      </node>
+      <node id="21">
+        <label>XNvm_EfuseSpkRevokeId</label>
+        <link refid="struct_x_nvm___efuse_spk_revoke_id"/>
+      </node>
+      <node id="19">
+        <label>XNvm_EfuseAesKeys</label>
+        <link refid="struct_x_nvm___efuse_aes_keys"/>
+      </node>
+      <node id="18">
+        <label>XNvm_EfuseIvs</label>
+        <link refid="struct_x_nvm___efuse_ivs"/>
+      </node>
+      <node id="29">
+        <label>XNvm_EfuseMiscCtrlBits</label>
+        <link refid="struct_x_nvm___efuse_misc_ctrl_bits"/>
+      </node>
+      <node id="23">
+        <label>XNvm_EfuseGlitchCfgBits</label>
+        <link refid="struct_x_nvm___efuse_glitch_cfg_bits"/>
+      </node>
+      <node id="28">
+        <label>XNvm_EfuseOffChipIds</label>
+        <link refid="struct_x_nvm___efuse_off_chip_ids"/>
+      </node>
+      <node id="17">
+        <label>XNvm_EfuseAesIvs</label>
+        <link refid="struct_x_nvm___efuse_aes_ivs"/>
+      </node>
+      <node id="25">
+        <label>XNvm_EfuseAesRevokeId</label>
+        <link refid="struct_x_nvm___efuse_aes_revoke_id"/>
+      </node>
+      <node id="13">
+        <label>XNvm_EfuseData</label>
+        <link refid="struct_x_nvm___efuse_data"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>DecOnly</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Misc1Bits</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>RevokeIds</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>Ivs</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Ivs</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>AesKeys</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>UserFuse</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>SpkRevokeId</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>BootEnvCtrl</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>GlitchCfgBits</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>PpkHash</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>AesRevokeId</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>UserFuses</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>SecCtrlBits</edgelabel>
+        </childnode>
+        <childnode refid="28" relation="usage">
+          <edgelabel>OffChipIds</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>MiscCtrlBits</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>XilinxCtrl</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>XNvm_EfuseSecMisc1Bits</label>
+        <link refid="struct_x_nvm___efuse_sec_misc1_bits"/>
+      </node>
+      <node id="24">
+        <label>XNvm_EfusePpkHash</label>
+        <link refid="struct_x_nvm___efuse_ppk_hash"/>
+      </node>
+      <node id="30">
+        <label>XNvm_EfuseXilinxCtrl</label>
+        <link refid="struct_x_nvm___efuse_xilinx_ctrl"/>
+      </node>
+      <node id="20">
+        <label>XNvm_EfuseUserFuse</label>
+        <link refid="struct_x_nvm___efuse_user_fuse"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="333" bodyend="351"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_data_1a40a617dfe5718df762fe48c2c67b0826" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>AesKeys</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a318eb3e1b698e5c75ac5fdf8eed041a5" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>AesRevokeId</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a04756918acbdd14679a239840ce9740a" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>BootEnvCtrl</name></member>
+      <member refid="struct_x_nvm___efuse_data_1aa40b3b4e453639a62a2fdf1705cd906a" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>DecOnly</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ae37b284ddba52c76d2dec67f41855e65" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>EfuseClkFreq</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ac97aea69e02f5d6f47627a6bf0d6ed3a" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>EfuseClkSrc</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a56cf00130abbe5a1a24c2540f1f1d07d" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>EnvMonitorDis</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a58b017066d4c8fa115c357ecbbe5e31b" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>GlitchCfgBits</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a2cf1b8014de6a6140273c1c62b009901" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>Ivs</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ad8ca8b3559db5a0562575a5c51057d42" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>Ivs</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ae72e320353ddac96b4f459279d531cc5" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>Misc1Bits</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a648bf9eac4781c7ceb9152af74f86ba3" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>MiscCtrlBits</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a1bbdf191a788ec60235e38651d0a1402" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>OffChipIds</name></member>
+      <member refid="struct_x_nvm___efuse_data_1abab6c07013ca54a3578ae97f8b864df2" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>PpkHash</name></member>
+      <member refid="struct_x_nvm___efuse_data_1aa5b39fcba9da9972e4c88c239709e68f" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>RevokeIds</name></member>
+      <member refid="struct_x_nvm___efuse_data_1acd26a239627d2f44f5d1bdccf9ab028c" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>SecCtrlBits</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a80084d3505e5a98d60ce6ed6cb69ec40" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>SpkRevokeId</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>SysMonInstPtr</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ae03da2572371ebdd78cd4cdd98991ca3" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>UserFuse</name></member>
+      <member refid="struct_x_nvm___efuse_data_1ac4074f3afc3b16a7fa461b72647c46af" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>UserFuses</name></member>
+      <member refid="struct_x_nvm___efuse_data_1a08a03557d95045caa9b95f72caa6cda5" prot="public" virt="non-virtual"><scope>XNvm_EfuseData</scope><name>XilinxCtrl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

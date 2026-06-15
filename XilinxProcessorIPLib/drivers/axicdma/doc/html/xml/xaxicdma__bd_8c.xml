@@ -1,0 +1,1062 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxicdma__bd_8c" kind="file">
+    <compoundname>xaxicdma_bd.c</compoundname>
+    <includes refid="xaxicdma_8h" local="yes">xaxicdma.h</includes>
+    <includes refid="xaxicdma__bd_8h" local="yes">xaxicdma_bd.h</includes>
+    <incdepgraph>
+      <node id="47">
+        <label>xil_io.h</label>
+      </node>
+      <node id="41">
+        <label>xaxicdma_bd.c</label>
+        <link refid="xaxicdma_bd.c"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xaxicdma_bd.h</label>
+        <link refid="xaxicdma__bd_8h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="48">
+        <label>xdebug.h</label>
+      </node>
+      <node id="45">
+        <label>xaxicdma_hw.h</label>
+        <link refid="xaxicdma__hw_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>string.h</label>
+      </node>
+      <node id="44">
+        <label>xstatus.h</label>
+      </node>
+      <node id="46">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xaxicdma.h</label>
+        <link refid="xaxicdma_8h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axicdma_1ga3f5f37c8146d398d9198748608ce6902" prot="public" static="no">
+        <name>XAXICDMA_PAGE_SIZE</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axicdma_1ga594480d7591185014d72869ac15fd490" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdClear</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdClear</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the content of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to be cleared</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="48" bodyend="54"/>
+        <references refid="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" compoundref="xaxicdma__hw_8h" startline="196">XAXICDMA_BD_START_CLEAR</references>
+        <references refid="group__axicdma_1gab4e667853d75008ef5a74aca06762980" compoundref="xaxicdma__hw_8h" startline="197">XAXICDMA_BD_TO_CLEAR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdClone</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, XAxiCdma_Bd *TmpBd)</argsstring>
+        <name>XAxiCdma_BdClone</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>TmpBd</declname>
+        </param>
+        <briefdescription>
+<para>This function clones the content from the template BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to be cloned to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmpBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to be cloned from</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="68" bodyend="76"/>
+        <references refid="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" compoundref="xaxicdma__hw_8h" startline="196">XAXICDMA_BD_START_CLEAR</references>
+        <references refid="group__axicdma_1gab4e667853d75008ef5a74aca06762980" compoundref="xaxicdma__hw_8h" startline="197">XAXICDMA_BD_TO_CLEAR</references>
+        <referencedby refid="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" compoundref="xaxicdma__bdring_8c" startline="534" endline="585">XAxiCdma_BdRingClone</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdGetNextPtr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetNextPtr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the next BD pointer of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the next BD ptr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The next BD ptr of the BD.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="89" bodyend="100"/>
+        <references refid="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" compoundref="xaxicdma__hw_8h" startline="181">XAXICDMA_BD_NDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" compoundref="xaxicdma__hw_8h" startline="180">XAXICDMA_BD_NDESC_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetNextPtr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, UINTPTR NextBdPtr)</argsstring>
+        <name>XAxiCdma_BdSetNextPtr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>NextBdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function set the Next BD ptr of a BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the Next BD ptr </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NextBdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the valud of Next BD ptr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="114" bodyend="125"/>
+        <references refid="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" compoundref="xaxicdma__hw_8h" startline="181">XAXICDMA_BD_NDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" compoundref="xaxicdma__hw_8h" startline="180">XAXICDMA_BD_NDESC_OFFSET</references>
+        <references refid="group__axicdma_1gaca543a8c03c6cd2d6d7284cc4bd119c2" compoundref="xaxicdma__hw_8h" startline="136">XAXICDMA_DESC_LSB_MASK</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdGetSts</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetSts</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the completion status of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The status bits of the BD.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="138" bodyend="143"/>
+        <references refid="group__axicdma_1gaff5819b9b557b391de8b69c7c730b492" compoundref="xaxicdma__hw_8h" startline="217">XAXICDMA_BD_STS_ALL_MASK</references>
+        <references refid="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" compoundref="xaxicdma__hw_8h" startline="187">XAXICDMA_BD_STS_OFFSET</references>
+        <referencedby refid="group__axicdma_1gafce6a8283bdec8b9c35169c7cd29f4dc" compoundref="xaxicdma__bdring_8c" startline="901" endline="971">XAxiCdma_BdRingFromHw</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdClearSts</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdClearSts</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the status bits of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para>The status bits include the completion bit as well as the error bits.</para><para>This is the only function that needs to be called to clear a completed BD. All other fields (except reserved words) need to be re-assigned before re-submission.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to clear the status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="161" bodyend="167"/>
+        <references refid="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" compoundref="xaxicdma__hw_8h" startline="187">XAXICDMA_BD_STS_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" compoundref="xaxicdma__bdring_8c" startline="534" endline="585">XAxiCdma_BdRingClone</referencedby>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdSetSrcBufAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, UINTPTR Addr)</argsstring>
+        <name>XAxiCdma_BdSetSrcBufAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the source address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the source address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source address of the buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if buffer address set successfully</para></listitem><listitem><para>XST_INVALID_PARAM if buffer address is not aligned and hardware build has no DRE or in lite mode</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="184" bodyend="208"/>
+        <references refid="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" compoundref="xaxicdma__hw_8h" startline="183">XAXICDMA_BD_BUFSRC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" compoundref="xaxicdma__hw_8h" startline="182">XAXICDMA_BD_BUFSRC_OFFSET</references>
+        <references refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" compoundref="xaxicdma__hw_8h" startline="191">XAXICDMA_BD_HASDRE_OFFSET</references>
+        <references refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" compoundref="xaxicdma__hw_8h" startline="192">XAXICDMA_BD_WORDLEN_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdGetSrcBufAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetSrcBufAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the source address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the source address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The source address of the buffer that this BD describes</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="221" bodyend="233"/>
+        <references refid="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" compoundref="xaxicdma__hw_8h" startline="183">XAXICDMA_BD_BUFSRC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" compoundref="xaxicdma__hw_8h" startline="182">XAXICDMA_BD_BUFSRC_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdSetDstBufAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, UINTPTR Addr)</argsstring>
+        <name>XAxiCdma_BdSetDstBufAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the destination address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the destination address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the destination address of the buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if buffer address set successfully</para></listitem><listitem><para>XST_INVALID_PARAM if buffer address is not aligned and hardware build has no DRE or in lite mode</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="250" bodyend="273"/>
+        <references refid="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" compoundref="xaxicdma__hw_8h" startline="185">XAXICDMA_BD_BUFDST_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" compoundref="xaxicdma__hw_8h" startline="184">XAXICDMA_BD_BUFDST_OFFSET</references>
+        <references refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" compoundref="xaxicdma__hw_8h" startline="191">XAXICDMA_BD_HASDRE_OFFSET</references>
+        <references refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" compoundref="xaxicdma__hw_8h" startline="192">XAXICDMA_BD_WORDLEN_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdGetDstBufAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetDstBufAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the destination address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the destination address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The destination address of the buffer that this BD describes</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="286" bodyend="297"/>
+        <references refid="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" compoundref="xaxicdma__hw_8h" startline="185">XAXICDMA_BD_BUFDST_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" compoundref="xaxicdma__hw_8h" startline="184">XAXICDMA_BD_BUFDST_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga3467e25f29ab081f1d9b0a1a685adbfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdSetLength</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, int LenBytes)</argsstring>
+        <name>XAxiCdma_BdSetLength</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>LenBytes</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the length of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the length </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LenBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if invalid length: Length value out of valid range</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>One case that will cause hardware failure is not covered here: If the start address is not at page offset 0, and the length plus the offset crosses the page boundary, this will cause slave error if the hardware is built in lite mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="317" bodyend="330"/>
+        <references refid="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" compoundref="xaxicdma__hw_8h" startline="186">XAXICDMA_BD_CTRL_LEN_OFFSET</references>
+        <references refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" compoundref="xaxicdma__hw_8h" startline="193">XAXICDMA_BD_MAX_LEN_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdGetLength</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetLength</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the length of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the length</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The length of the buffer that this BD describes</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="343" bodyend="347"/>
+        <references refid="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" compoundref="xaxicdma__hw_8h" startline="186">XAXICDMA_BD_CTRL_LEN_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetPhysAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, UINTPTR PhysAddr)</argsstring>
+        <name>XAxiCdma_BdSetPhysAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PhysAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Physical address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the physical address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhysAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the physical address of the BD</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="361" bodyend="372"/>
+        <references refid="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" compoundref="xaxicdma__hw_8h" startline="189">XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" compoundref="xaxicdma__hw_8h" startline="188">XAXICDMA_BD_PHYS_ADDR_OFFSET</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1025e9931f9d6fc4b7a0d526169eeab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetIsLite</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, int IsLite)</argsstring>
+        <name>XAxiCdma_BdSetIsLite</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>IsLite</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the is lite mode field of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value for whether hardware is in lite mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="386" bodyend="392"/>
+        <references refid="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" compoundref="xaxicdma__hw_8h" startline="190">XAXICDMA_BD_ISLITE_OFFSET</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga270070a493422c1d6f64842febb012d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetHasDRE</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, int HasDRE)</argsstring>
+        <name>XAxiCdma_BdSetHasDRE</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>HasDRE</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the has DRE field of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HasDRE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value for whether hardware has DRE built in</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="406" bodyend="412"/>
+        <references refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" compoundref="xaxicdma__hw_8h" startline="191">XAXICDMA_BD_HASDRE_OFFSET</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga7956eaa8a90bcf2a0894d513b9c15639" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetWordLen</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, int WordLen)</argsstring>
+        <name>XAxiCdma_BdSetWordLen</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>WordLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the word length field of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WordLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of word in bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="426" bodyend="432"/>
+        <references refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" compoundref="xaxicdma__hw_8h" startline="192">XAXICDMA_BD_WORDLEN_OFFSET</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetMaxLen</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr, int MaxLen)</argsstring>
+        <name>XAxiCdma_BdSetMaxLen</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>MaxLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the maximum transfer length field of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MaxLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the maximum transfer length in bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="446" bodyend="452"/>
+        <references refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" compoundref="xaxicdma__hw_8h" startline="193">XAXICDMA_BD_MAX_LEN_OFFSET</references>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga535e9b3301b3227aed27e42961304165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdGetPhysAddr</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdGetPhysAddr</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the Physical address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the physical address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The physical address of the BD</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="465" bodyend="477"/>
+        <references refid="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" compoundref="xaxicdma__hw_8h" startline="189">XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" compoundref="xaxicdma__hw_8h" startline="188">XAXICDMA_BD_PHYS_ADDR_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga37f4ecb500f691583798662804d5da18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_DumpBd</definition>
+        <argsstring>(XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_DumpBd</name>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function dumps the BD, it is a debug utility. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to get the physical address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c" bodystart="490" bodyend="520"/>
+        <references refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" compoundref="xaxicdma__hw_8h" startline="191">XAXICDMA_BD_HASDRE_OFFSET</references>
+        <references refid="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" compoundref="xaxicdma__hw_8h" startline="190">XAXICDMA_BD_ISLITE_OFFSET</references>
+        <references refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" compoundref="xaxicdma__hw_8h" startline="193">XAXICDMA_BD_MAX_LEN_OFFSET</references>
+        <references refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" compoundref="xaxicdma__hw_8h" startline="192">XAXICDMA_BD_WORDLEN_OFFSET</references>
+        <references refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" compoundref="xaxicdma__bd_8c" startline="286" endline="297">XAxiCdma_BdGetDstBufAddr</references>
+        <references refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" compoundref="xaxicdma__bd_8c" startline="343" endline="347">XAxiCdma_BdGetLength</references>
+        <references refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" compoundref="xaxicdma__bd_8c" startline="89" endline="100">XAxiCdma_BdGetNextPtr</references>
+        <references refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" compoundref="xaxicdma__bd_8c" startline="465" endline="477">XAxiCdma_BdGetPhysAddr</references>
+        <references refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" compoundref="xaxicdma__bd_8c" startline="221" endline="233">XAxiCdma_BdGetSrcBufAddr</references>
+        <references refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" compoundref="xaxicdma__bd_8c" startline="138" endline="143">XAxiCdma_BdGetSts</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxicdma_8h" kindref="compound">xaxicdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxicdma__bd_8h" kindref="compound">xaxicdma_bd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_PAGE_SIZE<sp/><sp/>0x1000</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="48" refid="group__axicdma_1ga594480d7591185014d72869ac15fd490" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga594480d7591185014d72869ac15fd490" kindref="member">XAxiCdma_BdClear</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)((UINTPTR)BdPtr<sp/>+<sp/><ref refid="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" kindref="member">XAXICDMA_BD_START_CLEAR</ref>),<sp/>0,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gab4e667853d75008ef5a74aca06762980" kindref="member">XAXICDMA_BD_TO_CLEAR</ref>);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" kindref="member">XAxiCdma_BdClone</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*TmpBd)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)((UINTPTR)BdPtr<sp/>+<sp/><ref refid="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" kindref="member">XAXICDMA_BD_START_CLEAR</ref>),</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)((UINTPTR)TmpBd<sp/>+<sp/><ref refid="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" kindref="member">XAXICDMA_BD_START_CLEAR</ref>),</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gab4e667853d75008ef5a74aca06762980" kindref="member">XAXICDMA_BD_TO_CLEAR</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="89" refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" refkind="member"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" kindref="member">XAxiCdma_BdGetNextPtr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u64)((XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" kindref="member">XAXICDMA_BD_NDESC_OFFSET</ref>))<sp/>|</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" kindref="member">XAXICDMA_BD_NDESC_MSB_OFFSET</ref>))<sp/>&lt;&lt;<sp/>32U));</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" kindref="member">XAXICDMA_BD_NDESC_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="114" refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" kindref="member">XAxiCdma_BdSetNextPtr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/>UINTPTR<sp/>NextBdPtr)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" kindref="member">XAXICDMA_BD_NDESC_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NextBdPtr<sp/>&amp;<sp/><ref refid="group__axicdma_1gaca543a8c03c6cd2d6d7284cc4bd119c2" kindref="member">XAXICDMA_DESC_LSB_MASK</ref>));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" kindref="member">XAXICDMA_BD_NDESC_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(NextBdPtr));</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" kindref="member">XAxiCdma_BdGetSts</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" kindref="member">XAXICDMA_BD_STS_OFFSET</ref>))<sp/>&amp;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gaff5819b9b557b391de8b69c7c730b492" kindref="member">XAXICDMA_BD_STS_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" kindref="member">XAxiCdma_BdClearSts</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" kindref="member">XAXICDMA_BD_STS_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" kindref="member">XAxiCdma_BdSetSrcBufAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/>UINTPTR<sp/>Addr)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" kindref="member">XAXICDMA_BD_HASDRE_OFFSET</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Addr<sp/>&amp;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" kindref="member">XAXICDMA_BD_WORDLEN_OFFSET</ref>)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Unaligned<sp/>transfers<sp/>not<sp/>supported,<sp/>address<sp/>%x<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;not<sp/>aligned\r\n&quot;</highlight><highlight class="normal">,<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Addr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" kindref="member">XAXICDMA_BD_BUFSRC_OFFSET</ref>,<sp/>LOWER_32_BITS(Addr));</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" kindref="member">XAXICDMA_BD_BUFSRC_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(Addr));</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="221" refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" refkind="member"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" kindref="member">XAxiCdma_BdGetSrcBufAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u64)((XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" kindref="member">XAXICDMA_BD_BUFSRC_OFFSET</ref>))<sp/>|</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" kindref="member">XAXICDMA_BD_BUFSRC_MSB_OFFSET</ref>))</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>32U));</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" kindref="member">XAXICDMA_BD_BUFSRC_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="250" refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" kindref="member">XAxiCdma_BdSetDstBufAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/>UINTPTR<sp/>Addr)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" kindref="member">XAXICDMA_BD_HASDRE_OFFSET</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Addr<sp/>&amp;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" kindref="member">XAXICDMA_BD_WORDLEN_OFFSET</ref>)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Unaligned<sp/>transfers<sp/>not<sp/>supported,<sp/>address<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;not<sp/>aligned<sp/>%x\r\n&quot;</highlight><highlight class="normal">,<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Addr);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" kindref="member">XAXICDMA_BD_BUFDST_OFFSET</ref>,<sp/>LOWER_32_BITS(Addr));</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" kindref="member">XAXICDMA_BD_BUFDST_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(Addr));</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="286" refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" refkind="member"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" kindref="member">XAxiCdma_BdGetDstBufAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u64)<sp/>(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" kindref="member">XAXICDMA_BD_BUFDST_OFFSET</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" kindref="member">XAXICDMA_BD_BUFDST_MSB_OFFSET</ref>))<sp/>&lt;&lt;<sp/>32U));</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" kindref="member">XAXICDMA_BD_BUFDST_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="317" refid="group__axicdma_1ga3467e25f29ab081f1d9b0a1a685adbfa" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga3467e25f29ab081f1d9b0a1a685adbfa" kindref="member">XAxiCdma_BdSetLength</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>LenBytes)</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaxLen;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxLen<sp/>=<sp/>XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" kindref="member">XAXICDMA_BD_MAX_LEN_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LenBytes<sp/>&lt;<sp/>1)<sp/>||<sp/>(LenBytes<sp/>&gt;<sp/>MaxLen))<sp/>{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" kindref="member">XAXICDMA_BD_CTRL_LEN_OFFSET</ref>,<sp/>LenBytes);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="343" refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" kindref="member">XAxiCdma_BdGetLength</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" kindref="member">XAXICDMA_BD_CTRL_LEN_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="361" refid="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" kindref="member">XAxiCdma_BdSetPhysAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/>UINTPTR<sp/>PhysAddr)</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" kindref="member">XAXICDMA_BD_PHYS_ADDR_OFFSET</ref>,<sp/>PhysAddr);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" kindref="member">XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(PhysAddr));</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="386" refid="group__axicdma_1ga1025e9931f9d6fc4b7a0d526169eeab0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga1025e9931f9d6fc4b7a0d526169eeab0" kindref="member">XAxiCdma_BdSetIsLite</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IsLite)</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" kindref="member">XAXICDMA_BD_ISLITE_OFFSET</ref>,<sp/>IsLite);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="406" refid="group__axicdma_1ga270070a493422c1d6f64842febb012d8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga270070a493422c1d6f64842febb012d8" kindref="member">XAxiCdma_BdSetHasDRE</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasDRE)</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" kindref="member">XAXICDMA_BD_HASDRE_OFFSET</ref>,<sp/>HasDRE);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="426" refid="group__axicdma_1ga7956eaa8a90bcf2a0894d513b9c15639" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga7956eaa8a90bcf2a0894d513b9c15639" kindref="member">XAxiCdma_BdSetWordLen</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WordLen)</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" kindref="member">XAXICDMA_BD_WORDLEN_OFFSET</ref>,<sp/>WordLen);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="446" refid="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" kindref="member">XAxiCdma_BdSetMaxLen</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaxLen)</highlight></codeline>
+<codeline lineno="447"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_BdWrite(BdPtr,<sp/><ref refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" kindref="member">XAXICDMA_BD_MAX_LEN_OFFSET</ref>,<sp/>MaxLen);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="465" refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" refkind="member"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" kindref="member">XAxiCdma_BdGetPhysAddr</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="466"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>addrlen;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>addrlen<sp/>=<sp/>XAxiCdma_BdGetAddrLength(BdPtr);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(addrlen<sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u64)((XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" kindref="member">XAXICDMA_BD_PHYS_ADDR_OFFSET</ref>))<sp/>|</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" kindref="member">XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET</ref>))</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>32U));</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)(XAxiCdma_BdRead(BdPtr,<sp/><ref refid="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" kindref="member">XAXICDMA_BD_PHYS_ADDR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="477"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="490" refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" kindref="member">XAxiCdma_DumpBd</ref>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr)</highlight></codeline>
+<codeline lineno="491"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nDump<sp/>BD<sp/>%p:\r\n&quot;</highlight><highlight class="normal">,<sp/>BdPtr);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Next<sp/>BD<sp/>ptr<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" kindref="member">XAxiCdma_BdGetNextPtr</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Buffer<sp/>srcaddr<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" kindref="member">XAxiCdma_BdGetSrcBufAddr</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Buffer<sp/>dstaddr<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" kindref="member">XAxiCdma_BdGetDstBufAddr</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Buffer<sp/>Length<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" kindref="member">XAxiCdma_BdGetLength</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>status<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" kindref="member">XAxiCdma_BdGetSts</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>phys<sp/>Addr<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" kindref="member">XAxiCdma_BdGetPhysAddr</ref>(BdPtr));</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>is<sp/>Lite<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)XAxiCdma_BdRead(BdPtr,</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" kindref="member">XAXICDMA_BD_ISLITE_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>has<sp/>DRE<sp/>\t%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)XAxiCdma_BdRead(BdPtr,</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" kindref="member">XAXICDMA_BD_HASDRE_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>word<sp/>length<sp/>\t%x\r\n\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)XAxiCdma_BdRead(BdPtr,</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" kindref="member">XAXICDMA_BD_WORDLEN_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BD<sp/>max<sp/>transfer<sp/>length<sp/>\t%x\r\n\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)XAxiCdma_BdRead(BdPtr,</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" kindref="member">XAXICDMA_BD_MAX_LEN_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bd.c"/>
+  </compounddef>
+</doxygen>

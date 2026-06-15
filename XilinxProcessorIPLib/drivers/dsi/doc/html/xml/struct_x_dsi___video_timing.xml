@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi___video_timing" kind="struct" prot="public">
+    <compoundname>XDsi_VideoTiming</compoundname>
+    <includes local="no">xdsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::HActive</definition>
+        <argsstring></argsstring>
+        <name>HActive</name>
+        <briefdescription>
+<para>Active per video line payload size in bytes(WC) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::HFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>HFrontPorch</name>
+        <briefdescription>
+<para>Horizontal front porch blanking packet payload size in bytes(WC) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::HSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>HSyncWidth</name>
+        <briefdescription>
+<para>Horizontal Sync active width blanking packet payload size in bytes(WC) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::HBackPorch</definition>
+        <argsstring></argsstring>
+        <name>HBackPorch</name>
+        <briefdescription>
+<para>Horizontal back porch blanking packet payload size in bytes(WC) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::VActive</definition>
+        <argsstring></argsstring>
+        <name>VActive</name>
+        <briefdescription>
+<para>Vertical active region lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::VFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>VFrontPorch</name>
+        <briefdescription>
+<para>Vertical front porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::VSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>VSyncWidth</name>
+        <briefdescription>
+<para>Vertical sync active lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::VBackPorch</definition>
+        <argsstring></argsstring>
+        <name>VBackPorch</name>
+        <briefdescription>
+<para>Vertical back porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDsi_VideoTiming::BLLPBurst</definition>
+        <argsstring></argsstring>
+        <name>BLLPBurst</name>
+        <briefdescription>
+<para>BLLP duration of VACT region packet payload size in bytes(WC). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video timing structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="127" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>BLLPBurst</name></member>
+      <member refid="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>HActive</name></member>
+      <member refid="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>HBackPorch</name></member>
+      <member refid="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>HFrontPorch</name></member>
+      <member refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>HSyncWidth</name></member>
+      <member refid="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>VActive</name></member>
+      <member refid="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>VBackPorch</name></member>
+      <member refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>VFrontPorch</name></member>
+      <member refid="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" prot="public" virt="non-virtual"><scope>XDsi_VideoTiming</scope><name>VSyncWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

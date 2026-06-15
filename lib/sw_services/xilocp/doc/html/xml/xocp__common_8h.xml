@@ -1,0 +1,943 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xocp__common_8h" kind="file">
+    <compoundname>xocp_common.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="client_2dme_2xocp__dme_8h" local="yes">xocp_dme.h</includedby>
+    <includedby refid="xocp__hwpcr_8h" local="yes">xocp_hwpcr.h</includedby>
+    <includedby refid="xocp__key__mgmt_8h" local="yes">xocp_key_mgmt.h</includedby>
+    <includedby refid="xocp__swpcr_8h" local="yes">xocp_swpcr.h</includedby>
+    <includedby refid="xocp__client_8h" local="yes">xocp_client.h</includedby>
+    <includedby refid="server_2xocp__dme_8h" local="yes">xocp_dme.h</includedby>
+    <includedby refid="xilocp__client__devicekey__example_8c" local="yes">xilocp_client_devicekey_example.c</includedby>
+    <incdepgraph>
+      <node id="110">
+        <label>xocp_common.h</label>
+        <link refid="xocp_common.h"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>xstatus.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="112">
+        <label>xocp_common.h</label>
+        <link refid="xocp_common.h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>xocp_key_mgmt.c</label>
+        <link refid="xocp__key__mgmt_8c"/>
+      </node>
+      <node id="123">
+        <label>xilocp_client_devicekey_example.c</label>
+        <link refid="xilocp__client__devicekey__example_8c"/>
+      </node>
+      <node id="117">
+        <label>xocp_key_mgmt.h</label>
+        <link refid="xocp__key__mgmt_8h"/>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>xocp_dme.h</label>
+      </node>
+      <node id="114">
+        <label>xocp_dme.c</label>
+      </node>
+      <node id="113">
+        <label>xocp_dme.h</label>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="120">
+        <label>xocp_swpcr.c</label>
+        <link refid="xocp__swpcr_8c"/>
+      </node>
+      <node id="119">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp__swpcr_8h"/>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>xilocp_client_pcr_example.c</label>
+        <link refid="xilocp__client__pcr__example_8c"/>
+      </node>
+      <node id="116">
+        <label>xocp_hwpcr.c</label>
+        <link refid="xocp__hwpcr_8c"/>
+      </node>
+      <node id="115">
+        <label>xocp_hwpcr.h</label>
+        <link refid="xocp__hwpcr_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>xilocp_client_dme_example.c</label>
+        <link refid="xilocp__client__dme__example_8c"/>
+      </node>
+      <node id="122">
+        <label>xocp_client.c</label>
+        <link refid="xocp__client_8c"/>
+      </node>
+      <node id="121">
+        <label>xocp_client.h</label>
+        <link refid="xocp__client_8h"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_ocp___dme" prot="public">XOcp_Dme</innerclass>
+    <innerclass refid="struct_x_ocp___dme_response" prot="public">XOcp_DmeResponse</innerclass>
+    <innerclass refid="struct_x_ocp___hw_pcr_event" prot="public">XOcp_HwPcrEvent</innerclass>
+    <innerclass refid="struct_x_ocp___hw_pcr_log_info" prot="public">XOcp_HwPcrLogInfo</innerclass>
+    <innerclass refid="struct_x_ocp___hw_pcr_log" prot="public">XOcp_HwPcrLog</innerclass>
+    <innerclass refid="struct_x_ocp___sw_pcr_extend_params" prot="public">XOcp_SwPcrExtendParams</innerclass>
+    <innerclass refid="struct_x_ocp___sw_pcr_read_data" prot="public">XOcp_SwPcrReadData</innerclass>
+    <innerclass refid="struct_x_ocp___pcr_measurement" prot="public">XOcp_PcrMeasurement</innerclass>
+    <innerclass refid="struct_x_ocp___sw_pcr_log_read_data" prot="public">XOcp_SwPcrLogReadData</innerclass>
+    <innerclass refid="struct_x_ocp___x509_cert" prot="public">XOcp_X509Cert</innerclass>
+    <innerclass refid="struct_x_ocp___attest" prot="public">XOcp_Attest</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xocp__definitions_1gadb87c9a8f9ef9ed1dd757911265433e9" prot="public" static="no">
+        <name>XOCP_PCR_SIZE_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>PCR size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" prot="public" static="no">
+        <name>XOCP_PCR_SIZE_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>PCR size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" compoundref="xocp__hwpcr_8c" startline="63" endline="89">XOcp_ExtendHwPcr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" prot="public" static="no">
+        <name>XOCP_DME_DEVICE_ID_SIZE_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Device id size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gab595dcb8639bc9bf6153244010bd5b93" prot="public" static="no">
+        <name>XOCP_DME_DEVICE_ID_SIZE_BYTES</name>
+        <initializer>(<ref refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" kindref="member">XOCP_DME_DEVICE_ID_SIZE_WORDS</ref> &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Device id size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__dme__example_8c" startline="111" endline="164">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" prot="public" static="no">
+        <name>XOCP_DME_NONCE_SIZE_WORDS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Nonce size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga65f16f72818ba9627165b1c696aa44a6" prot="public" static="no">
+        <name>XOCP_DME_NONCE_SIZE_BYTES</name>
+        <initializer>(<ref refid="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" kindref="member">XOCP_DME_NONCE_SIZE_WORDS</ref> &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Nonce size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__dme__example_8c" startline="111" endline="164">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" prot="public" static="no">
+        <name>XOCP_DME_MEASURE_SIZE_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Measurement size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga08b5a30e390b44f00bf15fab24d2df1f" prot="public" static="no">
+        <name>XOCP_DME_MEASURE_SIZE_BYTES</name>
+        <initializer>(<ref refid="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" kindref="member">XOCP_DME_MEASURE_SIZE_WORDS</ref> &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Measurement size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__dme__example_8c" startline="111" endline="164">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" prot="public" static="no">
+        <name>XOCP_ECC_P384_SIZE_WORDS</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Curve P384 size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gabdab6975eb4de0d6d09be5e7d805dde6" prot="public" static="no">
+        <name>XOCP_ECC_P384_SIZE_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Curve P384 size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__dme__example_8c" startline="111" endline="164">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga6f031ee6aae45e53cc610ca90dd35873" prot="public" static="no">
+        <name>XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES</name>
+        <initializer>(96U)</initializer>
+        <briefdescription>
+<para>Size of P384 public key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" prot="public" static="no">
+        <name>XOCP_MAX_NUM_OF_HWPCR_EVENTS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Maximum number of hardware PCR events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" compoundref="xocp__hwpcr_8c" startline="150" endline="176">XOcp_GetHwPcrLog</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" prot="public" static="no">
+        <name>XOCP_SHA3_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Length of SHA3 hash in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga8a12ddbad29fd26b0bbdfbb69b1b3285" prot="public" static="no">
+        <name>XOCP_MAX_NUM_OF_SWPCRS</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+<para>Maximum number of software PCRs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gaa88b30a97626e6fdfe2e7296011bffa8" prot="public" static="no">
+        <name>XOCP_NUM_OF_SWPCRS</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>Number of software PCRs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gac17bf226c2af120f34925b7e47c54b73" prot="public" static="no">
+        <name>XOCP_EVENT_ID_NUM_OF_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Number of bytes of PCR event ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gacd13b245098e70fcc158b76b8e158e2e" prot="public" static="no">
+        <name>XOCP_VERSION_NUM_OF_BYTES</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Number of bytes of OCP version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" prot="public" static="no">
+        <name>XOCP_GET_ALL_PCR_MASK</name>
+        <initializer>(0x000000FFU)</initializer>
+        <briefdescription>
+<para>Maximum valid PCR mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" compoundref="xocp__swpcr_8c" startline="112" endline="141">XOcp_GetSwPcr</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" prot="public" static="no">
+        <name>XOcp_DevKey</name>
+        <enumvalue id="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3abfd834914b2b4a643f6e2754b3796c58" prot="public">
+          <name>XOCP_DEVIK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Device Identity key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a1f5d8bd26ea07de888d516faf2b16538" prot="public">
+          <name>XOCP_DEVAK</name>
+          <briefdescription>
+<para>Device attestation key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a8b81fae25c36788b0dff450beea1a59d" prot="public">
+          <name>XOCP_KEY_WRAP_DEVAK</name>
+          <briefdescription>
+<para>Key wrap Device attestation key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Device key selection enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="81" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" prot="public" static="no">
+        <name>XOcp_HwPcr</name>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca485e27e750ff77ffa056644046abc080" prot="public">
+          <name>XOCP_PCR_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>PCR 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" prot="public">
+          <name>XOCP_PCR_1</name>
+          <briefdescription>
+<para>PCR 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caa807a2abd9da11c3920b2d88a2da3e64" prot="public">
+          <name>XOCP_PCR_2</name>
+          <briefdescription>
+<para>PCR 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cad2185ab520f760c2dcb8a8ac6d0c3c58" prot="public">
+          <name>XOCP_PCR_3</name>
+          <briefdescription>
+<para>PCR 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf043ee0bba56ad1f31bd613aab31e2f5" prot="public">
+          <name>XOCP_PCR_4</name>
+          <briefdescription>
+<para>PCR 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cab5a0fb4fb2fe0cd743b8e3ee33e0ff09" prot="public">
+          <name>XOCP_PCR_5</name>
+          <briefdescription>
+<para>PCR 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca6f6d4d06aa80905f05baea85f4d47294" prot="public">
+          <name>XOCP_PCR_6</name>
+          <briefdescription>
+<para>PCR 6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" prot="public">
+          <name>XOCP_PCR_7</name>
+          <briefdescription>
+<para>PCR 7. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Hardware PCR selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="90" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xocp__definitions_1gaa2429504100aa2ea3c8f7a11bdd6c503" prot="public" static="no">
+        <name>XOcp_OcpErrorStatus</name>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503af3b4033b0f4a80a8cc7882f2dfbac478" prot="public">
+          <name>XOCP_PCR_ERR_PCR_SELECT</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Error in PCR selection </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae3815d1a2cf06201c74123a00d5ef4f3" prot="public">
+          <name>XOCP_PCR_ERR_NOT_COMPLETED</name>
+          <briefdescription>
+<para>0x03 PCR operation not completed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a269799b64ea33df35a6bfa2196360514" prot="public">
+          <name>XOCP_PCR_ERR_OPERATION</name>
+          <briefdescription>
+<para>0x04 PCR operation error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aefe98e757135e5a687321f4b435b72a2" prot="public">
+          <name>XOCP_PCR_ERR_IN_UPDATE_LOG</name>
+          <briefdescription>
+<para>0x05 PCR log update error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a88a7cb1094967fc712e6640ae1a4f638" prot="public">
+          <name>XOCP_PCR_ERR_IN_GET_PCR</name>
+          <briefdescription>
+<para>0x06 Error in Get PCR </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa817798dbf85e7e27959b2654f06f7c6" prot="public">
+          <name>XOCP_PCR_ERR_IN_GET_PCR_LOG</name>
+          <briefdescription>
+<para>0x07 Error in Get PCR Log </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa1af2a22b1192694eb4c16417e2b4651" prot="public">
+          <name>XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST</name>
+          <briefdescription>
+<para>0x08 PCR log read request is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a9a85006a82fbbfd184fe88dea930dfbe" prot="public">
+          <name>XOCP_PCR_ERR_MEASURE_IDX_SELECT</name>
+          <briefdescription>
+<para>0x09 SW PCR measurement index is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae75d43999ab1c773a2f1296b277d8e64" prot="public">
+          <name>XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED</name>
+          <briefdescription>
+<para>0x0A SW PCR configuration is not done </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a79fdd3a71131b51658b389c7d9752d80" prot="public">
+          <name>XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM</name>
+          <briefdescription>
+<para>0x0B PCR insufficient buffer size provided </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a4278dec969ec9438374d9cdaf3b9f0aa" prot="public">
+          <name>XOCP_PCR_ERR_SWPCR_DUP_EXTEND</name>
+          <briefdescription>
+<para>0x0C Duplicate PCR extend request received </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3967f4a82634e5681edc9e07993343a4" prot="public">
+          <name>XOCP_PCR_ERR_DATA_IN_INVALID_MEM</name>
+          <briefdescription>
+<para>0x0D SW PCR data is in upper DDR memory </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503add445d9bc9fb78d613ef30bf1a266159" prot="public">
+          <name>XOCP_DICE_CDI_PARITY_ERROR</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+<para>0x20 CDI parity error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad574a1cea06ea61fa5cc4d497357bbc1" prot="public">
+          <name>XOCP_DME_ERR</name>
+          <briefdescription>
+<para>0x21 DME signing error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a96486d35a3503ac6753dbe80fe22d6c3" prot="public">
+          <name>XOCP_DME_ROM_ERROR</name>
+          <briefdescription>
+<para>0x22 DME error in ROM </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a02ca2fe57cbf4aabfb7387e8efef1c71" prot="public">
+          <name>XOCP_ERR_DEVIK_NOT_READY</name>
+          <briefdescription>
+<para>0x23 DEVIK key not ready </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503abdbd0d3dca5c602882210254beea1aed" prot="public">
+          <name>XOCP_ERR_DEVAK_NOT_READY</name>
+          <briefdescription>
+<para>0x24 DEVAK key not ready </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aee6ecacf4fbfe1f036a3e8ce7f1d9f2c" prot="public">
+          <name>XOCP_ERR_INVALID_DEVAK_REQ</name>
+          <briefdescription>
+<para>0x25 Error when there is a invalid DEVAK request </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad360693820af75516db0bf72b32edc57" prot="public">
+          <name>XOCP_DICE_CDI_SEED_ZERO</name>
+          <briefdescription>
+<para>0x26 DICE CDI Seed is zero </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae040625c5710e6c0de35b77dd351e4f5" prot="public">
+          <name>XOCP_ERR_GLITCH_DETECTED</name>
+          <briefdescription>
+<para>0x27 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab3bc8703605a641b7ec8aa0404af1e3d" prot="public">
+          <name>XOCP_ERR_CHUNK_BOUNDARY_CROSSED</name>
+          <briefdescription>
+<para>0x28 Error when command length crossed chunk boundary </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ac1535fd60ce5df78e528adcdb94e26ba" prot="public">
+          <name>XOCP_ERR_SECURE_EFUSE_CONFIG</name>
+          <briefdescription>
+<para>0x29 Error when updating secure eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a78561a971de722c3d6421d28a7112472" prot="public">
+          <name>XOCP_ERR_SECURE_TAP_CONFIG</name>
+          <briefdescription>
+<para>0x2A Error when updating tap configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab655625e55e05418d84e29602a12cee0" prot="public">
+          <name>XOCP_ERR_SECURE_STATE_MEASUREMENT</name>
+          <briefdescription>
+<para>0x2B Error when calculating secure state hash </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a5e4465358789e0f4579d7a63922fa185" prot="public">
+          <name>XOCP_ERR_DME_RESP_ALREADY_GENERATED</name>
+          <briefdescription>
+<para>0x2C Error when DME challenge request is made when DME response is already generated </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a627f801106a6c144c0faf0481678e575" prot="public">
+          <name>XOCP_ERR_DME_RESP_NOT_GENERATED</name>
+          <briefdescription>
+<para>0x2D Error when DME response not generated and CSR is requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adf81aaa14cf599742df289c06b0fb4ed" prot="public">
+          <name>XOCP_ERR_PUB_KEY_NOT_AVAIL</name>
+          <briefdescription>
+<para>0x2E Error when public key is not available during keywrap attestation request </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adfd4f2b038a2dc6a88284b0772d6bf51" prot="public">
+          <name>XOCP_ERR_INVALID_ATTEST_BUF_SIZE</name>
+          <briefdescription>
+<para>0x2F Error when invalid buffer size is provided during keywrap attestation request </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503acec598c0e28788205900e8107b27d9f0" prot="public">
+          <name>XOCP_ERR_SECURE_PPK_CONFIG</name>
+          <briefdescription>
+<para>0x30 Error when updating eFuse PPK configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a05c5a1f3c541ad87bc73e401e3595804" prot="public">
+          <name>XOCP_ERR_SECURE_SPK_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x31 Error when updating eFuse SPK Revocation configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a284d3270fbe02e3c7950fd5630db9c1a" prot="public">
+          <name>XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x32 Error when updating eFuse OffChip revocation configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3fe95f0472ba90d219c719aad65c57b4" prot="public">
+          <name>XOCP_ERR_SECURE_MISC_CONFIG</name>
+          <briefdescription>
+<para>0x33 Error when updating eFuse miscellaneous configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad6abdf428dfb929b7630247cbca5cc11" prot="public">
+          <name>XOCP_ERR_READ_PPK_CONFIG</name>
+          <briefdescription>
+<para>0x34 Error when reading PPK eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3f2998f49a52f87f570c63a5690d329c" prot="public">
+          <name>XOCP_ERR_READ_SPK_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x35 Error when reading SPK eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a0cdd083bba4e227bd9752951ac24a8ba" prot="public">
+          <name>XOCP_ERR_READ_OTHER_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x36 Error when reading Offchip revocation configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8bc38c63a2670152a732a5138e92effe" prot="public">
+          <name>XOCP_ERR_IN_EXTEND_PPK_CONFIG</name>
+          <briefdescription>
+<para>0x37 Error when extending PPK eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a120ece45813a148f3263f46f44cb8c52" prot="public">
+          <name>XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x38 Error when extending SPK revocation eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a209e33fcf91b97b40847d037b394e590" prot="public">
+          <name>XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG</name>
+          <briefdescription>
+<para>0x39 Error when extending Offchip revocation eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" prot="public">
+          <name>XOCP_ERR_IN_EXTEND_MISC_CONFIG</name>
+          <briefdescription>
+<para>0x3A Error when extending Miscellaneous eFuse configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" prot="public">
+          <name>XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG</name>
+          <briefdescription>
+<para>0x3B Error when extending secure state configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" prot="public">
+          <name>XOCP_ERR_IN_MEMCPY</name>
+          <briefdescription>
+<para>0x3C Error in mem copy </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>OCP Error Status enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="215" bodyend="276"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the common definitions, structures and macros for the OCP library. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+----- ---- ---------- -------------------------------------------------------
+1.0   vns  06/27/2022 Initial release
+1.1   am   01/10/2023 Added XOCP_DME_DEVICE_ID_SIZE_BYTES macro for dme
+1.2   kpt  06/02/2023 Added <ref refid="struct_x_ocp___hw_pcr_log_info" kindref="compound">XOcp_HwPcrLogInfo</ref> structure
+      kal  06/02/2023 Added SW PCR related structures and macros
+      am   08/18/2023 Added XOcp_OcpErrorStatus enum
+      am   09/04/2023 Added XOCP_DICE_CDI_SEED_ZERO enum
+1.3   tri  10/09/2023 Added XOCP_ERR_CHUNK_BOUNDARY_CROSSED enum
+      kpt  02/21/2024 Added error codes related to secure state
+      kpt  02/21/2024 Added XOCP_ERR_DME_RESP_ALREADY_GENERATED and
+                      XOCP_ERR_DME_RESP_NOT_GENERATED
+      har  06/07/2024 Added XOCP_KEY_WRAP_DEVAK in XOcp_DevKey
+1.7   rpu  02/18/2026 Fixed Doxygen warnings
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>XOCP_COMMON_H</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_COMMON_H</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__xocp__definitions_1gadb87c9a8f9ef9ed1dd757911265433e9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PCR_SIZE_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_PCR_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_DEVICE_ID_SIZE_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xocp__definitions_1gab595dcb8639bc9bf6153244010bd5b93" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_DEVICE_ID_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XOCP_DME_DEVICE_ID_SIZE_WORDS<sp/>&lt;&lt;<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_NONCE_SIZE_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xocp__definitions_1ga65f16f72818ba9627165b1c696aa44a6" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_NONCE_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XOCP_DME_NONCE_SIZE_WORDS<sp/>&lt;&lt;<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_MEASURE_SIZE_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xocp__definitions_1ga08b5a30e390b44f00bf15fab24d2df1f" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_DME_MEASURE_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XOCP_DME_MEASURE_SIZE_WORDS<sp/>&lt;&lt;<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_ECC_P384_SIZE_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xocp__definitions_1gabdab6975eb4de0d6d09be5e7d805dde6" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_ECC_P384_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xocp__definitions_1ga6f031ee6aae45e53cc610ca90dd35873" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES<sp/><sp/>(96U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_MAX_NUM_OF_HWPCR_EVENTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_SHA3_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xocp__definitions_1ga8a12ddbad29fd26b0bbdfbb69b1b3285" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_MAX_NUM_OF_SWPCRS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xocp__definitions_1gaa88b30a97626e6fdfe2e7296011bffa8" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_NUM_OF_SWPCRS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xocp__definitions_1gac17bf226c2af120f34925b7e47c54b73" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_EVENT_ID_NUM_OF_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xocp__definitions_1gacd13b245098e70fcc158b76b8e158e2e" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_VERSION_NUM_OF_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_GET_ALL_PCR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000FFU)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="82" refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3abfd834914b2b4a643f6e2754b3796c58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3abfd834914b2b4a643f6e2754b3796c58" kindref="member">XOCP_DEVIK</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a1f5d8bd26ea07de888d516faf2b16538" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a1f5d8bd26ea07de888d516faf2b16538" kindref="member">XOCP_DEVAK</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a8b81fae25c36788b0dff450beea1a59d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a8b81fae25c36788b0dff450beea1a59d" kindref="member">XOCP_KEY_WRAP_DEVAK</ref><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}<ref refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" kindref="member">XOcp_DevKey</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="91" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca485e27e750ff77ffa056644046abc080" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca485e27e750ff77ffa056644046abc080" kindref="member">XOCP_PCR_0</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" kindref="member">XOCP_PCR_1</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caa807a2abd9da11c3920b2d88a2da3e64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caa807a2abd9da11c3920b2d88a2da3e64" kindref="member">XOCP_PCR_2</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cad2185ab520f760c2dcb8a8ac6d0c3c58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cad2185ab520f760c2dcb8a8ac6d0c3c58" kindref="member">XOCP_PCR_3</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf043ee0bba56ad1f31bd613aab31e2f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf043ee0bba56ad1f31bd613aab31e2f5" kindref="member">XOCP_PCR_4</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cab5a0fb4fb2fe0cd743b8e3ee33e0ff09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cab5a0fb4fb2fe0cd743b8e3ee33e0ff09" kindref="member">XOCP_PCR_5</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca6f6d4d06aa80905f05baea85f4d47294" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca6f6d4d06aa80905f05baea85f4d47294" kindref="member">XOCP_PCR_6</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" kindref="member">XOCP_PCR_7</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/><ref refid="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" kindref="member">XOcp_HwPcr</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="struct_x_ocp___dme" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105" refid="struct_x_ocp___dme_1a4f362c8d176cc1aa12dfd013073ae7c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceID[<ref refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" kindref="member">XOCP_DME_DEVICE_ID_SIZE_WORDS</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_ocp___dme_1abdf7a1ae94fa9a85c575a7b12090adbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Nonce[<ref refid="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" kindref="member">XOCP_DME_NONCE_SIZE_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_ocp___dme_1a29b0b23d9c5e103581cc704d8d41d6aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Measurement[<ref refid="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" kindref="member">XOCP_DME_MEASURE_SIZE_WORDS</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___dme" kindref="compound">XOcp_Dme</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="struct_x_ocp___dme_response" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114" refid="struct_x_ocp___dme_response_1a029c2c99fd80b654d8a96e0847b6394c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ocp___dme" kindref="compound">XOcp_Dme</ref><sp/><ref refid="struct_x_ocp___dme_response_1a029c2c99fd80b654d8a96e0847b6394c" kindref="member">Dme</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_ocp___dme_response_1a5af10bc470928d4185e8f65a8b23a579" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DmeSignatureR[<ref refid="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" kindref="member">XOCP_ECC_P384_SIZE_WORDS</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_ocp___dme_response_1a4a25fbe1d34db42459f10b2aad626e9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DmeSignatureS[<ref refid="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" kindref="member">XOCP_ECC_P384_SIZE_WORDS</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___dme_response" kindref="compound">XOcp_DmeResponse</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="struct_x_ocp___hw_pcr_event" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123" refid="struct_x_ocp___hw_pcr_event_1a9c3e569cad9bd0724f0332543c7b5406" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_ocp___hw_pcr_event_1a9c3e569cad9bd0724f0332543c7b5406" kindref="member">PcrNo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_ocp___hw_pcr_event_1a43de5bc41c221f781de99245e76a7ded" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hash[<ref refid="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" kindref="member">XOCP_SHA3_LEN_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_x_ocp___hw_pcr_event_1abd388da1f48ad2d8c3bde69a10439761" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PcrValue[<ref refid="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" kindref="member">XOCP_SHA3_LEN_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___hw_pcr_event" kindref="compound">XOcp_HwPcrEvent</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="struct_x_ocp___hw_pcr_log_info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132" refid="struct_x_ocp___hw_pcr_log_info_1ae261df1b4c6cc891cb0e9ecc1b8af53d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_info_1ae261df1b4c6cc891cb0e9ecc1b8af53d" kindref="member">RemainingHwPcrEvents</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_ocp___hw_pcr_log_info_1a208bc301dbae07f5e254944bb668049a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_info_1a208bc301dbae07f5e254944bb668049a" kindref="member">TotalHwPcrLogEvents</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_ocp___hw_pcr_log_info_1aeb6cb11fefac5fea284eb3f6818d7a90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_info_1aeb6cb11fefac5fea284eb3f6818d7a90" kindref="member">OverflowCntSinceLastRd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_ocp___hw_pcr_log_info_1a05335db0c413a7cb189abaf05df5c51d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_info_1a05335db0c413a7cb189abaf05df5c51d" kindref="member">HwPcrEventsRead</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___hw_pcr_log_info" kindref="compound">XOcp_HwPcrLogInfo</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="struct_x_ocp___hw_pcr_log" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142" refid="struct_x_ocp___hw_pcr_log_1ae53faac2188c2c461e4cbd14edd71db2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ocp___hw_pcr_event" kindref="compound">XOcp_HwPcrEvent</ref><sp/>Buffer[<ref refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" kindref="member">XOCP_MAX_NUM_OF_HWPCR_EVENTS</ref>];<sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_x_ocp___hw_pcr_log_1a3db006e8e4655dab8f6c3b163d9ba60f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ocp___hw_pcr_log_info" kindref="compound">XOcp_HwPcrLogInfo</ref><sp/><ref refid="struct_x_ocp___hw_pcr_log_1a3db006e8e4655dab8f6c3b163d9ba60f" kindref="member">LogInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_x_ocp___hw_pcr_log_1a18189c2759714ab277466237828d1d5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_1a18189c2759714ab277466237828d1d5c" kindref="member">HeadIndex</ref>;<sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_ocp___hw_pcr_log_1aa117f46c19378ccd1a2b17e9b6f44634" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___hw_pcr_log_1aa117f46c19378ccd1a2b17e9b6f44634" kindref="member">TailIndex</ref>;<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___hw_pcr_log" kindref="compound">XOcp_HwPcrLog</ref>;</highlight></codeline>
+<codeline lineno="150" refid="struct_x_ocp___sw_pcr_extend_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151" refid="struct_x_ocp___sw_pcr_extend_params_1acd0d5c22baa2384c39ac448963605249" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params_1acd0d5c22baa2384c39ac448963605249" kindref="member">PcrNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" kindref="member">MeasurementIdx</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" kindref="member">DataSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" kindref="member">OverWrite</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" kindref="member">DataAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161" refid="struct_x_ocp___sw_pcr_read_data" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162" refid="struct_x_ocp___sw_pcr_read_data_1aa76f835f1cf1a6ef6621a80682ff4cb4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1aa76f835f1cf1a6ef6621a80682ff4cb4" kindref="member">PcrNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_x_ocp___sw_pcr_read_data_1ac9fe350cf6ee6dc444c68f1cfbaee78e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1ac9fe350cf6ee6dc444c68f1cfbaee78e" kindref="member">MeasurementIdx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_x_ocp___sw_pcr_read_data_1add0d43e0fdf205ba0cb430f65b043716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1add0d43e0fdf205ba0cb430f65b043716" kindref="member">DataStartIdx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_x_ocp___sw_pcr_read_data_1a7fafcfc28e7ba31094bfe29dad239002" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1a7fafcfc28e7ba31094bfe29dad239002" kindref="member">BufSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_x_ocp___sw_pcr_read_data_1a4db5a18a44feb3528b89e70bb346a52e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1a4db5a18a44feb3528b89e70bb346a52e" kindref="member">BufAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="struct_x_ocp___sw_pcr_read_data_1a355a3ef218ce492855e11d23098944e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_read_data_1a355a3ef218ce492855e11d23098944e9" kindref="member">ReturnedBytes</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="struct_x_ocp___pcr_measurement" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174" refid="struct_x_ocp___pcr_measurement_1a20859a5d025254cf41a00e6ea48d142c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___pcr_measurement_1a20859a5d025254cf41a00e6ea48d142c" kindref="member">EventId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="struct_x_ocp___pcr_measurement_1a45f5b83bcf22035cf4c484fafb85f92e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___pcr_measurement_1a45f5b83bcf22035cf4c484fafb85f92e" kindref="member">Version</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="struct_x_ocp___pcr_measurement_1aaf74f03e37bcbd23a61600ec240387d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___pcr_measurement_1aaf74f03e37bcbd23a61600ec240387d4" kindref="member">DataLength</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_x_ocp___pcr_measurement_1ad4137c176c5fbe053cc70cbb1e8b417f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashOfData[<ref refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" kindref="member">XOCP_PCR_SIZE_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="struct_x_ocp___pcr_measurement_1ab85c801a97b79ef8b2db75d0498f5027" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MeasuredData[<ref refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" kindref="member">XOCP_PCR_SIZE_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___pcr_measurement" kindref="compound">XOcp_PcrMeasurement</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184" refid="struct_x_ocp___sw_pcr_log_read_data" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185" refid="struct_x_ocp___sw_pcr_log_read_data_1a228b003c238efa3aea955e402d7f5792" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data_1a228b003c238efa3aea955e402d7f5792" kindref="member">PcrNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="struct_x_ocp___sw_pcr_log_read_data_1a33e5a0b3d180448ae54f2577a1bce7c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data_1a33e5a0b3d180448ae54f2577a1bce7c9" kindref="member">LogSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_x_ocp___sw_pcr_log_read_data_1a5564c13ef3df18204c7a023c66fdb7f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data_1a5564c13ef3df18204c7a023c66fdb7f0" kindref="member">PcrLogAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="struct_x_ocp___sw_pcr_log_read_data_1acbe1bdf6c597dbe9a87a3343792e1acd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data_1acbe1bdf6c597dbe9a87a3343792e1acd" kindref="member">DigestCount</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194" refid="struct_x_ocp___x509_cert" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195" refid="struct_x_ocp___x509_cert_1a682e991ef0c2bdd9c1fc2f342fbda92b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___x509_cert_1a682e991ef0c2bdd9c1fc2f342fbda92b" kindref="member">CertAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196" refid="struct_x_ocp___x509_cert_1ab601adae5228b4c5b4d1c633222bbc22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___x509_cert_1ab601adae5228b4c5b4d1c633222bbc22" kindref="member">ActualLenAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197" refid="struct_x_ocp___x509_cert_1a7a6117571f9a0f803bc94b9aee7c7a02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___x509_cert_1a7a6117571f9a0f803bc94b9aee7c7a02" kindref="member">CertSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_x_ocp___x509_cert_1a4fb4be269714e6fb2854ad704a4fe5ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" kindref="member">XOcp_DevKey</ref><sp/><ref refid="struct_x_ocp___x509_cert_1a4fb4be269714e6fb2854ad704a4fe5ad" kindref="member">DevKeySel</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" kindref="member">IsCsr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___x509_cert" kindref="compound">XOcp_X509Cert</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205" refid="struct_x_ocp___attest" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="206" refid="struct_x_ocp___attest_1ac82b140ed86b5f838dc5853504177334" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___attest_1ac82b140ed86b5f838dc5853504177334" kindref="member">HashAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="207" refid="struct_x_ocp___attest_1ab392dbc5aeec10f51091f92bb6970c67" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_ocp___attest_1ab392dbc5aeec10f51091f92bb6970c67" kindref="member">SignatureAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_x_ocp___attest_1a4bf1ea6e3a379f9f6ab2bef0db9ac971" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___attest_1a4bf1ea6e3a379f9f6ab2bef0db9ac971" kindref="member">Reserved</ref>;<sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_x_ocp___attest_1a797154d7bb27e2f9c3c3c5dec24e5270" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_ocp___attest_1a797154d7bb27e2f9c3c3c5dec24e5270" kindref="member">HashLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___attest" kindref="compound">XOcp_Attest</ref>;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215" refid="group__xocp__definitions_1gaa2429504100aa2ea3c8f7a11bdd6c503" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="216" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503af3b4033b0f4a80a8cc7882f2dfbac478" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503af3b4033b0f4a80a8cc7882f2dfbac478" kindref="member">XOCP_PCR_ERR_PCR_SELECT</ref><sp/>=<sp/>0x02,<sp/></highlight></codeline>
+<codeline lineno="217" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae3815d1a2cf06201c74123a00d5ef4f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae3815d1a2cf06201c74123a00d5ef4f3" kindref="member">XOCP_PCR_ERR_NOT_COMPLETED</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a269799b64ea33df35a6bfa2196360514" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a269799b64ea33df35a6bfa2196360514" kindref="member">XOCP_PCR_ERR_OPERATION</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aefe98e757135e5a687321f4b435b72a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aefe98e757135e5a687321f4b435b72a2" kindref="member">XOCP_PCR_ERR_IN_UPDATE_LOG</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a88a7cb1094967fc712e6640ae1a4f638" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a88a7cb1094967fc712e6640ae1a4f638" kindref="member">XOCP_PCR_ERR_IN_GET_PCR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa817798dbf85e7e27959b2654f06f7c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa817798dbf85e7e27959b2654f06f7c6" kindref="member">XOCP_PCR_ERR_IN_GET_PCR_LOG</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa1af2a22b1192694eb4c16417e2b4651" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa1af2a22b1192694eb4c16417e2b4651" kindref="member">XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST</ref>,</highlight></codeline>
+<codeline lineno="224" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a9a85006a82fbbfd184fe88dea930dfbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a9a85006a82fbbfd184fe88dea930dfbe" kindref="member">XOCP_PCR_ERR_MEASURE_IDX_SELECT</ref>,</highlight></codeline>
+<codeline lineno="225" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae75d43999ab1c773a2f1296b277d8e64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae75d43999ab1c773a2f1296b277d8e64" kindref="member">XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED</ref>,<sp/></highlight></codeline>
+<codeline lineno="226" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a79fdd3a71131b51658b389c7d9752d80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a79fdd3a71131b51658b389c7d9752d80" kindref="member">XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM</ref>,<sp/></highlight></codeline>
+<codeline lineno="227" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a4278dec969ec9438374d9cdaf3b9f0aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a4278dec969ec9438374d9cdaf3b9f0aa" kindref="member">XOCP_PCR_ERR_SWPCR_DUP_EXTEND</ref>,<sp/></highlight></codeline>
+<codeline lineno="228" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3967f4a82634e5681edc9e07993343a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3967f4a82634e5681edc9e07993343a4" kindref="member">XOCP_PCR_ERR_DATA_IN_INVALID_MEM</ref>,<sp/></highlight></codeline>
+<codeline lineno="230" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503add445d9bc9fb78d613ef30bf1a266159" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503add445d9bc9fb78d613ef30bf1a266159" kindref="member">XOCP_DICE_CDI_PARITY_ERROR</ref><sp/>=<sp/>0x20,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="231" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad574a1cea06ea61fa5cc4d497357bbc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad574a1cea06ea61fa5cc4d497357bbc1" kindref="member">XOCP_DME_ERR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a96486d35a3503ac6753dbe80fe22d6c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a96486d35a3503ac6753dbe80fe22d6c3" kindref="member">XOCP_DME_ROM_ERROR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a02ca2fe57cbf4aabfb7387e8efef1c71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a02ca2fe57cbf4aabfb7387e8efef1c71" kindref="member">XOCP_ERR_DEVIK_NOT_READY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503abdbd0d3dca5c602882210254beea1aed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503abdbd0d3dca5c602882210254beea1aed" kindref="member">XOCP_ERR_DEVAK_NOT_READY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aee6ecacf4fbfe1f036a3e8ce7f1d9f2c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aee6ecacf4fbfe1f036a3e8ce7f1d9f2c" kindref="member">XOCP_ERR_INVALID_DEVAK_REQ</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad360693820af75516db0bf72b32edc57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad360693820af75516db0bf72b32edc57" kindref="member">XOCP_DICE_CDI_SEED_ZERO</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae040625c5710e6c0de35b77dd351e4f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae040625c5710e6c0de35b77dd351e4f5" kindref="member">XOCP_ERR_GLITCH_DETECTED</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab3bc8703605a641b7ec8aa0404af1e3d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab3bc8703605a641b7ec8aa0404af1e3d" kindref="member">XOCP_ERR_CHUNK_BOUNDARY_CROSSED</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ac1535fd60ce5df78e528adcdb94e26ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ac1535fd60ce5df78e528adcdb94e26ba" kindref="member">XOCP_ERR_SECURE_EFUSE_CONFIG</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a78561a971de722c3d6421d28a7112472" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a78561a971de722c3d6421d28a7112472" kindref="member">XOCP_ERR_SECURE_TAP_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab655625e55e05418d84e29602a12cee0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab655625e55e05418d84e29602a12cee0" kindref="member">XOCP_ERR_SECURE_STATE_MEASUREMENT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a5e4465358789e0f4579d7a63922fa185" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a5e4465358789e0f4579d7a63922fa185" kindref="member">XOCP_ERR_DME_RESP_ALREADY_GENERATED</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a627f801106a6c144c0faf0481678e575" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a627f801106a6c144c0faf0481678e575" kindref="member">XOCP_ERR_DME_RESP_NOT_GENERATED</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adf81aaa14cf599742df289c06b0fb4ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adf81aaa14cf599742df289c06b0fb4ed" kindref="member">XOCP_ERR_PUB_KEY_NOT_AVAIL</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adfd4f2b038a2dc6a88284b0772d6bf51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adfd4f2b038a2dc6a88284b0772d6bf51" kindref="member">XOCP_ERR_INVALID_ATTEST_BUF_SIZE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503acec598c0e28788205900e8107b27d9f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503acec598c0e28788205900e8107b27d9f0" kindref="member">XOCP_ERR_SECURE_PPK_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a05c5a1f3c541ad87bc73e401e3595804" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a05c5a1f3c541ad87bc73e401e3595804" kindref="member">XOCP_ERR_SECURE_SPK_REVOKE_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a284d3270fbe02e3c7950fd5630db9c1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a284d3270fbe02e3c7950fd5630db9c1a" kindref="member">XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3fe95f0472ba90d219c719aad65c57b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3fe95f0472ba90d219c719aad65c57b4" kindref="member">XOCP_ERR_SECURE_MISC_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad6abdf428dfb929b7630247cbca5cc11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad6abdf428dfb929b7630247cbca5cc11" kindref="member">XOCP_ERR_READ_PPK_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3f2998f49a52f87f570c63a5690d329c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3f2998f49a52f87f570c63a5690d329c" kindref="member">XOCP_ERR_READ_SPK_REVOKE_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a0cdd083bba4e227bd9752951ac24a8ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a0cdd083bba4e227bd9752951ac24a8ba" kindref="member">XOCP_ERR_READ_OTHER_REVOKE_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8bc38c63a2670152a732a5138e92effe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8bc38c63a2670152a732a5138e92effe" kindref="member">XOCP_ERR_IN_EXTEND_PPK_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a120ece45813a148f3263f46f44cb8c52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a120ece45813a148f3263f46f44cb8c52" kindref="member">XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="268" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a209e33fcf91b97b40847d037b394e590" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a209e33fcf91b97b40847d037b394e590" kindref="member">XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG</ref>,<sp/></highlight></codeline>
+<codeline lineno="270" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" kindref="member">XOCP_ERR_IN_EXTEND_MISC_CONFIG</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" kindref="member">XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG</ref>,<sp/></highlight></codeline>
+<codeline lineno="274" refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" kindref="member">XOCP_ERR_IN_MEMCPY</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="normal">}<ref refid="group__xocp__definitions_1gaa2429504100aa2ea3c8f7a11bdd6c503" kindref="member">XOcp_OcpErrorStatus</ref>;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XOCP_COMMON_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h"/>
+  </compounddef>
+</doxygen>

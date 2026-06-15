@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_manager_params" kind="struct" prot="public">
+    <compoundname>XAsu_KeyManagerParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___key_manager_key_metadata" kindref="compound">XAsu_KeyManagerKeyMetadata</ref></type>
+        <definition>XAsu_KeyManagerKeyMetadata XAsu_KeyManagerParams::KeyMetadata</definition>
+        <argsstring></argsstring>
+        <name>KeyMetadata</name>
+        <briefdescription>
+<para>Key metadata. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1a436dedc6c3f0f349ca740f21b6399f3a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref></type>
+        <definition>XAsu_AesKeyObject XAsu_KeyManagerParams::AesKeyObj</definition>
+        <argsstring></argsstring>
+        <name>AesKeyObj</name>
+        <briefdescription>
+<para>AES key object to be filled if input is wrapped key type. </para>        </briefdescription>
+        <detaileddescription>
+<para>This field is applicable only for Store Key API. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyManagerParams::KeyObjectAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyObjectAddr</name>
+        <briefdescription>
+<para>Address of the key buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Store Key API: This field is mandatory and it is an input buffer. For Generate Key APIs: This field is optional and it is output buffer if the key needs to be returned to user. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyManagerParams::KeyIdAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyIdAddr</name>
+        <briefdescription>
+<para>Address where generated key ID is stored. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Store Key API: This field is mandatory. For Generate Key APIs: This field is optional and should be given only when the key to be stored in key vault. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1a9a45b82fce6b349db3f7efaaa74c4533" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyManagerParams::WrappedInputLen</definition>
+        <argsstring></argsstring>
+        <name>WrappedInputLen</name>
+        <briefdescription>
+<para>Length of the wrapped key input data (applicable only for Store Key API). </para>        </briefdescription>
+        <detaileddescription>
+<para>This needs to be filled if input is wrapped key type. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_params_1a3b2ea128a5574629bc4a79565dfcec3c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyManagerParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for key manager parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="80">
+        <label>XAsu_KeyManagerParams</label>
+        <link refid="struct_x_asu___key_manager_params"/>
+        <childnode refid="81" relation="usage">
+          <edgelabel>KeyMetadata</edgelabel>
+        </childnode>
+        <childnode refid="82" relation="usage">
+          <edgelabel>AesKeyObj</edgelabel>
+        </childnode>
+      </node>
+      <node id="82">
+        <label>XAsu_AesKeyObject</label>
+        <link refid="struct_x_asu___aes_key_object"/>
+      </node>
+      <node id="81">
+        <label>XAsu_KeyManagerKeyMetadata</label>
+        <link refid="struct_x_asu___key_manager_key_metadata"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="169" bodyend="184"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_manager_params_1a436dedc6c3f0f349ca740f21b6399f3a" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>AesKeyObj</name></member>
+      <member refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>KeyIdAddr</name></member>
+      <member refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>KeyMetadata</name></member>
+      <member refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>KeyObjectAddr</name></member>
+      <member refid="struct_x_asu___key_manager_params_1a3b2ea128a5574629bc4a79565dfcec3c" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___key_manager_params_1a9a45b82fce6b349db3f7efaaa74c4533" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerParams</scope><name>WrappedInputLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

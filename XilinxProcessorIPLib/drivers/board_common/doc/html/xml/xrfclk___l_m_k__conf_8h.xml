@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xrfclk___l_m_k__conf_8h" kind="file">
+    <compoundname>xrfclk_LMK_conf.h</compoundname>
+    <includes refid="xrfclk_8h" local="yes">xrfclk.h</includes>
+    <includedby refid="xrfclk_8c" local="yes">xrfclk.c</includedby>
+    <incdepgraph>
+      <node id="31">
+        <label>xrfclk_LMK_conf.h</label>
+        <link refid="xrfclk_LMK_conf.h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>xrfclk.h</label>
+        <link refid="xrfclk_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="33">
+        <label>xrfclk_LMK_conf.h</label>
+        <link refid="xrfclk_LMK_conf.h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xrfclk.c</label>
+        <link refid="xrfclk_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xrfclk___l_m_k__conf_1gaad82661aabadc19128387a24d35c7e31" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]</definition>
+        <argsstring>[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]</argsstring>
+        <name>LMK_FREQ_LIST</name>
+        <initializer>= {
+	&quot;245M76_PL_122M88_SYSREF_7M68&quot;, &quot;250M_PL_125M_SYSREF_10M&quot;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xrfclk___l_m_k__conf_1ga3df823b80bbe1f9d9be67b9651e079b2" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT]</definition>
+        <argsstring>[LMK_FREQ_NUM][LMK_COUNT]</argsstring>
+        <name>LMK_CKin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>__XRFCLK_LMK_CONF_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XRFCLK_LMK_CONF_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xrfclk_8h" kindref="compound">xrfclk.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Frequency<sp/>values<sp/>for<sp/>LMK04208<sp/>PLL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPS_BOARD_ZCU111</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Frequency<sp/>list<sp/>for<sp/>LMK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]<sp/>=<sp/>{<sp/></highlight><highlight class="stringliteral">&quot;122.88&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;122.88&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;122.88&quot;</highlight><highlight class="normal"><sp/>};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>LMK_CKin[LMK_FREQ_NUM][LMK_COUNT]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>name<sp/>reference:<sp/>LMK04208_ZCU111_revAB_CKin1=12M8_VCO=3072M_Out=122M88_MTS</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMX<sp/>input:<sp/>122.88MHz</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Input<sp/>12.8MHz</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCO<sp/>3072MHz</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SYSREF<sp/>(Analog<sp/>and<sp/>digital,<sp/>MTS):<sp/>7.68MHz</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PL<sp/>REFCLK<sp/>(MTS)<sp/>122.88</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Input<sp/>auto<sp/>detect</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>--<sp/>MTS*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x00160040,<sp/>0x00143200,<sp/>0x00143201,<sp/>0x00140322,<sp/>0x80140323,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00140324,<sp/>0x80141E05,<sp/>0x01100006,<sp/>0x01100007,<sp/>0x06010008,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55555549,<sp/>0x9102410A,<sp/>0x0401900B,<sp/>0x1B8C006C,<sp/>0x2302886D,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0200000E,<sp/>0x8000800F,<sp/>0xC1550410,<sp/>0x00000058,<sp/>0x02C9C419,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8FA8001A,<sp/>0x10001E1B,<sp/>0x0021201C,<sp/>0x0180033D,<sp/>0x0200033E,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F001F<sp/>},</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>name<sp/>reference:<sp/>LMK04208_ZCU111_revAB_CKin1=12M8_VCO=3072M_Out=122M88.tcs</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMX<sp/>input:<sp/>122.88MHz</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>input<sp/>12.8MHz</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCO<sp/>3072M<sp/>Output</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sysref<sp/>0<sp/>MHz</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PL<sp/>REFCLK<sp/>0<sp/>MHz</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Input<sp/>auto<sp/>detect</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x00160040,<sp/>0x80140320,<sp/>0x80140321,<sp/>0x80140322,<sp/>0xC0140023,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40140024,<sp/>0x80141E05,<sp/>0x03300006,<sp/>0x01300007,<sp/>0x06010008,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55555549,<sp/>0x9102410A,<sp/>0x0401100B,<sp/>0x1B0C006C,<sp/>0x2302886D,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0200000E,<sp/>0x8000800F,<sp/>0xC1550410,<sp/>0x00000058,<sp/>0x02C9C419,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8FA8001A,<sp/>0x10001E1B,<sp/>0x0021201C,<sp/>0x0180033D,<sp/>0x0200033E,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F001F<sp/>},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>name<sp/>reference:<sp/>LMK04208_ZCU111_revAB_0delay_sync_CKin1=7p68M_VCO=3072M_Out=122M88</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMX<sp/>input:<sp/>122.88MHz</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>input<sp/>7.68MHz</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCO<sp/>3072M<sp/>Output</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sysref<sp/>7.68<sp/>MHz</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PL<sp/>REFCLK<sp/>122.88<sp/>MHz</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Input<sp/>auto<sp/>detect,<sp/>Zero<sp/>delay<sp/>mode</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>--<sp/><sp/>Multi<sp/>Board<sp/>MTS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x00160040,<sp/>0x00503200,<sp/>0x00503201,<sp/>0x00500322,<sp/>0xC0140023,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00500324,<sp/>0x00503205,<sp/>0x03300006,<sp/>0x01300007,<sp/>0x0C010008,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55555549,<sp/>0x9102490A,<sp/>0x1403900B,<sp/>0x1B0C006C,<sp/>0x2302886D,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0200000E,<sp/>0x8000800F,<sp/>0xC1550410,<sp/>0x00000058,<sp/>0x02C9C419,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8FA8001A,<sp/>0x1000101B,<sp/>0x0020101C,<sp/>0x0180033D,<sp/>0x0200033E,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F001F<sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Frequency<sp/>list<sp/>for<sp/>LMK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;245M76_PL_122M88_SYSREF_7M68&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;250M_PL_125M_SYSREF_10M&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>LMK_CKin[LMK_FREQ_NUM][LMK_COUNT]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>name<sp/>reference:<sp/>245M76_PL_122M88_SYSREF_7M68.txt</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DAC<sp/>refclk/ADC<sp/>refclk/LMX<sp/>input:<sp/><sp/>245.76<sp/>MHz</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PL<sp/>refclk<sp/>(MTS):<sp/>122.88MHz,</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sysref<sp/>(Analog<sp/>and<sp/>digital,<sp/>MTS):<sp/>7.68MHz<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000090,<sp/>0x000010,<sp/>0x000200,<sp/>0x000306,<sp/>0x0004D0,<sp/>0x00055B,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000600,<sp/>0x000C51,<sp/>0x000D04,<sp/>0x01006A,<sp/>0x010155,<sp/>0x010255,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010301,<sp/>0x010422,<sp/>0x010500,<sp/>0x010673,<sp/>0x010703,<sp/>0x01086A,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010955,<sp/>0x010A55,<sp/>0x010B00,<sp/>0x010C22,<sp/>0x010D00,<sp/>0x010EF0,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010F30,<sp/>0x01106A,<sp/>0x011155,<sp/>0x011255,<sp/>0x011301,<sp/>0x011422,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x011500,<sp/>0x011673,<sp/>0x011703,<sp/>0x01186A,<sp/>0x011955,<sp/>0x011A55,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x011B01,<sp/>0x011C22,<sp/>0x011D00,<sp/>0x011E72,<sp/>0x011F03,<sp/>0x012074,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012155,<sp/>0x012255,<sp/>0x012301,<sp/>0x012422,<sp/>0x012500,<sp/>0x012670,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012733,<sp/>0x01286A,<sp/>0x012955,<sp/>0x012A55,<sp/>0x012B00,<sp/>0x012C22,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012D00,<sp/>0x012EF0,<sp/>0x012F30,<sp/>0x01306A,<sp/>0x013155,<sp/>0x013255,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013301,<sp/>0x013422,<sp/>0x013500,<sp/>0x013673,<sp/>0x013703,<sp/>0x013800,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013903,<sp/>0x013A01,<sp/>0x013B40,<sp/>0x013C00,<sp/>0x013D01,<sp/>0x013E03,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013F02,<sp/>0x014009,<sp/>0x014100,<sp/>0x014200,<sp/>0x014331,<sp/>0x0144FF,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01457F,<sp/>0x014618,<sp/>0x01471A,<sp/>0x014806,<sp/>0x014946,<sp/>0x014A06,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x014B06,<sp/>0x014C00,<sp/>0x014D00,<sp/>0x014EC0,<sp/>0x014F7F,<sp/>0x015013,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015102,<sp/>0x015200,<sp/>0x015300,<sp/>0x01547D,<sp/>0x015500,<sp/>0x01567D,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015703,<sp/>0x0158C0,<sp/>0x015907,<sp/>0x015AD0,<sp/>0x015BDA,<sp/>0x015C20,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015D00,<sp/>0x015E00,<sp/>0x015F3E,<sp/>0x016000,<sp/>0x016119,<sp/>0x016244,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x016300,<sp/>0x016400,<sp/>0x0165A0,<sp/>0x0171AA,<sp/>0x017202,<sp/>0x017C15,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x017D33,<sp/>0x016600,<sp/>0x016700,<sp/>0x0168C0,<sp/>0x016959,<sp/>0x016A20,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x016B00,<sp/>0x016C00,<sp/>0x016D00,<sp/>0x016E1B,<sp/>0x017300,<sp/>0x1FFD00,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FFE00,<sp/>0x1FFF53,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>name<sp/>reference:<sp/>250M_PL_125M_SYSREF_10M.txt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DAC<sp/>refclk,<sp/>ADC<sp/>refclk,<sp/>and<sp/>LMX<sp/>input:<sp/>250MHz</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PL<sp/>refclk<sp/>(MTS):<sp/>125MHz</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sysref<sp/>(Analog<sp/>and<sp/>digital,<sp/>MTS):<sp/>10MHz<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000090,<sp/>0x000010,<sp/>0x000200,<sp/>0x000306,<sp/>0x0004D0,<sp/>0x00055B,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000600,<sp/>0x000C51,<sp/>0x000D04,<sp/>0x01006C,<sp/>0x010155,<sp/>0x010255,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010301,<sp/>0x010422,<sp/>0x010500,<sp/>0x010673,<sp/>0x010703,<sp/>0x01086C,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010955,<sp/>0x010A55,<sp/>0x010B00,<sp/>0x010C22,<sp/>0x010D00,<sp/>0x010EF0,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010F30,<sp/>0x01106C,<sp/>0x011155,<sp/>0x011255,<sp/>0x011301,<sp/>0x011422,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x011500,<sp/>0x011673,<sp/>0x011703,<sp/>0x01186C,<sp/>0x011955,<sp/>0x011A55,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x011B01,<sp/>0x011C22,<sp/>0x011D00,<sp/>0x011E72,<sp/>0x011F03,<sp/>0x012078,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012155,<sp/>0x012255,<sp/>0x012301,<sp/>0x012422,<sp/>0x012500,<sp/>0x012670,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012733,<sp/>0x01286C,<sp/>0x012955,<sp/>0x012A55,<sp/>0x012B00,<sp/>0x012C22,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x012D00,<sp/>0x012EF0,<sp/>0x012F30,<sp/>0x01306C,<sp/>0x013155,<sp/>0x013255,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013301,<sp/>0x013422,<sp/>0x013500,<sp/>0x013673,<sp/>0x013703,<sp/>0x013820,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013903,<sp/>0x013A01,<sp/>0x013B2C,<sp/>0x013C00,<sp/>0x013D01,<sp/>0x013E03,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x013F02,<sp/>0x014009,<sp/>0x014100,<sp/>0x014200,<sp/>0x014331,<sp/>0x0144FF,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01457F,<sp/>0x014618,<sp/>0x01471A,<sp/>0x014806,<sp/>0x014946,<sp/>0x014A06,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x014B06,<sp/>0x014C00,<sp/>0x014D00,<sp/>0x014EC0,<sp/>0x014F7F,<sp/>0x015013,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015102,<sp/>0x015200,<sp/>0x015300,<sp/>0x01547D,<sp/>0x015500,<sp/>0x01567D,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015703,<sp/>0x0158C0,<sp/>0x015907,<sp/>0x015AD0,<sp/>0x015BDA,<sp/>0x015C20,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x015D00,<sp/>0x015E00,<sp/>0x015F3E,<sp/>0x016000,<sp/>0x016104,<sp/>0x016264,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x016300,<sp/>0x016400,<sp/>0x0165A0,<sp/>0x0171AA,<sp/>0x017202,<sp/>0x017C15,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x017D33,<sp/>0x016600,<sp/>0x016700,<sp/>0x016819,<sp/>0x016959,<sp/>0x016A20,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x016B00,<sp/>0x016C00,<sp/>0x016D00,<sp/>0x016E1B,<sp/>0x017300,<sp/>0x1FFD00,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FFE00,<sp/>0x1FFF53,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h"/>
+  </compounddef>
+</doxygen>

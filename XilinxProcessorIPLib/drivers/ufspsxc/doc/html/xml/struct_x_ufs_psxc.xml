@@ -1,0 +1,434 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc" kind="struct" prot="public">
+    <compoundname>XUfsPsxc</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1ac2310f05b9df66792d9bfbe307daf629" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::BootLunEn</definition>
+        <argsstring></argsstring>
+        <name>BootLunEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1aac8fec21329d3b7210ac709c2dfe15db" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::NumOfLuns</definition>
+        <argsstring></argsstring>
+        <name>NumOfLuns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a4c844d6b232e376e2e3a305010e82800" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::TestUnitRdyLun</definition>
+        <argsstring></argsstring>
+        <name>TestUnitRdyLun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1aa05041d157353c06249dbf65a5258cbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::AllocUnitSize</definition>
+        <argsstring></argsstring>
+        <name>AllocUnitSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a0f61a28c041ad8515599c066c14d4c91" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::SegmentSize</definition>
+        <argsstring></argsstring>
+        <name>SegmentSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1affac3a9613e0d8ec011b2dfd0615c9ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XUfsPsxc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1aac8308eb3db3e1114ba74cd939cafe70" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::CapAdjFactor[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>CapAdjFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1af51590f54e68c7abde991a3b78b33953" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::UD0BaseOffset</definition>
+        <argsstring></argsstring>
+        <name>UD0BaseOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a8e7f62f8db69b869827ae31273e89a4d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::UDLength</definition>
+        <argsstring></argsstring>
+        <name>UDLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a3e96a9ca2f1b75abcf78ff5c59e7a18d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::RxATTCompValL0</definition>
+        <argsstring></argsstring>
+        <name>RxATTCompValL0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a59268ffd267abe52ae11b60ec7beb51f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::RxATTCompValL1</definition>
+        <argsstring></argsstring>
+        <name>RxATTCompValL1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1accf541ed7d3ad51ac2e2a91948b53ee2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::RxCTLECompValL0</definition>
+        <argsstring></argsstring>
+        <name>RxCTLECompValL0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1ae911e88161d54777e64efcf5aea88bf3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::RxCTLECompValL1</definition>
+        <argsstring></argsstring>
+        <name>RxCTLECompValL1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1ab21c3ded37027bfe0c7210d2e9c3ed31" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::ErrorCode</definition>
+        <argsstring></argsstring>
+        <name>ErrorCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a2204f80d7cad468c2717858a351d1636" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::DevBootEn</definition>
+        <argsstring></argsstring>
+        <name>DevBootEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a0cf71892780b85bf9cdb41b9c2584a2c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::BLunALunId</definition>
+        <argsstring></argsstring>
+        <name>BLunALunId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1ad5454b7ffce463add169fc9003c5f900" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::BLunBLunId</definition>
+        <argsstring></argsstring>
+        <name>BLunBLunId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1adfbdbe0e904b836ece09e71013d5fa5c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc::PowerMode</definition>
+        <argsstring></argsstring>
+        <name>PowerMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a18356f3363611bd87c604075919a9aa8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc::Config_Desc_Data[1024]</definition>
+        <argsstring>[1024]</argsstring>
+        <name>Config_Desc_Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a7bce7916c4e55193974efce3f304d89b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___b_l_u_n_info" kindref="compound">XUfsPsxc_BLUNInfo</ref></type>
+        <definition>XUfsPsxc_BLUNInfo XUfsPsxc::LUNInfo[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>LUNInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a40590173865640480671ea4c87b5f9f5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___config" kindref="compound">XUfsPsxc_Config</ref></type>
+        <definition>XUfsPsxc_Config XUfsPsxc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a15b3baa4da1f2b59e8dd2525ffa21c77" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___xfer___req_desc" kindref="compound">XUfsPsxc_Xfer_ReqDesc</ref></type>
+        <definition>XUfsPsxc_Xfer_ReqDesc XUfsPsxc::req_desc_baseaddr</definition>
+        <argsstring></argsstring>
+        <name>req_desc_baseaddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc_1a1d243835e7651bebde57356cca4b6e34" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref></type>
+        <definition>XUfsPsxc_Xfer_CmdDesc XUfsPsxc::CmdDesc</definition>
+        <argsstring></argsstring>
+        <name>CmdDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every ufspsxc device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XUfsPsxc_NopUpiu</label>
+        <link refid="struct_x_ufs_psxc___nop_upiu"/>
+      </node>
+      <node id="1">
+        <label>XUfsPsxc</label>
+        <link refid="struct_x_ufs_psxc"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>CmdDesc</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>LUNInfo</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>req_desc_baseaddr</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XUfsPsxc_Xfer_ReqUpiu</label>
+        <link refid="struct_x_ufs_psxc___xfer___req_upiu"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>NopOutUpiu</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>CmdUpiu</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>QueryReqUpiu</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>XUfsPsxc_Xfer_ReqDesc</label>
+        <link refid="struct_x_ufs_psxc___xfer___req_desc"/>
+      </node>
+      <node id="8">
+        <label>XUfsPsxc_Xfer_Prdt</label>
+        <link refid="struct_x_ufs_psxc___xfer___prdt"/>
+      </node>
+      <node id="11">
+        <label>XUfsPsxc_BLUNInfo</label>
+        <link refid="struct_x_ufs_psxc___b_l_u_n_info"/>
+      </node>
+      <node id="7">
+        <label>XUfsPsxc_TransSpecFlds</label>
+        <link refid="struct_x_ufs_psxc___trans_spec_flds"/>
+      </node>
+      <node id="2">
+        <label>XUfsPsxc_Xfer_CmdDesc</label>
+        <link refid="struct_x_ufs_psxc___xfer___cmd_desc"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>RespUpiu</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Prdt</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>ReqUpiu</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>XUfsPsxc_RespUpiu</label>
+        <link refid="struct_x_ufs_psxc___resp_upiu"/>
+      </node>
+      <node id="10">
+        <label>XUfsPsxc_CmdUpiu</label>
+        <link refid="struct_x_ufs_psxc___cmd_upiu"/>
+      </node>
+      <node id="6">
+        <label>XUfsPsxc_QueryUpiu</label>
+        <link refid="struct_x_ufs_psxc___query_upiu"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Tsf</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>XUfsPsxc_Config</label>
+        <link refid="struct_x_ufs_psxc___config"/>
+      </node>
+      <node id="3">
+        <label>XUfsPsxc_Xfer_RespUpiu</label>
+        <link refid="struct_x_ufs_psxc___xfer___resp_upiu"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>NopInUpiu</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>RespUpiu</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>QueryRespUpiu</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="228" bodyend="252"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc_1aa05041d157353c06249dbf65a5258cbf" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>AllocUnitSize</name></member>
+      <member refid="struct_x_ufs_psxc_1a0cf71892780b85bf9cdb41b9c2584a2c" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>BLunALunId</name></member>
+      <member refid="struct_x_ufs_psxc_1ad5454b7ffce463add169fc9003c5f900" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>BLunBLunId</name></member>
+      <member refid="struct_x_ufs_psxc_1ac2310f05b9df66792d9bfbe307daf629" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>BootLunEn</name></member>
+      <member refid="struct_x_ufs_psxc_1aac8308eb3db3e1114ba74cd939cafe70" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>CapAdjFactor</name></member>
+      <member refid="struct_x_ufs_psxc_1a1d243835e7651bebde57356cca4b6e34" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>CmdDesc</name></member>
+      <member refid="struct_x_ufs_psxc_1a40590173865640480671ea4c87b5f9f5" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>Config</name></member>
+      <member refid="struct_x_ufs_psxc_1a18356f3363611bd87c604075919a9aa8" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>Config_Desc_Data</name></member>
+      <member refid="struct_x_ufs_psxc_1a2204f80d7cad468c2717858a351d1636" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>DevBootEn</name></member>
+      <member refid="struct_x_ufs_psxc_1ab21c3ded37027bfe0c7210d2e9c3ed31" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>ErrorCode</name></member>
+      <member refid="struct_x_ufs_psxc_1affac3a9613e0d8ec011b2dfd0615c9ed" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>IsReady</name></member>
+      <member refid="struct_x_ufs_psxc_1a7bce7916c4e55193974efce3f304d89b" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>LUNInfo</name></member>
+      <member refid="struct_x_ufs_psxc_1aac8fec21329d3b7210ac709c2dfe15db" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>NumOfLuns</name></member>
+      <member refid="struct_x_ufs_psxc_1adfbdbe0e904b836ece09e71013d5fa5c" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>PowerMode</name></member>
+      <member refid="struct_x_ufs_psxc_1a15b3baa4da1f2b59e8dd2525ffa21c77" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>req_desc_baseaddr</name></member>
+      <member refid="struct_x_ufs_psxc_1a3e96a9ca2f1b75abcf78ff5c59e7a18d" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>RxATTCompValL0</name></member>
+      <member refid="struct_x_ufs_psxc_1a59268ffd267abe52ae11b60ec7beb51f" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>RxATTCompValL1</name></member>
+      <member refid="struct_x_ufs_psxc_1accf541ed7d3ad51ac2e2a91948b53ee2" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>RxCTLECompValL0</name></member>
+      <member refid="struct_x_ufs_psxc_1ae911e88161d54777e64efcf5aea88bf3" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>RxCTLECompValL1</name></member>
+      <member refid="struct_x_ufs_psxc_1a0f61a28c041ad8515599c066c14d4c91" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>SegmentSize</name></member>
+      <member refid="struct_x_ufs_psxc_1a4c844d6b232e376e2e3a305010e82800" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>TestUnitRdyLun</name></member>
+      <member refid="struct_x_ufs_psxc_1af51590f54e68c7abde991a3b78b33953" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>UD0BaseOffset</name></member>
+      <member refid="struct_x_ufs_psxc_1a8e7f62f8db69b869827ae31273e89a4d" prot="public" virt="non-virtual"><scope>XUfsPsxc</scope><name>UDLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['xqspips_5fabort',['XQspiPs_Abort',['../group__qspips.html#gafaa01b15d795ba75e438b718d5fbe92b',1,'xqspips.c']]],
+  ['xqspips_5fcfginitialize',['XQspiPs_CfgInitialize',['../group__qspips.html#gaf348b6ee07c1e3e7d01857a789e658d4',1,'xqspips.c']]],
+  ['xqspips_5fgetclkprescaler',['XQspiPs_GetClkPrescaler',['../group__qspips.html#ga6855fc350191a8273ed2363963af8f4d',1,'xqspips_options.c']]],
+  ['xqspips_5fgetdelays',['XQspiPs_GetDelays',['../group__qspips.html#ga5f21bb46591dc0c4915f5f65cdf3a412',1,'xqspips_options.c']]],
+  ['xqspips_5fgetoptions',['XQspiPs_GetOptions',['../group__qspips.html#ga589925a6983f4075992c431a0077cf48',1,'xqspips_options.c']]],
+  ['xqspips_5finterrupthandler',['XQspiPs_InterruptHandler',['../group__qspips.html#ga44c9e0841d774e9c4958e2cdd8c23220',1,'xqspips.c']]],
+  ['xqspips_5flinearinit',['XQspiPs_LinearInit',['../group__qspips.html#gad769e09710e28c9876cebf678f6e890c',1,'xqspips_hw.c']]],
+  ['xqspips_5flookupconfig',['XQspiPs_LookupConfig',['../group__qspips.html#gae1d4740600c52a11e0044f7a853292e4',1,'xqspips_sinit.c']]],
+  ['xqspips_5flqspiread',['XQspiPs_LqspiRead',['../group__qspips.html#gacbdefc29998bb7b4a61e62f8ef3ed127',1,'xqspips.c']]],
+  ['xqspips_5fpolledtransfer',['XQspiPs_PolledTransfer',['../group__qspips.html#ga92bcb2ff87e82a4f27e9a49db023d08d',1,'xqspips.c']]],
+  ['xqspips_5freset',['XQspiPs_Reset',['../group__qspips.html#ga5e488f0da6981f817242eee92e238d69',1,'xqspips.c']]],
+  ['xqspips_5fresethw',['XQspiPs_ResetHw',['../group__qspips.html#ga2732af9facd00339b5dc96c83d74a355',1,'xqspips_hw.c']]],
+  ['xqspips_5fselftest',['XQspiPs_SelfTest',['../group__qspips.html#ga0975016f42a8249235098408ab0c9da6',1,'xqspips_selftest.c']]],
+  ['xqspips_5fsetclkprescaler',['XQspiPs_SetClkPrescaler',['../group__qspips.html#gaafc1b751d17216ad037b7dd167f073f0',1,'xqspips_options.c']]],
+  ['xqspips_5fsetdelays',['XQspiPs_SetDelays',['../group__qspips.html#gadae4c3733183129463090187c54aaaa7',1,'xqspips_options.c']]],
+  ['xqspips_5fsetoptions',['XQspiPs_SetOptions',['../group__qspips.html#ga425ce03f19417a386c6882efb79641df',1,'xqspips_options.c']]],
+  ['xqspips_5fsetslaveselect',['XQspiPs_SetSlaveSelect',['../group__qspips.html#ga8eb7e89e789b707718444125358167e9',1,'xqspips.c']]],
+  ['xqspips_5fsetstatushandler',['XQspiPs_SetStatusHandler',['../group__qspips.html#ga8a32d080acfe312fee511493a5bbb040',1,'xqspips.c']]],
+  ['xqspips_5ftransfer',['XQspiPs_Transfer',['../group__qspips.html#gaeafbee8d795ef8805ab7c8756f5e2274',1,'xqspips.c']]]
+];

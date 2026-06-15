@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeofdm__hw_8h" kind="file">
+    <compoundname>xdfeofdm_hw.h</compoundname>
+    <includedby refid="xdfeofdm__examples_8h" local="yes">xdfeofdm_examples.h</includedby>
+    <invincdepgraph>
+      <node id="47">
+        <label>xdfeofdm_examples.c</label>
+        <link refid="xdfeofdm__examples_8c"/>
+      </node>
+      <node id="46">
+        <label>xdfeofdm_examples.h</label>
+        <link refid="xdfeofdm__examples_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>xdfeofdm_hw.h</label>
+        <link refid="xdfeofdm_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#ifndef<sp/>XDFEOFDM_HW_H_</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_HW_H_</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="comment">/****************************<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CORE<sp/>functionality<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Version<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_OFFSET<sp/>0x00U<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_PATCH_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_PATCH_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_REVISION_OFFSET<sp/>8U</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_REVISION_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_MINOR_OFFSET<sp/>16U</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_MINOR_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_MAJOR_OFFSET<sp/>24U</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_VERSION_MAJOR_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_RESET_OFFSET<sp/>0x04U<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XDFEOFDM_RESET_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_RESET_BF_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_RESET_OFF<sp/>0U</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_RESET_ON<sp/>1U</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Model_Param<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_OFFSET<sp/>0x08U<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_OFFSET<sp/>4U</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET<sp/>16U</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_OFFSET<sp/>20U</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_DISABLED<sp/>0U</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_ENABLED<sp/>1U</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Delays<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_DELAY_OFFSET<sp/>0x10U<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XDFEOFDM_DELAY_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_DELAY_BF_WIDTH<sp/>12U</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_DATA_LATENCY_OFFSET<sp/>0x14U<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XDFEOFDM_DATA_LATENCY_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_DATA_LATENCY_BF_WIDTH<sp/>16U</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>State<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OPERATIONAL_OFFSET<sp/>0x20U<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OPERATIONAL_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OPERATIONAL_BF_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OPERATIONAL_NO<sp/>0U</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OPERATIONAL_YES<sp/>1U</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_LOW_POWER_OFFSET<sp/>0x24U<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_LOW_POWER_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_LOW_POWER_BF_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_LOW_POWER_BF_NO<sp/>0U</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_LOW_POWER_BF_YES<sp/>1U</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OFDM_ENABLE_OFFSET<sp/>0x28U<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OFDM_ENABLE_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OFDM_ENABLE_BF_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OFDM_ENABLE_BF_DISABLED<sp/>0U</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATE_OFDM_ENABLE_BF_ENABLED<sp/>1U</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Triggers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_ACTIVATE_OFFSET<sp/>0x30U<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_LOW_POWER_OFFSET<sp/>0x38U<sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_CC_UPDATE_OFFSET<sp/>0x3CU<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bit<sp/>fields<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_DISABLED<sp/>0U</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_ENABLED<sp/>1U</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_WIDTH<sp/>2U</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_OFFSET<sp/>4U</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_IMMEDIATE<sp/>0U</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_TUSER_SINGLE_SHOT<sp/>1U</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_TUSER_CONTINUOUS<sp/>2U</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_MODE_RESERVED<sp/>3U</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH<sp/>2U</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET<sp/>8U</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_LOW<sp/>0U</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_HIGH<sp/>1U</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_FALING<sp/>2U</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_EDGE_LEVEL_RISING<sp/>3U</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_STATE_OUTPUT_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_STATE_OUTPUT_OFFSET<sp/>12U</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_STATE_OUTPUT_DISABLED<sp/>0U</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_STATE_OUTPUT_ENABLED<sp/>1U</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_BIT_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TRIGGERS_TUSER_BIT_OFFSET<sp/>16U</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>IRQ<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_ISR_OFFSET<sp/>0x40U<sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XDFEOFDM_ISR_HAS_NOT_OCCURRED<sp/>0U</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_ISR_OCCURRED<sp/>1U</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_ISR_CLEAR<sp/>1U</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_IER_OFFSET<sp/>0x44U<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XDFEOFDM_IER_NO_CHANGE<sp/>0U</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_IER_SET_BIT<sp/>1U</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_IDR_OFFSET<sp/>0x48U<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XDFEOFDM_IDR_NO_CHANGE<sp/>0U</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_IDR_RESET_BIT<sp/>1U</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_IMR_OFFSET<sp/>0x4CU<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XDFEOFDM_IMR_INTERRUPT<sp/>0U</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_IMR_NO_INTERRUPT<sp/>1U</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_UPDATE_TRIGGERED_LOW<sp/>0U</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_UPDATE_TRIGGERED_HIGH<sp/>1U</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET<sp/>1U</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET<sp/>2U</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_BF_SATURATION_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_NO_EVENT<sp/>0U</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_EVENT<sp/>1U</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET<sp/>3U</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_TREADY_LOW<sp/>0U</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_TREADY_HIGH<sp/>1U</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_IRQ_FLAGS_MASK<sp/>0xFU</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Saturation<sp/>Events<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_SATURATION_OFFSET<sp/>0x50U<sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_SATURATION_CCID_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_SATURATION_CCID_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_SATURATION_SATURATION_COUNT_OFFSET<sp/>4U</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_STATUS_SATURATION_SATURATION_COUNT_WIDTH<sp/>14U</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TUSER<sp/>Framing<sp/>bit<sp/>Location<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_OUTFRAME_LOCATION_OFFSET<sp/>0x60U<sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TUSER<sp/>CC<sp/>Update<sp/>Trigger<sp/>Location<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_OFFSET<sp/>0x64U<sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_WIDTH<sp/>8U</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FT<sp/>Sequence<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_LENGTH_CURRENT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000U<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_LENGTH_CURRENT_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_LENGTH_NEXT_OFFSET<sp/>0x1004U<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_LENGTH_NEXT_BF_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_LENGTH_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_CURRENT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1100U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_NEXT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1140U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FT_SEQUENCE_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CC<sp/>Sequence<sp/>Length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_LENGTH_CURRENT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1200U<sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_LENGTH_NEXT_OFFSET<sp/>0x1204U<sp/></highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_LENGTH_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_LENGTH_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CC<sp/>Sequence<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_CURRENT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1300U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_NEXT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1340U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CC_SEQUENCE_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FT<sp/>Carrier<sp/>Config<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_CURRENT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1400U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NEXT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1440U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_DISABLED<sp/>0U</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_ENABLED<sp/>1U</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_OFFSET<sp/>1U</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_WIDTH<sp/>3U</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_15kHz<sp/>0U</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_30kHz<sp/>1U</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_60kHz<sp/>2U</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_120kHz<sp/>3U</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_240kHz<sp/>4U</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_480kHz<sp/>5U</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz<sp/>6U</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_OFFSET<sp/>4U</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_WIDTH<sp/>4U</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_512<sp/>0x9U</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_1024<sp/>0xAU</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_2048<sp/>0xBU</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_4096<sp/>0xCU</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FFT_SIZE_512<sp/>512U</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FFT_SIZE_1024<sp/>1024U</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FFT_SIZE_2048<sp/>2048U</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_FFT_SIZE_4096<sp/>4096U</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUM_SUBCARRIERS_OFFSET<sp/>8U</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_NUM_SUBCARRIERS_WIDTH<sp/>12U</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_SCALE_FACTOR_OFFSET<sp/>20U</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_SCALE_FACTOR_WIDTH<sp/>10U</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_COMMS_STANDARD_OFFSET<sp/>31U</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_COMMS_STANDARD_WIDTH<sp/>1U</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_COMMS_STANDARD_5G_NR<sp/>0U</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION1_COMMS_STANDARD_LTE<sp/>1U</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CC<sp/>Carrier<sp/>Config<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION2_CURRENT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1500U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION2_NEXT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1540U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION2_OUTPUT_DELAY_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_CARRIER_CONFIGURATION2_OUTPUT_DELAY_WIDTH<sp/>16U</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_PHASE_COMPENSATION_CURRENT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2000U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XDFEOFDM_PHASE_COMPENSATION_NEXT_OFFSET(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3000U<sp/>+<sp/>(X<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor">#define<sp/>XDFEOFDM_PHASE_COMPENSATION_OFFSET<sp/>0U</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFEOFDM_PHASE_COMPENSATION_WIDTH<sp/>32U</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_hw.h"/>
+  </compounddef>
+</doxygen>

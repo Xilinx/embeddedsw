@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_color_weight_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrColorWeightConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_color_weight_config__s_1ad88b708a45f7e83e4266e5b001bba5c9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrColorWeightConfig_s::wdrRgbCoef[CAMDEV_WDR_RGB_COEF_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_RGB_COEF_SIZE]</argsstring>
+        <name>wdrRgbCoef</name>
+        <briefdescription>
+<para>WDR RGB coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_color_weight_config__s_1ae3077d283a67d9eb4b13fe321e898304" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrColorWeightConfig_s::wdrLightnessWeight</definition>
+        <argsstring></argsstring>
+        <name>wdrLightnessWeight</name>
+        <briefdescription>
+<para>WDR lightness weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_color_weight_config__s_1acc249b8af8849deb96a94cbcf837a03c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrColorWeightConfig_s::wdrColorWeight[CAMDEV_WDR_COLOR_WEIGHT_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_COLOR_WEIGHT_SIZE]</argsstring>
+        <name>wdrColorWeight</name>
+        <briefdescription>
+<para>WDR color weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR color weight configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="231" bodyend="236"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_color_weight_config__s_1acc249b8af8849deb96a94cbcf837a03c" prot="public" virt="non-virtual"><scope>CamDeviceWdrColorWeightConfig_s</scope><name>wdrColorWeight</name></member>
+      <member refid="struct_cam_device_wdr_color_weight_config__s_1ae3077d283a67d9eb4b13fe321e898304" prot="public" virt="non-virtual"><scope>CamDeviceWdrColorWeightConfig_s</scope><name>wdrLightnessWeight</name></member>
+      <member refid="struct_cam_device_wdr_color_weight_config__s_1ad88b708a45f7e83e4266e5b001bba5c9" prot="public" virt="non-virtual"><scope>CamDeviceWdrColorWeightConfig_s</scope><name>wdrRgbCoef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

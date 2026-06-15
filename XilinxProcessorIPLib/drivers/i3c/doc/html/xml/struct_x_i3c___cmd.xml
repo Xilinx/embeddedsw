@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i3c___cmd" kind="struct" prot="public">
+    <compoundname>XI3c_Cmd</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1a11f9972ebd58a8d42e70950613a9dad2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::CmdType</definition>
+        <argsstring></argsstring>
+        <name>CmdType</name>
+        <briefdescription>
+<para>Cmd type: 0 - Legacy I2C, 1 - SDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="754" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1ad1566e3ac5d9f752d304732fd4a014a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::NoRepeatedStart</definition>
+        <argsstring></argsstring>
+        <name>NoRepeatedStart</name>
+        <briefdescription>
+<para>Repeated start or stop on completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="755" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="755" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1aebf1c3b8973e565b1e8b224aa6aba2d9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::Pec</definition>
+        <argsstring></argsstring>
+        <name>Pec</name>
+        <briefdescription>
+<para>Parity Error Check. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="756" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="756" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1a2bc622bf0be71a27d6f14eda537fafe1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::SlaveAddr</definition>
+        <argsstring></argsstring>
+        <name>SlaveAddr</name>
+        <briefdescription>
+<para>Slave device address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="757" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="757" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1ae2e56fa04ab444208c1b0f17e15d3295" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::Rw</definition>
+        <argsstring></argsstring>
+        <name>Rw</name>
+        <briefdescription>
+<para>Read - 1 or Write - 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="758" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1a8860423e3adf1ec66752edfacb161892" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI3c_Cmd::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>No of bytes to send/recv. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="759" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___cmd_1a51feb10e311d5925b1519566b8be98c4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_Cmd::Tid</definition>
+        <argsstring></argsstring>
+        <name>Tid</name>
+        <briefdescription>
+<para>Transaction ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="760" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="760" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="753" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="753" bodyend="761"/>
+    <listofallmembers>
+      <member refid="struct_x_i3c___cmd_1a8860423e3adf1ec66752edfacb161892" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>ByteCount</name></member>
+      <member refid="struct_x_i3c___cmd_1a11f9972ebd58a8d42e70950613a9dad2" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>CmdType</name></member>
+      <member refid="struct_x_i3c___cmd_1ad1566e3ac5d9f752d304732fd4a014a0" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>NoRepeatedStart</name></member>
+      <member refid="struct_x_i3c___cmd_1aebf1c3b8973e565b1e8b224aa6aba2d9" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>Pec</name></member>
+      <member refid="struct_x_i3c___cmd_1ae2e56fa04ab444208c1b0f17e15d3295" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>Rw</name></member>
+      <member refid="struct_x_i3c___cmd_1a2bc622bf0be71a27d6f14eda537fafe1" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>SlaveAddr</name></member>
+      <member refid="struct_x_i3c___cmd_1a51feb10e311d5925b1519566b8be98c4" prot="public" virt="non-virtual"><scope>XI3c_Cmd</scope><name>Tid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

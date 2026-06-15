@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5765be7963de493b9361635fd7a51cc7" kind="dir">
+    <compoundname>lowlevel</compoundname>
+    <innerfile refid="xsysmonpsv__direct_8c">xsysmonpsv_direct.c</innerfile>
+    <innerfile refid="xsysmonpsv__driver_8h">xsysmonpsv_driver.h</innerfile>
+    <innerfile refid="xsysmonpsv__hw_8h">xsysmonpsv_hw.h</innerfile>
+    <innerfile refid="xsysmonpsv__lowlevel_8h">xsysmonpsv_lowlevel.h</innerfile>
+    <innerfile refid="xsysmonpsv__secure_8c">xsysmonpsv_secure.c</innerfile>
+    <innerfile refid="xsysmonpsv__secure_8h">xsysmonpsv_secure.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/"/>
+  </compounddef>
+</doxygen>

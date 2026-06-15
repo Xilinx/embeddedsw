@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi_vid___transport" kind="struct" prot="public">
+    <compoundname>XSdiVid_Transport</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a22ba2ff08eff21555964d8b1b129e74d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__sdi__common_1ga536ef9065018e4d00237ee5c38fdd09b" kindref="member">XSdiVid_TransMode</ref></type>
+        <definition>XSdiVid_TransMode XSdiVid_Transport::TMode</definition>
+        <argsstring></argsstring>
+        <name>TMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a8f5c7797c926dfbe3dbc567e45fd339d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::ActiveStreams</definition>
+        <argsstring></argsstring>
+        <name>ActiveStreams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a1664a9f46be4518065750228e101043d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::TScan</definition>
+        <argsstring></argsstring>
+        <name>TScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a84bed710d0ae115a25f7d2546aa471f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::TFamily</definition>
+        <argsstring></argsstring>
+        <name>TFamily</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1aa5357473ad0c85816231cef11d802473" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::TRate</definition>
+        <argsstring></argsstring>
+        <name>TRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a3ad7bd635e10f88562cd2ee8eb4b29fd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::IsFractional</definition>
+        <argsstring></argsstring>
+        <name>IsFractional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_vid___transport_1a8167f8a21e94d1dfab1b6a5bb57f396f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiVid_Transport::IsLevelB3G</definition>
+        <argsstring></argsstring>
+        <name>IsLevelB3G</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="121" bodyend="129"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi_vid___transport_1a8f5c7797c926dfbe3dbc567e45fd339d" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>ActiveStreams</name></member>
+      <member refid="struct_x_sdi_vid___transport_1a3ad7bd635e10f88562cd2ee8eb4b29fd" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>IsFractional</name></member>
+      <member refid="struct_x_sdi_vid___transport_1a8167f8a21e94d1dfab1b6a5bb57f396f" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>IsLevelB3G</name></member>
+      <member refid="struct_x_sdi_vid___transport_1a84bed710d0ae115a25f7d2546aa471f2" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>TFamily</name></member>
+      <member refid="struct_x_sdi_vid___transport_1a22ba2ff08eff21555964d8b1b129e74d" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>TMode</name></member>
+      <member refid="struct_x_sdi_vid___transport_1aa5357473ad0c85816231cef11d802473" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>TRate</name></member>
+      <member refid="struct_x_sdi_vid___transport_1a1664a9f46be4518065750228e101043d" prot="public" virt="non-virtual"><scope>XSdiVid_Transport</scope><name>TScan</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

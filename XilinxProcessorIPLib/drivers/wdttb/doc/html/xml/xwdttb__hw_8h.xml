@@ -1,0 +1,1332 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xwdttb__hw_8h" kind="file">
+    <compoundname>xwdttb_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <incdepgraph>
+      <node id="91">
+        <label>xil_io.h</label>
+      </node>
+      <node id="90">
+        <label>xwdttb_hw.h</label>
+        <link refid="xwdttb_hw.h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the WWDT core with Generic &amp; windowing</header>
+      <description><para>feature with basic mode.</para><para>Each register is 32 bits. </para></description>
+      <memberdef kind="define" id="group__wdttb__api_1ga5179e62af141b56b29af9e69cbbb8591" prot="public" static="no">
+        <name>XWT_MWR_OFFSET</name>
+        <initializer>0x0000U</initializer>
+        <briefdescription>
+<para>Master Write Control Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga9b3e984acc19cf7d0f45eaa09298e0a7" compoundref="xwdttb_8c" startline="622" endline="637">XWdtTb_AlwaysEnable</referencedby>
+        <referencedby refid="group__wdttb__api_1ga86133d7e1b0053409d5c743746a129fc" compoundref="xwdttb_8c" startline="1298" endline="1312">XWdtTb_ProgramWDTWidth</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" prot="public" static="no">
+        <name>XWT_ESR_OFFSET</name>
+        <initializer>0x0004U</initializer>
+        <briefdescription>
+<para>Enable &amp; Status Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="694" endline="709">XWdtTb_ClearResetPending</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga7bb4b18a3b560ebc5b08216880f84e71" prot="public" static="no">
+        <name>XWT_FCR_OFFSET</name>
+        <initializer>0x0008U</initializer>
+        <briefdescription>
+<para>Function Control Register Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1162" endline="1177">XWdtTb_DisableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1095" endline="1112">XWdtTb_DisableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="1023" endline="1038">XWdtTb_DisablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="952" endline="967">XWdtTb_DisableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1130" endline="1145">XWdtTb_EnableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="1061" endline="1078">XWdtTb_EnableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="991" endline="1006">XWdtTb_EnablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="920" endline="935">XWdtTb_EnableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8e3a836964ef56168668f3d26307dfc7" compoundref="xwdttb_8c" startline="815" endline="824">XWdtTb_GetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga2e1e6ee60443c503144572bd00fc8589" compoundref="xwdttb_8c" startline="889" endline="898">XWdtTb_GetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga82d67efeaf5c58cebc1966fd96e4fac0" prot="public" static="no">
+        <name>XWT_FWR_OFFSET</name>
+        <initializer>0x000CU</initializer>
+        <briefdescription>
+<para>First Window Configuration Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1ga924185ce28862e06ea62fa4f51bfed8d" compoundref="xwdttb_8c" startline="1205" endline="1219">XWdtTb_SetWindowCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gab663dabd33fca2fd450305fd3e325f63" prot="public" static="no">
+        <name>XWT_SWR_OFFSET</name>
+        <initializer>0x0010U</initializer>
+        <briefdescription>
+<para>Second Window Configuration Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1ga924185ce28862e06ea62fa4f51bfed8d" compoundref="xwdttb_8c" startline="1205" endline="1219">XWdtTb_SetWindowCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga2bb97a5e8848b30592b0d0136c0eba15" prot="public" static="no">
+        <name>XWT_TSR0_WWDT_OFFSET</name>
+        <initializer>0x0018U</initializer>
+        <briefdescription>
+<para>Task Signature Register 0 Offset for WWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga86f549a5c1a92ee963e1516d6e271f92" prot="public" static="no">
+        <name>XWT_TSR1_WWDT_OFFSET</name>
+        <initializer>0x001CU</initializer>
+        <briefdescription>
+<para>Task Signature Register 1 Offset for WWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga382bb24e468cb44f1e41e637b55bf2ac" prot="public" static="no">
+        <name>XWT_STR_WWDT_OFFSET</name>
+        <initializer>0x0020U</initializer>
+        <briefdescription>
+<para>Second Sequence Timer Register Offset for WWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5eda163c25dfcd74c15bf08ed8c1328e" prot="public" static="no">
+        <name>XWT_TSR0_OFFSET</name>
+        <initializer>0x0014U</initializer>
+        <briefdescription>
+<para>Task Signature Register 0 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga1e231a73df7e205e266fb1198e222814" prot="public" static="no">
+        <name>XWT_TSR1_OFFSET</name>
+        <initializer>0x0018U</initializer>
+        <briefdescription>
+<para>Task Signature Register 1 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga8bbfe46af730f1e35b02a1808ff03801" prot="public" static="no">
+        <name>XWT_STR_OFFSET</name>
+        <initializer>0x001CU</initializer>
+        <briefdescription>
+<para>Second Sequence Timer Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga6393b3535cd283bcf93e0662c90cbda5" prot="public" static="no">
+        <name>XWT_SSTWR_OFFSET</name>
+        <initializer>0x0014U</initializer>
+        <briefdescription>
+<para>Second Sequence Timer Window Configuration Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gad0b6d483e017403deb63431d2e9cce0d" prot="public" static="no">
+        <name>XWT_TFR_OFFSET</name>
+        <initializer>0x0024U</initializer>
+        <briefdescription>
+<para>Token Feedback Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga13d62168f37b4ae3d29356f2d62a9fbb" prot="public" static="no">
+        <name>XWT_TRR_OFFSET</name>
+        <initializer>0x0028U</initializer>
+        <briefdescription>
+<para>Token Response Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga6b1478459ca075fa6b7ac277b67222fa" prot="public" static="no">
+        <name>XWT_IENR_OFFSET</name>
+        <initializer>0x0030U</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga1a5bf63e33326c16536978317afa9355" prot="public" static="no">
+        <name>XWT_IDR_OFFSET</name>
+        <initializer>0x0034U</initializer>
+        <briefdescription>
+<para>Interrupt Disable Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gabbcd499f33509d8015d07876f99a8002" prot="public" static="no">
+        <name>XWT_IMR_OFFSET</name>
+        <initializer>0x0038U</initializer>
+        <briefdescription>
+<para>Interrupt Mask Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga9294cfeaa18cc46130f3a8ba6048d5fb" prot="public" static="no">
+        <name>XWT_GWRR_OFFSET</name>
+        <initializer>0x1000U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Refresh Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga234636ea29c7d5c0a095928fdf05906c" prot="public" static="no">
+        <name>XWT_GWCSR_OFFSET</name>
+        <initializer>0x2000U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Control and Status Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga24e80e9f7fb7d427513e7fe03833dc1e" compoundref="xwdttb_8c" startline="522" endline="538">XWdtTb_IsGenericWdtFWExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gabc436ceebd51b9dfb2573dcaf1332f83" prot="public" static="no">
+        <name>XWT_GWOR_OFFSET</name>
+        <initializer>0x2008U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Offset Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1ga160723502d4b5b8797e358f96cc902c1" compoundref="xwdttb_8c" startline="1237" endline="1243">XWdtTb_SetGenericWdtWindow</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga44de24152715d619d4c979366d0a7776" prot="public" static="no">
+        <name>XWT_GWCVR0_OFFSET</name>
+        <initializer>0x2010U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Compare Value Register 0 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gabe8bbe91f1647b2cdbfe4a04882521be" prot="public" static="no">
+        <name>XWT_GWCVR1_OFFSET</name>
+        <initializer>0x2014U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Compare Value Register 1 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5928416d6e2e90879f04691018ca7eb4" prot="public" static="no">
+        <name>XWT_GW_WR_OFFSET</name>
+        <initializer>0x2FD0U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Warm Reset Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the AXI Timebase WDT core. Each register is 32</header>
+      <description><para>bits. </para></description>
+      <memberdef kind="define" id="group__wdttb__api_1ga7acdd92b397bdfb0e14b649d4525bb2b" prot="public" static="no">
+        <name>XWT_TWCSR0_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Control/Status Register 0 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xwdttb__example_8c_1aba68c6bcda83b7e5394221562daacb40" compoundref="xwdttb__example_8c" startline="150" endline="242">WdtTbExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5342d8af54e416c23b56a3dd9904e62b" prot="public" static="no">
+        <name>XWT_TWCSR1_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Control/Status Register 1 Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gacd80f8a65e758f3862b655495b41561a" prot="public" static="no">
+        <name>XWT_TBR_OFFSET</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>Timebase Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control/Status Register 0 bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1gab723ef9be858b9aeb33600ca2d100bd0" prot="public" static="no">
+        <name>XWT_CSR0_WRS_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Reset status Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="xwdttb__example_8c_1aba68c6bcda83b7e5394221562daacb40" compoundref="xwdttb__example_8c" startline="150" endline="242">WdtTbExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga238a7c2e868d73205959bfa8cd8fcf67" prot="public" static="no">
+        <name>XWT_CSR0_WDS_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Timer state Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga66af9e27001823cc8bc9709fc196d839" prot="public" static="no">
+        <name>XWT_CSR0_EWDT1_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Enable bit 1 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control/Status Register 0/1 bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1ga8a4f0f57f0cf74799a9d17932ebbfca2" prot="public" static="no">
+        <name>XWT_CSRX_EWDT2_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Enable bit 2 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Master Write Control bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1gaef1c886b782e9f86b9260ca8ecc7fc8b" prot="public" static="no">
+        <name>XWT_MWR_AEN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Always Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga9b3e984acc19cf7d0f45eaa09298e0a7" compoundref="xwdttb_8c" startline="622" endline="637">XWdtTb_AlwaysEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga9d5d0ec047ce9d9630edc0fe383f3567" prot="public" static="no">
+        <name>XWT_MWR_MWC_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Master Write Control Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Enable &amp; Status Register bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1ga643e3b4375dcd8da05f2af9804cdd7b5" prot="public" static="no">
+        <name>XWT_ESR_LBE_MASK</name>
+        <initializer>0x07000000U</initializer>
+        <briefdescription>
+<para>Last Bad Event Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gaf03a853604f976498bf8fd88d55340e2" prot="public" static="no">
+        <name>XWT_ESR_FCV_MASK</name>
+        <initializer>0x00700000U</initializer>
+        <briefdescription>
+<para>Fail Counter Value Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gaacd2bd7fa6acec9fc6e03dcfb354f850" prot="public" static="no">
+        <name>XWT_ESR_WRP_MASK</name>
+        <initializer>0x00020000U</initializer>
+        <briefdescription>
+<para>Watchdog Reset Pending Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="694" endline="709">XWdtTb_ClearResetPending</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga632b6322025f3f025cb005c453a9b433" prot="public" static="no">
+        <name>XWT_ESR_WINT_MASK</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>Watchdog Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gabc1ff24d5fce467803fe453d61879ece" prot="public" static="no">
+        <name>XWT_ESR_ACNT_MASK</name>
+        <initializer>0x0000C000U</initializer>
+        <briefdescription>
+<para>Answer Count Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga0e82a9017983f42115d42348e70ed949" prot="public" static="no">
+        <name>XWT_ESR_WSW_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Watchdog Second Window Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gae7c8f780e166722f08e1d589f44d4146" prot="public" static="no">
+        <name>XWT_TOKEN_VAL_MASK</name>
+        <initializer>0x0000003CU</initializer>
+        <briefdescription>
+<para>Token Value Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga4a3959d4536031b508c37288a0f880e0" prot="public" static="no">
+        <name>XWT_ESR_WCFG_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Wrong Configuration Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" prot="public" static="no">
+        <name>XWT_ESR_WEN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Window WDT Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga9966f0ebfaa911913e1957796156a0ab" prot="public" static="no">
+        <name>XWT_ESR_LBE_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Last Bad Event Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga591f46079ca90e4cfb7a6788e60d6982" prot="public" static="no">
+        <name>XWT_ESR_FCV_SHIFT</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+<para>Fail Counter Value Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gab21f91afca15eb4ce4b710ee2a28fd6f" prot="public" static="no">
+        <name>XWT_ESR_WRP_SHIFT</name>
+        <initializer>17U</initializer>
+        <briefdescription>
+<para>Watchdog Reset Pending Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga9babf40c6d8e8b9062bdf898c543ddf5" prot="public" static="no">
+        <name>XWT_ESR_WINT_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Watchdog Interrupt Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga39035c569815a5c8f7556d9396a92065" prot="public" static="no">
+        <name>XWT_ESR_ACNT_SHIFT</name>
+        <initializer>14U</initializer>
+        <briefdescription>
+<para>Watchdog Answer Cnt Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga3f717392265a0e113860a0ef6d47d72c" prot="public" static="no">
+        <name>XWT_ESR_WSW_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Watchdog Second Window Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gac09339b774b82716a428b79fedf153fa" prot="public" static="no">
+        <name>XWT_ESR_TOKENVAL_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Token Value Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga1842586eda21a6a9a9ec1f1fd501ce48" prot="public" static="no">
+        <name>XWT_ESR_WCFG_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Wrong Configuration Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Function Control Register bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1ga117ee4c2493a90474a3ca49507d3d7a8" prot="public" static="no">
+        <name>XWT_FCR_SBC_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Selected Byte Count Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga8e3a836964ef56168668f3d26307dfc7" compoundref="xwdttb_8c" startline="815" endline="824">XWdtTb_GetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5e4ffcc734e76cae5325f089dd008aca" prot="public" static="no">
+        <name>XWT_FCR_BSS_MASK</name>
+        <initializer>0x000000C0U</initializer>
+        <briefdescription>
+<para>Byte Segment Selection Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga2e1e6ee60443c503144572bd00fc8589" compoundref="xwdttb_8c" startline="889" endline="898">XWdtTb_GetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga8b5d1cdcea538125ec8147a393f4698a" prot="public" static="no">
+        <name>XWT_FCR_SSTE_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Second Sequence Timer Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="952" endline="967">XWdtTb_DisableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="920" endline="935">XWdtTb_EnableSst</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga692cb7a25cf383b1440a7294dee8e01f" prot="public" static="no">
+        <name>XWT_FCR_PSME_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Program Sequence Monitor Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="1023" endline="1038">XWdtTb_DisablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="991" endline="1006">XWdtTb_EnablePsm</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga4ac9d924cdd9b2e60598cc352fa5c4f2" prot="public" static="no">
+        <name>XWT_FCR_FCE_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Fail Counter Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1095" endline="1112">XWdtTb_DisableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="1061" endline="1078">XWdtTb_EnableFailCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga22090b12465623ea42b83cd715cfeea5" prot="public" static="no">
+        <name>XWT_FCR_WM_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Window WDT Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga2603ea5819ae2a751e27bcf9c0656320" prot="public" static="no">
+        <name>XWT_FCR_WDP_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Window WDT Disable Protection Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1162" endline="1177">XWdtTb_DisableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1130" endline="1145">XWdtTb_EnableExtraProtection</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gab3779c880caf61127155195ea6a5b181" prot="public" static="no">
+        <name>XWT_FCR_SBC_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Selected Byte Count Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga8e3a836964ef56168668f3d26307dfc7" compoundref="xwdttb_8c" startline="815" endline="824">XWdtTb_GetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga33eee5e5fe8e1e8f1f9e1ff6a680f308" prot="public" static="no">
+        <name>XWT_FCR_BSS_SHIFT</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Byte Segment Selection Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga2e1e6ee60443c503144572bd00fc8589" compoundref="xwdttb_8c" startline="889" endline="898">XWdtTb_GetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga28564e4563b39127f547e095f9cd40c8" prot="public" static="no">
+        <name>XWT_FCR_SSTE_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Second Sequence Timer Enable Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gac9d1b7fbe234fd6e358d922f596386c5" prot="public" static="no">
+        <name>XWT_FCR_WM_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Window WDT Mode Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Token feedback register bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1ga3df5c3afa6c542ab46d5a72947a60e2b" prot="public" static="no">
+        <name>XWT_TFR_FDBK_MASK</name>
+        <initializer>0x00000F00U</initializer>
+        <briefdescription>
+<para>feedback bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga05df06e63ccbf7ff0a851e345b7672c3" prot="public" static="no">
+        <name>XWT_TFR_SEED_MASK</name>
+        <initializer>0x0000000FU</initializer>
+        <briefdescription>
+<para>seed bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga4aecd879ffb8efc1c2b889a061870699" prot="public" static="no">
+        <name>XWT_TFR_FDBK_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>feedback bit shift </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Token response register bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1gad12b3f1e63f2b47de3c984fcffd9f81c" prot="public" static="no">
+        <name>XWT_TRR_ANS_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>ANS bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Generic Watchdog Control and Status Register  bits</header>
+      <memberdef kind="define" id="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" prot="public" static="no">
+        <name>XWT_GWCSR_GWEN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Watchdog enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga5fb2919a8a420cdd29f8ee18767a67ee" prot="public" static="no">
+        <name>XWT_GWCSR_GWS1_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Generic_wdt_interrupt bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga24e80e9f7fb7d427513e7fe03833dc1e" compoundref="xwdttb_8c" startline="522" endline="538">XWdtTb_IsGenericWdtFWExpired</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga35aee12ed837e66b135d65407b3ff23e" prot="public" static="no">
+        <name>XWT_GWCSR_GWS2_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Generic_wdt_reset bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="xwdttb__hw_8h_1adf392cff302c8ea88ba33c545e757d4b" prot="public" static="no">
+        <name>XWdtTb_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a64a7b4a2766f990ebafeed1978593308" prot="public" static="no">
+        <name>XWdtTb_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__wdttb__api_1gab5ddc5730a86f3cbab203b333b01595e" prot="public" static="no">
+        <name>XWDTTB_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga633f04f09e1b0d8d960aba46ce522b07" prot="public" static="no">
+        <name>XWT_GW_WR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Enable Generic Watchdog Warm Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gae0376d1045bc05ff11e88769414398d4" prot="public" static="no">
+        <name>XWT_GWRR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Generic watchdog Refresh Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a1045f4bb88112232e39975b1344a55ff" prot="public" static="no">
+        <name>XWT_START_VALUE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Width of Win WDT values between 8-31. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga86133d7e1b0053409d5c743746a129fc" compoundref="xwdttb_8c" startline="1298" endline="1312">XWdtTb_ProgramWDTWidth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a4ac0486680dc34b383a5ad7012d893a3" prot="public" static="no">
+        <name>XWT_END_VALUE</name>
+        <initializer>31U</initializer>
+        <briefdescription>
+<para>Width of Win WDT values between 8-31. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga86133d7e1b0053409d5c743746a129fc" compoundref="xwdttb_8c" startline="1298" endline="1312">XWdtTb_ProgramWDTWidth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1aa828d0d77eb5c2cb562cb0316e50c70c" prot="public" static="no">
+        <name>XWT_ZERO</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Flag for 0 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a6fc90576f0dea11b4fad40d6624f3b8b" prot="public" static="no">
+        <name>XWT_ONE</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Flag for 1 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a628225259674e506919317cc28a9db79" prot="public" static="no">
+        <name>XWT_MAX_BYTE_SEGMENT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Max Byte segment value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1ab4a86d14c65c5a4aef740c3d70a34331" prot="public" static="no">
+        <name>XWT_GWDT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Flag for GWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a812114b38de6dd94691113164c16bf26" prot="public" static="no">
+        <name>XWT_WWDT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Flag for WWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="xwdttb__selftest__example_8c_1abf14d811dc1e193cc7053819cf1ad827" compoundref="xwdttb__selftest__example_8c" startline="146" endline="194">WdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a18937c99fdc7fba503e6d4195899d2cb" prot="public" static="no">
+        <name>XWT_ENABLE_QA_MODE</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>Flag for WWDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1ae66e3f35ddde61da7b413d343470b97f" prot="public" static="no">
+        <name>XWT_MAX_TIMEOUT</name>
+        <initializer>30000U</initializer>
+        <briefdescription>
+<para>GWDT max timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1ae790420ef49bf994030317fab83977b9" prot="public" static="no">
+        <name>XWT_KILO_HZ</name>
+        <initializer>1000U</initializer>
+        <briefdescription>
+<para>Flag for Kilo Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" prot="public" static="no">
+        <name>XWdtTb_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="xwdttb__hw_8h_1adf392cff302c8ea88ba33c545e757d4b" kindref="member">XWdtTb_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>Reads from the specified WdtTb core register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the first register of the core to select the specific register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="xwdttb__example_8c_1aba68c6bcda83b7e5394221562daacb40" compoundref="xwdttb__example_8c" startline="150" endline="242">WdtTbExample</referencedby>
+        <referencedby refid="group__wdttb__api_1ga9b3e984acc19cf7d0f45eaa09298e0a7" compoundref="xwdttb_8c" startline="622" endline="637">XWdtTb_AlwaysEnable</referencedby>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="694" endline="709">XWdtTb_ClearResetPending</referencedby>
+        <referencedby refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1162" endline="1177">XWdtTb_DisableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1095" endline="1112">XWdtTb_DisableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="1023" endline="1038">XWdtTb_DisablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="952" endline="967">XWdtTb_DisableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1130" endline="1145">XWdtTb_EnableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="1061" endline="1078">XWdtTb_EnableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="991" endline="1006">XWdtTb_EnablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="920" endline="935">XWdtTb_EnableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8e3a836964ef56168668f3d26307dfc7" compoundref="xwdttb_8c" startline="815" endline="824">XWdtTb_GetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga2e1e6ee60443c503144572bd00fc8589" compoundref="xwdttb_8c" startline="889" endline="898">XWdtTb_GetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1ga24e80e9f7fb7d427513e7fe03833dc1e" compoundref="xwdttb_8c" startline="522" endline="538">XWdtTb_IsGenericWdtFWExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" prot="public" static="no">
+        <name>XWdtTb_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer><ref refid="xwdttb__hw_8h_1a64a7b4a2766f990ebafeed1978593308" kindref="member">XWdtTb_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(RegisterValue))</initializer>
+        <briefdescription>
+<para>Writes to the specified WdtTb core register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the 1st register of the core to select the specific register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XWdtTb_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1ga9b3e984acc19cf7d0f45eaa09298e0a7" compoundref="xwdttb_8c" startline="622" endline="637">XWdtTb_AlwaysEnable</referencedby>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="694" endline="709">XWdtTb_ClearResetPending</referencedby>
+        <referencedby refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1162" endline="1177">XWdtTb_DisableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1095" endline="1112">XWdtTb_DisableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="1023" endline="1038">XWdtTb_DisablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="952" endline="967">XWdtTb_DisableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1130" endline="1145">XWdtTb_EnableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="1061" endline="1078">XWdtTb_EnableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="991" endline="1006">XWdtTb_EnablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="920" endline="935">XWdtTb_EnableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="xwdttb__low__level__example_8c_1afd8217ef0bf003a5bee3c5cc91a1f115" compoundref="xwdttb__low__level__example_8c" startline="139" endline="200">XWdtTb_LowLevelExample</referencedby>
+        <referencedby refid="group__wdttb__api_1ga86133d7e1b0053409d5c743746a129fc" compoundref="xwdttb_8c" startline="1298" endline="1312">XWdtTb_ProgramWDTWidth</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1ga160723502d4b5b8797e358f96cc902c1" compoundref="xwdttb_8c" startline="1237" endline="1243">XWdtTb_SetGenericWdtWindow</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+        <referencedby refid="group__wdttb__api_1ga924185ce28862e06ea62fa4f51bfed8d" compoundref="xwdttb_8c" startline="1205" endline="1219">XWdtTb_SetWindowCount</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#ifndef<sp/>XWDTTB_HW_H_</highlight></codeline>
+<codeline lineno="69" refid="group__wdttb__api_1gab5ddc5730a86f3cbab203b333b01595e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XWDTTB_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XWT_MWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XWT_ESR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0004U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XWT_FWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000CU<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XWT_SWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__wdttb__api_1ga82d67efeaf5c58cebc1966fd96e4fac0" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_TSR0_WWDT_OFFSET<sp/><sp/><sp/><sp/>0x0018U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XWT_TSR1_WWDT_OFFSET<sp/><sp/><sp/><sp/>0x001CU<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XWT_STR_WWDT_OFFSET<sp/><sp/><sp/><sp/><sp/>0x0020U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group__wdttb__api_1ga2bb97a5e8848b30592b0d0136c0eba15" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_TSR0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0014U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XWT_TSR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0018U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XWT_STR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x001CU<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="group__wdttb__api_1ga382bb24e468cb44f1e41e637b55bf2ac" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_SSTWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0014U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__wdttb__api_1ga5eda163c25dfcd74c15bf08ed8c1328e" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_TFR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0024U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XWT_TRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0028U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XWT_IENR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0030U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="group__wdttb__api_1ga8bbfe46af730f1e35b02a1808ff03801" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_IDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0034U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XWT_IMR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0038U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XWT_GWRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XWT_GWCSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="group__wdttb__api_1gad0b6d483e017403deb63431d2e9cce0d" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GWOR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2008U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XWT_GWCVR0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2010U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XWT_GWCVR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2014U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="group__wdttb__api_1ga6b1478459ca075fa6b7ac277b67222fa" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GW_WR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2FD0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="group__wdttb__api_1ga9294cfeaa18cc46130f3a8ba6048d5fb" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_TWCSR0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XWT_TWCSR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XWT_TBR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XWT_CSR0_WRS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XWT_CSR0_WDS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="group__wdttb__api_1gabe8bbe91f1647b2cdbfe4a04882521be" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_CSR0_EWDT1_MASK<sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XWT_CSRX_EWDT2_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XWT_MWR_AEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__wdttb__api_1ga7acdd92b397bdfb0e14b649d4525bb2b" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_MWR_MWC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XWT_ESR_LBE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XWT_ESR_FCV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00700000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XWT_ESR_WRP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XWT_ESR_WINT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XWT_ESR_ACNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000C000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__wdttb__api_1gab723ef9be858b9aeb33600ca2d100bd0" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_ESR_WSW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__wdttb__api_1ga238a7c2e868d73205959bfa8cd8fcf67" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_TOKEN_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000003CU<sp/></highlight></codeline>
+<codeline lineno="179" refid="group__wdttb__api_1ga66af9e27001823cc8bc9709fc196d839" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_ESR_WCFG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XWT_ESR_WEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XWT_ESR_LBE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XWT_ESR_FCV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>20U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#define<sp/>XWT_ESR_WRP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>17U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XWT_ESR_WINT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="group__wdttb__api_1ga8a4f0f57f0cf74799a9d17932ebbfca2" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_ESR_ACNT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>14U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XWT_ESR_WSW_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor">#define<sp/>XWT_ESR_TOKENVAL_SHIFT<sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XWT_ESR_WCFG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XWT_FCR_SBC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XWT_FCR_BSS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000C0U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XWT_FCR_SSTE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="group__wdttb__api_1gaf03a853604f976498bf8fd88d55340e2" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_PSME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="group__wdttb__api_1ga632b6322025f3f025cb005c453a9b433" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_FCE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="group__wdttb__api_1ga0e82a9017983f42115d42348e70ed949" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_WM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205" refid="group__wdttb__api_1gae7c8f780e166722f08e1d589f44d4146" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_WDP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207" refid="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_SBC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="group__wdttb__api_1ga591f46079ca90e4cfb7a6788e60d6982" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_BSS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="group__wdttb__api_1ga9babf40c6d8e8b9062bdf898c543ddf5" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_SSTE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213" refid="group__wdttb__api_1ga3f717392265a0e113860a0ef6d47d72c" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FCR_WM_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XWT_TFR_FDBK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#define<sp/>XWT_TFR_SEED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000FU<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XWT_TFR_FDBK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor">#define<sp/>XWT_TRR_ANS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XWT_GWCSR_GWEN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="group__wdttb__api_1ga22090b12465623ea42b83cd715cfeea5" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GWCSR_GWS1_MASK<sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="group__wdttb__api_1ga2603ea5819ae2a751e27bcf9c0656320" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GWCSR_GWS2_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="group__wdttb__api_1gab3779c880caf61127155195ea6a5b181" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@name<sp/>Generic<sp/>Watchdog<sp/>Warm<sp/>Reset<sp/>Register<sp/>bits</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/>*<sp/>@{</highlight></codeline>
+<codeline lineno="242"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="243" refid="group__wdttb__api_1ga33eee5e5fe8e1e8f1f9e1ff6a680f308" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XWT_GW_WR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor">#define<sp/>XWT_GWRR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="246" refid="group__wdttb__api_1ga28564e4563b39127f547e095f9cd40c8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@name<sp/>Useful<sp/>macros</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/>*<sp/>@{</highlight></codeline>
+<codeline lineno="249" refid="group__wdttb__api_1gac9d1b7fbe234fd6e358d922f596386c5" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XWT_START_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#define<sp/>XWT_END_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XWT_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XWT_ONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XWT_MAX_BYTE_SEGMENT<sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="group__wdttb__api_1ga3df5c3afa6c542ab46d5a72947a60e2b" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GWDT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="group__wdttb__api_1ga05df06e63ccbf7ff0a851e345b7672c3" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_WWDT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XWT_ENABLE_QA_MODE<sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="group__wdttb__api_1ga4aecd879ffb8efc1c2b889a061870699" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_MAX_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>30000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XWT_KILO_HZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264" refid="group__wdttb__api_1gad12b3f1e63f2b47de3c984fcffd9f81c" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XWdtTb_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XWdtTb_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="group__wdttb__api_1ga35aee12ed837e66b135d65407b3ff23e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="288" refid="xwdttb__hw_8h_1aa828d0d77eb5c2cb562cb0316e50c70c" refkind="member"><highlight class="preprocessor">#define<sp/>XWdtTb_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="289" refid="xwdttb__hw_8h_1a6fc90576f0dea11b4fad40d6624f3b8b" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XWdtTb_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="290" refid="xwdttb__hw_8h_1a628225259674e506919317cc28a9db79" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291" refid="xwdttb__hw_8h_1ab4a86d14c65c5a4aef740c3d70a34331" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XWdtTb_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XWdtTb_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(RegisterValue))</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_hw.h"/>
+  </compounddef>
+</doxygen>

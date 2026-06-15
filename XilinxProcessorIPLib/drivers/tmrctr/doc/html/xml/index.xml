@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_mapping" kind="struct"><name>Mapping</name>
+    <member refid="struct_mapping_1adbc29e6cf6bdbcd040b5bda93baada58" kind="variable"><name>Option</name></member>
+    <member refid="struct_mapping_1a2055621bc89bd6fb266bede3bb78ab1d" kind="variable"><name>Mask</name></member>
+  </compound>
+  <compound refid="struct_x_tmr_ctr" kind="struct"><name>XTmrCtr</name>
+    <member refid="struct_x_tmr_ctr_1a1fc51ca5db0c37e2b9b8db794f8a7496" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" kind="variable"><name>Stats</name></member>
+    <member refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_tmr_ctr_1aa273d27a5f60d8b003eb83247aca3341" kind="variable"><name>IsStartedTmrCtr0</name></member>
+    <member refid="struct_x_tmr_ctr_1adcc945170ebc1ae68a01ba548ad60b0d" kind="variable"><name>IsStartedTmrCtr1</name></member>
+    <member refid="struct_x_tmr_ctr_1aa5c711ba517f5360a868695f8324df73" kind="variable"><name>IsPwmEnabled</name></member>
+    <member refid="struct_x_tmr_ctr_1a5cc0b10723d9bad1b654dab33ae56c23" kind="variable"><name>Handler</name></member>
+    <member refid="struct_x_tmr_ctr_1a19b7b38862e322c61d95f0f71f325f13" kind="variable"><name>CallBackRef</name></member>
+  </compound>
+  <compound refid="struct_x_tmr_ctr___config" kind="struct"><name>XTmrCtr_Config</name>
+    <member refid="struct_x_tmr_ctr___config_1a561d64cc972fdc500b0ff1053bee9c11" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_tmr_ctr___config_1a399beafc33fb2989566b777768b560c0" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_tmr_ctr___config_1a8841b74af7282d4328dafd915b277b10" kind="variable"><name>SysClockFreqHz</name></member>
+    <member refid="struct_x_tmr_ctr___config_1a3051cf445f5f72d5ef22264929cbda0a" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_tmr_ctr___config_1a36fd1162d523e37482e7272e3fa62476" kind="variable"><name>IntrParent</name></member>
+  </compound>
+  <compound refid="struct_x_tmr_ctr_stats" kind="struct"><name>XTmrCtrStats</name>
+    <member refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" kind="variable"><name>Interrupts</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xtmrctr_8c" kind="file"><name>xtmrctr.c</name>
+    <member refid="group___overview_1ga2b3165552dbdee57a3d60a2e25d1ae9c" kind="function"><name>XTmrCtr_StubCallback</name></member>
+    <member refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" kind="function"><name>XTmrCtr_CfgInitialize</name></member>
+    <member refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" kind="function"><name>XTmrCtr_InitHw</name></member>
+    <member refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kind="function"><name>XTmrCtr_Initialize</name></member>
+    <member refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" kind="function"><name>XTmrCtr_Start</name></member>
+    <member refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" kind="function"><name>XTmrCtr_Stop</name></member>
+    <member refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" kind="function"><name>XTmrCtr_GetValue</name></member>
+    <member refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" kind="function"><name>XTmrCtr_SetResetValue</name></member>
+    <member refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" kind="function"><name>XTmrCtr_GetCaptureValue</name></member>
+    <member refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" kind="function"><name>XTmrCtr_Reset</name></member>
+    <member refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" kind="function"><name>XTmrCtr_IsExpired</name></member>
+    <member refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" kind="function"><name>XTmrCtr_PwmConfigure</name></member>
+    <member refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" kind="function"><name>XTmrCtr_PwmEnable</name></member>
+    <member refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" kind="function"><name>XTmrCtr_PwmDisable</name></member>
+  </compound>
+  <compound refid="xtmrctr_8h" kind="file"><name>xtmrctr.h</name>
+    <member refid="group___overview_1ga4fb085742ee50628791c81ff9a14bc2c" kind="define"><name>XTC_CASCADE_MODE_OPTION</name></member>
+    <member refid="group___overview_1gac50df31e95b1a82441de09ff360eca48" kind="define"><name>XTC_ENABLE_ALL_OPTION</name></member>
+    <member refid="group___overview_1ga9cc7b106e2e846ec41fd983da0772dc8" kind="define"><name>XTC_DOWN_COUNT_OPTION</name></member>
+    <member refid="group___overview_1gaf93c62016d132546b5ee99789b4e48c1" kind="define"><name>XTC_CAPTURE_MODE_OPTION</name></member>
+    <member refid="group___overview_1gaad72f141ec429ad4b782868c33b32c1b" kind="define"><name>XTC_INT_MODE_OPTION</name></member>
+    <member refid="group___overview_1gace3deb2a423d72960864a46eacd11fdc" kind="define"><name>XTC_AUTO_RELOAD_OPTION</name></member>
+    <member refid="group___overview_1ga3d33636409ed76e99828909edcff0d4a" kind="define"><name>XTC_EXT_COMPARE_OPTION</name></member>
+    <member refid="group___overview_1gafc4684a3912a1169c7516b7dad56a20a" kind="define"><name>XTMRCTR_H</name></member>
+    <member refid="group___overview_1ga2a3efe61990e0eb158b9238143e915b0" kind="define"><name>XTC_ROUND_DIV</name></member>
+    <member refid="group___overview_1ga5552f8d5f7ed58263e6811f98647f8be" kind="define"><name>XTC_HZ_TO_NS</name></member>
+    <member refid="group___overview_1ga2d96523ba7b80814a9f6c769619564cf" kind="typedef"><name>XTmrCtr_Handler</name></member>
+    <member refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" kind="function"><name>XTmrCtr_CfgInitialize</name></member>
+    <member refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" kind="function"><name>XTmrCtr_InitHw</name></member>
+    <member refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kind="function"><name>XTmrCtr_Initialize</name></member>
+    <member refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" kind="function"><name>XTmrCtr_Start</name></member>
+    <member refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" kind="function"><name>XTmrCtr_Stop</name></member>
+    <member refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" kind="function"><name>XTmrCtr_GetValue</name></member>
+    <member refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" kind="function"><name>XTmrCtr_SetResetValue</name></member>
+    <member refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" kind="function"><name>XTmrCtr_GetCaptureValue</name></member>
+    <member refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" kind="function"><name>XTmrCtr_IsExpired</name></member>
+    <member refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" kind="function"><name>XTmrCtr_Reset</name></member>
+    <member refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" kind="function"><name>XTmrCtr_PwmConfigure</name></member>
+    <member refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" kind="function"><name>XTmrCtr_PwmEnable</name></member>
+    <member refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" kind="function"><name>XTmrCtr_PwmDisable</name></member>
+    <member refid="group___overview_1ga372cc1b26240b627c5a830a9d44ab9e1" kind="function"><name>XTmrCtr_LookupConfig</name></member>
+    <member refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" kind="function"><name>XTmrCtr_SetOptions</name></member>
+    <member refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" kind="function"><name>XTmrCtr_GetOptions</name></member>
+    <member refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" kind="function"><name>XTmrCtr_GetStats</name></member>
+    <member refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" kind="function"><name>XTmrCtr_ClearStats</name></member>
+    <member refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kind="function"><name>XTmrCtr_SelfTest</name></member>
+    <member refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" kind="function"><name>XTmrCtr_SetHandler</name></member>
+    <member refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" kind="function"><name>XTmrCtr_InterruptHandler</name></member>
+  </compound>
+  <compound refid="xtmrctr__fast__intr__example_8c" kind="file"><name>xtmrctr_fast_intr_example.c</name>
+    <member refid="xtmrctr__fast__intr__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1a672a07fc499299f84138b3fded973e10" kind="define"><name>TIMER_CNTR_0</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1a775fd58f4ab22111c1c8eab10b00fe7b" kind="define"><name>RESET_VALUE</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1af8a158e87cd80ec49fdfad0ec2c8b302" kind="variable"><name>TimerCounterInst</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1a11216f6bbbf7254b35ddcb1216f6f50a" kind="variable"><name>TimerExpired</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1a54a8e8c734acc65446415bf6aab2d995" kind="function"><name>TmrCtrFastIntrExample</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1ae16e7df66abc701fede751df926d9deb" kind="function"><name>TmrCtrDisableIntr</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1ab45c24e88bf0179bedd33b15c5e7b2f7" kind="function"><name>TmrCtr_FastHandler</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1abbe44987ea37b6cd0166ecc6780cff4e" kind="function"><name>TimerCounterHandler</name></member>
+    <member refid="xtmrctr__fast__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__g_8c" kind="file"><name>xtmrctr_g.c</name>
+    <member refid="group___overview_1gab696b83980f59544e04b19249734883d" kind="variable"><name>XTmrCtr_ConfigTable</name></member>
+  </compound>
+  <compound refid="xtmrctr__i_8h" kind="file"><name>xtmrctr_i.h</name>
+    <member refid="group___overview_1gaffe6718acb596f90c980fcaeb149d440" kind="define"><name>XTMRCTR_I_H</name></member>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+  </compound>
+  <compound refid="xtmrctr__intr_8c" kind="file"><name>xtmrctr_intr.c</name>
+    <member refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" kind="function"><name>XTmrCtr_SetHandler</name></member>
+    <member refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" kind="function"><name>XTmrCtr_InterruptHandler</name></member>
+  </compound>
+  <compound refid="xtmrctr__intr__64bit__example_8c" kind="file"><name>xtmrctr_intr_64bit_example.c</name>
+    <member refid="xtmrctr__intr__64bit__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1a672a07fc499299f84138b3fded973e10" kind="define"><name>TIMER_CNTR_0</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1aef5d9d23d3fed2bbb3f8a88419bf64da" kind="define"><name>TIMER_CNTR_1</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1a6100895b3b7620b0f71bff7784af31a1" kind="define"><name>RESET_VALUE_CNTR_0</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1ad0f21b7af7ca59ca32c7d42ee8ddde88" kind="define"><name>RESET_VALUE_CNTR_1</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1af8a158e87cd80ec49fdfad0ec2c8b302" kind="variable"><name>TimerCounterInst</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1a11216f6bbbf7254b35ddcb1216f6f50a" kind="variable"><name>TimerExpired</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1a2a0a4c94c41976b913d5f021f257bd51" kind="function"><name>TmrCtrCascadeIntrExample</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1aa4341a3fc1402d302c6c5c9251b89a0f" kind="function"><name>TmrCtrDisableIntr</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1abbe44987ea37b6cd0166ecc6780cff4e" kind="function"><name>TimerCounterHandler</name></member>
+    <member refid="xtmrctr__intr__64bit__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__intr__example_8c" kind="file"><name>xtmrctr_intr_example.c</name>
+    <member refid="xtmrctr__intr__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__intr__example_8c_1a672a07fc499299f84138b3fded973e10" kind="define"><name>TIMER_CNTR_0</name></member>
+    <member refid="xtmrctr__intr__example_8c_1a775fd58f4ab22111c1c8eab10b00fe7b" kind="define"><name>RESET_VALUE</name></member>
+    <member refid="xtmrctr__intr__example_8c_1af8a158e87cd80ec49fdfad0ec2c8b302" kind="variable"><name>TimerCounterInst</name></member>
+    <member refid="xtmrctr__intr__example_8c_1a11216f6bbbf7254b35ddcb1216f6f50a" kind="variable"><name>TimerExpired</name></member>
+    <member refid="xtmrctr__intr__example_8c_1a51bb17a10cb7750f7b8e62c81c239cd6" kind="function"><name>TmrCtrIntrExample</name></member>
+    <member refid="xtmrctr__intr__example_8c_1aa4341a3fc1402d302c6c5c9251b89a0f" kind="function"><name>TmrCtrDisableIntr</name></member>
+    <member refid="xtmrctr__intr__example_8c_1abbe44987ea37b6cd0166ecc6780cff4e" kind="function"><name>TimerCounterHandler</name></member>
+    <member refid="xtmrctr__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__l_8c" kind="file"><name>xtmrctr_l.c</name>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+  </compound>
+  <compound refid="xtmrctr__l_8h" kind="file"><name>xtmrctr_l.h</name>
+    <member refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kind="define"><name>XTC_TCSR_OFFSET</name></member>
+    <member refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" kind="define"><name>XTC_TLR_OFFSET</name></member>
+    <member refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" kind="define"><name>XTC_TCR_OFFSET</name></member>
+    <member refid="group___overview_1gaaf3300005339d29c2ee9a79e6bb81959" kind="define"><name>XTC_CSR_CASC_MASK</name></member>
+    <member refid="group___overview_1gabfaa1357c7843a1a72c740b017061a38" kind="define"><name>XTC_CSR_ENABLE_ALL_MASK</name></member>
+    <member refid="group___overview_1gaa6304f96140472ea199517984b5a18d5" kind="define"><name>XTC_CSR_ENABLE_PWM_MASK</name></member>
+    <member refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kind="define"><name>XTC_CSR_INT_OCCURED_MASK</name></member>
+    <member refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" kind="define"><name>XTC_CSR_ENABLE_TMR_MASK</name></member>
+    <member refid="group___overview_1ga0e56ed788d0a3f4b6d89319e03797002" kind="define"><name>XTC_CSR_ENABLE_INT_MASK</name></member>
+    <member refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" kind="define"><name>XTC_CSR_LOAD_MASK</name></member>
+    <member refid="group___overview_1gab06d844c7a245c7be88a63f3559bbd46" kind="define"><name>XTC_CSR_AUTO_RELOAD_MASK</name></member>
+    <member refid="group___overview_1gadcf0bfbbe0244d0fc208c783858a9c5c" kind="define"><name>XTC_CSR_EXT_CAPTURE_MASK</name></member>
+    <member refid="group___overview_1ga2345d81184385344ae236b8aa99f2423" kind="define"><name>XTC_CSR_EXT_GENERATE_MASK</name></member>
+    <member refid="group___overview_1ga6b40b30b1d1d5b07f4101a5b657dddba" kind="define"><name>XTC_CSR_DOWN_COUNT_MASK</name></member>
+    <member refid="group___overview_1gaa0563f5483d9fef6126df6b2e447da08" kind="define"><name>XTC_CSR_CAPTURE_MODE_MASK</name></member>
+    <member refid="group___overview_1gad575eebe2cbe61e414d82832385d63a1" kind="define"><name>XTMRCTR_L_H</name></member>
+    <member refid="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" kind="define"><name>XTC_DEVICE_TIMER_COUNT</name></member>
+    <member refid="group___overview_1ga22c78277a54b31ec738e72eca0662e35" kind="define"><name>XTC_TIMER_COUNTER_OFFSET</name></member>
+    <member refid="group___overview_1gacbe3e1a524e50edb1098c1a824f0dc79" kind="define"><name>XTC_TIMER_0</name></member>
+    <member refid="group___overview_1ga5693165001c579683430dfc150215290" kind="define"><name>XTC_TIMER_1</name></member>
+    <member refid="group___overview_1gaf1b5b45fe13bd14e5045077eff1d522e" kind="define"><name>XTC_MAX_LOAD_VALUE</name></member>
+    <member refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kind="define"><name>XTmrCtr_ReadReg</name></member>
+    <member refid="group___overview_1ga09ca31bffdcb5d86ce0059163b24bdaf" kind="define"><name>XTimerCtr_ReadReg</name></member>
+    <member refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kind="define"><name>XTmrCtr_WriteReg</name></member>
+    <member refid="group___overview_1ga74c246c9f5ac5fb8793f0f792bc8fa0e" kind="define"><name>XTmrCtr_SetControlStatusReg</name></member>
+    <member refid="group___overview_1ga45ca70c55615831432d0a2b32e0e77af" kind="define"><name>XTmrCtr_GetControlStatusReg</name></member>
+    <member refid="group___overview_1gaa6ab051d2011676e6cc3ea8fbc4ec6da" kind="define"><name>XTmrCtr_GetTimerCounterReg</name></member>
+    <member refid="group___overview_1ga66eee1751bc9d207eef8143492669c96" kind="define"><name>XTmrCtr_SetLoadReg</name></member>
+    <member refid="group___overview_1ga248be00d1ff730871bf8201143dc1480" kind="define"><name>XTmrCtr_GetLoadReg</name></member>
+    <member refid="group___overview_1gad1f98a1af5b68454aead939a5a727ff1" kind="define"><name>XTmrCtr_Enable</name></member>
+    <member refid="group___overview_1gae5874bbf23d48004ab15acd250a34688" kind="define"><name>XTmrCtr_Disable</name></member>
+    <member refid="group___overview_1ga2b0b144df40ea454cd791aa2fbdaeb94" kind="define"><name>XTmrCtr_EnableIntr</name></member>
+    <member refid="group___overview_1ga582e5bbde5675a5750d3e4328493e318" kind="define"><name>XTmrCtr_DisableIntr</name></member>
+    <member refid="group___overview_1ga433680f98acc79f69d227a041f20ecb9" kind="define"><name>XTmrCtr_LoadTimerCounterReg</name></member>
+    <member refid="group___overview_1gac6bbcadfe43a528d4d895650bee25a4e" kind="define"><name>XTmrCtr_HasEventOccurred</name></member>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+  </compound>
+  <compound refid="xtmrctr__low__level__example_8c" kind="file"><name>xtmrctr_low_level_example.c</name>
+    <member refid="xtmrctr__low__level__example_8c_1a4e7ee109d1c0c88902031fc4c224910c" kind="define"><name>TMRCTR_BASEADDR</name></member>
+    <member refid="xtmrctr__low__level__example_8c_1a0f8b332e6a2ba2a0dfe8ac9342bf9eee" kind="define"><name>TIMER_COUNTER_0</name></member>
+    <member refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" kind="function"><name>TmrCtrLowLevelExample</name></member>
+    <member refid="xtmrctr__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__options_8c" kind="file"><name>xtmrctr_options.c</name>
+    <member refid="group___overview_1ga76c08a827bf7a7d6e555a6e5f2c9ed65" kind="define"><name>XTC_NUM_OPTIONS</name></member>
+    <member refid="group___overview_1ga58a74a75db033cdfea93f747e22112cc" kind="variable"><name>OptionsTable</name></member>
+    <member refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" kind="function"><name>XTmrCtr_SetOptions</name></member>
+    <member refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" kind="function"><name>XTmrCtr_GetOptions</name></member>
+  </compound>
+  <compound refid="xtmrctr__polled__example_8c" kind="file"><name>xtmrctr_polled_example.c</name>
+    <member refid="xtmrctr__polled__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__polled__example_8c_1a0f8b332e6a2ba2a0dfe8ac9342bf9eee" kind="define"><name>TIMER_COUNTER_0</name></member>
+    <member refid="xtmrctr__polled__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" kind="variable"><name>TimerCounter</name></member>
+    <member refid="xtmrctr__polled__example_8c_1ab0b2505b096466782f12f8e4f9fa3a55" kind="function"><name>TmrCtrPolledExample</name></member>
+    <member refid="xtmrctr__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__pwm__example_8c" kind="file"><name>xtmrctr_pwm_example.c</name>
+    <member refid="xtmrctr__pwm__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1aacaca0988244bd3a888ca5befa89f44b" kind="define"><name>PWM_PERIOD</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a9b5dc443f77ca7ad1dcf7ab8f49e2922" kind="define"><name>TMRCTR_0</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1abaecef9eae0a569e8880fc1ffeaf160c" kind="define"><name>TMRCTR_1</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a993f0d9b5b942f49c0e4db1de711e31a" kind="define"><name>CYCLE_PER_DUTYCYCLE</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a04d6b195691945042832eefd8d91e840" kind="define"><name>MAX_DUTYCYCLE</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1ad7a6929517b4450e2b21305c93d26058" kind="define"><name>DUTYCYCLE_DIVISOR</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a446e415fc7a5645de4a012cf8a3cdf90" kind="define"><name>WAIT_COUNT</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1af8a158e87cd80ec49fdfad0ec2c8b302" kind="variable"><name>TimerCounterInst</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a0aa8e8763d2fc64b4ef44e91d022ff1c" kind="variable"><name>PeriodTimerHit</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a83930dc8d8aba99c6b510c6fa98f5a88" kind="variable"><name>HighTimerHit</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a2bb99ca758c410790a4779cef91b7fa2" kind="function"><name>TmrCtrPwmExample</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1ae16e7df66abc701fede751df926d9deb" kind="function"><name>TmrCtrDisableIntr</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1afa0cce7d285718e72442102d4bf56e5a" kind="function"><name>TimerCounterHandler</name></member>
+    <member refid="xtmrctr__pwm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__selftest_8c" kind="file"><name>xtmrctr_selftest.c</name>
+    <member refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kind="function"><name>XTmrCtr_SelfTest</name></member>
+  </compound>
+  <compound refid="xtmrctr__selftest__example_8c" kind="file"><name>xtmrctr_selftest_example.c</name>
+    <member refid="xtmrctr__selftest__example_8c_1ac1378975479dee8e1e6c72574d911068" kind="define"><name>XTMRCTR_BASEADDRESS</name></member>
+    <member refid="xtmrctr__selftest__example_8c_1a0f8b332e6a2ba2a0dfe8ac9342bf9eee" kind="define"><name>TIMER_COUNTER_0</name></member>
+    <member refid="xtmrctr__selftest__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" kind="variable"><name>TimerCounter</name></member>
+    <member refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kind="function"><name>TmrCtrSelfTestExample</name></member>
+    <member refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtmrctr__sinit_8c" kind="file"><name>xtmrctr_sinit.c</name>
+    <member refid="group___overview_1gaec9424685a653e23abf84d1ebfc1c9a6" kind="define"><name>XPAR_XTMRCTR_NUM_INSTANCES</name></member>
+    <member refid="group___overview_1gab696b83980f59544e04b19249734883d" kind="variable"><name>XTmrCtr_ConfigTable</name></member>
+    <member refid="group___overview_1ga372cc1b26240b627c5a830a9d44ab9e1" kind="function"><name>XTmrCtr_LookupConfig</name></member>
+  </compound>
+  <compound refid="xtmrctr__stats_8c" kind="file"><name>xtmrctr_stats.c</name>
+    <member refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" kind="function"><name>XTmrCtr_GetStats</name></member>
+    <member refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" kind="function"><name>XTmrCtr_ClearStats</name></member>
+  </compound>
+  <compound refid="group___overview" kind="group"><name>Overview</name>
+    <member refid="group___overview_1ga4fb085742ee50628791c81ff9a14bc2c" kind="define"><name>XTC_CASCADE_MODE_OPTION</name></member>
+    <member refid="group___overview_1gac50df31e95b1a82441de09ff360eca48" kind="define"><name>XTC_ENABLE_ALL_OPTION</name></member>
+    <member refid="group___overview_1ga9cc7b106e2e846ec41fd983da0772dc8" kind="define"><name>XTC_DOWN_COUNT_OPTION</name></member>
+    <member refid="group___overview_1gaf93c62016d132546b5ee99789b4e48c1" kind="define"><name>XTC_CAPTURE_MODE_OPTION</name></member>
+    <member refid="group___overview_1gaad72f141ec429ad4b782868c33b32c1b" kind="define"><name>XTC_INT_MODE_OPTION</name></member>
+    <member refid="group___overview_1gace3deb2a423d72960864a46eacd11fdc" kind="define"><name>XTC_AUTO_RELOAD_OPTION</name></member>
+    <member refid="group___overview_1ga3d33636409ed76e99828909edcff0d4a" kind="define"><name>XTC_EXT_COMPARE_OPTION</name></member>
+    <member refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kind="define"><name>XTC_TCSR_OFFSET</name></member>
+    <member refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" kind="define"><name>XTC_TLR_OFFSET</name></member>
+    <member refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" kind="define"><name>XTC_TCR_OFFSET</name></member>
+    <member refid="group___overview_1gaaf3300005339d29c2ee9a79e6bb81959" kind="define"><name>XTC_CSR_CASC_MASK</name></member>
+    <member refid="group___overview_1gabfaa1357c7843a1a72c740b017061a38" kind="define"><name>XTC_CSR_ENABLE_ALL_MASK</name></member>
+    <member refid="group___overview_1gaa6304f96140472ea199517984b5a18d5" kind="define"><name>XTC_CSR_ENABLE_PWM_MASK</name></member>
+    <member refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kind="define"><name>XTC_CSR_INT_OCCURED_MASK</name></member>
+    <member refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" kind="define"><name>XTC_CSR_ENABLE_TMR_MASK</name></member>
+    <member refid="group___overview_1ga0e56ed788d0a3f4b6d89319e03797002" kind="define"><name>XTC_CSR_ENABLE_INT_MASK</name></member>
+    <member refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" kind="define"><name>XTC_CSR_LOAD_MASK</name></member>
+    <member refid="group___overview_1gab06d844c7a245c7be88a63f3559bbd46" kind="define"><name>XTC_CSR_AUTO_RELOAD_MASK</name></member>
+    <member refid="group___overview_1gadcf0bfbbe0244d0fc208c783858a9c5c" kind="define"><name>XTC_CSR_EXT_CAPTURE_MASK</name></member>
+    <member refid="group___overview_1ga2345d81184385344ae236b8aa99f2423" kind="define"><name>XTC_CSR_EXT_GENERATE_MASK</name></member>
+    <member refid="group___overview_1ga6b40b30b1d1d5b07f4101a5b657dddba" kind="define"><name>XTC_CSR_DOWN_COUNT_MASK</name></member>
+    <member refid="group___overview_1gaa0563f5483d9fef6126df6b2e447da08" kind="define"><name>XTC_CSR_CAPTURE_MODE_MASK</name></member>
+    <member refid="group___overview_1ga2d96523ba7b80814a9f6c769619564cf" kind="typedef"><name>XTmrCtr_Handler</name></member>
+    <member refid="group___overview_1gab696b83980f59544e04b19249734883d" kind="variable"><name>XTmrCtr_ConfigTable</name></member>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+    <member refid="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" kind="variable"><name>XTmrCtr_Offsets</name></member>
+    <member refid="group___overview_1ga58a74a75db033cdfea93f747e22112cc" kind="variable"><name>OptionsTable</name></member>
+    <member refid="group___overview_1gab696b83980f59544e04b19249734883d" kind="variable"><name>XTmrCtr_ConfigTable</name></member>
+    <member refid="group___overview_1ga2b3165552dbdee57a3d60a2e25d1ae9c" kind="function"><name>XTmrCtr_StubCallback</name></member>
+    <member refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" kind="function"><name>XTmrCtr_CfgInitialize</name></member>
+    <member refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" kind="function"><name>XTmrCtr_InitHw</name></member>
+    <member refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kind="function"><name>XTmrCtr_Initialize</name></member>
+    <member refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" kind="function"><name>XTmrCtr_Start</name></member>
+    <member refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" kind="function"><name>XTmrCtr_Stop</name></member>
+    <member refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" kind="function"><name>XTmrCtr_GetValue</name></member>
+    <member refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" kind="function"><name>XTmrCtr_SetResetValue</name></member>
+    <member refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" kind="function"><name>XTmrCtr_GetCaptureValue</name></member>
+    <member refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" kind="function"><name>XTmrCtr_Reset</name></member>
+    <member refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" kind="function"><name>XTmrCtr_IsExpired</name></member>
+    <member refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" kind="function"><name>XTmrCtr_PwmConfigure</name></member>
+    <member refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" kind="function"><name>XTmrCtr_PwmEnable</name></member>
+    <member refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" kind="function"><name>XTmrCtr_PwmDisable</name></member>
+    <member refid="group___overview_1ga372cc1b26240b627c5a830a9d44ab9e1" kind="function"><name>XTmrCtr_LookupConfig</name></member>
+    <member refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" kind="function"><name>XTmrCtr_SetOptions</name></member>
+    <member refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" kind="function"><name>XTmrCtr_GetOptions</name></member>
+    <member refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" kind="function"><name>XTmrCtr_GetStats</name></member>
+    <member refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" kind="function"><name>XTmrCtr_ClearStats</name></member>
+    <member refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kind="function"><name>XTmrCtr_SelfTest</name></member>
+    <member refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" kind="function"><name>XTmrCtr_SetHandler</name></member>
+    <member refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" kind="function"><name>XTmrCtr_InterruptHandler</name></member>
+    <member refid="group___overview_1gafc4684a3912a1169c7516b7dad56a20a" kind="define"><name>XTMRCTR_H</name></member>
+    <member refid="group___overview_1ga2a3efe61990e0eb158b9238143e915b0" kind="define"><name>XTC_ROUND_DIV</name></member>
+    <member refid="group___overview_1ga5552f8d5f7ed58263e6811f98647f8be" kind="define"><name>XTC_HZ_TO_NS</name></member>
+    <member refid="group___overview_1gaffe6718acb596f90c980fcaeb149d440" kind="define"><name>XTMRCTR_I_H</name></member>
+    <member refid="group___overview_1gad575eebe2cbe61e414d82832385d63a1" kind="define"><name>XTMRCTR_L_H</name></member>
+    <member refid="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" kind="define"><name>XTC_DEVICE_TIMER_COUNT</name></member>
+    <member refid="group___overview_1ga22c78277a54b31ec738e72eca0662e35" kind="define"><name>XTC_TIMER_COUNTER_OFFSET</name></member>
+    <member refid="group___overview_1gacbe3e1a524e50edb1098c1a824f0dc79" kind="define"><name>XTC_TIMER_0</name></member>
+    <member refid="group___overview_1ga5693165001c579683430dfc150215290" kind="define"><name>XTC_TIMER_1</name></member>
+    <member refid="group___overview_1gaf1b5b45fe13bd14e5045077eff1d522e" kind="define"><name>XTC_MAX_LOAD_VALUE</name></member>
+    <member refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kind="define"><name>XTmrCtr_ReadReg</name></member>
+    <member refid="group___overview_1ga09ca31bffdcb5d86ce0059163b24bdaf" kind="define"><name>XTimerCtr_ReadReg</name></member>
+    <member refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kind="define"><name>XTmrCtr_WriteReg</name></member>
+    <member refid="group___overview_1ga74c246c9f5ac5fb8793f0f792bc8fa0e" kind="define"><name>XTmrCtr_SetControlStatusReg</name></member>
+    <member refid="group___overview_1ga45ca70c55615831432d0a2b32e0e77af" kind="define"><name>XTmrCtr_GetControlStatusReg</name></member>
+    <member refid="group___overview_1gaa6ab051d2011676e6cc3ea8fbc4ec6da" kind="define"><name>XTmrCtr_GetTimerCounterReg</name></member>
+    <member refid="group___overview_1ga66eee1751bc9d207eef8143492669c96" kind="define"><name>XTmrCtr_SetLoadReg</name></member>
+    <member refid="group___overview_1ga248be00d1ff730871bf8201143dc1480" kind="define"><name>XTmrCtr_GetLoadReg</name></member>
+    <member refid="group___overview_1gad1f98a1af5b68454aead939a5a727ff1" kind="define"><name>XTmrCtr_Enable</name></member>
+    <member refid="group___overview_1gae5874bbf23d48004ab15acd250a34688" kind="define"><name>XTmrCtr_Disable</name></member>
+    <member refid="group___overview_1ga2b0b144df40ea454cd791aa2fbdaeb94" kind="define"><name>XTmrCtr_EnableIntr</name></member>
+    <member refid="group___overview_1ga582e5bbde5675a5750d3e4328493e318" kind="define"><name>XTmrCtr_DisableIntr</name></member>
+    <member refid="group___overview_1ga433680f98acc79f69d227a041f20ecb9" kind="define"><name>XTmrCtr_LoadTimerCounterReg</name></member>
+    <member refid="group___overview_1gac6bbcadfe43a528d4d895650bee25a4e" kind="define"><name>XTmrCtr_HasEventOccurred</name></member>
+    <member refid="group___overview_1ga76c08a827bf7a7d6e555a6e5f2c9ed65" kind="define"><name>XTC_NUM_OPTIONS</name></member>
+    <member refid="group___overview_1gaec9424685a653e23abf84d1ebfc1c9a6" kind="define"><name>XPAR_XTMRCTR_NUM_INSTANCES</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_ae18fa56ae18d8fed2831eaa2ff12b8e" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_fe550e4b2d223ac80481532cd96c2cc1" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_6765592352b32f14c7e50008dcccd7ea" kind="dir"><name>tmrctr</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

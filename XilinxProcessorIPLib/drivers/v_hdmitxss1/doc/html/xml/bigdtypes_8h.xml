@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="bigdtypes_8h" kind="file">
+    <compoundname>bigdtypes.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="bigdigits_8h" local="yes">bigdigits.h</includedby>
+    <incdepgraph>
+      <node id="60">
+        <label>stddef.h</label>
+      </node>
+      <node id="59">
+        <label>bigdtypes.h</label>
+        <link refid="bigdtypes.h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="64">
+        <label>bigdigits.c</label>
+      </node>
+      <node id="63">
+        <label>bigdigits.h</label>
+        <link refid="bigdigits_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>bigdtypes.h</label>
+        <link refid="bigdtypes.h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>hdcp_key_utility.c</label>
+      </node>
+      <node id="67">
+        <label>hmac.c</label>
+        <link refid="hmac_8c"/>
+      </node>
+      <node id="65">
+        <label>xhdcp22_common.h</label>
+        <link refid="xhdcp22__common_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="bigdtypes_8h_1ae90bf3470304517de81a1bdad2f46a38" prot="public" static="no">
+        <name>EXACT_INTS_DEFINED_</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a0ddb3f43e52282b59ee55d059ed74a28" prot="public" static="no">
+        <name>uint32_t</name>
+        <initializer>unsigned int</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="51" column="14" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a395b3b2bf5cb4674ab41b6bda68c15bb" prot="public" static="no">
+        <name>uint16_t</name>
+        <initializer>unsigned short</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="52" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1ab077fa1127453be2bd9d4c3c8a768fa7" prot="public" static="no">
+        <name>uint8_t</name>
+        <initializer>unsigned char</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1aaf2af4a10f0bd308e9c349c8382382be" prot="public" static="no">
+        <name>PRIu32</name>
+        <initializer>&quot;lu&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="62" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a80ca66bcc9e366733f02c90ed4b0838c" prot="public" static="no">
+        <name>PRIx32</name>
+        <initializer>&quot;lx&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="63" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a32b0c8a04aae5d4454d15e6cbe109f64" prot="public" static="no">
+        <name>PRIX32</name>
+        <initializer>&quot;lX&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="64" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a139990b2f840a47cc33eb486bbc1c614" prot="public" static="no">
+        <name>PRIuBIGD</name>
+        <initializer>PRIu32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a10d6c8df5f90d2a2908f28052bedbe74" prot="public" static="no">
+        <name>PRIxBIGD</name>
+        <initializer>PRIx32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bigdtypes_8h_1a49a1b06ac4249025b87077abb44107bb" prot="public" static="no">
+        <name>PRIXBIGD</name>
+        <initializer>PRIX32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>$Id:<sp/>bigdtypes.h<sp/>$<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">/*****<sp/>BEGIN<sp/>LICENSE<sp/>BLOCK<sp/>*****</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>This<sp/>Source<sp/>Code<sp/>Form<sp/>is<sp/>subject<sp/>to<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>Mozilla<sp/>Public</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>License,<sp/>v.<sp/>2.0.<sp/>If<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>MPL<sp/>was<sp/>not<sp/>distributed<sp/>with<sp/>this</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>file,<sp/>You<sp/>can<sp/>obtain<sp/>one<sp/>at<sp/>http://mozilla.org/MPL/2.0/.</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2001-15<sp/>David<sp/>Ireland,<sp/>D.I.<sp/>Management<sp/>Services<sp/>Pty<sp/>Limited</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>&lt;http://www.di-mgt.com.au/bigdigits.html&gt;.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*****<sp/>END<sp/>LICENSE<sp/>BLOCK<sp/>*****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>Last<sp/>updated:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>$Date:<sp/>2015-10-22<sp/>10:23:00<sp/>$</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>$Revision:<sp/>2.5.0<sp/>$</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>$Author:<sp/>dai<sp/>$</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BIGDTYPES_H_</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BIGDTYPES_H_<sp/>1</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">The<sp/>following<sp/>PP<sp/>instructions<sp/>assume<sp/>that<sp/>all<sp/>Linux<sp/>systems<sp/>have<sp/>a<sp/>C99-conforming</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">&lt;stdint.h&gt;;<sp/>that<sp/>other<sp/>Unix<sp/>systems<sp/>have<sp/>the<sp/>uint32_t<sp/>definitions<sp/>in<sp/>&lt;sys/types.h&gt;;</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">and<sp/>that<sp/>MS<sp/>et<sp/>al<sp/>don&apos;t<sp/>have<sp/>them<sp/>at<sp/>all.<sp/>This<sp/>version<sp/>assumes<sp/>that<sp/>a<sp/>long<sp/>is<sp/>32<sp/>bits.</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">Adjust<sp/>if<sp/>necessary<sp/>to<sp/>suit<sp/>your<sp/>system.</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">You<sp/>can<sp/>override<sp/>by<sp/>defining<sp/>HAVE_C99INCLUDES<sp/>or<sp/>HAVE_SYS_TYPES.</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>EXACT_INTS_DEFINED_</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXACT_INTS_DEFINED_<sp/>1</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>HAVE_C99INCLUDES</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>(__STDC_VERSION<sp/>&gt;=<sp/>199901L)<sp/>||<sp/>defined(linux)<sp/>||<sp/>defined(__linux__)<sp/>||<sp/>defined(__APPLE__)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>HAVE_C99INCLUDES</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>HAVE_SYS_TYPES</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined(unix)<sp/>||<sp/>defined(__unix__)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>HAVE_SYS_TYPES</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>HAVE_C99INCLUDES</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(HAVE_SYS_TYPES)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>uint32_t<sp/>unsigned<sp/>int</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>uint16_t<sp/>unsigned<sp/>short</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>uint8_t<sp/>unsigned<sp/>char</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>HAVE_C99INCLUDES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>EXACT_INTS_DEFINED_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macros<sp/>for<sp/>format<sp/>specifiers</highlight></codeline>
+<codeline lineno="58"><highlight class="comment">--<sp/>change<sp/>to<sp/>&quot;u&quot;,<sp/>&quot;x&quot;<sp/>and<sp/>&quot;X&quot;<sp/>if<sp/>necessary<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>HAVE_C99INCLUDES</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&lt;inttypes.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PRIu32<sp/>&quot;lu&quot;</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PRIx32<sp/>&quot;lx&quot;</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PRIX32<sp/>&quot;lX&quot;</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>We<sp/>define<sp/>our<sp/>own<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIuBIGD<sp/>PRIu32</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PRIxBIGD<sp/>PRIx32</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PRIXBIGD<sp/>PRIX32</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>BIGDTYPES_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdtypes.h"/>
+  </compounddef>
+</doxygen>

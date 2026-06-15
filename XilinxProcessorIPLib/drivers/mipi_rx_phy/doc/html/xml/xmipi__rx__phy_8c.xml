@@ -1,0 +1,1255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__rx__phy_8c" kind="file">
+    <compoundname>xmipi_rx_phy.c</compoundname>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xmipi__rx__phy_8h" local="yes">xmipi_rx_phy.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>xmipi_rx_phy_hw.h</label>
+        <link refid="xmipi__rx__phy__hw_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5">
+        <label>xdebug.h</label>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4">
+        <label>xmipi_rx_phy.c</label>
+        <link refid="xmipi_rx_phy.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xmipi_rx_phy.h</label>
+        <link refid="xmipi__rx__phy_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaf74dce0855cc9d67357a33df29b90e51" prot="public" static="no">
+        <name>XMIPI_RX_PHY_SOFTRESET_TIMEOUT</name>
+        <initializer>5000UL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_CfgInitialize</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, XMipi_Rx_Phy_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XMipi_Rx_Phy_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy___config" kindref="compound">XMipi_Rx_Phy_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific Mipi_Rx_Phy instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="61" bodyend="77"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" compoundref="xmipi__rx__phy_8h" startline="298">XMipi_Rx_Phy::IsReady</references>
+        <referencedby refid="xmipi__rx__phy__example__selftest_8c_1a6dc882f61ad6323877a35d7bc3c3f6b5" compoundref="xmipi__rx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Rx_PhySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_Configure</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 Handle, u32 Value)</argsstring>
+        <name>XMipi_Rx_Phy_Configure</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Handle</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Configure the registers of the Mipi_Rx_Phy instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to one of the registers to be configured </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set for the particular Handle of the Mipi_Rx_Phy instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful register update.</para></listitem><listitem><para>XST_FAILURE If incorrect handle was passed</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>There is a limit on the minimum and maximum values of the HS Timeout register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="95" bodyend="182"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" compoundref="xmipi__rx__phy_8h" startline="286">XMipi_Rx_Phy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga1f2a7ab905af5a63575745e79fa1afef" compoundref="xmipi__rx__phy__hw_8h" startline="53">XMIPI_RX_PHY_ESCTIMEOUT_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gaa79e40f54ad9778f3995f8ccfcb09fd8" compoundref="xmipi__rx__phy_8h" startline="134">XMIPI_RX_PHY_HANDLE_CLKLANE</references>
+        <references refid="group__mipi__rx__phy_1gafde9bac4868ce2d47e85c0de32532298" compoundref="xmipi__rx__phy_8h" startline="135">XMIPI_RX_PHY_HANDLE_DLANE0</references>
+        <references refid="group__mipi__rx__phy_1gaf50cbba445009363e9a2821642d28984" compoundref="xmipi__rx__phy_8h" startline="136">XMIPI_RX_PHY_HANDLE_DLANE1</references>
+        <references refid="group__mipi__rx__phy_1gad3558fcc5200ad583a504c61ce1f0d15" compoundref="xmipi__rx__phy_8h" startline="137">XMIPI_RX_PHY_HANDLE_DLANE2</references>
+        <references refid="group__mipi__rx__phy_1gaffb241b59b61b4dabff3a17173f34d5e" compoundref="xmipi__rx__phy_8h" startline="138">XMIPI_RX_PHY_HANDLE_DLANE3</references>
+        <references refid="group__mipi__rx__phy_1gac915d728a8c6106c1deef751bdb2f93e" compoundref="xmipi__rx__phy_8h" startline="133">XMIPI_RX_PHY_HANDLE_ESCTIMEOUT</references>
+        <references refid="group__mipi__rx__phy_1ga9ecbd14c9768eeff2b17f537d338f775" compoundref="xmipi__rx__phy_8h" startline="139">XMIPI_RX_PHY_HANDLE_HSSETTLE0</references>
+        <references refid="group__mipi__rx__phy_1ga078f5a607947c32b21570f1640ea1a4a" compoundref="xmipi__rx__phy_8h" startline="140">XMIPI_RX_PHY_HANDLE_HSSETTLE1</references>
+        <references refid="group__mipi__rx__phy_1ga568c5e242ff59d6b4f222f1642149406" compoundref="xmipi__rx__phy_8h" startline="141">XMIPI_RX_PHY_HANDLE_HSSETTLE2</references>
+        <references refid="group__mipi__rx__phy_1ga473e22be644740e67566ce0ce2940124" compoundref="xmipi__rx__phy_8h" startline="142">XMIPI_RX_PHY_HANDLE_HSSETTLE3</references>
+        <references refid="group__mipi__rx__phy_1ga72222b2af839769c09e80f143f2da026" compoundref="xmipi__rx__phy_8h" startline="132">XMIPI_RX_PHY_HANDLE_HSTIMEOUT</references>
+        <references refid="group__mipi__rx__phy_1gad4a4803f13f2ae21cfc4443b4f74ceb3" compoundref="xmipi__rx__phy_8h" startline="130">XMIPI_RX_PHY_HANDLE_INIT_TIMER</references>
+        <references refid="group__mipi__rx__phy_1gabb969dbe56ae53bb6fec1916917be1b5" compoundref="xmipi__rx__phy_8h" startline="143">XMIPI_RX_PHY_HANDLE_MAX</references>
+        <references refid="group__mipi__rx__phy_1ga379ac70918b08991b5629895cdbdca0f" compoundref="xmipi__rx__phy_8h" startline="164">XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE</references>
+        <references refid="group__mipi__rx__phy_1ga1d7f56650d0da43285295644eb951100" compoundref="xmipi__rx__phy_8h" startline="158">XMIPI_RX_PHY_HS_TIMEOUT_MAX_VALUE</references>
+        <references refid="group__mipi__rx__phy_1ga368643a84916a08df985dd961cf42d52" compoundref="xmipi__rx__phy_8h" startline="157">XMIPI_RX_PHY_HS_TIMEOUT_MIN_VALUE</references>
+        <references refid="group__mipi__rx__phy_1ga941337f26bc908ba365194c7d1e152ab" compoundref="xmipi__rx__phy__hw_8h" startline="74">XMIPI_RX_PHY_HSSETTLE0_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga811dbc44fe9d3b4dc258652de27d661c" compoundref="xmipi__rx__phy__hw_8h" startline="81">XMIPI_RX_PHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga6c837a9e2b95486169ad376478bfc14e" compoundref="xmipi__rx__phy__hw_8h" startline="82">XMIPI_RX_PHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga832f2a3a308197b899ba0f7d0b33e908" compoundref="xmipi__rx__phy__hw_8h" startline="83">XMIPI_RX_PHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gace1a808a2597c0a1395016ec4de67d8a" compoundref="xmipi__rx__phy__hw_8h" startline="50">XMIPI_RX_PHY_HSTIMEOUT_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga5d73b98adf4b04216bb1742cc3ad92d6" compoundref="xmipi__rx__phy__hw_8h" startline="47">XMIPI_RX_PHY_INIT_TIMER_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gad74a27324b8cc55c67a21a9c2c7a2436" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XMipi_Rx_Phy_GetRegIntfcPresent</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr)</argsstring>
+        <name>XMipi_Rx_Phy_GetRegIntfcPresent</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get if register interface is present from the config structure for specified Mipi_Rx_Phy instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if register interface is present</para></listitem><listitem><para>0 if register interface is absent</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="197" bodyend="203"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <referencedby refid="xmipi__rx__phy__example__selftest_8c_1a6dc882f61ad6323877a35d7bc3c3f6b5" compoundref="xmipi__rx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Rx_PhySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetInfo</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 Handle)</argsstring>
+        <name>XMipi_Rx_Phy_GetInfo</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Handle</declname>
+        </param>
+        <briefdescription>
+<para>Get information stored in the Mipi_Rx_Phy instance based on the handle passed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to one of the registers to be configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value stored in the corresponding register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="216" bodyend="302"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" compoundref="xmipi__rx__phy_8h" startline="286">XMipi_Rx_Phy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a9348f07e9115bbb5a18b057917414ad0" compoundref="xmipi__rx__phy_8h" startline="281">XMipi_Rx_Phy_Config::EscTimeout</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a05e041c93ffdd9e6728c70cc0cd77faf" compoundref="xmipi__rx__phy_8h" startline="283">XMipi_Rx_Phy_Config::HSTimeOut</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga6df3cddb2f8c6136193423656e1f8e54" compoundref="xmipi__rx__phy__hw_8h" startline="56">XMIPI_RX_PHY_CLSTATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" compoundref="xmipi__rx__phy__hw_8h" startline="59">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga4d6de41a345ab9b0da5a07936f3a5d8a" compoundref="xmipi__rx__phy__hw_8h" startline="62">XMIPI_RX_PHY_DL1STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gaa7867d266b24387c2a89bb4c8e61306b" compoundref="xmipi__rx__phy__hw_8h" startline="65">XMIPI_RX_PHY_DL2STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gae602e9d94b72de6818a5b3f9e5b2bc82" compoundref="xmipi__rx__phy__hw_8h" startline="68">XMIPI_RX_PHY_DL3STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga1f2a7ab905af5a63575745e79fa1afef" compoundref="xmipi__rx__phy__hw_8h" startline="53">XMIPI_RX_PHY_ESCTIMEOUT_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gaa79e40f54ad9778f3995f8ccfcb09fd8" compoundref="xmipi__rx__phy_8h" startline="134">XMIPI_RX_PHY_HANDLE_CLKLANE</references>
+        <references refid="group__mipi__rx__phy_1gafde9bac4868ce2d47e85c0de32532298" compoundref="xmipi__rx__phy_8h" startline="135">XMIPI_RX_PHY_HANDLE_DLANE0</references>
+        <references refid="group__mipi__rx__phy_1gaf50cbba445009363e9a2821642d28984" compoundref="xmipi__rx__phy_8h" startline="136">XMIPI_RX_PHY_HANDLE_DLANE1</references>
+        <references refid="group__mipi__rx__phy_1gad3558fcc5200ad583a504c61ce1f0d15" compoundref="xmipi__rx__phy_8h" startline="137">XMIPI_RX_PHY_HANDLE_DLANE2</references>
+        <references refid="group__mipi__rx__phy_1gaffb241b59b61b4dabff3a17173f34d5e" compoundref="xmipi__rx__phy_8h" startline="138">XMIPI_RX_PHY_HANDLE_DLANE3</references>
+        <references refid="group__mipi__rx__phy_1gac915d728a8c6106c1deef751bdb2f93e" compoundref="xmipi__rx__phy_8h" startline="133">XMIPI_RX_PHY_HANDLE_ESCTIMEOUT</references>
+        <references refid="group__mipi__rx__phy_1ga9ecbd14c9768eeff2b17f537d338f775" compoundref="xmipi__rx__phy_8h" startline="139">XMIPI_RX_PHY_HANDLE_HSSETTLE0</references>
+        <references refid="group__mipi__rx__phy_1ga078f5a607947c32b21570f1640ea1a4a" compoundref="xmipi__rx__phy_8h" startline="140">XMIPI_RX_PHY_HANDLE_HSSETTLE1</references>
+        <references refid="group__mipi__rx__phy_1ga568c5e242ff59d6b4f222f1642149406" compoundref="xmipi__rx__phy_8h" startline="141">XMIPI_RX_PHY_HANDLE_HSSETTLE2</references>
+        <references refid="group__mipi__rx__phy_1ga473e22be644740e67566ce0ce2940124" compoundref="xmipi__rx__phy_8h" startline="142">XMIPI_RX_PHY_HANDLE_HSSETTLE3</references>
+        <references refid="group__mipi__rx__phy_1ga72222b2af839769c09e80f143f2da026" compoundref="xmipi__rx__phy_8h" startline="132">XMIPI_RX_PHY_HANDLE_HSTIMEOUT</references>
+        <references refid="group__mipi__rx__phy_1gad4a4803f13f2ae21cfc4443b4f74ceb3" compoundref="xmipi__rx__phy_8h" startline="130">XMIPI_RX_PHY_HANDLE_INIT_TIMER</references>
+        <references refid="group__mipi__rx__phy_1gabb969dbe56ae53bb6fec1916917be1b5" compoundref="xmipi__rx__phy_8h" startline="143">XMIPI_RX_PHY_HANDLE_MAX</references>
+        <references refid="group__mipi__rx__phy_1ga941337f26bc908ba365194c7d1e152ab" compoundref="xmipi__rx__phy__hw_8h" startline="74">XMIPI_RX_PHY_HSSETTLE0_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga811dbc44fe9d3b4dc258652de27d661c" compoundref="xmipi__rx__phy__hw_8h" startline="81">XMIPI_RX_PHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga6c837a9e2b95486169ad376478bfc14e" compoundref="xmipi__rx__phy__hw_8h" startline="82">XMIPI_RX_PHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga832f2a3a308197b899ba0f7d0b33e908" compoundref="xmipi__rx__phy__hw_8h" startline="83">XMIPI_RX_PHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gace1a808a2597c0a1395016ec4de67d8a" compoundref="xmipi__rx__phy__hw_8h" startline="50">XMIPI_RX_PHY_HSTIMEOUT_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga5d73b98adf4b04216bb1742cc3ad92d6" compoundref="xmipi__rx__phy__hw_8h" startline="47">XMIPI_RX_PHY_INIT_TIMER_REG_OFFSET</references>
+        <referencedby refid="group__mipi__rx__phy_1ga73cfbe4a911c72bccdea37f91d5829d6" compoundref="xmipi__rx__phy__selftest_8c" startline="61" endline="73">XMipi_Rx_Phy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga52f42a2ed7b0acf4df27211b76708ab4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_Rx_Phy_Reset</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr)</argsstring>
+        <name>XMipi_Rx_Phy_Reset</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to do a soft reset of the Mipi_Rx_Phy IP instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The reset takes approx 20 core clock cycles to become effective.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="315" bodyend="348"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" compoundref="xmipi__rx__phy_8h" startline="298">XMipi_Rx_Phy::IsReady</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" compoundref="xmipi__rx__phy__hw_8h" startline="45">XMIPI_RX_PHY_CTRL_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga99a08282c67427601f56d2ad64234ed6" compoundref="xmipi__rx__phy__hw_8h" startline="102">XMIPI_RX_PHY_CTRL_REG_SOFTRESET_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gac84fac31ab197bd3198dd11ca3896435" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_Rx_Phy_ClearDataLane</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 DataLane, u32 Mask)</argsstring>
+        <name>XMipi_Rx_Phy_ClearDataLane</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 3. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents which Data Lane to act upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains information about which bits to reset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="363" bodyend="378"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" compoundref="xmipi__rx__phy__hw_8h" startline="59">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga193d957c5131a06eb4edf387464e8b23" compoundref="xmipi__rx__phy__hw_8h" startline="199">XMIPI_RX_PHY_DLXSTATUS_REG_ESCABRT_MASK</references>
+        <references refid="group__mipi__rx__phy_1ga80f071df87fac8194c77e2b17ca96f89" compoundref="xmipi__rx__phy__hw_8h" startline="202">XMIPI_RX_PHY_DLXSTATUS_REG_HSABRT_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetClkLaneStatus</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr)</argsstring>
+        <name>XMipi_Rx_Phy_GetClkLaneStatus</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get information about Clock Lane status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing which of the events have occurred along with the mode of the Clock Lane in Phy</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="391" bodyend="401"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga6df3cddb2f8c6136193423656e1f8e54" compoundref="xmipi__rx__phy__hw_8h" startline="56">XMIPI_RX_PHY_CLSTATUS_REG_OFFSET</references>
+        <referencedby refid="group__mipi__rx__phy_1ga0c21c9093da86aa4159da50ded9b27c5" compoundref="xmipi__rx__phy_8c" startline="413" endline="425">XMipi_Rx_Phy_GetClkLaneMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga0c21c9093da86aa4159da50ded9b27c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetClkLaneMode</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr)</argsstring>
+        <name>XMipi_Rx_Phy_GetClkLaneMode</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get specific Lane mode information about Clock Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Clock Lane in Mipi_Rx_Phy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="413" bodyend="425"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga0b072dcfbf16b94c76a98a422d609a8f" compoundref="xmipi__rx__phy__hw_8h" startline="169">XMIPI_RX_PHY_CLSTATUS_REG_MODE_MASK</references>
+        <references refid="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" compoundref="xmipi__rx__phy_8c" startline="391" endline="401">XMipi_Rx_Phy_GetClkLaneStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetDataLaneStatus</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XMipi_Rx_Phy_GetDataLaneStatus</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get information about a Data Lane status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the status is sought for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing which of the events have occurred along with the mode of the Data Lane in Phy</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="439" bodyend="448"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" compoundref="xmipi__rx__phy__hw_8h" startline="59">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</references>
+        <referencedby refid="group__mipi__rx__phy_1gaca06750514da41ca96625aeebf2cee64" compoundref="xmipi__rx__phy_8c" startline="501" endline="513">XMipi_Rx_Phy_GetDataLaneMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga54671eb4258647bce4fc9cfe2cfa04b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XMipi_Rx_Phy_GetDLCalibStatus</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XMipi_Rx_Phy_GetDLCalibStatus</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get Data Lane Calibration status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the calib status is sought for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - Calibration Complete, Calibration packet received XST_NO_DATA - Calibration Complete, Calibration packet is not received XST_FAILURE - Calibration failed</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="463" bodyend="488"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="group__mipi__rx__phy_1ga4dab676485278ae963ba2a5c4e5d0063" compoundref="xmipi__rx__phy__hw_8h" startline="252">DL_LANE_OFFSET</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" compoundref="xmipi__rx__phy__hw_8h" startline="59">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gae734cd3c1776660119a146b701d23039" compoundref="xmipi__rx__phy__hw_8h" startline="197">XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</references>
+        <references refid="group__mipi__rx__phy_1gae96674943b4c7ac2ef7f24e16d114f5e" compoundref="xmipi__rx__phy__hw_8h" startline="196">XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gaca06750514da41ca96625aeebf2cee64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetDataLaneMode</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XMipi_Rx_Phy_GetDataLaneMode</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get specific Lane mode information about a Data Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the mode info is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Data Lane in Mipi_Rx_Phy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="501" bodyend="513"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga8b20becb98cc3e299a6791e4a27165e5" compoundref="xmipi__rx__phy__hw_8h" startline="211">XMIPI_RX_PHY_DLXSTATUS_REG_MODE_MASK</references>
+        <references refid="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" compoundref="xmipi__rx__phy_8c" startline="439" endline="448">XMipi_Rx_Phy_GetDataLaneStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga451ed3af91fc85637ee4d1ab5de28da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XMipi_Rx_Phy_GetPacketCount</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XMipi_Rx_Phy_GetPacketCount</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get count of packets received on each lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the mode info is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Data Lane in Mipi_Rx_Phy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="527" bodyend="542"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" compoundref="xmipi__rx__phy__hw_8h" startline="59">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga998420b025e47070ad9a0d79ff4068b5" compoundref="xmipi__rx__phy__hw_8h" startline="226">XMIPI_RX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1ga57c759b34a6fc44b9b6bc969d84b949f" compoundref="xmipi__rx__phy__hw_8h" startline="195">XMIPI_RX_PHY_DLXSTATUS_REG_PACKETCOUNT_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gafeeea99a20ac3bb4b3c05f64064feb86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_GetVersionReg</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr)</argsstring>
+        <name>XMipi_Rx_Phy_GetVersionReg</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get Mipi_Rx_Phy Version. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns major and minor Version number of this Mipi_Rx_Phy IP</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="554" bodyend="563"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1gaf427e80f588294f6bd021db121fc76fd" compoundref="xmipi__rx__phy__hw_8h" startline="46">XMIPI_RX_PHY_VERSION_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_Rx_Phy_Activate</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u8 Flag)</argsstring>
+        <name>XMipi_Rx_Phy_Activate</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to enable or disable the Mipi_Rx_Phy core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>denoting whether to enable or disable the Mipi_Rx_Phy core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="576" bodyend="600"/>
+        <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
+        <references refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" compoundref="xmipi__rx__phy__hw_8h" startline="45">XMIPI_RX_PHY_CTRL_REG_OFFSET</references>
+        <references refid="group__mipi__rx__phy_1gaec198293afc07be517b0ae8f92837d2c" compoundref="xmipi__rx__phy__hw_8h" startline="103">XMIPI_RX_PHY_CTRL_REG_PHYEN_MASK</references>
+        <references refid="group__mipi__rx__phy_1gaf4e1dd0a01fee5503124e2bd532f02ce" compoundref="xmipi__rx__phy_8h" startline="171">XMIPI_RX_PHY_DISABLE_FLAG</references>
+        <references refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" compoundref="xmipi__rx__phy_8h" startline="170">XMIPI_RX_PHY_ENABLE_FLAG</references>
+        <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_DynamicLineRateConfig</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, UINTPTR PllBaseAddr, u32 LineRate)</argsstring>
+        <name>XMipi_Rx_Phy_DynamicLineRateConfig</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PllBaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the dynamic line rate for the MIPI RX PHY by programming the MMCM registers and NPI X5PLL registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>The driver disables the PHY, programs the MMCM via XMipi_Rx_Phy_MmcmConfig, delegates the PLL register programming to XMipi_Rx_Phy_XPllConfig, and re-enables the PHY.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PllBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the X5PLL register space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if line rate configuration is successful.</para></listitem><listitem><para>XST_FAILURE if the line rate is out of supported range or dynamic line rate is not enabled in hardware.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The PHY is disabled before MMCM and PLL reprogramming and re-enabled after the sequence completes to ensure a clean transition. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="624" bodyend="678"/>
+        <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
+        <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___rx___phy___config_1aa748374e998a4ba576a1979e2338e3f8" compoundref="xmipi__rx__phy_8h" startline="279">XMipi_Rx_Phy_Config::IsDynamicLineRate</references>
+        <references refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" compoundref="xmipi__rx__phy_8c" startline="576" endline="600">XMipi_Rx_Phy_Activate</references>
+        <references refid="group__mipi__rx__phy_1gaf4e1dd0a01fee5503124e2bd532f02ce" compoundref="xmipi__rx__phy_8h" startline="171">XMIPI_RX_PHY_DISABLE_FLAG</references>
+        <references refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" compoundref="xmipi__rx__phy_8h" startline="170">XMIPI_RX_PHY_ENABLE_FLAG</references>
+        <references refid="group__mipi__rx__phy_1ga7d9babc01d9eeeaf4dcefd45ced53fad" compoundref="xmipi__rx__phy_8h" startline="151">XMIPI_RX_PHY_LINERATE_MAX</references>
+        <references refid="group__mipi__rx__phy_1ga68c6fe37bcc43cf3ccd657add63843eb" compoundref="xmipi__rx__phy_8h" startline="150">XMIPI_RX_PHY_LINERATE_MIN</references>
+        <references refid="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" compoundref="xmipi__rx__phy__mmcm_8c" startline="432" endline="525">XMipi_Rx_Phy_MmcmConfig</references>
+        <references refid="group__mipi__rx__phy_1ga6358e4d124dca47948b509d3e3bb4226" compoundref="xmipi__rx__phy__xpll_8c" startline="175" endline="263">XMipi_Rx_Phy_XPllConfig</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmipi__rx__phy_8h" kindref="compound">xmipi_rx_phy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_SOFTRESET_TIMEOUT<sp/><sp/>5000UL</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" kindref="member">XMipi_Rx_Phy_CfgInitialize</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_mipi___rx___phy___config" kindref="compound">XMipi_Rx_Phy_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" kindref="member">IsReady</ref><sp/>=<sp/>(XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" kindref="member">XMipi_Rx_Phy_Configure</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Handle<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1gabb969dbe56ae53bb6fec1916917be1b5" kindref="member">XMIPI_RX_PHY_HANDLE_MAX</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Based<sp/>on<sp/>the<sp/>Handle,<sp/>write<sp/>Value<sp/>to<sp/>the<sp/>specific<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Handle)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gad4a4803f13f2ae21cfc4443b4f74ceb3" kindref="member">XMIPI_RX_PHY_HANDLE_INIT_TIMER</ref>:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga5d73b98adf4b04216bb1742cc3ad92d6" kindref="member">XMIPI_RX_PHY_INIT_TIMER_REG_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga72222b2af839769c09e80f143f2da026" kindref="member">XMIPI_RX_PHY_HANDLE_HSTIMEOUT</ref>:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" kindref="member">EnableTimeOutRegs</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gace1a808a2597c0a1395016ec4de67d8a" kindref="member">XMIPI_RX_PHY_HSTIMEOUT_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gac915d728a8c6106c1deef751bdb2f93e" kindref="member">XMIPI_RX_PHY_HANDLE_ESCTIMEOUT</ref>:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1ga368643a84916a08df985dd961cf42d52" kindref="member">XMIPI_RX_PHY_HS_TIMEOUT_MIN_VALUE</ref>);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga1d7f56650d0da43285295644eb951100" kindref="member">XMIPI_RX_PHY_HS_TIMEOUT_MAX_VALUE</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" kindref="member">EnableTimeOutRegs</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga1f2a7ab905af5a63575745e79fa1afef" kindref="member">XMIPI_RX_PHY_ESCTIMEOUT_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaa79e40f54ad9778f3995f8ccfcb09fd8" kindref="member">XMIPI_RX_PHY_HANDLE_CLKLANE</ref>:</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gafde9bac4868ce2d47e85c0de32532298" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE0</ref>:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaf50cbba445009363e9a2821642d28984" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE1</ref>:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gad3558fcc5200ad583a504c61ce1f0d15" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE2</ref>:</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaffb241b59b61b4dabff3a17173f34d5e" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE3</ref>:</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga9ecbd14c9768eeff2b17f537d338f775" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE0</ref>:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga379ac70918b08991b5629895cdbdca0f" kindref="member">XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE</ref>);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga941337f26bc908ba365194c7d1e152ab" kindref="member">XMIPI_RX_PHY_HSSETTLE0_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga078f5a607947c32b21570f1640ea1a4a" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE1</ref>:</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga379ac70918b08991b5629895cdbdca0f" kindref="member">XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga811dbc44fe9d3b4dc258652de27d661c" kindref="member">XMIPI_RX_PHY_HSSETTLE1_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga568c5e242ff59d6b4f222f1642149406" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE2</ref>:</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga379ac70918b08991b5629895cdbdca0f" kindref="member">XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE</ref>);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6c837a9e2b95486169ad376478bfc14e" kindref="member">XMIPI_RX_PHY_HSSETTLE2_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga473e22be644740e67566ce0ce2940124" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE3</ref>:</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Value<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga379ac70918b08991b5629895cdbdca0f" kindref="member">XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga832f2a3a308197b899ba0f7d0b33e908" kindref="member">XMIPI_RX_PHY_HSSETTLE3_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="group__mipi__rx__phy_1gad74a27324b8cc55c67a21a9c2c7a2436" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__mipi__rx__phy_1gad74a27324b8cc55c67a21a9c2c7a2436" kindref="member">XMipi_Rx_Phy_GetRegIntfcPresent</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref>);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="216" refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" kindref="member">XMipi_Rx_Phy_GetInfo</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RegAddr;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Handle<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1gabb969dbe56ae53bb6fec1916917be1b5" kindref="member">XMIPI_RX_PHY_HANDLE_MAX</ref>)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddr<sp/>=<sp/>(InstancePtr)-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Based<sp/>on<sp/>Handle,<sp/>return<sp/>value<sp/>from<sp/>the<sp/>corresponding<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>switch<sp/>(Handle)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gad4a4803f13f2ae21cfc4443b4f74ceb3" kindref="member">XMIPI_RX_PHY_HANDLE_INIT_TIMER</ref>:</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga5d73b98adf4b04216bb1742cc3ad92d6" kindref="member">XMIPI_RX_PHY_INIT_TIMER_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga72222b2af839769c09e80f143f2da026" kindref="member">XMIPI_RX_PHY_HANDLE_HSTIMEOUT</ref>:</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>Timeout<sp/>Registers<sp/>are<sp/>disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" kindref="member">EnableTimeOutRegs</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a05e041c93ffdd9e6728c70cc0cd77faf" kindref="member">HSTimeOut</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gace1a808a2597c0a1395016ec4de67d8a" kindref="member">XMIPI_RX_PHY_HSTIMEOUT_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gac915d728a8c6106c1deef751bdb2f93e" kindref="member">XMIPI_RX_PHY_HANDLE_ESCTIMEOUT</ref>:</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>Timeout<sp/>Registers<sp/>are<sp/>disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" kindref="member">EnableTimeOutRegs</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a9348f07e9115bbb5a18b057917414ad0" kindref="member">EscTimeout</ref>;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga1f2a7ab905af5a63575745e79fa1afef" kindref="member">XMIPI_RX_PHY_ESCTIMEOUT_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaa79e40f54ad9778f3995f8ccfcb09fd8" kindref="member">XMIPI_RX_PHY_HANDLE_CLKLANE</ref>:</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6df3cddb2f8c6136193423656e1f8e54" kindref="member">XMIPI_RX_PHY_CLSTATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gafde9bac4868ce2d47e85c0de32532298" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE0</ref>:</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" kindref="member">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaf50cbba445009363e9a2821642d28984" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE1</ref>:</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga4d6de41a345ab9b0da5a07936f3a5d8a" kindref="member">XMIPI_RX_PHY_DL1STATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gad3558fcc5200ad583a504c61ce1f0d15" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE2</ref>:</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gaa7867d266b24387c2a89bb4c8e61306b" kindref="member">XMIPI_RX_PHY_DL2STATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gaffb241b59b61b4dabff3a17173f34d5e" kindref="member">XMIPI_RX_PHY_HANDLE_DLANE3</ref>:</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gae602e9d94b72de6818a5b3f9e5b2bc82" kindref="member">XMIPI_RX_PHY_DL3STATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga9ecbd14c9768eeff2b17f537d338f775" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE0</ref>:</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga941337f26bc908ba365194c7d1e152ab" kindref="member">XMIPI_RX_PHY_HSSETTLE0_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga078f5a607947c32b21570f1640ea1a4a" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE1</ref>:</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga811dbc44fe9d3b4dc258652de27d661c" kindref="member">XMIPI_RX_PHY_HSSETTLE1_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga568c5e242ff59d6b4f222f1642149406" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE2</ref>:</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6c837a9e2b95486169ad376478bfc14e" kindref="member">XMIPI_RX_PHY_HSSETTLE2_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga473e22be644740e67566ce0ce2940124" kindref="member">XMIPI_RX_PHY_HANDLE_HSSETTLE3</ref>:</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(RegAddr,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga832f2a3a308197b899ba0f7d0b33e908" kindref="member">XMIPI_RX_PHY_HSSETTLE3_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RegVal;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="315" refid="group__mipi__rx__phy_1ga52f42a2ed7b0acf4df27211b76708ab4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga52f42a2ed7b0acf4df27211b76708ab4" kindref="member">XMipi_Rx_Phy_Reset</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value<sp/>=<sp/>XMIPI_RX_PHY_SOFTRESET_TIMEOUT;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Reset<sp/>bit<sp/>in<sp/>Control<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/><ref refid="group__mipi__rx__phy_1ga99a08282c67427601f56d2ad64234ed6" kindref="member">XMIPI_RX_PHY_CTRL_REG_SOFTRESET_MASK</ref>;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>at<sp/>least<sp/>20<sp/>core<sp/>clock<sp/>cycles<sp/>for<sp/>reset<sp/>to<sp/>occur<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Value--)<sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>reset<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~<ref refid="group__mipi__rx__phy_1ga99a08282c67427601f56d2ad64234ed6" kindref="member">XMIPI_RX_PHY_CTRL_REG_SOFTRESET_MASK</ref>;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>instance<sp/>to<sp/>be<sp/>ready<sp/>to<sp/>be<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="363" refid="group__mipi__rx__phy_1gac84fac31ab197bd3198dd11ca3896435" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1gac84fac31ab197bd3198dd11ca3896435" kindref="member">XMipi_Rx_Phy_ClearDataLane</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(<ref refid="group__mipi__rx__phy_1ga193d957c5131a06eb4edf387464e8b23" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga80f071df87fac8194c77e2b17ca96f89" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_HSABRT_MASK</ref>))<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>only<sp/>Escape<sp/>Abort<sp/>or<sp/>HS<sp/>Abort<sp/>are<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>Mask<sp/>&amp;<sp/>(<ref refid="group__mipi__rx__phy_1ga193d957c5131a06eb4edf387464e8b23" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga80f071df87fac8194c77e2b17ca96f89" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_HSABRT_MASK</ref>);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" kindref="member">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(DataLane<sp/>*<sp/>4),<sp/>Mask);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="391" refid="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" kindref="member">XMipi_Rx_Phy_GetClkLaneStatus</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6df3cddb2f8c6136193423656e1f8e54" kindref="member">XMIPI_RX_PHY_CLSTATUS_REG_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="413" refid="group__mipi__rx__phy_1ga0c21c9093da86aa4159da50ded9b27c5" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1ga0c21c9093da86aa4159da50ded9b27c5" kindref="member">XMipi_Rx_Phy_GetClkLaneMode</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="414"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" kindref="member">XMipi_Rx_Phy_GetClkLaneStatus</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1ga0b072dcfbf16b94c76a98a422d609a8f" kindref="member">XMIPI_RX_PHY_CLSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="439" refid="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" kindref="member">XMipi_Rx_Phy_GetDataLaneStatus</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="440"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" kindref="member">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(4<sp/>*<sp/>DataLane))));</highlight></codeline>
+<codeline lineno="448"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="463" refid="group__mipi__rx__phy_1ga54671eb4258647bce4fc9cfe2cfa04b1" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__mipi__rx__phy_1ga54671eb4258647bce4fc9cfe2cfa04b1" kindref="member">XMipi_Rx_Phy_GetDLCalibStatus</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="464"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ret;</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" kindref="member">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(<ref refid="group__mipi__rx__phy_1ga4dab676485278ae963ba2a5c4e5d0063" kindref="member">DL_LANE_OFFSET</ref><sp/>*<sp/>DataLane)));</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1gae734cd3c1776660119a146b701d23039" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1gae96674943b4c7ac2ef7f24e16d114f5e" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1gae96674943b4c7ac2ef7f24e16d114f5e" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="501" refid="group__mipi__rx__phy_1gaca06750514da41ca96625aeebf2cee64" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gaca06750514da41ca96625aeebf2cee64" kindref="member">XMipi_Rx_Phy_GetDataLaneMode</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="502"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" kindref="member">XMipi_Rx_Phy_GetDataLaneStatus</ref>(InstancePtr,<sp/>DataLane);</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1ga8b20becb98cc3e299a6791e4a27165e5" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="527" refid="group__mipi__rx__phy_1ga451ed3af91fc85637ee4d1ab5de28da3" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__mipi__rx__phy_1ga451ed3af91fc85637ee4d1ab5de28da3" kindref="member">XMipi_Rx_Phy_GetPacketCount</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="528"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__mipi__rx__phy_1ga7ca8cc7e96c85d80a747864154b5ffa0" kindref="member">XMIPI_RX_PHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(4<sp/>*<sp/>DataLane))));</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>Value<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1ga57c759b34a6fc44b9b6bc969d84b949f" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_PACKETCOUNT_MASK</ref>;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&gt;&gt;=<sp/><ref refid="group__mipi__rx__phy_1ga998420b025e47070ad9a0d79ff4068b5" kindref="member">XMIPI_RX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u16)Value;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="554" refid="group__mipi__rx__phy_1gafeeea99a20ac3bb4b3c05f64064feb86" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gafeeea99a20ac3bb4b3c05f64064feb86" kindref="member">XMipi_Rx_Phy_GetVersionReg</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="555"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gaf427e80f588294f6bd021db121fc76fd" kindref="member">XMIPI_RX_PHY_VERSION_REG_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="576" refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" kindref="member">XMipi_Rx_Phy_Activate</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"></highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" kindref="member">XMIPI_RX_PHY_ENABLE_FLAG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/><ref refid="group__mipi__rx__phy_1gaec198293afc07be517b0ae8f92837d2c" kindref="member">XMIPI_RX_PHY_CTRL_REG_PHYEN_MASK</ref>;</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__mipi__rx__phy_1gaf4e1dd0a01fee5503124e2bd532f02ce" kindref="member">XMIPI_RX_PHY_DISABLE_FLAG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>~(<ref refid="group__mipi__rx__phy_1gaec198293afc07be517b0ae8f92837d2c" kindref="member">XMIPI_RX_PHY_CTRL_REG_PHYEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n\r<sp/>INFO:<sp/>Invalid<sp/>flag<sp/>value:<sp/>%d<sp/>\t<sp/>Expected<sp/>1<sp/>or<sp/>0\n\r&quot;</highlight><highlight class="normal">,<sp/>Flag);</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>or<sp/>reset<sp/>the<sp/>Mipi_Rx_Phy<sp/>Enable<sp/>bit<sp/>in<sp/>Control<sp/>Register<sp/>based</highlight></codeline>
+<codeline lineno="596"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>the<sp/>flag</highlight></codeline>
+<codeline lineno="597"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0bf404750dfcaaefdd04d672d4a34ed2" kindref="member">XMIPI_RX_PHY_CTRL_REG_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="600"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="624" refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" kindref="member">XMipi_Rx_Phy_DynamicLineRateConfig</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>PllBaseAddr,<sp/>u32<sp/>LineRate)</highlight></codeline>
+<codeline lineno="626"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(PllBaseAddr<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(!InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" kindref="member">IsDphy</ref>);</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>dynamic<sp/>line<sp/>rate<sp/>is<sp/>supported<sp/>in<sp/>HW<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1aa748374e998a4ba576a1979e2338e3f8" kindref="member">IsDynamicLineRate</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;MIPI<sp/>RX<sp/>PHY<sp/>ERR::<sp/>Dynamic<sp/>line<sp/>rate<sp/>not&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>supported<sp/>in<sp/>HW<sp/>configuration\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>line<sp/>rate<sp/>is<sp/>within<sp/>the<sp/>supported<sp/>range<sp/>(400-4500<sp/>Mbps)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&lt;<sp/><ref refid="group__mipi__rx__phy_1ga68c6fe37bcc43cf3ccd657add63843eb" kindref="member">XMIPI_RX_PHY_LINERATE_MIN</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&gt;<sp/><ref refid="group__mipi__rx__phy_1ga7d9babc01d9eeeaf4dcefd45ced53fad" kindref="member">XMIPI_RX_PHY_LINERATE_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;MIPI<sp/>RX<sp/>PHY<sp/>ERR::<sp/>Line<sp/>rate<sp/>%u<sp/>Mbps&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>out<sp/>of<sp/>supported<sp/>range<sp/>(%u-%u<sp/>Mbps)\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineRate,<sp/><ref refid="group__mipi__rx__phy_1ga68c6fe37bcc43cf3ccd657add63843eb" kindref="member">XMIPI_RX_PHY_LINERATE_MIN</ref>,</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7d9babc01d9eeeaf4dcefd45ced53fad" kindref="member">XMIPI_RX_PHY_LINERATE_MAX</ref>);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"></highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>PHY<sp/>before<sp/>reprogramming<sp/>MMCM<sp/>and<sp/>PLL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" kindref="member">XMipi_Rx_Phy_Activate</ref>(InstancePtr,<sp/><ref refid="group__mipi__rx__phy_1gaf4e1dd0a01fee5503124e2bd532f02ce" kindref="member">XMIPI_RX_PHY_DISABLE_FLAG</ref>);</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>MMCM<sp/>for<sp/>the<sp/>requested<sp/>line<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" kindref="member">XMipi_Rx_Phy_MmcmConfig</ref>(InstancePtr,<sp/>LineRate);</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;MIPI<sp/>RX<sp/>PHY<sp/>ERR::<sp/>MMCM&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>configuration<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Re-enable<sp/>the<sp/>PHY<sp/>even<sp/>on<sp/>failure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" kindref="member">XMipi_Rx_Phy_Activate</ref>(InstancePtr,<sp/><ref refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" kindref="member">XMIPI_RX_PHY_ENABLE_FLAG</ref>);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>XPll<sp/>for<sp/>the<sp/>requested<sp/>line<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga6358e4d124dca47948b509d3e3bb4226" kindref="member">XMipi_Rx_Phy_XPllConfig</ref>(PllBaseAddr,<sp/>LineRate);</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;MIPI<sp/>RX<sp/>PHY<sp/>ERR::<sp/>XPll&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>configuration<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Re-enable<sp/>the<sp/>PHY<sp/>even<sp/>on<sp/>failure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" kindref="member">XMipi_Rx_Phy_Activate</ref>(InstancePtr,<sp/><ref refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" kindref="member">XMIPI_RX_PHY_ENABLE_FLAG</ref>);</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Re-enable<sp/>the<sp/>PHY<sp/>after<sp/>MMCM<sp/>and<sp/>PLL<sp/>reprogramming<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" kindref="member">XMipi_Rx_Phy_Activate</ref>(InstancePtr,<sp/><ref refid="group__mipi__rx__phy_1ga52cb6c5b38df470a0f7e71c41d7e059e" kindref="member">XMIPI_RX_PHY_ENABLE_FLAG</ref>);</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="678"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c"/>
+  </compounddef>
+</doxygen>

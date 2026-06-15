@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps___config" kind="struct" prot="public">
+    <compoundname>XNandPs_Config</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps___config_1adbe8bdd8367f1b9c6b7a710d646154c1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XNandPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga4cc633f2b5e313c11cf56b0b3b42626b" compoundref="xnandps__sinit_8c" startline="87" endline="100">XNandPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___config_1a7fb228465433017747bbf8a9bd9601d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_Config::SmcBase</definition>
+        <argsstring></argsstring>
+        <name>SmcBase</name>
+        <briefdescription>
+<para>SMC Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a6158814e804a85a1feb289f118cee23f" compoundref="xnandps__skip__example_8c" startline="157" endline="228">NandSkipBlockExample</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" compoundref="xnandps_8c" startline="1866" endline="1910">XNandPs_EraseBlock</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gaa987d756af43c965a6439f077a4ce158" compoundref="xnandps_8c" startline="1262" endline="1329">XNandPs_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___config_1a0a1930e4ef28ad9c5d05e7bebafb14e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_Config::FlashBase</definition>
+        <argsstring></argsstring>
+        <name>FlashBase</name>
+        <briefdescription>
+<para>NAND base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a6158814e804a85a1feb289f118cee23f" compoundref="xnandps__skip__example_8c" startline="157" endline="228">NandSkipBlockExample</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___config_1a234acdb7c26211dc2dbe1854d493e54b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_Config::FlashWidth</definition>
+        <argsstring></argsstring>
+        <name>FlashWidth</name>
+        <briefdescription>
+<para>Flash width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga7f3a46694f4b3c4baffca71e6fcfebab" compoundref="xnandps__onfi_8c" startline="199" endline="213">Onfi_CmdReadStatus</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the flash device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="310" bodyend="319"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps___config_1a0a1930e4ef28ad9c5d05e7bebafb14e0" prot="public" virt="non-virtual"><scope>XNandPs_Config</scope><name>FlashBase</name></member>
+      <member refid="struct_x_nand_ps___config_1a234acdb7c26211dc2dbe1854d493e54b" prot="public" virt="non-virtual"><scope>XNandPs_Config</scope><name>FlashWidth</name></member>
+      <member refid="struct_x_nand_ps___config_1adbe8bdd8367f1b9c6b7a710d646154c1" prot="public" virt="non-virtual"><scope>XNandPs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_nand_ps___config_1a7fb228465433017747bbf8a9bd9601d7" prot="public" virt="non-virtual"><scope>XNandPs_Config</scope><name>SmcBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1452619baec69a67c068deb3e52912d9" kind="dir">
+    <compoundname>include</compoundname>
+    <innerfile refid="builtins_8h">builtins.h</innerfile>
+    <innerfile refid="dct__assert_8h">dct_assert.h</innerfile>
+    <innerfile refid="linux__compat_8h">linux_compat.h</innerfile>
+    <innerfile refid="offline__trace_8h">offline_trace.h</innerfile>
+    <innerfile refid="types_8h">types.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/"/>
+  </compounddef>
+</doxygen>

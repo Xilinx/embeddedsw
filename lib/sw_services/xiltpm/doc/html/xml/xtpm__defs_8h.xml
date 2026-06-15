@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtpm__defs_8h" kind="file">
+    <compoundname>xtpm_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xiltpm_bsp_config.h</includes>
+    <includedby refid="xtpm__client_8h" local="yes">xtpm_client.h</includedby>
+    <incdepgraph>
+      <node id="55">
+        <label>xtpm_defs.h</label>
+        <link refid="xtpm_defs.h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xiltpm_bsp_config.h</label>
+      </node>
+      <node id="57">
+        <label>xil_types.h</label>
+      </node>
+      <node id="56">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="62">
+        <label>xiltpm_example.c</label>
+        <link refid="xiltpm__example_8c"/>
+      </node>
+      <node id="59">
+        <label>xtpm_defs.h</label>
+        <link refid="xtpm_defs.h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xtpm_client.c</label>
+        <link refid="xtpm__client_8c"/>
+      </node>
+      <node id="60">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm__client_8h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_tpm___pcr_event__t" prot="public">XTpm_PcrEvent_t</innerclass>
+    <innerclass refid="struct_x_tpm___pcr_log_info__t" prot="public">XTpm_PcrLogInfo_t</innerclass>
+    <innerclass refid="struct_x_tpm___pcr_log__t" prot="public">XTpm_PcrLog_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xtpm__defs_8h_1aa9b3afee61fd780ccf1d4a99e5a8eb58" prot="public" static="no">
+        <name>XTPM_DEBUG</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Enable client printfs by setting XTPM_DEBUG to 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1a63fcac8a8d4753fbe1c56020f703e765" prot="public" static="no">
+        <name>XTPM_HASH_TYPE_SHA1</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Hash algorithm identifier for SHA1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1aea27be371856284e4da2b06cde7a389b" prot="public" static="no">
+        <name>XTPM_HASH_TYPE_SHA256</name>
+        <initializer>(0xB)</initializer>
+        <briefdescription>
+<para>Hash algorithm identifier for SHA256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1a9eb63fc0cd517948939470d7c2b0fc04" prot="public" static="no">
+        <name>XTPM_DEBUG_GENERAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Disable debug messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="47" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1a11eee716f72df92f69b27b72125b1144" prot="public" static="no">
+        <name>XTpm_Printf</name>
+        <param><defname>DebugType</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</initializer>
+        <briefdescription>
+<para>Print debug messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1a73b31b5473fb95093ebefb7e3c117e74" prot="public" static="no">
+        <name>XTPM_SHA3_HASH_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Length of SHA3 hash in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1a78f71c4f50ca3304d9ebe863a936872c" prot="public" static="no">
+        <name>XTPM_MAX_NUM_OF_PCR_EVENTS</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Maximum number of hardware PCR events that can be stored in the log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtpm__defs_8h_1adee201ca7ab296a329e4f99a16abb52d" prot="public" static="no">
+        <name>PCR_VALUE_MAX_LEN</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Maximum length of PCR value in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3558236cfc6af34c4bc6b843653cca74" prot="public">
+          <name>XTPM_API_ID_FEATURES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" prot="public">
+          <name>XTPM_API_ID_INIT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" prot="public">
+          <name>XTPM_API_ID_STARTUP</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" prot="public">
+          <name>XTPM_API_ID_SELFTEST</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" prot="public">
+          <name>XTPM_API_ID_PCR_EVENT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" prot="public">
+          <name>XTPM_API_ID_PCR_READ</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" prot="public">
+          <name>XTPM_API_ID_GET_PCR_LOG</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bae4e2e0c5b7c44b6ddddd0248be45d0ad" prot="public">
+          <name>XTPM_API_MAX</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>API ids, IDs ranging from an enum value of 24 to 35 are used by IPI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="68" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xilTPM API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   pre  03/09/26 Initial release
+      pre  03/21/26 Added definitions related to GetPcrLog feature</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XTPM_DEFS_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_DEFS_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiltpm_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="xtpm__defs_8h_1aa9b3afee61fd780ccf1d4a99e5a8eb58" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTPM_DEBUG<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="xtpm__defs_8h_1a63fcac8a8d4753fbe1c56020f703e765" refkind="member"><highlight class="preprocessor">#define<sp/>XTPM_HASH_TYPE_SHA1<sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="42" refid="xtpm__defs_8h_1aea27be371856284e4da2b06cde7a389b" refkind="member"><highlight class="preprocessor">#define<sp/>XTPM_HASH_TYPE_SHA256<sp/>(0xB)<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#if<sp/>(XTPM_DEBUG)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_DEBUG_GENERAL<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="47" refid="xtpm__defs_8h_1a9eb63fc0cd517948939470d7c2b0fc04" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_DEBUG_GENERAL<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="xtpm__defs_8h_1a11eee716f72df92f69b27b72125b1144" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTpm_Printf(DebugType,<sp/>...)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>==<sp/>1U)<sp/>{xil_printf<sp/>(__VA_ARGS__);}<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XTPM_SHA3_HASH_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XTPM_MAX_NUM_OF_PCR_EVENTS<sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>PCR_VALUE_MAX_LEN<sp/>32U<sp/></highlight></codeline>
+<codeline lineno="60" refid="xtpm__defs_8h_1adee201ca7ab296a329e4f99a16abb52d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="66"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3558236cfc6af34c4bc6b843653cca74" kindref="member">XTPM_API_ID_FEATURES</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" kindref="member">XTPM_API_ID_INIT</ref>,<sp/></highlight></codeline>
+<codeline lineno="69" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3558236cfc6af34c4bc6b843653cca74" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" kindref="member">XTPM_API_ID_STARTUP</ref>,<sp/></highlight></codeline>
+<codeline lineno="70" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" kindref="member">XTPM_API_ID_SELFTEST</ref>,<sp/></highlight></codeline>
+<codeline lineno="71" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" kindref="member">XTPM_API_ID_PCR_EVENT</ref>,<sp/></highlight></codeline>
+<codeline lineno="72" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" kindref="member">XTPM_API_ID_PCR_READ</ref>,<sp/></highlight></codeline>
+<codeline lineno="73" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" kindref="member">XTPM_API_ID_GET_PCR_LOG</ref>,<sp/></highlight></codeline>
+<codeline lineno="74" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bae4e2e0c5b7c44b6ddddd0248be45d0ad" kindref="member">XTPM_API_MAX</ref>,<sp/></highlight></codeline>
+<codeline lineno="75" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" refkind="member"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="76" refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bae4e2e0c5b7c44b6ddddd0248be45d0ad" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>HW<sp/>PCR<sp/>Event</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PcrNo;<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hash[<ref refid="xtpm__defs_8h_1a73b31b5473fb95093ebefb7e3c117e74" kindref="member">XTPM_SHA3_HASH_LEN_IN_BYTES</ref>];<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PcrValue[<ref refid="xtpm__defs_8h_1adee201ca7ab296a329e4f99a16abb52d" kindref="member">PCR_VALUE_MAX_LEN</ref>];<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/>XTpm_PcrEvent_t;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>HW<sp/>PCR<sp/>Log</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RemainingPcrEvents;<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalPcrLogEvents;<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OverflowCntSinceLastRd;<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PcrEventsRead;<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/>XTpm_PcrLogInfo_t;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTpm_PcrEvent_t<sp/>Buffer[<ref refid="xtpm__defs_8h_1a78f71c4f50ca3304d9ebe863a936872c" kindref="member">XTPM_MAX_NUM_OF_PCR_EVENTS</ref>];<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTpm_PcrLogInfo_t<sp/>LogInfo;<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HeadIndex;<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TailIndex;<sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}<sp/>XTpm_PcrLog_t;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XTPM_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h"/>
+  </compounddef>
+</doxygen>

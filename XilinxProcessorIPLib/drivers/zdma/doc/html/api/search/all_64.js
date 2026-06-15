@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['dataconfig',['DataConfig',['../struct_x_z_dma.html#ace8acb1e903931b38a9f6393cfca5f51',1,'XZDma']]],
+  ['descriptor',['Descriptor',['../struct_x_z_dma.html#a5bd448e43cadd065021bfe03ec8bcd4b',1,'XZDma']]],
+  ['descriptor1_5fdata_5fsize',['DESCRIPTOR1_DATA_SIZE',['../xzdma__linear__example_8c.html#a0f7e0ad629a49b8dff44f18c6b619894',1,'DESCRIPTOR1_DATA_SIZE():&#160;xzdma_linear_example.c'],['../xzdma__linkedlist__example_8c.html#a0f7e0ad629a49b8dff44f18c6b619894',1,'DESCRIPTOR1_DATA_SIZE():&#160;xzdma_linkedlist_example.c']]],
+  ['descriptor2_5fdata_5fsize',['DESCRIPTOR2_DATA_SIZE',['../xzdma__linear__example_8c.html#aa58f5673b91b450cecc469e684f9304f',1,'DESCRIPTOR2_DATA_SIZE():&#160;xzdma_linear_example.c'],['../xzdma__linkedlist__example_8c.html#aa58f5673b91b450cecc469e684f9304f',1,'DESCRIPTOR2_DATA_SIZE():&#160;xzdma_linkedlist_example.c']]],
+  ['dmatype',['DmaType',['../struct_x_z_dma___config.html#aaa2e5e405c0903647be81cb68f2f3542',1,'XZDma_Config']]],
+  ['donehandler',['DoneHandler',['../struct_x_z_dma.html#a6ee062895bf6a06d28bb9aa2e118a11b',1,'XZDma']]],
+  ['doneref',['DoneRef',['../struct_x_z_dma.html#af216f69d108160949a9f319929d64727',1,'XZDma']]],
+  ['dscrconfig',['DscrConfig',['../struct_x_z_dma.html#a7c98e315d4533b69b0add5bbf21e2954',1,'XZDma']]],
+  ['dscrcount',['DscrCount',['../struct_x_z_dma___descriptor.html#a79a3a960fa2f970881929a7fe8e3c6e6',1,'XZDma_Descriptor']]],
+  ['dscrtype',['DscrType',['../struct_x_z_dma___descriptor.html#aa8747f4ea5ab6059bf7ccc85a74abf03',1,'XZDma_Descriptor']]],
+  ['dst1buf',['Dst1Buf',['../xzdma__linear__example_8c.html#a577b968bdd9a5c89d0855d85aa8ec01b',1,'xzdma_linear_example.c']]],
+  ['dstaddr',['DstAddr',['../struct_x_z_dma___transfer.html#a58c7a594323c25396fcf6e234dc6c11a',1,'XZDma_Transfer']]],
+  ['dstbuf',['DstBuf',['../xzdma__linear__example_8c.html#ab918b229baf33e03d61d7a69980eacf9',1,'DstBuf():&#160;xzdma_linear_example.c'],['../xzdma__writeonlymode__example_8c.html#a22e339955c26ff966f75eedaa0a07819',1,'DstBuf():&#160;xzdma_writeonlymode_example.c']]],
+  ['dstburstlen',['DstBurstLen',['../struct_x_z_dma___data_config.html#a7510617151cb03fbefdc1ae1701e0263',1,'XZDma_DataConfig']]],
+  ['dstbursttype',['DstBurstType',['../struct_x_z_dma___data_config.html#a539b42c423c5275626455a5ec02b9b86',1,'XZDma_DataConfig']]],
+  ['dstcache',['DstCache',['../struct_x_z_dma___data_config.html#af222d9922f6197ac0cd076e9c7dbc31a',1,'XZDma_DataConfig']]],
+  ['dstcoherent',['DstCoherent',['../struct_x_z_dma___transfer.html#aaf0d133df3120caf3c40e6dc7d7685fb',1,'XZDma_Transfer']]],
+  ['dstdscrptr',['DstDscrPtr',['../struct_x_z_dma___descriptor.html#a0af3889a9a8bffce7a1b088b33f3af30',1,'XZDma_Descriptor']]],
+  ['dstqos',['DstQos',['../struct_x_z_dma___data_config.html#a40c90389c27c6d94de05e39e5cee64e7',1,'XZDma_DataConfig']]]
+];

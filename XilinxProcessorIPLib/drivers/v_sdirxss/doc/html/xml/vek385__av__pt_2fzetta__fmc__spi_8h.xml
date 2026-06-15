@@ -1,0 +1,397 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vek385__av__pt_2fzetta__fmc__spi_8h" kind="file">
+    <compoundname>vek385_av_pt/fzetta_fmc_spi.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="yes">xspi.h</includes>
+    <includedby refid="vek385__av__pt_2fzetta__fmc__ctlr_8h" local="yes">fzetta_fmc_ctlr.h</includedby>
+    <includedby refid="vek385__av__pt_2fzetta__fmc__init__table_8c" local="yes">fzetta_fmc_init_table.c</includedby>
+    <includedby refid="vek385__av__pt_2fzetta__fmc__spi_8c" local="yes">fzetta_fmc_spi.c</includedby>
+    <incdepgraph>
+      <node id="256">
+        <label>xspi.h</label>
+      </node>
+      <node id="254">
+        <label>fzetta_fmc_spi.h</label>
+        <link refid="vek385_av_pt/fzetta_fmc_spi.h"/>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+      </node>
+      <node id="255">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="260">
+        <label>xuhdsdi_example.c</label>
+      </node>
+      <node id="262">
+        <label>fzetta_fmc_spi.c</label>
+      </node>
+      <node id="257">
+        <label>fzetta_fmc_spi.h</label>
+        <link refid="vek385_av_pt/fzetta_fmc_spi.h"/>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+      </node>
+      <node id="261">
+        <label>fzetta_fmc_init_table.c</label>
+      </node>
+      <node id="259">
+        <label>fzetta_fmc_ctlr.c</label>
+      </node>
+      <node id="258">
+        <label>fzetta_fmc_ctlr.h</label>
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="260" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vek385__av__pt_2fzetta__fmc__spi_8h_1a0ef5120bdc749e0c7c39a972384dc1b3" prot="public" static="no">
+        <name>SPI_WR</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vek385__av__pt_2fzetta__fmc__spi_8h_1a5cb38f8f2562ba378dca7984d788041a" prot="public" static="no">
+        <name>SPI_RD</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vek385__av__pt_2fzetta__fmc__spi_8h_1adabc44925c93fb09dcbd2e0afba2d251" prot="public" static="no">
+        <name>SPI_DUMMY</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="vek385__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4" prot="public" static="no">
+        <name>spi_slave_sel</name>
+        <enumvalue id="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9c422c2c951f383696d71cf35fc18e2c" prot="public">
+          <name>SPI_RCLKR</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4ab9c30084b26eab7efa8d560d298b3e29" prot="public">
+          <name>SPI_DRVR</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a4aa453327a91a7cd8797d6b4c7cd5aac" prot="public">
+          <name>SPI_RCVR</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9209f5fbea2d3d4929a28252205e97a6" prot="public">
+          <name>DUMMY</name>
+          <initializer>= 0xFF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9c422c2c951f383696d71cf35fc18e2c" prot="public">
+          <name>SPI_RCLKR</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4ab9c30084b26eab7efa8d560d298b3e29" prot="public">
+          <name>SPI_DRVR</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a4aa453327a91a7cd8797d6b4c7cd5aac" prot="public">
+          <name>SPI_RCVR</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9209f5fbea2d3d4929a28252205e97a6" prot="public">
+          <name>DUMMY</name>
+          <initializer>= 0xFF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9c422c2c951f383696d71cf35fc18e2c" prot="public">
+          <name>SPI_RCLKR</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4ab9c30084b26eab7efa8d560d298b3e29" prot="public">
+          <name>SPI_DRVR</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a4aa453327a91a7cd8797d6b4c7cd5aac" prot="public">
+          <name>SPI_RCVR</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2fzetta__fmc__spi_8h_1a8df6c413c135bdc7b3cde4b0a34d6ab4a9209f5fbea2d3d4929a28252205e97a6" prot="public">
+          <name>DUMMY</name>
+          <initializer>= 0xFF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" bodystart="33" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="vek385__av__pt_2fzetta__fmc__spi_8h_1af21e4464751de48a2ac25be0cfb3ffe3" prot="public" static="no" mutable="no">
+        <type>XSpi_Config *</type>
+        <definition>XSpi_Config* fzetta_fmc_Spi_ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>fzetta_fmc_Spi_ConfigPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_spi.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="vek385__av__pt_2fzetta__fmc__spi_8h_1a474913fcb12844eb4403ecf1c3ef972d" prot="public" static="no" mutable="no">
+        <type>XSpi</type>
+        <definition>XSpi fzetta_fmc_Spi</definition>
+        <argsstring></argsstring>
+        <name>fzetta_fmc_Spi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_spi.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vek385__av__pt_2fzetta__fmc__spi_8h_1ab5ccc824dc28b12c1184d314bb1dfae3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fzetta_fmc_spi_init</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>fzetta_fmc_spi_init</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function Initialize SPI IP and its corresponding drivers and configptr instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Dev_ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_spi.c" bodystart="47" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="vek385__av__pt_2fzetta__fmc__spi_8h_1ad073318e198760033fa593c53774d4a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fzetta_fmc_spi_devices_register_write</definition>
+        <argsstring>(spi_slave_sel Slave_Sel, u8 RegAddr, u8 RegData)</argsstring>
+        <name>fzetta_fmc_spi_devices_register_write</name>
+        <param>
+          <type>spi_slave_sel</type>
+          <declname>Slave_Sel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegData</declname>
+        </param>
+        <briefdescription>
+<para>This function Fidus Zetta FMC Macom SPI Devices Register Write Driver:M23428; EQ:M23554; Reclocker:M23145. </para>        </briefdescription>
+        <detaileddescription>
+<para>Register Write SPI Sequence: Normal 2 byte SPI sequence with first MSB = 0 Byte 1: [7]=0 (wr) + [6:0]=Register Address Byte 2: [7:0]= Register Data</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>spi_slave_sel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SPI Slave Selection. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Slave_sel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave Selection. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if register write is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_spi.c" bodystart="104" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="vek385__av__pt_2fzetta__fmc__spi_8h_1a85bc9a2d97c7699ae8ec215433cc7060" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 fzetta_fmc_spi_devices_register_read</definition>
+        <argsstring>(u32 Slave_Sel, u8 RegAddr)</argsstring>
+        <name>fzetta_fmc_spi_devices_register_read</name>
+        <param>
+          <type>u32</type>
+          <declname>Slave_Sel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function Fidus Zetta FMC Macom SPI Devices Register Write Driver:M23428; EQ:M23554; Reclocker:M23145. </para>        </briefdescription>
+        <detaileddescription>
+<para>Register Read SPI Sequence: Register Latching: 2 byte SPI write sequence with first MSB = 1 Byte 1: [7]=1 (rd) + [6:0]=Register Address Byte 2: [7:0]= Dummy Data (0xFF)</para><para>Data Acquisition: (from MISO) 2 byte SPI write sequence with first MSB = 1 Byte 1: [7]=1 (rd) + [6:0]=Register Address Byte 2: [7:0]= Register Data</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Slave_Sel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SPI Slave Selection. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if register read is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_spi.c" bodystart="189" bodyend="227"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>FZETTA_FMC_SPI_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FZETTA_FMC_SPI_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xspi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSpi_Config<sp/>*fzetta_fmc_Spi_ConfigPtr;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>Configuration<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSpi<sp/>fzetta_fmc_Spi;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>instance<sp/>of<sp/>the<sp/>SPI<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SPI_RCLKR<sp/>=<sp/>0x01,<sp/></highlight><highlight class="comment">//Reclocker<sp/>Device<sp/>ID</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SPI_DRVR<sp/><sp/>=<sp/>0x02,<sp/></highlight><highlight class="comment">//SDI<sp/>Driver<sp/>Device<sp/>ID</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SPI_RCVR<sp/><sp/>=<sp/>0x04,<sp/></highlight><highlight class="comment">//Equalizer<sp/>Device<sp/>ID</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY<sp/><sp/><sp/><sp/><sp/>=<sp/>0xFF<sp/><sp/></highlight><highlight class="comment">//Dummy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/>spi_slave_sel;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SPI_WR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/>//<sp/>Register<sp/>Write</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPI_RD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80<sp/>//<sp/>Register<sp/>Read</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPI_DUMMY<sp/><sp/><sp/><sp/>0xFF<sp/>//<sp/>Dummy</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_spi_init(u8<sp/>Dev_ID);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_spi_init(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="82"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_spi_devices_register_write(spi_slave_sel<sp/>Slave_Sel,<sp/>u8<sp/>RegAddr,<sp/>u8<sp/>RegData);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">u8<sp/>fzetta_fmc_spi_devices_register_read(u32<sp/>Slave_Sel,<sp/>u8<sp/>RegAddr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>FZETTA_FMC_SPI_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/fzetta_fmc_spi.h"/>
+  </compounddef>
+</doxygen>

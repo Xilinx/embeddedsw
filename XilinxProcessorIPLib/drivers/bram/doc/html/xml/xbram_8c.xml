@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xbram_8c" kind="file">
+    <compoundname>xbram.c</compoundname>
+    <includes refid="xbram_8h" local="yes">xbram.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="12">
+        <label>xil_io.h</label>
+      </node>
+      <node id="11">
+        <label>xbram_hw.h</label>
+        <link refid="xbram__hw_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6">
+        <label>xbram.c</label>
+        <link refid="xbram.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xbram.h</label>
+        <link refid="xbram_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__bram_1gab305438b0844ddb20139878c21ef0e6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XBram_CfgInitialize</definition>
+        <argsstring>(XBram *InstancePtr, XBram_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XBram_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_bram___config" kindref="compound">XBram_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_bram" kindref="compound">XBram</ref> instance provided by the caller based on the given configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para>Nothing is done except to initialize the InstancePtr.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_bram" kindref="compound">XBram</ref> instance. The memory the pointer references must be pre-allocated by the caller. Further calls to manipulate the driver through the <ref refid="struct_x_bram" kindref="compound">XBram</ref> API must be made with this pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific BRAM device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.c" bodystart="85" bodyend="128"/>
+        <references refid="struct_x_bram___config_1a58fc68e35caa4b6e99d6203feadf3867" compoundref="xbram_8h" startline="152">XBram_Config::CorrectableCounterBits</references>
+        <references refid="struct_x_bram___config_1a523f6c9b0013be3fc8cc5ab879e39035" compoundref="xbram_8h" startline="144">XBram_Config::CorrectableFailingDataRegs</references>
+        <references refid="struct_x_bram___config_1a68ac643548b48f788d6c2f573cb5547a" compoundref="xbram_8h" startline="142">XBram_Config::CorrectableFailingRegisters</references>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="struct_x_bram___config_1ad6d36760e863506573b858fd6cfb3382" compoundref="xbram_8h" startline="138">XBram_Config::DataWidth</references>
+        <references refid="struct_x_bram___config_1a75f61a0ada77e92ed76040a4556fc6d4" compoundref="xbram_8h" startline="139">XBram_Config::EccPresent</references>
+        <references refid="struct_x_bram___config_1ac12c18f690cc9dbc18392ee8c01c29d7" compoundref="xbram_8h" startline="150">XBram_Config::EccStatusInterruptPresent</references>
+        <references refid="struct_x_bram___config_1a58c670c0f23257fa4521b4fc219773bc" compoundref="xbram_8h" startline="140">XBram_Config::FaultInjectionPresent</references>
+        <references refid="struct_x_bram___config_1ac66c3fec0033eec027f0e66f154301c6" compoundref="xbram_8h" startline="165">XBram_Config::IntId</references>
+        <references refid="struct_x_bram___config_1a4e172daa52b71ac0db6e2e01946edac5" compoundref="xbram_8h" startline="166">XBram_Config::IntrParent</references>
+        <references refid="struct_x_bram___config_1a70b1c37ca7ecdeb186a05e75d8844a03" compoundref="xbram_8h" startline="160">XBram_Config::MemBaseAddress</references>
+        <references refid="struct_x_bram___config_1acd853cc9fe73dd4fc7c9af2da45b5a81" compoundref="xbram_8h" startline="161">XBram_Config::MemHighAddress</references>
+        <references refid="struct_x_bram___config_1a33d6e8224ae0b1a661e4c2dad194377c" compoundref="xbram_8h" startline="148">XBram_Config::UncorrectableFailingDataRegs</references>
+        <references refid="struct_x_bram___config_1aaa48d2b7251ca2b7020514d29e56f97c" compoundref="xbram_8h" startline="146">XBram_Config::UncorrectableFailingRegisters</references>
+        <references refid="struct_x_bram___config_1ae19b307a3c7a9ed5649503385272072f" compoundref="xbram_8h" startline="158">XBram_Config::WriteAccess</references>
+        <referencedby refid="xbram__example_8c_1af99823d42c99fe4218a5cbfe293d5c59" compoundref="xbram__example_8c" startline="124" endline="167">BramExample</referencedby>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbram_8h" kindref="compound">xbram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" kindref="member">XBram_CfgInitialize</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_bram___config" kindref="compound">XBram_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>arguments</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>some<sp/>default<sp/>values.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a70b1c37ca7ecdeb186a05e75d8844a03" kindref="member">MemBaseAddress</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1a70b1c37ca7ecdeb186a05e75d8844a03" kindref="member">MemBaseAddress</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1acd853cc9fe73dd4fc7c9af2da45b5a81" kindref="member">MemHighAddress</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1acd853cc9fe73dd4fc7c9af2da45b5a81" kindref="member">MemHighAddress</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ad6d36760e863506573b858fd6cfb3382" kindref="member">DataWidth</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1ad6d36760e863506573b858fd6cfb3382" kindref="member">DataWidth</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a75f61a0ada77e92ed76040a4556fc6d4" kindref="member">EccPresent</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1a75f61a0ada77e92ed76040a4556fc6d4" kindref="member">EccPresent</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a58c670c0f23257fa4521b4fc219773bc" kindref="member">FaultInjectionPresent</ref><sp/>=</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1a58c670c0f23257fa4521b4fc219773bc" kindref="member">FaultInjectionPresent</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a68ac643548b48f788d6c2f573cb5547a" kindref="member">CorrectableFailingRegisters</ref><sp/>=</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1a68ac643548b48f788d6c2f573cb5547a" kindref="member">CorrectableFailingRegisters</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a523f6c9b0013be3fc8cc5ab879e39035" kindref="member">CorrectableFailingDataRegs</ref><sp/>=</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1a523f6c9b0013be3fc8cc5ab879e39035" kindref="member">CorrectableFailingDataRegs</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1aaa48d2b7251ca2b7020514d29e56f97c" kindref="member">UncorrectableFailingRegisters</ref><sp/>=</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1aaa48d2b7251ca2b7020514d29e56f97c" kindref="member">UncorrectableFailingRegisters</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a33d6e8224ae0b1a661e4c2dad194377c" kindref="member">UncorrectableFailingDataRegs</ref><sp/>=</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1a33d6e8224ae0b1a661e4c2dad194377c" kindref="member">UncorrectableFailingDataRegs</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ac12c18f690cc9dbc18392ee8c01c29d7" kindref="member">EccStatusInterruptPresent</ref><sp/>=</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1ac12c18f690cc9dbc18392ee8c01c29d7" kindref="member">EccStatusInterruptPresent</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a58fc68e35caa4b6e99d6203feadf3867" kindref="member">CorrectableCounterBits</ref><sp/>=</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_bram___config_1a58fc68e35caa4b6e99d6203feadf3867" kindref="member">CorrectableCounterBits</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae19b307a3c7a9ed5649503385272072f" kindref="member">WriteAccess</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1ae19b307a3c7a9ed5649503385272072f" kindref="member">WriteAccess</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ac66c3fec0033eec027f0e66f154301c6" kindref="member">IntId</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1ac66c3fec0033eec027f0e66f154301c6" kindref="member">IntId</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1a4e172daa52b71ac0db6e2e01946edac5" kindref="member">IntrParent</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_bram___config_1a4e172daa52b71ac0db6e2e01946edac5" kindref="member">IntrParent</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Indicate<sp/>the<sp/>instance<sp/>is<sp/>now<sp/>ready<sp/>to<sp/>use,<sp/>initialized<sp/>without<sp/>error</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsReady<sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_saturation_adjustment_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrSaturationAdjustmentConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_saturation_adjustment_config__s_1a93ae47e6ca9f04538fffa0c471587121" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrSaturationAdjustmentConfig_s::satRange</definition>
+        <argsstring></argsstring>
+        <name>satRange</name>
+        <briefdescription>
+<para>WDR saturation range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_saturation_adjustment_config__s_1a93890ad4d77f07e3b5825fab64263fc5" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrSaturationAdjustmentConfig_s::satThrGainDown</definition>
+        <argsstring></argsstring>
+        <name>satThrGainDown</name>
+        <briefdescription>
+<para>WDR saturation threshold gain down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_saturation_adjustment_config__s_1a8b600e8cf4aa3040ac59cce2d49cc1fb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrSaturationAdjustmentConfig_s::satThrGainUp</definition>
+        <argsstring></argsstring>
+        <name>satThrGainUp</name>
+        <briefdescription>
+<para>WDR saturation threshold gain up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR saturation adjustment configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="170" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93ae47e6ca9f04538fffa0c471587121" prot="public" virt="non-virtual"><scope>CamDeviceWdrSaturationAdjustmentConfig_s</scope><name>satRange</name></member>
+      <member refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93890ad4d77f07e3b5825fab64263fc5" prot="public" virt="non-virtual"><scope>CamDeviceWdrSaturationAdjustmentConfig_s</scope><name>satThrGainDown</name></member>
+      <member refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a8b600e8cf4aa3040ac59cce2d49cc1fb" prot="public" virt="non-virtual"><scope>CamDeviceWdrSaturationAdjustmentConfig_s</scope><name>satThrGainUp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

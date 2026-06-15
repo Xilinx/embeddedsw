@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___overflow_status" kind="struct" prot="public">
+    <compoundname>XDfeCcf_OverflowStatus</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1aa89876d869cbdbf4e2e2a7a10ccae490" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowBeforeGainReal</definition>
+        <argsstring></argsstring>
+        <name>OverflowBeforeGainReal</name>
+        <briefdescription>
+<para><verbatim>                     [0,1] Overflow or underflow occurred
+</verbatim> in the FIR stage of the filter on the real channel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1ae7b33a58ad3a19f8f2aec00749537caf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowBeforeGainImag</definition>
+        <argsstring></argsstring>
+        <name>OverflowBeforeGainImag</name>
+        <briefdescription>
+<para><verbatim>                     [0,1] Overflow or underflow occurred
+</verbatim> in the FIR stage of the filter on the imaginary channel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1acd1567bbd77539afc66066770d89c688" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowAfterGainReal</definition>
+        <argsstring></argsstring>
+        <name>OverflowAfterGainReal</name>
+        <briefdescription>
+<para><verbatim>                    [0,1] Overflow or underflow occurred in
+</verbatim> the GAIN stage of the filter on the real channel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1af6240b052ed9fec1346b03b162adca4c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowAfterGainImag</definition>
+        <argsstring></argsstring>
+        <name>OverflowAfterGainImag</name>
+        <briefdescription>
+<para><verbatim>                    [0,1] Overflow or underflow occurred in
+</verbatim> the GAIN stage of the filter on the imaginary channel </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="375" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1a83cd0a44050799fba7c1fa35ad85af49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowAntenna</definition>
+        <argsstring></argsstring>
+        <name>OverflowAntenna</name>
+        <briefdescription>
+<para><verbatim>              [0,15] Lowest number antenna on which first
+</verbatim> overflow, or underflow, occurred </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1a0485eecafccd4ef409908a7af80135a8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowCCID</definition>
+        <argsstring></argsstring>
+        <name>OverflowCCID</name>
+        <briefdescription>
+<para><verbatim>           [0,15] CCID on which first overflow, or
+</verbatim> underflow, occurred </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="379" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___overflow_status_1a5bdc515694f470412e13596f2b2548ff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_OverflowStatus::OverflowSwitch</definition>
+        <argsstring></argsstring>
+        <name>OverflowSwitch</name>
+        <briefdescription>
+<para><verbatim>             In SWITCHABLE mode the channel in which
+</verbatim> overflow first occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>This register is ignored in NON-SWITCHABLE mode.<itemizedlist>
+<listitem><para>0 = DOWNLINK: Overflow occurred in the downlink channel.</para></listitem><listitem><para>1 = UPLINK: Overflow occurred in the uplink channel. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="381" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" compoundref="xdfeccf__intr_8c" startline="59" endline="91">XDfeCcf_GetOverflowStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Channel Filter Status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="368" bodyend="386"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___overflow_status_1af6240b052ed9fec1346b03b162adca4c" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowAfterGainImag</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1acd1567bbd77539afc66066770d89c688" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowAfterGainReal</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1a83cd0a44050799fba7c1fa35ad85af49" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowAntenna</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1ae7b33a58ad3a19f8f2aec00749537caf" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowBeforeGainImag</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1aa89876d869cbdbf4e2e2a7a10ccae490" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowBeforeGainReal</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1a0485eecafccd4ef409908a7af80135a8" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowCCID</name></member>
+      <member refid="struct_x_dfe_ccf___overflow_status_1a5bdc515694f470412e13596f2b2548ff" prot="public" virt="non-virtual"><scope>XDfeCcf_OverflowStatus</scope><name>OverflowSwitch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartlite__stats_8c" kind="file">
+    <compoundname>xuartlite_stats.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xuartlite_8h" local="yes">xuartlite.h</includes>
+    <includes refid="xuartlite__i_8h" local="yes">xuartlite_i.h</includes>
+    <incdepgraph>
+      <node id="146">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="144">
+        <label>xuartlite_stats.c</label>
+        <link refid="xuartlite_stats.c"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>xuartlite_l.h</label>
+        <link refid="xuartlite__l_8h"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+      </node>
+      <node id="151">
+        <label>xil_io.h</label>
+      </node>
+      <node id="148">
+        <label>xstatus.h</label>
+      </node>
+      <node id="147">
+        <label>xuartlite.h</label>
+        <link refid="xuartlite_8h"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>xil_types.h</label>
+      </node>
+      <node id="149">
+        <label>xuartlite_i.h</label>
+        <link refid="xuartlite__i_8h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_GetStats</definition>
+        <argsstring>(XUartLite *InstancePtr, XUartLite_Stats *StatsPtr)</argsstring>
+        <name>XUartLite_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns a snapshot of the current statistics in the structure specified. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a XUartLiteStats structure to where the statistics are to be copied.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_stats.c" bodystart="66" bodyend="87"/>
+        <references refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" compoundref="xuartlite_8h" startline="171">XUartLite_Stats::CharactersReceived</references>
+        <references refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" compoundref="xuartlite_8h" startline="170">XUartLite_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" compoundref="xuartlite_8h" startline="174">XUartLite_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" compoundref="xuartlite_8h" startline="169">XUartLite_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" compoundref="xuartlite_8h" startline="172">XUartLite_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" compoundref="xuartlite_8h" startline="173">XUartLite_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" compoundref="xuartlite_8h" startline="168">XUartLite_Stats::TransmitInterrupts</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_ClearStats</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function zeros the statistics for the given instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_stats.c" bodystart="101" bodyend="117"/>
+        <references refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" compoundref="xuartlite_8h" startline="171">XUartLite_Stats::CharactersReceived</references>
+        <references refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" compoundref="xuartlite_8h" startline="170">XUartLite_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" compoundref="xuartlite_8h" startline="174">XUartLite_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" compoundref="xuartlite_8h" startline="169">XUartLite_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" compoundref="xuartlite_8h" startline="172">XUartLite_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" compoundref="xuartlite_8h" startline="173">XUartLite_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" compoundref="xuartlite_8h" startline="168">XUartLite_Stats::TransmitInterrupts</references>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="116" endline="160">XUartLite_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartlite_8h" kindref="compound">xuartlite.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartlite__i_8h" kindref="compound">xuartlite_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" kindref="member">XUartLite_GetStats</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref><sp/>*StatsPtr)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>stats<sp/>from<sp/>the<sp/>instance<sp/>to<sp/>the<sp/>specified<sp/>stats<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" kindref="member">TransmitInterrupts</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" kindref="member">TransmitInterrupts</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" kindref="member">ReceiveInterrupts</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" kindref="member">ReceiveInterrupts</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" kindref="member">CharactersTransmitted</ref><sp/>=</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" kindref="member">CharactersTransmitted</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" kindref="member">CharactersReceived</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" kindref="member">CharactersReceived</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" kindref="member">ReceiveOverrunErrors</ref><sp/>=</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" kindref="member">ReceiveOverrunErrors</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" kindref="member">ReceiveFramingErrors</ref><sp/>=</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" kindref="member">ReceiveFramingErrors</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" kindref="member">ReceiveParityErrors</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" kindref="member">ReceiveParityErrors</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" kindref="member">XUartLite_ClearStats</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" kindref="member">TransmitInterrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" kindref="member">ReceiveInterrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" kindref="member">CharactersTransmitted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" kindref="member">CharactersReceived</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" kindref="member">ReceiveOverrunErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" kindref="member">ReceiveFramingErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" kindref="member">ReceiveParityErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_stats.c"/>
+  </compounddef>
+</doxygen>

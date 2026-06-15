@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>pmonpsv</title>
+    <detaileddescription>
+<para>The <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> driver supports the Xilinx Performance Monitor device.For a full description of Performance Monitor features, please see the hardware spec. This driver supports the following features:</para><para>Computes performance metrics for Agents connected to slots<itemizedlist>
+<listitem><para>Read request and response counters</para></listitem><listitem><para>Lock and unlock the performance monitor.</para></listitem><listitem><para>Setting metrics like the statperiod.</para></listitem><listitem><para>Readback of the metrics.</para></listitem></itemizedlist>
+</para><para><bold> Initialization and Configuration </bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the Performance Monitor device.</para><para><ref refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" kindref="member">XPmonPsv_CfgInitialize()</ref> API is used to initialize the AXI Performance Monitor device. The user needs to first call the <ref refid="group__pmonpsv_1gadf7106c6ca8857f9661ba1f7b9411dde" kindref="member">XPmonPsv_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the XAxiPmon_CfgInitialize() API.</para><para><bold>Interrupts</bold></para><para>The AXI Performance Monitor does not support Interrupts</para><para><bold> How to read the counters </bold> XPmonPsv_GetReadCounter returns the contents of the Read response and request counters.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para>TODO: Add the filter support</para><para><linebreak/>
+<linebreak/>
+</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0 sd   01/20/19 First release
+2.0 sd   04/22/20  Rename the APIs
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

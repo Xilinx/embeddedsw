@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_config__s_1ac8daac287059fe862c0295d0e741a4a7" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceWdrConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_config__s_1aed4693885fc6861d3dc7d833554ef03c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__wdr_1ga5f226d263276077f3b8405e378a8d36a" kindref="member">CamDeviceWdrAutoConfig_t</ref></type>
+        <definition>CamDeviceWdrAutoConfig_t CamDeviceWdrConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>WDR auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_config__s_1a4c0e3e8097807bea127233b1a03d1575" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__wdr_1ga6cf97a71e5ba8a3bc23a4cd1b3c9ed64" kindref="member">CamDeviceWdrManualConfig_t</ref></type>
+        <definition>CamDeviceWdrManualConfig_t CamDeviceWdrConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>WDR manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="653">
+        <label>CamDeviceWdrDefringeConfig_s</label>
+        <link refid="struct_cam_device_wdr_defringe_config__s"/>
+      </node>
+      <node id="658">
+        <label>CamDeviceWdrAutoConfig_s</label>
+        <link refid="struct_cam_device_wdr_auto_config__s"/>
+      </node>
+      <node id="643">
+        <label>CamDeviceWdrConfig_s</label>
+        <link refid="struct_cam_device_wdr_config__s"/>
+        <childnode refid="644" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="658" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="649">
+        <label>CamDeviceWdrDampConfig_s</label>
+        <link refid="struct_cam_device_wdr_damp_config__s"/>
+      </node>
+      <node id="648">
+        <label>CamDeviceWdrStrengthConfig_s</label>
+        <link refid="struct_cam_device_wdr_strength_config__s"/>
+      </node>
+      <node id="651">
+        <label>CamDeviceWdrGainLimitationConfig_s</label>
+        <link refid="struct_cam_device_wdr_gain_limitation_config__s"/>
+      </node>
+      <node id="650">
+        <label>CamDeviceWdrColorWeightConfig_s</label>
+        <link refid="struct_cam_device_wdr_color_weight_config__s"/>
+      </node>
+      <node id="654">
+        <label>CamDeviceWdrDegammaConfig_s</label>
+        <link refid="struct_cam_device_wdr_degamma_config__s"/>
+      </node>
+      <node id="645">
+        <label>CamDeviceWdrGtmWeightConfig_s</label>
+        <link refid="struct_cam_device_wdr_gtm_weight_config__s"/>
+      </node>
+      <node id="647">
+        <label>CamDeviceWdrHaloColorFadingConfig_s</label>
+        <link refid="struct_cam_device_wdr_halo_color_fading_config__s"/>
+      </node>
+      <node id="655">
+        <label>CamDeviceWdrLtmWeightConfig_s</label>
+        <link refid="struct_cam_device_wdr_ltm_weight_config__s"/>
+      </node>
+      <node id="657">
+        <label>CamDeviceWdrLtmConfig_s</label>
+        <link refid="struct_cam_device_wdr_ltm_config__s"/>
+      </node>
+      <node id="652">
+        <label>CamDeviceWdrGtmConfig_s</label>
+        <link refid="struct_cam_device_wdr_gtm_config__s"/>
+      </node>
+      <node id="656">
+        <label>CamDeviceWdrHighLightConfig_s</label>
+        <link refid="struct_cam_device_wdr_high_light_config__s"/>
+      </node>
+      <node id="646">
+        <label>CamDeviceWdrSaturationAdjustmentConfig_s</label>
+        <link refid="struct_cam_device_wdr_saturation_adjustment_config__s"/>
+      </node>
+      <node id="644">
+        <label>CamDeviceWdrManualConfig_s</label>
+        <link refid="struct_cam_device_wdr_manual_config__s"/>
+        <childnode refid="645" relation="usage">
+          <edgelabel>gtmWeightCfg</edgelabel>
+        </childnode>
+        <childnode refid="646" relation="usage">
+          <edgelabel>saturationAdjustmentCfg</edgelabel>
+        </childnode>
+        <childnode refid="647" relation="usage">
+          <edgelabel>haloColorFadingCfg</edgelabel>
+        </childnode>
+        <childnode refid="648" relation="usage">
+          <edgelabel>strengthCfg</edgelabel>
+        </childnode>
+        <childnode refid="649" relation="usage">
+          <edgelabel>dampCfg</edgelabel>
+        </childnode>
+        <childnode refid="650" relation="usage">
+          <edgelabel>colorWeightCfg</edgelabel>
+        </childnode>
+        <childnode refid="651" relation="usage">
+          <edgelabel>gainLimitationCfg</edgelabel>
+        </childnode>
+        <childnode refid="652" relation="usage">
+          <edgelabel>gtmCfg</edgelabel>
+        </childnode>
+        <childnode refid="653" relation="usage">
+          <edgelabel>defringeCfg</edgelabel>
+        </childnode>
+        <childnode refid="654" relation="usage">
+          <edgelabel>degammaCfg</edgelabel>
+        </childnode>
+        <childnode refid="655" relation="usage">
+          <edgelabel>ltmWeightCfg</edgelabel>
+        </childnode>
+        <childnode refid="656" relation="usage">
+          <edgelabel>highLightCfg</edgelabel>
+        </childnode>
+        <childnode refid="657" relation="usage">
+          <edgelabel>ltmCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="309" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_config__s_1aed4693885fc6861d3dc7d833554ef03c" prot="public" virt="non-virtual"><scope>CamDeviceWdrConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_wdr_config__s_1ac8daac287059fe862c0295d0e741a4a7" prot="public" virt="non-virtual"><scope>CamDeviceWdrConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device_wdr_config__s_1a4c0e3e8097807bea127233b1a03d1575" prot="public" virt="non-virtual"><scope>CamDeviceWdrConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

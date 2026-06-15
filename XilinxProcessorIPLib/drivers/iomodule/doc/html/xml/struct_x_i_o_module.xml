@@ -1,0 +1,527 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i_o_module" kind="struct" prot="public">
+    <compoundname>XIOModule</compoundname>
+    <includes local="no">xiomodule.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIOModule::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga036018140fd9f14af05eec37b3cb2e93" compoundref="xiomodule_8c" startline="563" endline="586">XIOModule_Acknowledge</referencedby>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2ab631d859f9fc7b00f3c8367d763c49" compoundref="xiomodule_8c" startline="518" endline="543">XIOModule_Disable</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" compoundref="xiomodule__extra_8c" startline="107" endline="131">XIOModule_DiscreteClear</referencedby>
+        <referencedby refid="group__iomodule_1ga87f83bf4cf53aa0e4f972688cb3e4aed" compoundref="xiomodule_8c" startline="842" endline="850">XIOModule_DiscreteRead</referencedby>
+        <referencedby refid="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" compoundref="xiomodule__extra_8c" startline="67" endline="89">XIOModule_DiscreteSet</referencedby>
+        <referencedby refid="group__iomodule_1ga4876348e378f8b97bdc59b7cfd5b6b8b" compoundref="xiomodule_8c" startline="865" endline="877">XIOModule_DiscreteWrite</referencedby>
+        <referencedby refid="group__iomodule_1ga0c2fe0ab1367af43b603cd896e306737" compoundref="xiomodule_8c" startline="472" endline="497">XIOModule_Enable</referencedby>
+        <referencedby refid="group__iomodule_1ga826357a58aeda0b2d1bfc42efd6bb94c" compoundref="xiomodule_8c" startline="1107" endline="1117">XIOModule_GetValue</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gaadbc5225c2c104a1a09d226e6daf3497" compoundref="xiomodule__selftest_8c" startline="80" endline="114">XIOModule_Intc_SelfTest</referencedby>
+        <referencedby refid="group__iomodule_1ga404ac6ebc7137131bf0d277256c07605" compoundref="xiomodule_8c" startline="1248" endline="1278">XIOModule_IsExpired</referencedby>
+        <referencedby refid="group__iomodule_1ga0e055e6172c30e7acbfde08aeed10fa1" compoundref="xiomodule__uart__intr_8c" startline="255" endline="275">XIOModule_IsSending</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gae5d1cb85ee2100003b7e2dcc160c47c0" compoundref="xiomodule_8c" startline="1198" endline="1225">XIOModule_Reset</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+        <referencedby refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" compoundref="xiomodule__uart_8c" startline="164" endline="228">XIOModule_SetBaudRate</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__iomodule_1gaf9ed2111d2f53ac88626030d907f374a" compoundref="xiomodule_8c" startline="1139" endline="1152">XIOModule_SetResetValue</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga719529740fbb19c3ce7d44078a2edcc1" compoundref="xiomodule__options_8c" startline="171" endline="210">XIOModule_Timer_SetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga622c3a5cd4e43543cfb445071d01e7a9" compoundref="xiomodule_8c" startline="1017" endline="1040">XIOModule_Timer_Start</referencedby>
+        <referencedby refid="group__iomodule_1ga60bd9ef270b0de7440206326ec1fe710" compoundref="xiomodule_8c" startline="1062" endline="1087">XIOModule_Timer_Stop</referencedby>
+        <referencedby refid="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" compoundref="xiomodule__uart__intr_8c" startline="687" endline="701">XIOModule_Uart_DisableInterrupt</referencedby>
+        <referencedby refid="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" compoundref="xiomodule__uart__intr_8c" startline="716" endline="729">XIOModule_Uart_EnableInterrupt</referencedby>
+        <referencedby refid="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" compoundref="xiomodule__uart__intr_8c" startline="560" endline="580">XIOModule_Uart_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gae50d24ec7a10fc2b3167d5f3a6070107" compoundref="xiomodule__options_8c" startline="232" endline="262">XIOModel_Timer_GetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga036018140fd9f14af05eec37b3cb2e93" compoundref="xiomodule_8c" startline="563" endline="586">XIOModule_Acknowledge</referencedby>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga437b891061d1b16758b5e104e7535e6e" compoundref="xiomodule_8c" startline="384" endline="402">XIOModule_Connect</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2ab631d859f9fc7b00f3c8367d763c49" compoundref="xiomodule_8c" startline="518" endline="543">XIOModule_Disable</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" compoundref="xiomodule__extra_8c" startline="107" endline="131">XIOModule_DiscreteClear</referencedby>
+        <referencedby refid="group__iomodule_1ga87f83bf4cf53aa0e4f972688cb3e4aed" compoundref="xiomodule_8c" startline="842" endline="850">XIOModule_DiscreteRead</referencedby>
+        <referencedby refid="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" compoundref="xiomodule__extra_8c" startline="67" endline="89">XIOModule_DiscreteSet</referencedby>
+        <referencedby refid="group__iomodule_1ga4876348e378f8b97bdc59b7cfd5b6b8b" compoundref="xiomodule_8c" startline="865" endline="877">XIOModule_DiscreteWrite</referencedby>
+        <referencedby refid="group__iomodule_1ga0c2fe0ab1367af43b603cd896e306737" compoundref="xiomodule_8c" startline="472" endline="497">XIOModule_Enable</referencedby>
+        <referencedby refid="group__iomodule_1gaf4281a3f3f5e5620d4e78dc904ab04cf" compoundref="xiomodule_8c" startline="1171" endline="1179">XIOModule_GetCaptureValue</referencedby>
+        <referencedby refid="group__iomodule_1gab24288979ff867f5e8f98372bddda874" compoundref="xiomodule__options_8c" startline="134" endline="143">XIOModule_GetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <referencedby refid="group__iomodule_1ga826357a58aeda0b2d1bfc42efd6bb94c" compoundref="xiomodule_8c" startline="1107" endline="1117">XIOModule_GetValue</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gaadbc5225c2c104a1a09d226e6daf3497" compoundref="xiomodule__selftest_8c" startline="80" endline="114">XIOModule_Intc_SelfTest</referencedby>
+        <referencedby refid="group__iomodule_1gab5ec0ed139e0e9629ec1b542dfec3989" compoundref="xiomodule_8c" startline="1332" endline="1338">XIOModule_IoReadByte</referencedby>
+        <referencedby refid="group__iomodule_1ga7ff8a4fabcb27bc42957503761602439" compoundref="xiomodule_8c" startline="1312" endline="1318">XIOModule_IoReadHalfword</referencedby>
+        <referencedby refid="group__iomodule_1ga9939789b5819d1561bebc0eacac28b84" compoundref="xiomodule_8c" startline="1292" endline="1298">XIOModule_IoReadWord</referencedby>
+        <referencedby refid="group__iomodule_1gaae3b81b7f7e0ebf69c951b2fcf438e85" compoundref="xiomodule_8c" startline="1399" endline="1407">XIOModule_IoWriteByte</referencedby>
+        <referencedby refid="group__iomodule_1ga3c9d9b8fc1d9accc3502b24db3770664" compoundref="xiomodule_8c" startline="1376" endline="1384">XIOModule_IoWriteHalfword</referencedby>
+        <referencedby refid="group__iomodule_1gaf20cdadbf9d5197fd91076a76b7049f8" compoundref="xiomodule_8c" startline="1353" endline="1361">XIOModule_IoWriteWord</referencedby>
+        <referencedby refid="group__iomodule_1ga404ac6ebc7137131bf0d277256c07605" compoundref="xiomodule_8c" startline="1248" endline="1278">XIOModule_IsExpired</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gae5d1cb85ee2100003b7e2dcc160c47c0" compoundref="xiomodule_8c" startline="1198" endline="1225">XIOModule_Reset</referencedby>
+        <referencedby refid="group__iomodule_1gadabb5f2e09817afb284173f31f3d7265" compoundref="xiomodule__uart__intr_8c" startline="236" endline="240">XIOModule_ResetFifos</referencedby>
+        <referencedby refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" compoundref="xiomodule__selftest_8c" startline="221" endline="266">XIOModule_SelfTest</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" compoundref="xiomodule__uart_8c" startline="164" endline="228">XIOModule_SetBaudRate</referencedby>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__iomodule_1ga41be199efc8ca8c8d883c5fae98517d6" compoundref="xiomodule__options_8c" startline="98" endline="118">XIOModule_SetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" compoundref="xiomodule__uart__intr_8c" startline="495" endline="508">XIOModule_SetRecvHandler</referencedby>
+        <referencedby refid="group__iomodule_1gaf9ed2111d2f53ac88626030d907f374a" compoundref="xiomodule_8c" startline="1139" endline="1152">XIOModule_SetResetValue</referencedby>
+        <referencedby refid="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" compoundref="xiomodule__uart__intr_8c" startline="528" endline="541">XIOModule_SetSendHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2841593e6e312fefe9f190a75e11fdb4" compoundref="xiomodule_8c" startline="315" endline="330">XIOModule_Start</referencedby>
+        <referencedby refid="group__iomodule_1ga4cd1ece524eb5fd3d5d255027ad6a01a" compoundref="xiomodule_8c" startline="346" endline="355">XIOModule_Stop</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gae36785024a93e95d38c2b4e7552744aa" compoundref="xiomodule__selftest_8c" startline="141" endline="201">XIOModule_Timer_SelfTest</referencedby>
+        <referencedby refid="group__iomodule_1ga719529740fbb19c3ce7d44078a2edcc1" compoundref="xiomodule__options_8c" startline="171" endline="210">XIOModule_Timer_SetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga622c3a5cd4e43543cfb445071d01e7a9" compoundref="xiomodule_8c" startline="1017" endline="1040">XIOModule_Timer_Start</referencedby>
+        <referencedby refid="group__iomodule_1ga60bd9ef270b0de7440206326ec1fe710" compoundref="xiomodule_8c" startline="1062" endline="1087">XIOModule_Timer_Stop</referencedby>
+        <referencedby refid="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" compoundref="xiomodule__uart__intr_8c" startline="687" endline="701">XIOModule_Uart_DisableInterrupt</referencedby>
+        <referencedby refid="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" compoundref="xiomodule__uart__intr_8c" startline="716" endline="729">XIOModule_Uart_EnableInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1abf03d83df86afa14879087ed5f792d9d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device has been started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga2841593e6e312fefe9f190a75e11fdb4" compoundref="xiomodule_8c" startline="315" endline="330">XIOModule_Start</referencedby>
+        <referencedby refid="group__iomodule_1ga4cd1ece524eb5fd3d5d255027ad6a01a" compoundref="xiomodule_8c" startline="346" endline="355">XIOModule_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i_o_module___config" kindref="compound">XIOModule_Config</ref> *</type>
+        <definition>XIOModule_Config* XIOModule::CfgPtr</definition>
+        <argsstring></argsstring>
+        <name>CfgPtr</name>
+        <briefdescription>
+<para>Pointer to inst config entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="436" bodyend="-1"/>
+        <referencedby refid="xiomodule__intr__example_8c_1a42a91b22019542c146d78f2c4bfe27fe" compoundref="xiomodule__intr__example_8c" startline="142" endline="252">IOModuleIntrExample</referencedby>
+        <referencedby refid="group__iomodule_1ga437b891061d1b16758b5e104e7535e6e" compoundref="xiomodule_8c" startline="384" endline="402">XIOModule_Connect</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1gab24288979ff867f5e8f98372bddda874" compoundref="xiomodule__options_8c" startline="134" endline="143">XIOModule_GetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga964f5bae2572929b40d1f630118e36ac" compoundref="xiomodule_8c" startline="258" endline="293">XIOModule_HandlerTable_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga848da9f83ad1188caca777cd324cec10" compoundref="xiomodule__intr_8c" startline="154" endline="170">XIOModule_InterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga404ac6ebc7137131bf0d277256c07605" compoundref="xiomodule_8c" startline="1248" endline="1278">XIOModule_IsExpired</referencedby>
+        <referencedby refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" compoundref="xiomodule__selftest_8c" startline="221" endline="266">XIOModule_SelfTest</referencedby>
+        <referencedby refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" compoundref="xiomodule__uart_8c" startline="164" endline="228">XIOModule_SetBaudRate</referencedby>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__iomodule_1ga41be199efc8ca8c8d883c5fae98517d6" compoundref="xiomodule__options_8c" startline="98" endline="118">XIOModule_SetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1gae36785024a93e95d38c2b4e7552744aa" compoundref="xiomodule__selftest_8c" startline="141" endline="201">XIOModule_Timer_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i_o_module___uart___stats" kindref="compound">XIOModule_Uart_Stats</ref></type>
+        <definition>XIOModule_Uart_Stats XIOModule::Uart_Stats</definition>
+        <argsstring></argsstring>
+        <name>Uart_Stats</name>
+        <briefdescription>
+<para>UART Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i_o_module___buffer" kindref="compound">XIOModule_Buffer</ref></type>
+        <definition>XIOModule_Buffer XIOModule::SendBuffer</definition>
+        <argsstring></argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>UART Send buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="439" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+        <referencedby refid="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" compoundref="xiomodule__uart__intr_8c" startline="560" endline="580">XIOModule_Uart_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i_o_module___buffer" kindref="compound">XIOModule_Buffer</ref></type>
+        <definition>XIOModule_Buffer XIOModule::ReceiveBuffer</definition>
+        <argsstring></argsstring>
+        <name>ReceiveBuffer</name>
+        <briefdescription>
+<para>UART Receive buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" prot="public" static="no" mutable="no">
+        <type><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref></type>
+        <definition>XIOModule_Handler XIOModule::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>UART Receive Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" compoundref="xiomodule__uart__intr_8c" startline="495" endline="508">XIOModule_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1aba9945a4a56cd7d80eddfeb72ec0fa3c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIOModule::RecvCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>RecvCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for recv handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" compoundref="xiomodule__uart__intr_8c" startline="495" endline="508">XIOModule_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref></type>
+        <definition>XIOModule_Handler XIOModule::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+<para>UART Send Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" compoundref="xiomodule__uart__intr_8c" startline="528" endline="541">XIOModule_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a1c7dd2691c80c532a0b2624a91c6b615" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIOModule::SendCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>SendCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for send handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="444" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" compoundref="xiomodule__uart__intr_8c" startline="528" endline="541">XIOModule_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a40ef038a466867f27010e474e5e27aa2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::CurrentUBRR</definition>
+        <argsstring></argsstring>
+        <name>CurrentUBRR</name>
+        <briefdescription>
+<para>UART Baud Rate Register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" compoundref="xiomodule__uart_8c" startline="164" endline="228">XIOModule_SetBaudRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a050b0ca5dfd0c894b2efc394b4a4ecd4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::UnhandledInterrupts</definition>
+        <argsstring></argsstring>
+        <name>UnhandledInterrupts</name>
+        <briefdescription>
+<para>Iomodule Interrupt Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::CurrentIER</definition>
+        <argsstring></argsstring>
+        <name>CurrentIER</name>
+        <briefdescription>
+<para>Interrupt Enable Register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2ab631d859f9fc7b00f3c8367d763c49" compoundref="xiomodule_8c" startline="518" endline="543">XIOModule_Disable</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1ga0c2fe0ab1367af43b603cd896e306737" compoundref="xiomodule_8c" startline="472" endline="497">XIOModule_Enable</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" compoundref="xiomodule__uart__intr_8c" startline="687" endline="701">XIOModule_Uart_DisableInterrupt</referencedby>
+        <referencedby refid="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" compoundref="xiomodule__uart__intr_8c" startline="716" endline="729">XIOModule_Uart_EnableInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a23dc644971604b9b25ac2e217126de5e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::CurrentIMR</definition>
+        <argsstring></argsstring>
+        <name>CurrentIMR</name>
+        <briefdescription>
+<para>Interrupt Mode Register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1ac6a8d39469df123710c1f280458dc417" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i_o_module___timer___stats" kindref="compound">XIOModule_Timer_Stats</ref></type>
+        <definition>XIOModule_Timer_Stats XIOModule::Timer_Stats[XTC_DEVICE_TIMER_COUNT]</definition>
+        <argsstring>[XTC_DEVICE_TIMER_COUNT]</argsstring>
+        <name>Timer_Stats</name>
+        <briefdescription>
+<para>Timer statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a7cad21513e163c951f47dcc9b4b4a64f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::CurrentTLR[XTC_DEVICE_TIMER_COUNT]</definition>
+        <argsstring>[XTC_DEVICE_TIMER_COUNT]</argsstring>
+        <name>CurrentTLR</name>
+        <briefdescription>
+<para>Timer Load Register values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gaf4281a3f3f5e5620d4e78dc904ab04cf" compoundref="xiomodule_8c" startline="1171" endline="1179">XIOModule_GetCaptureValue</referencedby>
+        <referencedby refid="group__iomodule_1gaf9ed2111d2f53ac88626030d907f374a" compoundref="xiomodule_8c" startline="1139" endline="1152">XIOModule_SetResetValue</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a87d8836bb3fa194998a6ee74364c6bc3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIOModule::CurrentTCSR[XTC_DEVICE_TIMER_COUNT]</definition>
+        <argsstring>[XTC_DEVICE_TIMER_COUNT]</argsstring>
+        <name>CurrentTCSR</name>
+        <briefdescription>
+<para>Timer Control Register values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gae50d24ec7a10fc2b3167d5f3a6070107" compoundref="xiomodule__options_8c" startline="232" endline="262">XIOModel_Timer_GetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga404ac6ebc7137131bf0d277256c07605" compoundref="xiomodule_8c" startline="1248" endline="1278">XIOModule_IsExpired</referencedby>
+        <referencedby refid="group__iomodule_1gae5d1cb85ee2100003b7e2dcc160c47c0" compoundref="xiomodule_8c" startline="1198" endline="1225">XIOModule_Reset</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga719529740fbb19c3ce7d44078a2edcc1" compoundref="xiomodule__options_8c" startline="171" endline="210">XIOModule_Timer_SetOptions</referencedby>
+        <referencedby refid="group__iomodule_1ga622c3a5cd4e43543cfb445071d01e7a9" compoundref="xiomodule_8c" startline="1017" endline="1040">XIOModule_Timer_Start</referencedby>
+        <referencedby refid="group__iomodule_1ga60bd9ef270b0de7440206326ec1fe710" compoundref="xiomodule_8c" startline="1062" endline="1087">XIOModule_Timer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" prot="public" static="no" mutable="no">
+        <type><ref refid="group__iomodule_1ga3a95e8a205259686d85802168e10cdb3" kindref="member">XIOModule_Timer_Handler</ref></type>
+        <definition>XIOModule_Timer_Handler XIOModule::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Timer Callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="457" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIOModule::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Timer Callback handler ref. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule::GpoValue[XGPO_DEVICE_COUNT]</definition>
+        <argsstring>[XGPO_DEVICE_COUNT]</argsstring>
+        <name>GpoValue</name>
+        <briefdescription>
+<para>GPO current value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" compoundref="xiomodule__extra_8c" startline="107" endline="131">XIOModule_DiscreteClear</referencedby>
+        <referencedby refid="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" compoundref="xiomodule__extra_8c" startline="67" endline="89">XIOModule_DiscreteSet</referencedby>
+        <referencedby refid="group__iomodule_1ga4876348e378f8b97bdc59b7cfd5b6b8b" compoundref="xiomodule_8c" startline="865" endline="877">XIOModule_DiscreteWrite</referencedby>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module_1ad7e23291bb2fd05ef464f8ee3f446076" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIOModule::IoBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>IoBaseAddress</name>
+        <briefdescription>
+<para>Base address of IO Bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="462" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gab5ec0ed139e0e9629ec1b542dfec3989" compoundref="xiomodule_8c" startline="1332" endline="1338">XIOModule_IoReadByte</referencedby>
+        <referencedby refid="group__iomodule_1ga7ff8a4fabcb27bc42957503761602439" compoundref="xiomodule_8c" startline="1312" endline="1318">XIOModule_IoReadHalfword</referencedby>
+        <referencedby refid="group__iomodule_1ga9939789b5819d1561bebc0eacac28b84" compoundref="xiomodule_8c" startline="1292" endline="1298">XIOModule_IoReadWord</referencedby>
+        <referencedby refid="group__iomodule_1gaae3b81b7f7e0ebf69c951b2fcf438e85" compoundref="xiomodule_8c" startline="1399" endline="1407">XIOModule_IoWriteByte</referencedby>
+        <referencedby refid="group__iomodule_1ga3c9d9b8fc1d9accc3502b24db3770664" compoundref="xiomodule_8c" startline="1376" endline="1384">XIOModule_IoWriteHalfword</referencedby>
+        <referencedby refid="group__iomodule_1gaf20cdadbf9d5197fd91076a76b7049f8" compoundref="xiomodule_8c" startline="1353" endline="1361">XIOModule_IoWriteWord</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every iomodule device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XIOModule_Config</label>
+        <link refid="struct_x_i_o_module___config"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>HandlerTable</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>XIOModule_Timer_Stats</label>
+        <link refid="struct_x_i_o_module___timer___stats"/>
+      </node>
+      <node id="4">
+        <label>XIOModule_Uart_Stats</label>
+        <link refid="struct_x_i_o_module___uart___stats"/>
+      </node>
+      <node id="5">
+        <label>XIOModule_Buffer</label>
+        <link refid="struct_x_i_o_module___buffer"/>
+      </node>
+      <node id="3">
+        <label>XIOModule_VectorTableEntry</label>
+        <link refid="struct_x_i_o_module___vector_table_entry"/>
+      </node>
+      <node id="1">
+        <label>XIOModule</label>
+        <link refid="struct_x_i_o_module"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>CfgPtr</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Uart_Stats</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>SendBuffer</edgelabel>
+          <edgelabel>ReceiveBuffer</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Timer_Stats</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="432" bodyend="463"/>
+    <listofallmembers>
+      <member refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CfgPtr</name></member>
+      <member refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CurrentIER</name></member>
+      <member refid="struct_x_i_o_module_1a23dc644971604b9b25ac2e217126de5e" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CurrentIMR</name></member>
+      <member refid="struct_x_i_o_module_1a87d8836bb3fa194998a6ee74364c6bc3" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CurrentTCSR</name></member>
+      <member refid="struct_x_i_o_module_1a7cad21513e163c951f47dcc9b4b4a64f" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CurrentTLR</name></member>
+      <member refid="struct_x_i_o_module_1a40ef038a466867f27010e474e5e27aa2" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>CurrentUBRR</name></member>
+      <member refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>GpoValue</name></member>
+      <member refid="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>Handler</name></member>
+      <member refid="struct_x_i_o_module_1ad7e23291bb2fd05ef464f8ee3f446076" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>IoBaseAddress</name></member>
+      <member refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>IsReady</name></member>
+      <member refid="struct_x_i_o_module_1abf03d83df86afa14879087ed5f792d9d" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>IsStarted</name></member>
+      <member refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>ReceiveBuffer</name></member>
+      <member refid="struct_x_i_o_module_1aba9945a4a56cd7d80eddfeb72ec0fa3c" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>RecvCallBackRef</name></member>
+      <member refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>SendBuffer</name></member>
+      <member refid="struct_x_i_o_module_1a1c7dd2691c80c532a0b2624a91c6b615" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>SendCallBackRef</name></member>
+      <member refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>SendHandler</name></member>
+      <member refid="struct_x_i_o_module_1ac6a8d39469df123710c1f280458dc417" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>Timer_Stats</name></member>
+      <member refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>Uart_Stats</name></member>
+      <member refid="struct_x_i_o_module_1a050b0ca5dfd0c894b2efc394b4a4ecd4" prot="public" virt="non-virtual"><scope>XIOModule</scope><name>UnhandledInterrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

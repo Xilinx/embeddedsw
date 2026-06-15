@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___d_d_c_message" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_DDCMessage</compoundname>
+    <includes local="no">xhdcp22_tx_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___d_d_c_message_1a93f3cb047ab7cd7974ca268765e83111" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_DDCMessage::DdcAddress</definition>
+        <argsstring></argsstring>
+        <name>DdcAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___d_d_c_message_1a74b6c125ee4901e2b98cc65f0387f1ef" prot="public" static="no" mutable="no">
+        <type><ref refid="union_x_hdcp22___tx___message" kindref="compound">XHdcp22_Tx_Message</ref></type>
+        <definition>XHdcp22_Tx_Message XHdcp22_Tx_DDCMessage::Message</definition>
+        <argsstring></argsstring>
+        <name>Message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Message including the DDC Address. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="37">
+        <label>XHdcp22_Tx_LCInit</label>
+        <link refid="struct_x_hdcp22___tx___l_c_init"/>
+      </node>
+      <node id="38">
+        <label>XHdcp22_Tx_RepeatAuthStreamReady</label>
+        <link refid="struct_x_hdcp22___tx___repeat_auth_stream_ready"/>
+      </node>
+      <node id="29">
+        <label>XHdcp22_Tx_Message</label>
+        <link refid="union_x_hdcp22___tx___message"/>
+        <childnode refid="30" relation="usage">
+          <edgelabel>AKESendCert</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>RepeatAuthSendAck</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>SKESendEks</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>AKENoStoredKm</edgelabel>
+        </childnode>
+        <childnode refid="35" relation="usage">
+          <edgelabel>AKESendPairingInfo</edgelabel>
+        </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>AKEInit</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>LCInit</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>RepeatAuthStreamReady</edgelabel>
+        </childnode>
+        <childnode refid="39" relation="usage">
+          <edgelabel>LCSendLPrime</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>RepeatAuthStreamManage</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>AKEStoredKm</edgelabel>
+        </childnode>
+        <childnode refid="42" relation="usage">
+          <edgelabel>RepeatAuthSendRecvIDList</edgelabel>
+        </childnode>
+        <childnode refid="43" relation="usage">
+          <edgelabel>AKESendHPrime</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>XHdcp22_Tx_AKESendCert</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_send_cert"/>
+        <childnode refid="31" relation="usage">
+          <edgelabel>CertRx</edgelabel>
+        </childnode>
+      </node>
+      <node id="31">
+        <label>XHdcp22_Tx_CertRx</label>
+        <link refid="struct_x_hdcp22___tx___cert_rx"/>
+      </node>
+      <node id="43">
+        <label>XHdcp22_Tx_AKESendHPrime</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_send_h_prime"/>
+      </node>
+      <node id="41">
+        <label>XHdcp22_Tx_AKEStoredKm</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_stored_km"/>
+      </node>
+      <node id="28">
+        <label>XHdcp22_Tx_DDCMessage</label>
+        <link refid="struct_x_hdcp22___tx___d_d_c_message"/>
+        <childnode refid="29" relation="usage">
+          <edgelabel>Message</edgelabel>
+        </childnode>
+      </node>
+      <node id="35">
+        <label>XHdcp22_Tx_AKESendPairingInfo</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_send_pairing_info"/>
+      </node>
+      <node id="33">
+        <label>XHdcp22_Tx_SKESendEks</label>
+        <link refid="struct_x_hdcp22___tx___s_k_e_send_eks"/>
+      </node>
+      <node id="36">
+        <label>XHdcp22_Tx_AKEInit</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_init"/>
+      </node>
+      <node id="40">
+        <label>XHdcp22_Tx_RepeatAuthStreamManage</label>
+        <link refid="struct_x_hdcp22___tx___repeat_auth_stream_manage"/>
+      </node>
+      <node id="34">
+        <label>XHdcp22_Tx_AKENoStoredKm</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_no_stored_km"/>
+      </node>
+      <node id="32">
+        <label>XHdcp22_Tx_RepeatAuthSendAck</label>
+        <link refid="struct_x_hdcp22___tx___repeat_auth_send_ack"/>
+      </node>
+      <node id="42">
+        <label>XHdcp22_Tx_RepeatAuthSendRecvIDList</label>
+        <link refid="struct_x_hdcp22___tx___repeat_auth_send_recv_i_d_list"/>
+      </node>
+      <node id="39">
+        <label>XHdcp22_Tx_LCSendLPrime</label>
+        <link refid="struct_x_hdcp22___tx___l_c_send_l_prime"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="462" bodyend="466"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___d_d_c_message_1a93f3cb047ab7cd7974ca268765e83111" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_DDCMessage</scope><name>DdcAddress</name></member>
+      <member refid="struct_x_hdcp22___tx___d_d_c_message_1a74b6c125ee4901e2b98cc65f0387f1ef" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_DDCMessage</scope><name>Message</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

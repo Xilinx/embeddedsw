@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_18c56d903879cd396acca351fcc960c3" kind="dir">
+    <compoundname>clk_wiz</compoundname>
+    <innerdir refid="dir_9522079a573b7642a89e15632ebe3ea7">examples</innerdir>
+    <innerdir refid="dir_a8503c0f616f4c4841db9f4b2e63234e">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/"/>
+  </compounddef>
+</doxygen>

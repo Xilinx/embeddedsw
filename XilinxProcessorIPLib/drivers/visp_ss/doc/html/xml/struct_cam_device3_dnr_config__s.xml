@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device3_dnr_config__s" kind="struct" prot="public">
+    <compoundname>CamDevice3DnrConfig_s</compoundname>
+    <includes local="no">cam_device_3dnr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device3_dnr_config__s_1a0d67b8ecea359fa8b1865a662a8e801c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDevice3DnrConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_config__s_1a1bba3ac38a659c150c03f5d21e909322" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__3dnr_1ga188bd872ba29a917d8ce93ba9009ad53" kindref="member">CamDevice3DnrAutoConfig_t</ref></type>
+        <definition>CamDevice3DnrAutoConfig_t CamDevice3DnrConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>3DNR auto configuration </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_config__s_1aee47639562b3edbe64516fd6f7ebda06" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__3dnr_1gaaf98d37312882e950cb93b4c7f0c2c35" kindref="member">CamDevice3DnrManualConfig_t</ref></type>
+        <definition>CamDevice3DnrManualConfig_t CamDevice3DnrConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>3DNR current configuration </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice 3DNR V2.1 configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="42">
+        <label>CamDevice3DnrTemporalManualConfig_s</label>
+        <link refid="struct_cam_device3_dnr_temporal_manual_config__s"/>
+      </node>
+      <node id="40">
+        <label>CamDevice3DnrConfig_s</label>
+        <link refid="struct_cam_device3_dnr_config__s"/>
+        <childnode refid="41" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="43" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="44">
+        <label>CamDevice3DnrTemporalAutoConfig_s</label>
+        <link refid="struct_cam_device3_dnr_temporal_auto_config__s"/>
+      </node>
+      <node id="43">
+        <label>CamDevice3DnrAutoConfig_s</label>
+        <link refid="struct_cam_device3_dnr_auto_config__s"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>temporalCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="41">
+        <label>CamDevice3DnrManualConfig_s</label>
+        <link refid="struct_cam_device3_dnr_manual_config__s"/>
+        <childnode refid="42" relation="usage">
+          <edgelabel>temporalCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="109" bodyend="113"/>
+    <listofallmembers>
+      <member refid="struct_cam_device3_dnr_config__s_1a1bba3ac38a659c150c03f5d21e909322" prot="public" virt="non-virtual"><scope>CamDevice3DnrConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device3_dnr_config__s_1a0d67b8ecea359fa8b1865a662a8e801c" prot="public" virt="non-virtual"><scope>CamDevice3DnrConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device3_dnr_config__s_1aee47639562b3edbe64516fd6f7ebda06" prot="public" virt="non-virtual"><scope>CamDevice3DnrConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

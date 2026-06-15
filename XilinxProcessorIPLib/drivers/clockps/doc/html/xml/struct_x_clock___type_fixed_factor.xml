@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___type_fixed_factor" kind="struct" prot="public">
+    <compoundname>XClock_TypeFixedFactor</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1a5febd78a83b48c92701b7d752745c0a4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeFixedFactor::Multiplier</definition>
+        <argsstring></argsstring>
+        <name>Multiplier</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1a5f2a86cc5173f8060e63338a71400fa7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeFixedFactor::Divisor</definition>
+        <argsstring></argsstring>
+        <name>Divisor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1a44e7e43f8c5ef7bf2ca009fbba4adac1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeFixedFactor::IsInit</definition>
+        <argsstring></argsstring>
+        <name>IsInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1acfd931d250418033ae02e1c8eacef829" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeFixedFactor::EnableCount</definition>
+        <argsstring></argsstring>
+        <name>EnableCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1a8e1adc41720c5da7431c3d2d0649ec63" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XClock_TypeFixedFactor::Parent</definition>
+        <argsstring></argsstring>
+        <name>Parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_fixed_factor_1a7ca5d7893be1d31c24fe1f1388f26022" prot="public" static="no" mutable="no">
+        <type>XClockRate</type>
+        <definition>XClockRate XClock_TypeFixedFactor::Rate</definition>
+        <argsstring></argsstring>
+        <name>Rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_fixedfactor.c" bodystart="45" bodyend="52"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___type_fixed_factor_1a5f2a86cc5173f8060e63338a71400fa7" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>Divisor</name></member>
+      <member refid="struct_x_clock___type_fixed_factor_1acfd931d250418033ae02e1c8eacef829" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>EnableCount</name></member>
+      <member refid="struct_x_clock___type_fixed_factor_1a44e7e43f8c5ef7bf2ca009fbba4adac1" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>IsInit</name></member>
+      <member refid="struct_x_clock___type_fixed_factor_1a5febd78a83b48c92701b7d752745c0a4" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>Multiplier</name></member>
+      <member refid="struct_x_clock___type_fixed_factor_1a8e1adc41720c5da7431c3d2d0649ec63" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>Parent</name></member>
+      <member refid="struct_x_clock___type_fixed_factor_1a7ca5d7893be1d31c24fe1f1388f26022" prot="public" virt="non-virtual"><scope>XClock_TypeFixedFactor</scope><name>Rate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

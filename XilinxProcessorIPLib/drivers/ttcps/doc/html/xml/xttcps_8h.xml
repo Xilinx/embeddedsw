@@ -1,0 +1,1425 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xttcps_8h" kind="file">
+    <compoundname>xttcps.h</compoundname>
+    <includes refid="xttcps__hw_8h" local="yes">xttcps_hw.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xttcps_8c" local="yes">xttcps.c</includedby>
+    <includedby refid="xttcps__g_8c" local="yes">xttcps_g.c</includedby>
+    <includedby refid="xttcps__options_8c" local="yes">xttcps_options.c</includedby>
+    <includedby refid="xttcps__selftest_8c" local="yes">xttcps_selftest.c</includedby>
+    <includedby refid="xttcps__sinit_8c" local="yes">xttcps_sinit.c</includedby>
+    <includedby refid="xttcps__intr__example_8c" local="yes">xttcps_intr_example.c</includedby>
+    <includedby refid="xttcps__low__level__example_8c" local="yes">xttcps_low_level_example.c</includedby>
+    <includedby refid="xttcps__rtc__example_8c" local="yes">xttcps_rtc_example.c</includedby>
+    <includedby refid="xttcps__tapp__example_8c" local="yes">xttcps_tapp_example.c</includedby>
+    <incdepgraph>
+      <node id="18">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="19">
+        <label>xil_io.h</label>
+      </node>
+      <node id="16">
+        <label>xttcps_hw.h</label>
+        <link refid="xttcps__hw_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>xstatus.h</label>
+      </node>
+      <node id="17">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xttcps.h</label>
+        <link refid="xttcps.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="23">
+        <label>xttcps_g.c</label>
+        <link refid="xttcps__g_8c"/>
+      </node>
+      <node id="26">
+        <label>xttcps_sinit.c</label>
+        <link refid="xttcps__sinit_8c"/>
+      </node>
+      <node id="28">
+        <label>xttcps_low_level_example.c</label>
+        <link refid="xttcps__low__level__example_8c"/>
+      </node>
+      <node id="27">
+        <label>xttcps_intr_example.c</label>
+        <link refid="xttcps__intr__example_8c"/>
+      </node>
+      <node id="30">
+        <label>xttcps_tapp_example.c</label>
+        <link refid="xttcps__tapp__example_8c"/>
+      </node>
+      <node id="25">
+        <label>xttcps_selftest.c</label>
+        <link refid="xttcps__selftest_8c"/>
+      </node>
+      <node id="29">
+        <label>xttcps_rtc_example.c</label>
+        <link refid="xttcps__rtc__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xttcps.c</label>
+        <link refid="xttcps_8c"/>
+      </node>
+      <node id="21">
+        <label>xttcps.h</label>
+        <link refid="xttcps.h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>xttcps_options.c</label>
+        <link refid="xttcps__options_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_ttc_ps___config" prot="public">XTtcPs_Config</innerclass>
+    <innerclass refid="struct_x_ttc_ps" prot="public">XTtcPs</innerclass>
+    <innerclass refid="struct_x_ttc_ps___status_handler_table_entry" prot="public">XTtcPs_StatusHandlerTableEntry</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Configuration options</header>
+      <description><para>Options for the device.</para><para>Each of the options is bit field, so more than one options can be specified. </para></description>
+      <memberdef kind="define" id="group__ttcps_1ga3583fa93646d878d3c43186df93e1ada" prot="public" static="no">
+        <name>XTTCPS_OPTION_EXTERNAL_CLK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>External clock source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga7364b78f01ad1b27a076ef9ce568f497" prot="public" static="no">
+        <name>XTTCPS_OPTION_CLK_EDGE_NEG</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Clock on trailing edge for external clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gabe4c649641c3efc6f2fe07e6810d2048" prot="public" static="no">
+        <name>XTTCPS_OPTION_INTERVAL_MODE</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gaeeae7b90036e1a13b52e7b2875942efd" prot="public" static="no">
+        <name>XTTCPS_OPTION_DECREMENT</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Decrement the counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gaa66b7479dcccbd1a6117d47831d882d5" prot="public" static="no">
+        <name>XTTCPS_OPTION_MATCH_MODE</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Match mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga93f486a44e4fcd438306b1db3f301a95" prot="public" static="no">
+        <name>XTTCPS_OPTION_WAVE_DISABLE</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>No waveform output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gaf39b9b3bfc4ceef12bb0cea724cf2359" prot="public" static="no">
+        <name>XTTCPS_OPTION_WAVE_POLARITY</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Waveform polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga3ede2f41d69244bd28580862a20ebc0e" prot="public" static="no">
+        <name>COUNTER_BASE_ADDRESS_MASK</name>
+        <initializer>0xFFFFFFF0U</initializer>
+        <briefdescription>
+<para>Mask to detect main TTC node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" compoundref="xttcps_8c" startline="670" endline="704">XTtcPs_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ttcps_1ga8a917f066088e95a1d161fb7f5f28e4a" prot="public" static="no">
+        <name>XTTCPS_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gada35795ef5a7c900e552c0292a69e8a6" prot="public" static="no">
+        <name>XTTCPS_MAX_INTERVAL_COUNT</name>
+        <initializer>0xFFFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="184" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga4e2bde9ad3cac3032e5e69323c9a8043" prot="public" static="no">
+        <name>XTTCPS_NUM_COUNTERS</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gac9f96b51b0b8133fdbf9242e54f6576e" prot="public" static="no">
+        <name>InstReadReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32(((InstancePtr)-&gt;Config.BaseAddress) + (u32)(RegOffset)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga8a5c7cba69482a166e3d500f1ac13bf2" prot="public" static="no">
+        <name>InstWriteReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(Xil_Out32(((InstancePtr)-&gt;Config.BaseAddress) + (u32)(RegOffset), (u32)(Data)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gada91222b52c938cb8639d333ed334273" prot="public" static="no">
+        <name>XTtcPs_Start</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>,	\
+		(InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>) &amp;	\
+		 ~<ref refid="group__ttcps_1gaa6a24e2b904e40bf5e4f6cf184f94b1a" kindref="member">XTTCPS_CNT_CNTRL_DIS_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This function starts the counter/timer without resetting the counter value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1gada91222b52c938cb8639d333ed334273" kindref="member">XTtcPs_Start(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga8cc3413150e3c510e47cdb706fc3583e" prot="public" static="no">
+        <name>XTtcPs_Stop</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>,	\
+		(InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>) |	\
+		 <ref refid="group__ttcps_1gaa6a24e2b904e40bf5e4f6cf184f94b1a" kindref="member">XTTCPS_CNT_CNTRL_DIS_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This function stops the counter/timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro may be called at any time to stop the counter. The counter holds the last value until it is reset, restarted or enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1ga8cc3413150e3c510e47cdb706fc3583e" kindref="member">XTtcPs_Stop(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1aea12b578fd55436794cc0ee8e009d310" compoundref="xttcps__tapp__example_8c" startline="183" endline="242">TmrInterruptExample</referencedby>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga90395ec5242c1fce193ad5697ee976c3" prot="public" static="no">
+        <name>XTtcPs_IsStarted</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>) &amp; \
+       <ref refid="group__ttcps_1gaa6a24e2b904e40bf5e4f6cf184f94b1a" kindref="member">XTTCPS_CNT_CNTRL_DIS_MASK</ref>) == 0U)</initializer>
+        <briefdescription>
+<para>This function checks whether the timer counter has already started. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero if the device has started, &apos;0&apos; otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__ttcps_1ga90395ec5242c1fce193ad5697ee976c3" kindref="member">XTtcPs_IsStarted(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga2e333879788d146e762e8a114159e9e5" prot="public" static="no">
+        <name>XTtcPs_GetCounterValue</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(u16)InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga5d75d0aff87c36aee0b898282dae8c24" kindref="member">XTTCPS_COUNT_VALUE_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This function returns the current 16-bit counter value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It may be called at any time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>zynq:16 bit counter value. zynq ultrascale+mpsoc:32 bit counter value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: zynq: u16 <ref refid="group__ttcps_1ga2e333879788d146e762e8a114159e9e5" kindref="member">XTtcPs_GetCounterValue(XTtcPs *InstancePtr)</ref> zynq ultrascale+mpsoc: u32 <ref refid="group__ttcps_1ga2e333879788d146e762e8a114159e9e5" kindref="member">XTtcPs_GetCounterValue(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga5fae7226b73f9d3c0b2acd3dd0d70561" prot="public" static="no">
+        <name>XTtcPs_SetInterval</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga3c55063adfc9bfeaf38a1712ab7345e6" kindref="member">XTTCPS_INTERVAL_VAL_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>This function sets the interval value to be used in interval mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit value to be set in the interval register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1ga5fae7226b73f9d3c0b2acd3dd0d70561" kindref="member">XTtcPs_SetInterval(XTtcPs *InstancePtr, XInterval Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga89d0a266832132783ec15391726dbae3" prot="public" static="no">
+        <name>XTtcPs_GetInterval</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(u16)InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga3c55063adfc9bfeaf38a1712ab7345e6" kindref="member">XTTCPS_INTERVAL_VAL_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This function gets the interval value from the interval register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>zynq:16 bit interval value. zynq ultrascale+mpsoc:32 bit interval value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: zynq: u16 <ref refid="group__ttcps_1ga89d0a266832132783ec15391726dbae3" kindref="member">XTtcPs_GetInterval(XTtcPs *InstancePtr)</ref> zynq ultrascale+mpsoc: u32 <ref refid="group__ttcps_1ga89d0a266832132783ec15391726dbae3" kindref="member">XTtcPs_GetInterval(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="390" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gad1075ec0ff78366348f936e1e9bd96ac" prot="public" static="no">
+        <name>XTtcPs_ResetCounterValue</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>,	\
+		(InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" kindref="member">XTTCPS_CNT_CNTRL_OFFSET</ref>) | \
+		 (u32)<ref refid="group__ttcps_1ga8a626958a0fe9e03e87b11dcc6fbd270" kindref="member">XTTCPS_CNT_CNTRL_RST_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro resets the count register. </para>        </briefdescription>
+        <detaileddescription>
+<para>It may be called at any time. The counter is reset to either 0 or 0xFFFF, or the interval value, depending on the increment/decrement mode. The state of the counter, as started or stopped, is not affected by calling reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1gad1075ec0ff78366348f936e1e9bd96ac" kindref="member">XTtcPs_ResetCounterValue(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="415" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga9ba80f16b192bf1a02262154ea52001f" prot="public" static="no">
+        <name>XTtcPs_EnableInterrupts</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" kindref="member">XTTCPS_IER_OFFSET</ref>,		\
+		(InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" kindref="member">XTTCPS_IER_OFFSET</ref>) |	\
+		 (InterruptMask)))</initializer>
+        <briefdescription>
+<para>This function enables the interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InterruptMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>defines which interrupt should be enabled. Constants are defined in <ref refid="xttcps__hw_8h" kindref="compound">xttcps_hw.h</ref> as XTTCPS_IXR_*. This is a bit mask, all set bits will be enabled, cleared bits will not be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1ga9ba80f16b192bf1a02262154ea52001f" kindref="member">XTtcPs_EnableInterrupts(XTtcPs *InstancePtr, u32 InterruptMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="438" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga689593bb0ab2f6d8abe85efcf72fe209" prot="public" static="no">
+        <name>XTtcPs_DisableInterrupts</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer>InstWriteReg((InstancePtr), <ref refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" kindref="member">XTTCPS_IER_OFFSET</ref>,	\
+		(InstReadReg((InstancePtr), <ref refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" kindref="member">XTTCPS_IER_OFFSET</ref>) &amp;	\
+		 ~(InterruptMask)))</initializer>
+        <briefdescription>
+<para>This function disables the interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InterruptMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>defines which interrupt should be disabled. Constants are defined in <ref refid="xttcps__hw_8h" kindref="compound">xttcps_hw.h</ref> as XTTCPS_IXR_*. This is a bit mask, all set bits will be disabled, cleared bits will not be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1ga689593bb0ab2f6d8abe85efcf72fe209" kindref="member">XTtcPs_DisableInterrupts(XTtcPs *InstancePtr, u32 InterruptMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga1f24b5dfa3b9147e374aefa0003d924c" prot="public" static="no">
+        <name>XTtcPs_GetInterruptStatus</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>InstReadReg((InstancePtr), <ref refid="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" kindref="member">XTTCPS_ISR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This function reads the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__ttcps_1ga1f24b5dfa3b9147e374aefa0003d924c" kindref="member">XTtcPs_GetInterruptStatus(XTtcPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="479" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="481" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga3ab6486250e4adc6343fa3e086540d3e" prot="public" static="no">
+        <name>XTtcPs_ClearInterruptStatus</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer>(void) 	InterruptMask; \
+		InstReadReg((InstancePtr), <ref refid="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" kindref="member">XTTCPS_ISR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This function clears the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InterruptMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>defines which interrupt should be cleared. Constants are defined in <ref refid="xttcps__hw_8h" kindref="compound">xttcps_hw.h</ref> as XTTCPS_IXR_*. This is a bit mask, all set bits will be cleared, cleared bits will not be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__ttcps_1ga3ab6486250e4adc6343fa3e086540d3e" kindref="member">XTtcPs_ClearInterruptStatus(XTtcPs *InstancePtr, u32 InterruptMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="500" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__ttcps_1ga4c2a889c0b8b4c5311a215f26c1fff8a" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XTtcPs_StatusHandler)(const void *CallBackRef, u32 StatusEvent)</definition>
+        <argsstring>)(const void *CallBackRef, u32 StatusEvent)</argsstring>
+        <name>XTtcPs_StatusHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" prot="public" static="no">
+        <type>u16</type>
+        <definition>typedef u16 XInterval</definition>
+        <argsstring></argsstring>
+        <name>XInterval</name>
+        <briefdescription>
+<para>This typedef contains interval count and Match register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__ttcps_1gab0aada99874d44282d0c2e7db6609b68" prot="public" static="no">
+        <type>u16</type>
+        <definition>typedef u16 XMatchRegValue</definition>
+        <argsstring></argsstring>
+        <name>XMatchRegValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ttcps_1gaa2d98cbb0662407f4adeeeecbf1a9246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref> *</type>
+        <definition>XTtcPs_Config * XTtcPs_LookupConfig</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XTtcPs_LookupConfig</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xttcps_8h" kindref="compound">xttcps.h</ref> for the definition of <ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_sinit.c" bodystart="87" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTtcPs_CfgInitialize</definition>
+        <argsstring>(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr, u32 EffectiveAddr)</argsstring>
+        <name>XTtcPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance such that the driver is ready to use. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes a single timer counter in the triple timer counter function block.</para><para>The state of the device after initialization is:<itemizedlist>
+<listitem><para>Overflow Mode</para></listitem><listitem><para>Internal (pclk) selected</para></listitem><listitem><para>Counter disabled</para></listitem><listitem><para>All Interrupts disabled</para></listitem><listitem><para>Output waveforms disabled</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific TTC device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, then use ConfigPtr-&gt;BaseAddress for this parameter, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>            - XST_SUCCESS if the initialization is successful.
+    - XST_DEVICE_IS_STARTED if the device is started. It must be
+      stopped to re-initialize.
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>Device has to be stopped first to call this function to initialize it. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="168" bodyend="281"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps___config_1aebf20560d3d23cb9b2ebcceb105916ee" compoundref="xttcps_8h" startline="222">XTtcPs_Config::InputClockHz</references>
+        <references refid="struct_x_ttc_ps___config_1a25938aa3cbc65457b998a0cc7f19e4ef" compoundref="xttcps_8h" startline="228">XTtcPs_Config::IntrParent</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" compoundref="xttcps__hw_8h" startline="60">XTTCPS_CLK_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" compoundref="xttcps__hw_8h" startline="61">XTTCPS_CNT_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1gace44171924227dbc5056fbdef14e7ab0" compoundref="xttcps__hw_8h" startline="94">XTTCPS_CNT_CNTRL_RESET_VALUE</references>
+        <references refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" compoundref="xttcps__hw_8h" startline="68">XTTCPS_IER_OFFSET</references>
+        <references refid="group__ttcps_1ga3c55063adfc9bfeaf38a1712ab7345e6" compoundref="xttcps__hw_8h" startline="63">XTTCPS_INTERVAL_VAL_OFFSET</references>
+        <references refid="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" compoundref="xttcps__hw_8h" startline="67">XTTCPS_ISR_OFFSET</references>
+        <references refid="group__ttcps_1ga90395ec5242c1fce193ad5697ee976c3" compoundref="xttcps_8h" startline="322">XTtcPs_IsStarted</references>
+        <references refid="group__ttcps_1ga5958a45b189301b731803a4368b2d799" compoundref="xttcps__hw_8h" startline="143">XTTCPS_IXR_ALL_MASK</references>
+        <references refid="group__ttcps_1ga2f72db91933c04a01af506b070b51847" compoundref="xttcps__hw_8h" startline="64">XTTCPS_MATCH_0_OFFSET</references>
+        <references refid="group__ttcps_1gab73fbdbe507a47e44388793fc3411a31" compoundref="xttcps__hw_8h" startline="65">XTTCPS_MATCH_1_OFFSET</references>
+        <references refid="group__ttcps_1ga9a2228115d5fb78821c859ed72014224" compoundref="xttcps__hw_8h" startline="66">XTTCPS_MATCH_2_OFFSET</references>
+        <references refid="group__ttcps_1gad1075ec0ff78366348f936e1e9bd96ac" compoundref="xttcps_8h" startline="417">XTtcPs_ResetCounterValue</references>
+        <references refid="group__ttcps_1ga8cc3413150e3c510e47cdb706fc3583e" compoundref="xttcps_8h" startline="304">XTtcPs_Stop</references>
+        <references refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" compoundref="xttcps__hw_8h" startline="182">XTtcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTtcPs_Release</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_Release</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine releases resources of <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if node release was successful<itemizedlist>
+<listitem><para>XST_FAILURE if node release was fail, Node won&apos;t be released if any other counter/counters in that TTC in use.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="322" bodyend="372"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="group__ttcps_1ga3ab6486250e4adc6343fa3e086540d3e" compoundref="xttcps_8h" startline="502">XTtcPs_ClearInterruptStatus</references>
+        <references refid="group__ttcps_1ga689593bb0ab2f6d8abe85efcf72fe209" compoundref="xttcps_8h" startline="463">XTtcPs_DisableInterrupts</references>
+        <references refid="group__ttcps_1ga1f24b5dfa3b9147e374aefa0003d924c" compoundref="xttcps_8h" startline="481">XTtcPs_GetInterruptStatus</references>
+        <references refid="group__ttcps_1ga5958a45b189301b731803a4368b2d799" compoundref="xttcps__hw_8h" startline="143">XTTCPS_IXR_ALL_MASK</references>
+        <references refid="group__ttcps_1ga8cc3413150e3c510e47cdb706fc3583e" compoundref="xttcps_8h" startline="304">XTtcPs_Stop</references>
+        <referencedby refid="xttcps__tapp__example_8c_1aea12b578fd55436794cc0ee8e009d310" compoundref="xttcps__tapp__example_8c" startline="183" endline="242">TmrInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTtcPs_SetMatchValue</definition>
+        <argsstring>(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value)</argsstring>
+        <name>XTtcPs_SetMatchValue</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MatchIndex</declname>
+        </param>
+        <param>
+          <type>XMatchRegValue</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set the match registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>There are three match registers.</para><para>The match 0 register is special. If the waveform output mode is enabled, the waveform will change polarity when the count matches the value in the match 0 register. The polarity of the waveform output can also be set using the <ref refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" kindref="member">XTtcPs_SetOptions()</ref> function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MatchIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index to the match register to be set. Valid values are: 0 - 2. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit value to be set in the match register. Valid Values are: (For Zynq): 0 - ((2^16)-1) (For Zynq UltraScale + MpSoc) and Versal: 0 - ((2^32) - 1)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="399" bodyend="413"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga85163a69a7f9df09f56528bee3a7a861" compoundref="xttcps__hw_8h" startline="198">XTtcPs_Match_N_Offset</references>
+        <references refid="group__ttcps_1ga3bdd5da79d4f22d353877b2bd26cd812" compoundref="xttcps__hw_8h" startline="130">XTTCPS_NUM_MATCH_REG</references>
+        <references refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" compoundref="xttcps__hw_8h" startline="182">XTtcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XMatchRegValue</type>
+        <definition>XMatchRegValue XTtcPs_GetMatchValue</definition>
+        <argsstring>(XTtcPs *InstancePtr, u8 MatchIndex)</argsstring>
+        <name>XTtcPs_GetMatchValue</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MatchIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the value of the match registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>There are three match registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MatchIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index to the match register to be set. There are three match registers are there. Valid values are: 0 - 2.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The match register value</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="431" bodyend="446"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga85163a69a7f9df09f56528bee3a7a861" compoundref="xttcps__hw_8h" startline="198">XTtcPs_Match_N_Offset</references>
+        <references refid="group__ttcps_1ga3bdd5da79d4f22d353877b2bd26cd812" compoundref="xttcps__hw_8h" startline="130">XTTCPS_NUM_MATCH_REG</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTtcPs_SetPrescaler</definition>
+        <argsstring>(XTtcPs *InstancePtr, u8 PrescalerValue)</argsstring>
+        <name>XTtcPs_SetPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PrescalerValue</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the prescaler enable bit and if needed sets the prescaler bits in the control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrescalerValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a number from 0-16 that sets the prescaler to use. If the parameter is 0 - 15, use a prescaler on the clock of 2^(PrescalerValue+1), or 2-65536. If the parameter is XTTCPS_CLK_CNTRL_PS_DISABLE, do not use a prescaler.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Valid values are: 0 - 15</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="469" bodyend="506"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" compoundref="xttcps__hw_8h" startline="60">XTTCPS_CLK_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1gadc32c3958d06e5b137993806c2637244" compoundref="xttcps__hw_8h" startline="78">XTTCPS_CLK_CNTRL_PS_DISABLE</references>
+        <references refid="group__ttcps_1gaf88edd6685cf410553a53f457aada794" compoundref="xttcps__hw_8h" startline="75">XTTCPS_CLK_CNTRL_PS_EN_MASK</references>
+        <references refid="group__ttcps_1ga96a6a02566f44a4a2cfc7df72df0b7f5" compoundref="xttcps__hw_8h" startline="76">XTTCPS_CLK_CNTRL_PS_VAL_MASK</references>
+        <references refid="group__ttcps_1ga07e8e493ecd0674215853210e2371a96" compoundref="xttcps__hw_8h" startline="77">XTTCPS_CLK_CNTRL_PS_VAL_SHIFT</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+        <references refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" compoundref="xttcps__hw_8h" startline="182">XTtcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XTtcPs_GetPrescaler</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_GetPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the input clock prescaler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<preformatted>
+<simplesect kind="return"><para> The value(n) from which the prescalar value is calculated
+            as 2^(n+1). Some example values are given below :</para></simplesect>
+        Value           Prescaler
+        0               2
+        1               4
+        N               2^(n+1)
+        15              65536
+        16              1</preformatted></para><para><preformatted>          Valid values are: 0 - 16
+</preformatted></para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="532" bodyend="560"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" compoundref="xttcps__hw_8h" startline="60">XTTCPS_CLK_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1gadc32c3958d06e5b137993806c2637244" compoundref="xttcps__hw_8h" startline="78">XTTCPS_CLK_CNTRL_PS_DISABLE</references>
+        <references refid="group__ttcps_1gaf88edd6685cf410553a53f457aada794" compoundref="xttcps__hw_8h" startline="75">XTTCPS_CLK_CNTRL_PS_EN_MASK</references>
+        <references refid="group__ttcps_1ga96a6a02566f44a4a2cfc7df72df0b7f5" compoundref="xttcps__hw_8h" startline="76">XTTCPS_CLK_CNTRL_PS_VAL_MASK</references>
+        <references refid="group__ttcps_1ga07e8e493ecd0674215853210e2371a96" compoundref="xttcps__hw_8h" startline="77">XTTCPS_CLK_CNTRL_PS_VAL_SHIFT</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga40d86f052a231f2cd35d7e5136163039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTtcPs_CalcIntervalFromFreq</definition>
+        <argsstring>(XTtcPs *InstancePtr, u32 Freq, XInterval *Interval, u8 *Prescaler)</argsstring>
+        <name>XTtcPs_CalcIntervalFromFreq</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Freq</declname>
+        </param>
+        <param>
+          <type><ref refid="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" kindref="member">XInterval</ref> *</type>
+          <declname>Interval</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the interval value as well as the prescaler value for a given frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Freq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the requested output frequency for the device. valid values are: 1 - (2^32)-1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interval value for the given frequency, it is the output value for this function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the prescaler value for the given frequency, it is the output value for this function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Upon successful calculation for the given frequency, Interval and Prescaler carry the settings for the timer counter; Upon unsuccessful calculation, Interval and Prescaler are set to 0xFF(FF) for their maximum values to signal the caller of failure. Therefore, caller needs to check the return interval or prescaler values for whether the function has succeeded. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="586" bodyend="653"/>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps___config_1aebf20560d3d23cb9b2ebcceb105916ee" compoundref="xttcps_8h" startline="222">XTtcPs_Config::InputClockHz</references>
+        <references refid="group__ttcps_1gadc32c3958d06e5b137993806c2637244" compoundref="xttcps__hw_8h" startline="78">XTTCPS_CLK_CNTRL_PS_DISABLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTtcPs_SetOptions</definition>
+        <argsstring>(XTtcPs *InstancePtr, u32 Options)</argsstring>
+        <name>XTtcPs_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the options for the TTC device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specified options to be set. This is a bit mask where a 1 means to turn the option on, and a 0 means to turn the option off. One or more bit values may be contained in the mask. See the bit definitions named XTTCPS_*_OPTION in the file <ref refid="xttcps_8h" kindref="compound">xttcps.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_FAILURE if any of the options are unknown.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="115" bodyend="157"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" compoundref="xttcps__hw_8h" startline="60">XTTCPS_CLK_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" compoundref="xttcps__hw_8h" startline="61">XTTCPS_CNT_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+        <references refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" compoundref="xttcps__hw_8h" startline="182">XTtcPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1gac33ce44553e83555369c400b964234e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTtcPs_GetOptions</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the settings for the options for the TTC device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+The return u32 contains the specified options that are set. This is a bit mask where a &apos;1&apos; means the option is on, and a&apos;0&apos; means the option is off. One or more bit values may be contained in the mask. See the bit definitions named XTTCPS_*_OPTION in the file <ref refid="xttcps_8h" kindref="compound">xttcps.h</ref>.</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_options.c" bodystart="176" bodyend="206"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTtcPs_SelfTest</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_SUCCESS if successful
+  - XST_FAILURE indicates a register did not read or write correctly
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>This test fails if it is not called right after initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_selftest.c" bodystart="64" bodyend="86"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <references refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" compoundref="xttcps__hw_8h" startline="61">XTTCPS_CNT_CNTRL_OFFSET</references>
+        <references refid="group__ttcps_1gace44171924227dbc5056fbdef14e7ab0" compoundref="xttcps__hw_8h" startline="94">XTTCPS_CNT_CNTRL_RESET_VALUE</references>
+        <references refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" compoundref="xttcps__hw_8h" startline="163">XTtcPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTtcPs_InterruptHandler</definition>
+        <argsstring>(XTtcPs *InstancePtr)</argsstring>
+        <name>XTtcPs_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles interrupts by resetting the counter value and clearing the status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="670" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="670" bodyend="704"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="group__ttcps_1ga3ede2f41d69244bd28580862a20ebc0e" compoundref="xttcps_8h" startline="206">COUNTER_BASE_ADDRESS_MASK</references>
+        <references refid="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" compoundref="xttcps__hw_8h" startline="67">XTTCPS_ISR_OFFSET</references>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ttcps_1ga8fb59113e183b65dabff6e2c34bbf7e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTtcPs_SetStatusHandler</definition>
+        <argsstring>(XTtcPs *InstancePtr, void *CallBackRef, XTtcPs_StatusHandler FuncPointer)</argsstring>
+        <name>XTtcPs_SetStatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>XTtcPs_StatusHandler</type>
+          <declname>FuncPointer</declname>
+        </param>
+        <briefdescription>
+<para>Sets the status callback function, the status handler, which the driver calls when it encounters conditions that should be reported to upper layer software. </para>        </briefdescription>
+        <detaileddescription>
+<para>The handler executes in an interrupt context, so it must minimize the amount of processing performed. One of the following status events is passed to the status handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The handler is called within interrupt context, so it should do its work quickly and queue potentially time-consuming work to a task-level thread. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" line="729" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c" bodystart="729" bodyend="742"/>
+        <references refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" compoundref="xttcps_8h" startline="221">XTtcPs_Config::BaseAddress</references>
+        <references refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" compoundref="xttcps_8h" startline="239">XTtcPs::Config</references>
+        <references refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" compoundref="xttcps_8h" startline="240">XTtcPs::IsReady</references>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#ifndef<sp/>XTTCPS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xttcps__hw_8h" kindref="compound">xttcps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XTtcPs_StatusHandler)<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>StatusEvent);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/>*<sp/>Maximum<sp/>Value<sp/>for<sp/>interval<sp/>counter</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>XTTCPS_MAX_INTERVAL_COUNT<sp/>0xFFFFU</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#else</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>XTTCPS_MAX_INTERVAL_COUNT<sp/>0xFFFFFFFFU</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#endif</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_NUM_COUNTERS<sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197" refid="group__ttcps_1ga3583fa93646d878d3c43186df93e1ada" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_EXTERNAL_CLK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="group__ttcps_1ga7364b78f01ad1b27a076ef9ce568f497" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_CLK_EDGE_NEG<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_INTERVAL_MODE<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="group__ttcps_1gabe4c649641c3efc6f2fe07e6810d2048" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_DECREMENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="group__ttcps_1gaeeae7b90036e1a13b52e7b2875942efd" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_MATCH_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203" refid="group__ttcps_1gaa66b7479dcccbd1a6117d47831d882d5" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_WAVE_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="group__ttcps_1ga93f486a44e4fcd438306b1db3f301a95" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_OPTION_WAVE_POLARITY<sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205" refid="group__ttcps_1gaf39b9b3bfc4ceef12bb0cea724cf2359" refkind="member"><highlight class="preprocessor">#define<sp/>COUNTER_BASE_ADDRESS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFF0U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="215" refid="struct_x_ttc_ps___config" refkind="compound"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;<sp/><sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputClockHz;<sp/></highlight></codeline>
+<codeline lineno="221" refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" refkind="member"><highlight class="preprocessor">#if<sp/>!defined(SDT)<sp/>&amp;&amp;<sp/>defined(XIL_INTERRUPT)</highlight></codeline>
+<codeline lineno="222" refid="struct_x_ttc_ps___config_1aebf20560d3d23cb9b2ebcceb105916ee" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrId;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#elif<sp/>defined(SDT)</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrId[XTTCPS_NUM_COUNTERS];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="228" refid="struct_x_ttc_ps___config_1a25938aa3cbc65457b998a0cc7f19e4ef" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref><sp/>Config;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="struct_x_ttc_ps" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239" refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTtcPs_StatusHandler<sp/>StatusHandler;</highlight></codeline>
+<codeline lineno="240" refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*StatusRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="normal">}<sp/><ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref>;</highlight></codeline>
+<codeline lineno="242" refid="struct_x_ttc_ps_1a87448079dd0451d53f14533897862e8d" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTtcPs_StatusHandler<sp/>StatusHandler;<sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>StatusRef;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}<sp/>XTtcPs_StatusHandlerTableEntry;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u16<sp/><ref refid="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" kindref="member">XInterval</ref>;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u16<sp/>XMatchRegValue;</highlight></codeline>
+<codeline lineno="254" refid="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" kindref="member">XInterval</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u32<sp/>XMatchRegValue;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/>*<sp/>Internal<sp/>helper<sp/>macros</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>InstReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(Xil_In32(((InstancePtr)-&gt;Config.BaseAddress)<sp/>+<sp/>(u32)(RegOffset)))</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>InstWriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(Xil_Out32(((InstancePtr)-&gt;Config.BaseAddress)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data)))</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XTtcPs_Start(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="284" refid="group__ttcps_1gada91222b52c938cb8639d333ed334273" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstReadReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET)<sp/>&amp;<sp/><sp/>\</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XTTCPS_CNT_CNTRL_DIS_MASK))</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XTtcPs_Stop(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="304" refid="group__ttcps_1ga8cc3413150e3c510e47cdb706fc3583e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstReadReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET)<sp/>|<sp/><sp/>\</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTTCPS_CNT_CNTRL_DIS_MASK))</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor">#define<sp/>XTtcPs_IsStarted(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/>((InstReadReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="322" refid="group__ttcps_1ga90395ec5242c1fce193ad5697ee976c3" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTTCPS_CNT_CNTRL_DIS_MASK)<sp/>==<sp/>0U)</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="342"><highlight class="comment"><sp/>*<sp/>ttc<sp/>supports<sp/>16<sp/>bit<sp/>counter<sp/>for<sp/>zynq</highlight></codeline>
+<codeline lineno="343"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTtcPs_GetCounterValue(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)InstReadReg((InstancePtr),<sp/>XTTCPS_COUNT_VALUE_OFFSET)</highlight></codeline>
+<codeline lineno="346" refid="group__ttcps_1ga2e333879788d146e762e8a114159e9e5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="348"><highlight class="comment"><sp/>*<sp/>ttc<sp/>supports<sp/>32<sp/>bit<sp/>counter<sp/>for<sp/>zynq<sp/>ultrascale+mpsoc</highlight></codeline>
+<codeline lineno="349"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTtcPs_GetCounterValue(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstReadReg((InstancePtr),<sp/>XTTCPS_COUNT_VALUE_OFFSET)</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor">#define<sp/>XTtcPs_SetInterval(InstancePtr,<sp/>Value)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_INTERVAL_VAL_OFFSET,<sp/>(Value))</highlight></codeline>
+<codeline lineno="370" refid="group__ttcps_1ga5fae7226b73f9d3c0b2acd3dd0d70561" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="388"><highlight class="comment"><sp/>*<sp/>ttc<sp/>supports<sp/>16<sp/>bit<sp/>interval<sp/>counter<sp/>for<sp/>zynq</highlight></codeline>
+<codeline lineno="389"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTtcPs_GetInterval(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)InstReadReg((InstancePtr),<sp/>XTTCPS_INTERVAL_VAL_OFFSET)</highlight></codeline>
+<codeline lineno="392" refid="group__ttcps_1ga89d0a266832132783ec15391726dbae3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="393"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="394"><highlight class="comment"><sp/>*<sp/>ttc<sp/>supports<sp/>32<sp/>bit<sp/>interval<sp/>counter<sp/>for<sp/>zynq<sp/>ultrascale+mpsoc</highlight></codeline>
+<codeline lineno="395"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTtcPs_GetInterval(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstReadReg((InstancePtr),<sp/>XTTCPS_INTERVAL_VAL_OFFSET)</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor">#define<sp/>XTtcPs_ResetCounterValue(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="417" refid="group__ttcps_1gad1075ec0ff78366348f936e1e9bd96ac" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstReadReg((InstancePtr),<sp/>XTTCPS_CNT_CNTRL_OFFSET)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XTTCPS_CNT_CNTRL_RST_MASK))</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor">#define<sp/>XTtcPs_EnableInterrupts(InstancePtr,<sp/>InterruptMask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="439"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_IER_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="440" refid="group__ttcps_1ga9ba80f16b192bf1a02262154ea52001f" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstReadReg((InstancePtr),<sp/>XTTCPS_IER_OFFSET)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="441"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InterruptMask)))</highlight></codeline>
+<codeline lineno="442"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor">#define<sp/>XTtcPs_DisableInterrupts(InstancePtr,<sp/>InterruptMask)<sp/>\</highlight></codeline>
+<codeline lineno="462"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstWriteReg((InstancePtr),<sp/>XTTCPS_IER_OFFSET,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="463" refid="group__ttcps_1ga689593bb0ab2f6d8abe85efcf72fe209" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstReadReg((InstancePtr),<sp/>XTTCPS_IER_OFFSET)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="464"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(InterruptMask)))</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="479"><highlight class="preprocessor">#define<sp/>XTtcPs_GetInterruptStatus(InstancePtr)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="480"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstReadReg((InstancePtr),<sp/>XTTCPS_ISR_OFFSET)</highlight></codeline>
+<codeline lineno="481" refid="group__ttcps_1ga1f24b5dfa3b9147e374aefa0003d924c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor">#define<sp/>XTtcPs_ClearInterruptStatus(InstancePtr,<sp/>InterruptMask)<sp/>\</highlight></codeline>
+<codeline lineno="501"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/><sp/>InterruptMask;<sp/>\</highlight></codeline>
+<codeline lineno="502" refid="group__ttcps_1ga3ab6486250e4adc6343fa3e086540d3e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstReadReg((InstancePtr),<sp/>XTTCPS_ISR_OFFSET)</highlight></codeline>
+<codeline lineno="503"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="508"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>functions<sp/>in<sp/>xttcps_sinit.c</highlight></codeline>
+<codeline lineno="509"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="511"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref><sp/>*<ref refid="group__ttcps_1gaa2d98cbb0662407f4adeeeecbf1a9246" kindref="member">XTtcPs_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="513"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref><sp/>*<ref refid="group__ttcps_1gaa2d98cbb0662407f4adeeeecbf1a9246" kindref="member">XTtcPs_LookupConfig</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="515"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="517"><highlight class="comment"><sp/>*<sp/>Required<sp/>functions,<sp/>in<sp/>xttcps.c</highlight></codeline>
+<codeline lineno="518"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal">s32<sp/><ref refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" kindref="member">XTtcPs_CfgInitialize</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref><sp/>*<sp/>ConfigPtr,<sp/>u32<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal">u32<sp/><ref refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" kindref="member">XTtcPs_Release</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" kindref="member">XTtcPs_SetMatchValue</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>MatchIndex,<sp/>XMatchRegValue<sp/>Value);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal">XMatchRegValue<sp/><ref refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" kindref="member">XTtcPs_GetMatchValue</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>MatchIndex);</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" kindref="member">XTtcPs_SetPrescaler</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>PrescalerValue);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal">u8<sp/><ref refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" kindref="member">XTtcPs_GetPrescaler</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ttcps_1ga40d86f052a231f2cd35d7e5136163039" kindref="member">XTtcPs_CalcIntervalFromFreq</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Freq,</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XInterval<sp/>*Interval,<sp/>u8<sp/>*Prescaler);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/>*<sp/>Functions<sp/>for<sp/>options,<sp/>in<sp/>file<sp/>xttcps_options.c</highlight></codeline>
+<codeline lineno="534"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal">s32<sp/><ref refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" kindref="member">XTtcPs_SetOptions</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal">u32<sp/><ref refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" kindref="member">XTtcPs_GetOptions</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="539"><highlight class="comment"><sp/>*<sp/>Function<sp/>for<sp/>self-test,<sp/>in<sp/>file<sp/>xttcps_selftest.c</highlight></codeline>
+<codeline lineno="540"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal">s32<sp/><ref refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" kindref="member">XTtcPs_SelfTest</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="542"><highlight class="normal">u32<sp/><ref refid="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" kindref="member">XTtcPs_InterruptHandler</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ttcps_1ga8fb59113e183b65dabff6e2c34bbf7e2" kindref="member">XTtcPs_SetStatusHandler</ref>(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTtcPs_StatusHandler<sp/>FuncPointer);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="547"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="549"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="551"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h"/>
+  </compounddef>
+</doxygen>

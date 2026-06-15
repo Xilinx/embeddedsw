@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvprocss__router_8h" kind="file">
+    <compoundname>xvprocss_router.h</compoundname>
+    <includes refid="xvprocss_8h" local="yes">xvprocss.h</includes>
+    <includedby refid="xvprocss_8c" local="yes">xvprocss.c</includedby>
+    <includedby refid="xvprocss__router_8c" local="yes">xvprocss_router.c</includedby>
+    <incdepgraph>
+      <node id="275">
+        <label>xv_letterbox_l2.h</label>
+      </node>
+      <node id="269">
+        <label>xv_csc_l2.h</label>
+      </node>
+      <node id="263">
+        <label>xgpio.h</label>
+      </node>
+      <node id="273">
+        <label>xv_hscaler_l2.h</label>
+      </node>
+      <node id="267">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss__log_8h"/>
+      </node>
+      <node id="264">
+        <label>xaxis_switch.h</label>
+      </node>
+      <node id="274">
+        <label>xv_vscaler_l2.h</label>
+      </node>
+      <node id="261">
+        <label>xvprocss.h</label>
+        <link refid="xvprocss_8h"/>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+        <childnode refid="264" relation="include">
+        </childnode>
+        <childnode refid="265" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="274" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+      </node>
+      <node id="262">
+        <label>xstatus.h</label>
+      </node>
+      <node id="260">
+        <label>xvprocss_router.h</label>
+        <link refid="xvprocss_router.h"/>
+        <childnode refid="261" relation="include">
+        </childnode>
+      </node>
+      <node id="265">
+        <label>xvidc.h</label>
+      </node>
+      <node id="268">
+        <label>xparameters.h</label>
+      </node>
+      <node id="271">
+        <label>xv_hcresampler_l2.h</label>
+      </node>
+      <node id="272">
+        <label>xv_vcresampler_l2.h</label>
+      </node>
+      <node id="266">
+        <label>xaxivdma.h</label>
+      </node>
+      <node id="270">
+        <label>xv_deinterlacer_l2.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="277">
+        <label>xvprocss.c</label>
+        <link refid="xvprocss_8c"/>
+      </node>
+      <node id="278">
+        <label>xvprocss_router.c</label>
+        <link refid="xvprocss__router_8c"/>
+      </node>
+      <node id="276">
+        <label>xvprocss_router.h</label>
+        <link refid="xvprocss_router.h"/>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="278" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__vprocss_1ga72b07907d2ebf3d0154280521da1f10d" prot="public" static="no">
+        <name>XVPROCSS_ROUTER_H__</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVprocSs_BuildRoutingTable</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_BuildRoutingTable</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function examines the subsystem Input/Output Stream configuration and builds a routing table for the supported use-case. </para>        </briefdescription>
+        <detaileddescription>
+<para>The computed routing table is stored in the scratch pad memory</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if routing table can be created else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="184" bodyend="399"/>
+        <references refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" compoundref="xvprocss_8h" startline="310">XVprocSs_ContextData::CscIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" compoundref="xvprocss_8h" startline="311">XVprocSs_ContextData::CscOut</references>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" compoundref="xvprocss_8h" startline="312">XVprocSs_ContextData::HcrIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" compoundref="xvprocss_8h" startline="313">XVprocSs_ContextData::HcrOut</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" compoundref="xvprocss_8h" startline="303">XVprocSs_ContextData::ScaleMode</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" compoundref="xvprocss_8h" startline="309">XVprocSs_ContextData::StrmCformat</references>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <references refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" compoundref="xvprocss_8h" startline="395">XVprocSs::VidIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" compoundref="xvprocss_8h" startline="307">XVprocSs_ContextData::VidInHeight</references>
+        <references refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" compoundref="xvprocss_8h" startline="306">XVprocSs_ContextData::VidInWidth</references>
+        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="396">XVprocSs::VidOut</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVprocSs_ProgRouterMux</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_ProgRouterMux</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function traverses the computed routing table and sets up the AXIS switch registers, to route the stream through processing cores, in the order defined in the routing map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="410" bodyend="437"/>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" compoundref="xvprocss_8h" startline="380">XVprocSs::RouterPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVprocSs_SetupRouterDataFlow</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_SetupRouterDataFlow</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function traverses the routing map built earlier and configures each sub-core in the processing path per its location in the chain. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each core in the processing path is marked and only marked cores are started All remaining cores stay disabled</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="449" bodyend="689"/>
+        <references refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" compoundref="xvprocss_8h" startline="310">XVprocSs_ContextData::CscIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" compoundref="xvprocss_8h" startline="311">XVprocSs_ContextData::CscOut</references>
+        <references refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" compoundref="xvprocss_8h" startline="391">XVprocSs::CscPtr</references>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss___context_data_1a77a8ad41b6cc8dc4800d859b33a6762b" compoundref="xvprocss_8h" startline="297">XVprocSs_ContextData::DeintBufAddr</references>
+        <references refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" compoundref="xvprocss_8h" startline="392">XVprocSs::DeintPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" compoundref="xvprocss_8h" startline="312">XVprocSs_ContextData::HcrIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" compoundref="xvprocss_8h" startline="313">XVprocSs_ContextData::HcrOut</references>
+        <references refid="struct_x_vproc_ss_1a554c32cace7c2bcc2637919e17ad0945" compoundref="xvprocss_8h" startline="384">XVprocSs::HcrsmplrPtr</references>
+        <references refid="struct_x_vproc_ss_1a96d7da785b43ce54736523b9de33ee3e" compoundref="xvprocss_8h" startline="388">XVprocSs::HscalerPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8f080227d4a5195ea3ec54dc12206e33" compoundref="xvprocss_8h" startline="314">XVprocSs_ContextData::LboxBkgndColor</references>
+        <references refid="struct_x_vproc_ss_1a7cc8183d534f77c5bf240616db3df97d" compoundref="xvprocss_8h" startline="390">XVprocSs::LboxPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" compoundref="xvprocss_8h" startline="294">XVprocSs_ContextData::RdWindow</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" compoundref="xvprocss_8h" startline="303">XVprocSs_ContextData::ScaleMode</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa02a961464f60d239452ebc287a02b98" compoundref="xvprocss_8h" startline="301">XVprocSs_ContextData::StartCore</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" compoundref="xvprocss_8h" startline="309">XVprocSs_ContextData::StrmCformat</references>
+        <references refid="struct_x_vproc_ss_1a62f9ab872ac328e7e5ecbccafe65a7e6" compoundref="xvprocss_8h" startline="385">XVprocSs::VcrsmplrInPtr</references>
+        <references refid="struct_x_vproc_ss_1add2fbe91511d24e070039c1cba33f7c1" compoundref="xvprocss_8h" startline="386">XVprocSs::VcrsmplrOutPtr</references>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <references refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" compoundref="xvprocss_8h" startline="395">XVprocSs::VidIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" compoundref="xvprocss_8h" startline="307">XVprocSs_ContextData::VidInHeight</references>
+        <references refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" compoundref="xvprocss_8h" startline="306">XVprocSs_ContextData::VidInWidth</references>
+        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="396">XVprocSs::VidOut</references>
+        <references refid="struct_x_vproc_ss_1ad8ca19d5dd2ac25e58be55ff8ba2b3fa" compoundref="xvprocss_8h" startline="387">XVprocSs::VscalerPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" compoundref="xvprocss_8h" startline="295">XVprocSs_ContextData::WrWindow</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" compoundref="xvprocss__log_8h" startline="61">XVPROCSS_EVT_CFG_CSC</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" compoundref="xvprocss__log_8h" startline="59">XVPROCSS_EVT_CFG_HSCALER</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" compoundref="xvprocss__log_8h" startline="60">XVPROCSS_EVT_CFG_VSCALER</references>
+        <references refid="xvprocss_8h_1ad74f8b4febd82852c67f9808edd8d583" compoundref="xvprocss_8h" startline="433">XVprocSs_GetColorDepth</references>
+        <references refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" compoundref="xvprocss_8h" startline="517">XVprocSs_IsPipModeOn</references>
+        <references refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" compoundref="xvprocss_8h" startline="529">XVprocSs_IsZoomModeOn</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+        <references refid="xvprocss_8c_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="643" endline="683">XVprocSs_Start</references>
+        <references refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" compoundref="xvprocss__vdma_8c" startline="374" endline="432">XVprocSs_VdmaSetWinToDnScaleMode</references>
+        <references refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" compoundref="xvprocss__vdma_8c" startline="443" endline="498">XVprocSs_VdmaSetWinToUpScaleMode</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XVPROCSS_ROUTER_H__<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_ROUTER_H__<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvprocss_8h" kindref="compound">xvprocss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" kindref="member">XVprocSs_BuildRoutingTable</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" kindref="member">XVprocSs_ProgRouterMux</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" kindref="member">XVprocSs_SetupRouterDataFlow</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.h"/>
+  </compounddef>
+</doxygen>

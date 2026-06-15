@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvtc__intr_8c" kind="file">
+    <compoundname>xvtc_intr.c</compoundname>
+    <includes refid="xvtc_8h" local="yes">xvtc.h</includes>
+    <incdepgraph>
+      <node id="54">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="53">
+        <label>xil_io.h</label>
+      </node>
+      <node id="52">
+        <label>xvtc_hw.h</label>
+        <link refid="xvtc__hw_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xvtc.h</label>
+        <link refid="xvtc_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xvtc_intr.c</label>
+        <link refid="xvtc_intr.c"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xstatus.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVtc_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVtc_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the VTC core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the IER/ISR, determines the source of the interrupts, calls according callbacks and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" kindref="member">XVtc_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vtc" kindref="compound">XVtc</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="946" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="145" bodyend="187"/>
+        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="566">XVtc::DetectorCallBack</references>
+        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="567">XVtc::DetectorRef</references>
+        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="575">XVtc::ErrCallBack</references>
+        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="576">XVtc::ErrRef</references>
+        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="556">XVtc::FrameSyncCallBack</references>
+        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="558">XVtc::FrameSyncRef</references>
+        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="570">XVtc::GeneratorCallBack</references>
+        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="572">XVtc::GeneratorRef</references>
+        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="552">XVtc::IsReady</references>
+        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="561">XVtc::LockCallBack</references>
+        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="563">XVtc::LockRef</references>
+        <references refid="group__vtc_1gaa7d624fe0b466b99d255440080a28aad" compoundref="xvtc_8h" startline="834">XVtc_IntrClear</references>
+        <references refid="group__vtc_1ga0cf149f9ebe8a249435f004926e1bd48" compoundref="xvtc_8h" startline="811">XVtc_IntrGetPending</references>
+        <references refid="group__vtc_1gac82e5b9606f9b7e9c20022d085c22a54" compoundref="xvtc__hw_8h" startline="453">XVTC_IXR_D_ALL_MASK</references>
+        <references refid="group__vtc_1ga2222690cdb7738c6c1d64e3c0324f375" compoundref="xvtc__hw_8h" startline="433">XVTC_IXR_FSYNCALL_MASK</references>
+        <references refid="group__vtc_1ga59e68ac1be6dff7690d55e220a403e22" compoundref="xvtc__hw_8h" startline="443">XVTC_IXR_G_ALL_MASK</references>
+        <references refid="group__vtc_1ga9dd2acddc00afa719305fca7db04f14c" compoundref="xvtc__hw_8h" startline="459">XVTC_IXR_LOCKALL_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVtc_SetCallBack</definition>
+        <argsstring>(XVtc *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)</argsstring>
+        <name>XVtc_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_vtc" kindref="compound">XVtc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrType</declname>
+          <defname>HandlerType</defname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType              Callback Function Type
+-----------------------  --------------------------------------------------
+XVTC_HANDLER_FRAMESYNC   XVtc_FrameSyncCallBack
+XVTC_HANDLER_LOCK        XVtc_LockCallBack
+XVTC_HANDLER_DETECTOR    XVtc_DetectorCallBack
+XVTC_HANDLER_GENERATOR   XVtc_GeneratorCallBack
+XVTC_HANDLER_ERROR       XVtc_ErrCallBack</preformatted></para><para><preformatted>HandlerType              Invoked by this driver when:
+-----------------------  --------------------------------------------------
+XVTC_HANDLER_FRAMESYNC   A frame sync event happens
+XVTC_HANDLER_LOCK        A signal lock event happens
+XVTC_HANDLER_DETECTOR    A detector related event happens
+XVTC_HANDLER_GENERATOR   A generator related event happens
+XVTC_HANDLER_ERROR       An error condition happens
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vtc" kindref="compound">XVtc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies which callback is to be attached. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="229" bodyend="273"/>
+        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="566">XVtc::DetectorCallBack</references>
+        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="567">XVtc::DetectorRef</references>
+        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="575">XVtc::ErrCallBack</references>
+        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="576">XVtc::ErrRef</references>
+        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="556">XVtc::FrameSyncCallBack</references>
+        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="558">XVtc::FrameSyncRef</references>
+        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="570">XVtc::GeneratorCallBack</references>
+        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="572">XVtc::GeneratorRef</references>
+        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="552">XVtc::IsReady</references>
+        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="561">XVtc::LockCallBack</references>
+        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="563">XVtc::LockRef</references>
+        <references refid="group__vtc_1gaeffb524f951e917ea88ce6432c6c356c" compoundref="xvtc_8h" startline="310">XVTC_HANDLER_DETECTOR</references>
+        <references refid="group__vtc_1ga8106454ce9bb2ea337bfcebface2acde" compoundref="xvtc_8h" startline="316">XVTC_HANDLER_ERROR</references>
+        <references refid="group__vtc_1gab7b04f247733b1e0ff2e970a765d15c1" compoundref="xvtc_8h" startline="304">XVTC_HANDLER_FRAMESYNC</references>
+        <references refid="group__vtc_1ga2ab0f39c6f08cbc20a700b6a41dc0cdd" compoundref="xvtc_8h" startline="313">XVTC_HANDLER_GENERATOR</references>
+        <references refid="group__vtc_1ga5a0686e12cf61cfe9bf0aff392be6e9f" compoundref="xvtc_8h" startline="307">XVTC_HANDLER_LOCK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvtc_8h" kindref="compound">xvtc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="145" refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" kindref="member">XVtc_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ErrorStatus;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_vtc" kindref="compound">XVtc</ref><sp/>*XVtcPtr<sp/>=<sp/>(<ref refid="struct_x_vtc" kindref="compound">XVtc</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XVtcPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XVtcPtr-&gt;<ref refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>pending<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group__vtc_1ga0cf149f9ebe8a249435f004926e1bd48" kindref="member">XVtc_IntrGetPending</ref>(XVtcPtr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pending<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vtc_1gaa7d624fe0b466b99d255440080a28aad" kindref="member">XVtc_IntrClear</ref>(XVtcPtr,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Spurious<sp/>interrupt<sp/>has<sp/>happened<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PendingIntr<sp/>&amp;<sp/>XVTC_IXR_SPURIOUS_INTR_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtcPtr-&gt;<ref refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" kindref="member">ErrCallBack</ref>(XVtcPtr-&gt;<ref refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" kindref="member">ErrRef</ref>,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>generator<sp/>event<sp/>has<sp/>happened<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PendingIntr<sp/>&amp;<sp/><ref refid="group__vtc_1ga59e68ac1be6dff7690d55e220a403e22" kindref="member">XVTC_IXR_G_ALL_MASK</ref>))</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtcPtr-&gt;<ref refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" kindref="member">GeneratorCallBack</ref>(XVtcPtr-&gt;<ref refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" kindref="member">GeneratorRef</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>detector<sp/>event<sp/>has<sp/>happened<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PendingIntr<sp/>&amp;<sp/><ref refid="group__vtc_1gac82e5b9606f9b7e9c20022d085c22a54" kindref="member">XVTC_IXR_D_ALL_MASK</ref>))</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtcPtr-&gt;<ref refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" kindref="member">DetectorCallBack</ref>(XVtcPtr-&gt;<ref refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" kindref="member">DetectorRef</ref>,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>frame<sp/>sync<sp/>is<sp/>done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PendingIntr<sp/>&amp;<sp/><ref refid="group__vtc_1ga2222690cdb7738c6c1d64e3c0324f375" kindref="member">XVTC_IXR_FSYNCALL_MASK</ref>))</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtcPtr-&gt;<ref refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" kindref="member">FrameSyncCallBack</ref>(XVtcPtr-&gt;<ref refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" kindref="member">FrameSyncRef</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>signal<sp/>lock<sp/>is<sp/>detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PendingIntr<sp/>&amp;<sp/><ref refid="group__vtc_1ga9dd2acddc00afa719305fca7db04f14c" kindref="member">XVTC_IXR_LOCKALL_MASK</ref>))</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtcPtr-&gt;<ref refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" kindref="member">LockCallBack</ref>(XVtcPtr-&gt;<ref refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" kindref="member">LockRef</ref>,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="229" refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" kindref="member">XVtc_SetCallBack</ref>(<ref refid="struct_x_vtc" kindref="compound">XVtc</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>specific<sp/>handler<sp/>type<sp/>assigning<sp/>callback<sp/>function<sp/>reference<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1gab7b04f247733b1e0ff2e970a765d15c1" kindref="member">XVTC_HANDLER_FRAMESYNC</ref>:</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" kindref="member">FrameSyncCallBack</ref><sp/>=</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" kindref="member">FrameSyncRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1ga5a0686e12cf61cfe9bf0aff392be6e9f" kindref="member">XVTC_HANDLER_LOCK</ref>:</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" kindref="member">LockCallBack</ref><sp/>=<sp/>(<ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" kindref="member">LockRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1gaeffb524f951e917ea88ce6432c6c356c" kindref="member">XVTC_HANDLER_DETECTOR</ref>:</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" kindref="member">DetectorCallBack</ref><sp/>=</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" kindref="member">DetectorRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1ga2ab0f39c6f08cbc20a700b6a41dc0cdd" kindref="member">XVTC_HANDLER_GENERATOR</ref>:</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" kindref="member">GeneratorCallBack</ref><sp/>=</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" kindref="member">GeneratorRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__vtc_1ga8106454ce9bb2ea337bfcebface2acde" kindref="member">XVTC_HANDLER_ERROR</ref>:</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" kindref="member">ErrCallBack</ref><sp/>=</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__vtc_1ga3cff614d597fc9508b72f7d5d5ae86e4" kindref="member">XVtc_ErrorCallBack</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" kindref="member">ErrRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c"/>
+  </compounddef>
+</doxygen>
